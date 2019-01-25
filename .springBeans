@@ -11,6 +11,7 @@
 	</configs>
 	<autoconfigs>
 		<config>src/main/resources/root-context.xml</config>
+		<config>src/main/webapp/WEB-INF/config/parkingceo/parkingCeo-servlet.xml</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>

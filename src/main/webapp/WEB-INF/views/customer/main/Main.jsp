@@ -12,7 +12,11 @@
 	
 	
 	<button onclick="parkingceo();">지주갑 사업자 관리 페이지</button>
+
 	<button onclick="admin();">지주갑 관리자 페이지</button>
+
+	<button onclick="customer();">지주갑 사용자 페이지</button>
+
 </body>
 
 <script type="text/javascript">
@@ -22,9 +26,16 @@
 		
 	}
 
+
 	function admin(){
 		location.href="searchCEOList.ad";
 		
+	}
+
+
+	
+	function customer(){
+		location.href="customer.cu";
 	}
 
 </script>
