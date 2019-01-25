@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
 <html>
+
+
+
 
 <head>
 <jsp:include page="/WEB-INF/views/common/bootInfo.jsp"></jsp:include>
@@ -35,7 +39,6 @@
               <i class="tim-icons icon-atom"></i>
               	오일
             </a>
-	       
           </li>
           <li>
             <a href="/reserv.cu">
@@ -50,7 +53,7 @@
             </a>
           </li> 
           <li>
-          <a href="/notice.cu">
+          <a href="/customerNotice.cu">
               <i class="tim-icons icon-single-copy-04"></i>
               	공지사항
             </a>
@@ -92,7 +95,7 @@
           <div class="collapse navbar-collapse" id="navigation">
             <ul class="navbar-nav ml-auto">
               <li class="search-bar input-group">
-                <button class="btn btn-link" id="search-button" style="color: gray;"><i class="tim-icons icon-badge"></i>&nbsp;&nbsp;Info Edit
+                <button class="btn btn-link" id="search-button" onclick="location.href='customerInfo.cu'" style="color: gray;"><i class="tim-icons icon-badge"></i>&nbsp;&nbsp;Info Edit
                   <span class="d-lg-none d-md-block"></span>
                 </button>
               </li>
@@ -245,7 +248,6 @@
       </footer>
     </div>
   </div>
- 
  
 </body>
 
