@@ -14,6 +14,15 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="/jjg/resources/common/demo/demo.css" rel="stylesheet" />
   <!-- JQuery import -->
+  
+  
+
+  
+  
+  
+  
+  
+  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!--   Core JS Files   -->
   <script src="/jjg/resources/common/js/core/jquery.min.js"></script>
@@ -147,5 +156,7 @@
       // Javascript method's body can be found in assets/js/demos.js
       demo.initDashboardPageCharts();
 
+     
+      
     });
   </script>
