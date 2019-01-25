@@ -20,13 +20,14 @@
             </a>
           </li>
           <li>
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="tim-icons icon-atom"></i>
               <p>사업자 관리&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b style="font-size: 15px">▽</b></p>    
             </a>
-	        <div align="right" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	        <div align="right" class="dropdown-menu dropdown-black" aria-labelledby="navbarDropdownMenuLink">
 	          <a class="dropdown-item" href="searchCEOList.ad">사업자 조회</a>
-	          <a class="dropdown-item" href="#">주차장 조회</a>
+	          <a class="dropdown-item" href="parkingLotList.ad">주차장 조회</a>
+	          <a class="dropdown-item" href="certification.ad">주차장 인증</a>
 	          <a class="dropdown-item" href="#">환전 승인 및 조회</a>
 	          <a class="dropdown-item" href="#">정보 수정 신청</a>
 	          <a class="dropdown-item" href="#">쿠폰 관리</a>
