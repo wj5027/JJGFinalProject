@@ -60,22 +60,22 @@ public class CustomerMain {
 	public String CustomerNotice() {
 		
 		
-		return "customer/board/Customer_notice";
+		return "customer/board/Customer_notice_list";
 	}
 	
 	@RequestMapping(value="/review.cu", method=RequestMethod.GET)
 	public String CustomerReview() {
 		
 		
-		return "customer/main/Customer_main";
+		return "customer/board/My_review_list";
 	}
 	
 	@RequestMapping(value="/qna.cu", method=RequestMethod.GET)
 	public String CustomerQnA() {
 		
 		
-		return "customer/main/Customer_main";
+		return "customer/board/My_qna_list";
 	}
 	
-
+	
 }

@@ -127,14 +127,14 @@
 		  <div class="col-md-12" height="500px">
             <div class="card ">
               <div class="card-header">
-                <h4 class="card-title">내정보수정</h4>
+                <h4 class="card-title" align="center">내정보수정</h4>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
                   <table class="table tablesorter " id="">
                     <tbody>
                       <tr>
-                        <td>이름</td>
+                        <td width="80px">이름</td>
                         <td>
                   			<div class="row">
 		                    	<div class="form-group">
@@ -203,14 +203,13 @@
                         	</div>
                         </td>
                       </tr>  
-                      <tr>
-                      	<td></td>
-                      	<td style="padding-left: 30%">
-                      		<button class="btn btn-primary">수정</button>
-                      	</td>
-                      </tr>                    
-                    </tbody>
+                       </tbody>
                   </table>
+                     
+                      	<div align="center">
+                      		<button class="btn btn-info btn-sm">수정</button>
+                      	</div>                  
+                   
                 </div>
               </div>
             </div>

@@ -3,16 +3,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-
 <jsp:include page="/WEB-INF/views/common/bootInfo.jsp"></jsp:include>
 
-
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/ext-core/3.1.0/ext-core.js"></script>
+<title>Insert title here</title>
+<style>
+	.insertContent{
+		display:none;
+	}
+</style>
 </head>
-
-<body class="">
+<body class="" >
   <div class="wrapper">
     <div class="sidebar" style="background: rgb(49, 49, 49) !important;">
       <!--
@@ -74,8 +76,8 @@
         </ul>
       </div>
     </div>
-
-        <div class="main-panel">
+    
+        <div class="main-panel" scroll="no">
       <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
         <div class="container-fluid">
@@ -159,50 +161,124 @@
 		  <div class="col-md-12" height="500px">
             <div class="card ">
               <div class="card-header">
-                <h3 class="card-title" align="center">공지사항</h3>
+                <h3 class="card-title" align="center">내 문의</h3>
                 <hr style="border: solid 1px white;">
-              		<table width="100%" border="0" cellpadding="0" cellspacing="0">
-			<!-- BOARD TITLE -->
+              <div align="center">
+  	<table>
+  		<th>작성일</th>
+  		
+  		<th>제목</th>
+  		
+  		<tbody>
+  		<tr>
+  		<td>19/01/20</td>
+  		<td><a href="./qnaDetail.cu">어반플레이스 강남 민영 주차장 문의</a></td>
+  	
+  		</tr>
+  		</tbody>
+  	</table>
+    </div>
+       </div>
+       
+       <div align="center">
+       <button id="insertQna">작성</button>
+       </div>
+   
+       
+              <div class="card-body" >
+                <div class="table-responsive">
+                <!-- 페이징 버튼 영역 -->
+		<div id="pagingArea" align="center" >
+			<c:if test="${ pi.currentPage <= 1 }">
+				[이전] &nbsp;
+			</c:if>
+			<c:if test="${ pi.currentPage > 1 }">
+				<c:url var="blistBack" value="/selectList.bo">
+					<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
+				</c:url>
+				<%-- <a href="${ blistBack }">[이전]</a> &nbsp; --%>
+			</c:if>
 			
+			<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+				<c:if test="${ p eq pi.currentPage }">
+					<font color="lightgrey" size="4">[1]</font>
+				</c:if>
+				<c:if test="${ p ne pi.currentPage }">
+					<c:url var="blistCheck" value="selectList.bo">
+						<c:param name="currentPage" value="${p}"/>
+					</c:url>
+					<a href="${ blistCheck }">${p}</a>
+				</c:if>
+			</c:forEach>
 			
-			<tr height="20"><!-- BOARD CONTENTS -->
+			<c:if test="${ pi.currentPage >= pi.maxPage }">
+				&nbsp; [다음]
+			</c:if>
+			<c:if test="${ pi.currentPage < pi.maxPage }">
+				<c:url var="blistEnd" value="selectList.bo">
+					<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+				</c:url>
 				
-				<td>제목</td>
-			</tr>
-			
-			<tr height="200">
-				
-				<td valign="top" style="border: 1px solid white">내용</td>
-			</tr>
-			
-			<tr height="40">
-				<th>첨부파일</th>
-				<td>
-				</td>
-			</tr>
-			<tr>
-			<td><td>
-			</tr>
-			
-			<tr><!-- BOARD BUTTONS -->
-				<td colspan="5" align="center">
-					
-					<button class="btn btn-info btn-sm">수정</button>&nbsp;
-					<button class="btn btn-info btn-sm">삭제</button>&nbsp;					
-					<button class="btn btn-info btn-sm">목록</button>&nbsp;					
-				
-				</td>
-			</tr>
-		</table>
-		<br>
-		<br>
-		<br>
-        
+				<!-- <a href="#">&nbsp;[다음]</a>  -->
+			</c:if>
+		</div>
+ 
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-	
+      <br>
+      <br>
+      <br>
+      <div class="insertContent">
+        <div class="row">
+		  <div class="col-md-12" height="500px">
+            <div class="card ">
+              <div class="card-header">
+                <h3 class="card-title" align="center">내 문의 작성</h3>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table tablesorter " id="">
+                    <tbody>
+                      <tr>
+                        <td width="50px">제목</td>
+                        <td>
+                  			<input type="text" class="form-control" name="title" placeholder="제목을 입력해주세요">
+                        </td>
+                      </tr>  
+                      <tr>
+                         <td>내용</td>
+                        <td>
+                  			<input type="textarea" id="textContent" class="form-control" name="content" placeholder="내용을 입력해주세요">
+                        </td> 
+                      </tr>  
+          			 
+                      	<td></td>
+                      	<td style="padding-left: 30%">
+                      		<button class="btn btn-info btn-sm">등록</button>
+                      	</td>
+                      </tr> 
+                                       
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+<script>
+   $(function(){
+       $("#insertQna").click(function(){
+       		$(".content").hide();
+       		$(".insertContent").show();
+       	});
+   });
+</script>
+       
 </body>
 </html>
