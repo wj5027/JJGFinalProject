@@ -33,7 +33,7 @@
 														<button type="button" class="btn btn-info animation-on-hover dropdown-toggle"
 															data-toggle="dropdown" aria-haspopup="true"
 															aria-expanded="false">전체</button>
-														<div class="dropdown-menu">
+														<div class="dropdown-menu dropdown-black">
 															<a class="dropdown-item" href="#">서울</a> <a
 																class="dropdown-item" href="#">대전</a> <a
 																class="dropdown-item" href="#">대구</a> <a
@@ -81,8 +81,7 @@
 												</td>
 											</tr>
 											<tr>
-												<td></td>
-												<td style="padding-left: 30%">
+												<td colspan="2" align="center">
 													<button class="btn btn-info animation-on-hover">검색</button>
 												</td>
 											</tr>
