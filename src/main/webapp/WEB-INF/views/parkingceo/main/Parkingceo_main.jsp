@@ -36,18 +36,12 @@
                       <tr>
                         <td align="center"><div style="color: white;">[고객]님의 주차장을 선택해주세요</div></td>
                         <td>
-							<div class="btn-group">
-						  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						    주차장
-						  </button>
-						  <div class="dropdown-menu">
-						    <a class="dropdown-item" href="#">주차장1</a>
-						    <a class="dropdown-item" href="#">주차장2</a>
-						    <a class="dropdown-item" href="#">주차장3</a>
-						    <div class="dropdown-divider"></div>
-						    <a class="dropdown-item" href="#">주차장4</a>
-						  </div>
-						</div>
+						<select class="custom-select nav-link dropdown-toggle" id="inputGroupSelect02">
+    						<option selected style="color: black;">주차장을 선택해주세요</option>
+    						<option value="1" style="color: black;">주차장1</option>
+    						<option value="2" style="color: black;">주차장2</option>
+    						<option value="3" style="color: black;">주차장3</option>
+  						</select>
 						</td>
                       </tr>  
                       <tr>
@@ -359,6 +353,8 @@
 </body>
 <script type="text/javascript">
 
+
+	//페이지 이동 함수
 	function goMain(){
 		location.href="parkingceoMain.pc";
 	}
@@ -367,6 +363,37 @@
 		location.href = "parkingceoExchange.pc";
 	}
 	
+	function insertParkingPage(){
+		location.href = "insertParkingPage.pc";
+	}
+	
+	function goOilStatisticsPage(){
+		location.href = "goOilStatisticsPage.pc";
+	}
+	
+	function goParkingListStatisticsPage(){
+		location.href = "goParkingListStatisticsPage.pc";
+	}
+	
+	function goBestPakerStatisticsPage(){
+		location.href = "goBestPakerStatisticsPage.pc";
+	}
+	
+	function goParkingDetailListPage(){
+		location.href = "goParkingDetailListPage.pc";
+	}
+	
+	function goPromotionPage(){
+		location.href = "goPromotionPage.pc";
+	}
+	
+	function goExchangeMoneyPage(){
+		location.href = "goExchangeMoneyPage.pc";
+	}
+	
+	function goNotePage(){
+		location.href = "goNotePage.pc";
+	}
 
 </script>
 

@@ -28,39 +28,7 @@
   		<jsp:include page="/WEB-INF/views/parkingceo/common/menubar.jsp"></jsp:include>
       <!-- End Navbar -->
       
-      <div	 class="content">
-      
-      <!-- 내 주차장 검색 기능 -->
-        <div class="row">
-		  <div class="col-md-12" height="500px" >
-            <div class="card ">
-              <div class="card-header">
-                <h4 class="card-title"> 주차장 정보 수정 신청</h4>
-              </div>
-              <div class="card-body">
-                <div class="table-responsive"  style="overflow: hidden;">
-                  <table class="table tablesorter " id="">
-                    <tbody>
-                      <tr>
-                        <td align="center"><div style="color: white;">[고객]님의 주차장을 선택해주세요</div></td>
-                        <td>	
-						  <select class="custom-select nav-link dropdown-toggle" id="inputGroupSelect02">
-    					<option selected style="color: black;">주차장을 선택해주세요</option>
-    					<option value="1" style="color: black;">주차장1</option>
-    					<option value="2" style="color: black;">주차장2</option>
-    					<option value="3" style="color: black;">주차장3</option>
-  					</select>
-						</td>
-                      </tr>  
-                      <tr>
-                      	<td colspan="2" align="center"><button class="btn btn-info animation-on-hover" type="button">검색</button></td>
-                      </tr>                    
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div class="content">
          <!-- 주차장 정보 입력 폼 --> 
          <div class="card">
 		  <div class="card-body">
@@ -151,54 +119,6 @@
 		      
 		 
 		      <br>
-		      <!-- 로직 -->
-	<!-- 	      <div class="container">
-	
-    <form action="" class="form-horizontal"  role="form">
-        <fieldset>
-
-            <legend>Test</legend>
-            <div class="form-group">
-            	
-                <label for="dtp_input1" class="col-md-2 control-label">DateTime Picking</label>
-                <div class="input-group date form_datetime col-md-5" data-date="2018-09-16T05:25:07Z" data-date-format="yyyy MM dd - HH:ii p" data-link-field="dtp_input1">
-                    <div style="width: 70%"><input class="form-control" size="16" type="text" value="" readonly placeholder="Click Me" style="color: white; width: 70%;"></div>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-					<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-                </div>
-                
-				<input type="hidden" id="dtp_input1" value="" /><br/>
-            </div>
-			<div class="form-group">
-                <label for="dtp_input2" class="col-md-2 control-label">Date Picking</label>
-                <div class="input-group date form_date col-md-5" data-date="" data-date-format="yyyy MM dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-                    <input class="form-control" size="16" type="text" value="" readonly>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-					<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                </div>
-				<input type="hidden" id="dtp_input2" value="" /><br/>
-            </div>
-			<div class="form-group">
-                <label for="dtp_input3" class="col-md-2 control-label">Time Picking</label>
-                <div class="input-group date form_time col-md-5" data-date="" data-date-format="hh:ii" data-link-field="dtp_input3" data-link-format="hh:ii">
-                    <div style="width: 70%"><input class="form-control" size="16" type="text" value="" readonly style="color: white; width: 40%;">
-                    	 <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-						<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
-                    
-                    </div>
-                   
-                </div>
-				<input type="hidden" id="dtp_input3" value="" /><br/>
-            </div>
-
-        </fieldset>
-		
-    </form>
-
-</div> -->
-		      
-		      
-		      <!-- 내가 처리한 시간 로직 -->
 		   <div class="form-group">
 		   <label for="ex6">평일 운영 시간</label>
 		   <div>
@@ -290,27 +210,11 @@
 				
 		    </form>
 		  </div>
-		</div>
-	
-          
-          
-		<!-- 이미지란 -->
-
-
-
-			
-    
-      
+		</div>  
       <!-- content -->
       </div>
     </div>
-    
-    
-    
-    
   </div>
-
-  
 </body>
 <script type="text/javascript">
 
@@ -354,7 +258,6 @@ function goExchangeMoneyPage(){
 function goNotePage(){
 	location.href = "goNotePage.pc";
 }
-	
 	
 	
 

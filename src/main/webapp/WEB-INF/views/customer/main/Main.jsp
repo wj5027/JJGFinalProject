@@ -16,6 +16,8 @@
 	<button onclick="admin();">지주갑 관리자 페이지</button>
 
 	<button onclick="customer();">지주갑 사용자 페이지</button>
+	
+	<button onclick="parkingceoTest();">사업자 데이트피커 테스트</button>
 
 </body>
 
@@ -36,6 +38,10 @@
 	
 	function customer(){
 		location.href="customer.cu";
+	}
+	
+	function parkingceoTest(){
+		location.href = "test.pc";
 	}
 
 </script>
