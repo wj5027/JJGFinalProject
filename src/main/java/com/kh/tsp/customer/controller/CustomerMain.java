@@ -11,11 +11,21 @@ public class CustomerMain {
 		
 	}
 	
+	
+	
 	@RequestMapping(value="/customer.cu", method=RequestMethod.GET)
 	public String CustomerMain() {
 		
 		
 		return "customer/main/Customer_main";
+	}
+	
+	
+	@RequestMapping(value="/customerInfo.cu", method=RequestMethod.GET)
+	public String CustomerInfo() {
+		
+		
+		return "customer/member/Customer_info";
 	}
 	
 	@RequestMapping(value="/coupon.cu", method=RequestMethod.GET)
@@ -46,11 +56,11 @@ public class CustomerMain {
 		return "customer/main/Customer_main";
 	}
 	
-	@RequestMapping(value="/notice.cu", method=RequestMethod.GET)
+	@RequestMapping(value="/customerNotice.cu", method=RequestMethod.GET)
 	public String CustomerNotice() {
 		
 		
-		return "customer/main/Customer_main";
+		return "customer/board/Customer_notice";
 	}
 	
 	@RequestMapping(value="/review.cu", method=RequestMethod.GET)

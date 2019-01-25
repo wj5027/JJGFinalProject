@@ -3,12 +3,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<jsp:include page="/WEB-INF/views/common/bootInfo.jsp"></jsp:include>
-
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 
+<jsp:include page="/WEB-INF/views/common/bootInfo.jsp"></jsp:include>
+
+
+
 </head>
+
 <body class="">
   <div class="wrapper">
     <div class="sidebar" style="background: rgb(49, 49, 49) !important;">
@@ -71,7 +74,7 @@
         </ul>
       </div>
     </div>
-    
+
         <div class="main-panel">
       <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
@@ -149,14 +152,14 @@
         </div>
       </div>
       <!-- End Navbar -->
-      
-      
-	<div class="content">
+
+
+<div class="content">
         <div class="row">
 		  <div class="col-md-12" height="500px">
             <div class="card ">
               <div class="card-header">
-                <h3 class="card-title" align="center">공지사항</h3>
+                <h3 class="card-title" align="center">공지사항 상세보기</h3>
                 <hr style="border: solid 1px white;">
               <div align="center">
    <a href="./customerNoticeDetail.cu">쿠폰행사안내</a><h5>2019/01/25</h5>
@@ -218,7 +221,5 @@
         </div>
       </div>
 	
-	
-
 </body>
 </html>
