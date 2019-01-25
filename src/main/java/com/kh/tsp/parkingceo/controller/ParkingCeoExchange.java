@@ -18,5 +18,12 @@ public class ParkingCeoExchange {
 		
 		return "parkingceo/exchange/ExchangePage";
 	}
+	
+	@RequestMapping(value="/test.pc", method=RequestMethod.GET)
+	public String ParkingTest() {
+		
+		
+		return "parkingceo/exchange/tset";
+	}
 
 }

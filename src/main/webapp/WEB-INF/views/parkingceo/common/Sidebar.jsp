@@ -16,7 +16,7 @@
           <br>
         </div>
         <ul class="nav">
-          <li class="active ">
+          <li class="active">
             <a onclick="goMain();">
               <i class="tim-icons icon-components"></i>
               메인 페이지
@@ -34,37 +34,37 @@
               통계보기  
             </a>
 	        <div align="right" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-	          <a class="dropdown-item" href="#">오일 관리하기</a>
-	          <a class="dropdown-item" href="#">입출차 내역</a>
-	          <a class="dropdown-item" href="#">베스트 파커</a>
+	          <a class="dropdown-item" onclick="goOilStatisticsPage();" style="cursor: pointer;">오일 관리하기</a>
+	          <a class="dropdown-item" onclick="goParkingListStatisticsPage();" style="cursor: pointer;">입출차 내역</a>
+	          <a class="dropdown-item" onclick="goBestPakerStatisticsPage();" style="cursor: pointer;">베스트 파커</a>
 	        </div>
           </li>
           <li>
-            <a href="./map.jsp">
+            <a onclick="goParkingDetailListPage();">
               <i class="tim-icons icon-single-02"></i>
-              현재 입차중인 회원
+              입/출차 내역
             </a>
           </li>
           <li>
-            <a href="./notifications.jsp">
+            <a onclick="goPromotionPage();">
               <i class="tim-icons icon-gift-2"></i>
               쿠폰 신청
             </a>
           </li>
           <li>
-            <a href="./notifications.jsp">
+            <a onclick="goExchangeMoneyPage();">
               <i class="tim-icons icon-tap-02"></i>
               환전 신청
             </a>
           </li>
           <li>
-            <a href="./notifications.jsp">
+            <a onclick="insertParkingPage();">
               <i class="tim-icons icon-bus-front-12"></i>
               주차장 등록
             </a>
           </li>
           <li>
-            <a href="./notifications.jsp">
+            <a onclick="goNotePage();">
               <i class="tim-icons icon-bell-55"></i>
               쪽지함
             </a>
