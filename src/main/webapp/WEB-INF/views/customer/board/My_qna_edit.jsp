@@ -1,14 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
+
 <html>
+
+
+
+
 <head>
 <jsp:include page="/WEB-INF/views/common/bootInfo.jsp"></jsp:include>
-
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-
+<style>
+#textContent{
+	height:200px;
+}
+</style>
 </head>
+
 <body class="">
   <div class="wrapper">
     <div class="sidebar" style="background: rgb(49, 49, 49) !important;">
@@ -71,8 +78,7 @@
         </ul>
       </div>
     </div>
-    
-        <div class="main-panel">
+    <div class="main-panel">
       <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
         <div class="container-fluid">
@@ -84,37 +90,8 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <div>
-               <button class="btn btn-link" id="search-button" data-toggle="modal" data-target="#searchModal"><i class="tim-icons icon-zoom-split" style="color: white;"></i>
-               </button>
-               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-               <button class="btn btn-link" data-toggle="modal" data-target=".bd-example-modal-lg-6"><i class="fas fa-microphone-alt" style="color: white;"></i>
-               </button>
-            </div>
-            <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 음성 인식 모달 -->
-            <div class="modal fade bd-example-modal-lg-6" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-           <div class="modal-dialog modal-lg">
-             <div class="modal-content" style="background: rgb(39,41,61);">
-               <div class="modal-body">
-                 <div class="table-responsive"  style="overflow: hidden;">
-                   <table class="table tablesorter " id="">
-                     <tbody>
-                           <tr><td align="center"><b><i class="fas fa-microphone-alt" style="color: white;"></i> &nbsp;&nbsp; : &nbsp;&nbsp; 안녕하세요??</b></td></tr>
-                           <tr>
-                              <td align="center">
-                                 검색 결과
-                              </td>
-                           </tr>
-                           <tr><td align="center"><button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location.reload();">닫기</button></td></tr>      
-                     </tbody>
-                   </table>
-                 </div>
-               </div>
-             </div>
-           </div>
-         </div>
-        <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->          </div>
+            <a class="navbar-brand" href="javascript:void(0)">Welcome JiJuGab</a>
+          </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -150,75 +127,80 @@
       </div>
       <!-- End Navbar -->
       
-      
-	<div class="content">
+      <div class="content">
         <div class="row">
 		  <div class="col-md-12" height="500px">
             <div class="card ">
               <div class="card-header">
-                <h3 class="card-title" align="center">공지사항</h3>
-                <hr style="border: solid 1px white;">
-              <div align="center">
-   <a href="./customerNoticeDetail.cu">쿠폰행사안내</a><h5>2019/01/25</h5>
-   
-   <hr style="border: solid 1px white;">
-   <a href="#">추가된 주차장 목록 안내</a><h5>2019/01/22</h5>
-   
-   <hr style="border: solid 1px white;">
-   <a href="#">이용 업데이트 안내</a><h5>2019/01/10</h5>
-   
-   <hr style="border: solid 1px white;">
-   <a href="#">예약 이벤트 안내</a><h5>2019/01/02</h5>
-   
-   <hr style="border: solid 1px white;">
-    </div>
-       </div>
+                <h3 class="card-title" align="center">내 문의 작성</h3>
+              </div>
               <div class="card-body">
                 <div class="table-responsive">
-                <!-- 페이징 버튼 영역 -->
-		<div id="pagingArea" align="center">
-			<c:if test="${ pi.currentPage <= 1 }">
-				[이전] &nbsp;
-			</c:if>
-			<c:if test="${ pi.currentPage > 1 }">
-				<c:url var="blistBack" value="/selectList.bo">
-					<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
-				</c:url>
-				<%-- <a href="${ blistBack }">[이전]</a> &nbsp; --%>
-			</c:if>
-			
-			<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-				<c:if test="${ p eq pi.currentPage }">
-					<font color="lightgrey" size="4">[1]</font>
-				</c:if>
-				<c:if test="${ p ne pi.currentPage }">
-					<c:url var="blistCheck" value="selectList.bo">
-						<c:param name="currentPage" value="${p}"/>
-					</c:url>
-					<a href="${ blistCheck }">${p}</a>
-				</c:if>
-			</c:forEach>
-			
-			<c:if test="${ pi.currentPage >= pi.maxPage }">
-				&nbsp; [다음]
-			</c:if>
-			<c:if test="${ pi.currentPage < pi.maxPage }">
-				<c:url var="blistEnd" value="selectList.bo">
-					<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
-				</c:url>
-				
-				<!-- <a href="#">&nbsp;[다음]</a>  -->
-			</c:if>
-		</div>
- 
+                  <table class="table tablesorter " id="">
+                    <tbody>
+                      <tr>
+                        <td width="50px">제목</td>
+                        <td>
+                  			<input type="text" class="form-control" name="title" placeholder="제목을 입력해주세요">
+                        </td>
+                      </tr>  
+                      <tr>
+                         <td>내용</td>
+                        <td>
+                  			<input type="textarea" id="textContent" class="form-control" name="content" placeholder="내용을 입력해주세요">
+                        </td> 
+                      </tr>  
+          			  <tr>
+                      	<td>첨부파일</td>
+                      	<td><input type="file" class="form-control"></td>
+                      </tr>  
+                      <tr>
+                      	<td></td>
+                      	<td style="padding-left: 30%">
+                      		<button class="btn btn-info btn-sm">등록</button>
+                      	</td>
+                      </tr> 
+                                       
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-	
-	
-
+        
+      <footer class="footer">
+        <div class="container-fluid">
+          <ul class="nav">
+            <li class="nav-item">
+              <a href="javascript:void(0)" class="nav-link">
+                Creative Tim
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="javascript:void(0)" class="nav-link">
+                About Us
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="javascript:void(0)" class="nav-link">
+                Blog
+              </a>
+            </li>
+          </ul>
+          <div class="copyright">
+            ©
+            <script>
+              document.write(new Date().getFullYear())
+            </script> made with <i class="tim-icons icon-heart-2"></i> by
+            <a href="javascript:void(0)" target="_blank">Creative Tim</a> for a better web.
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+ 
 </body>
+
 </html>

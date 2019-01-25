@@ -1,6 +1,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="/jjg/resources/common/img/apple-icon.png">
   <link rel="icon" type="image/png" href="/jjg/resources/common/img/favicon.png">
+  
   <title>
     JiJuGab
   </title>
@@ -19,6 +20,7 @@
   <script src="/jjg/resources/common/js/core/jquery.min.js"></script>
   <script src="/jjg/resources/common/js/core/popper.min.js"></script>
   <script src="/jjg/resources/common/js/core/bootstrap.min.js"></script>
+  
   <script src="/jjg/resources/common/js/plugins/perfect-scrollbar.jquery.min.js"></script>
   <!--  Google Maps Plugin    -->
   <!-- Place this tag in your head or just before your close body tag. -->
@@ -31,8 +33,15 @@
   <script src="/jjg/resources/common/js/black-dashboard.min.js?v=1.0.0"></script>
   <!-- Black Dashboard DEMO methods, don't include it in your project! -->
   <script src="/jjg/resources/common/demo/demo.js"></script>
-  <!-- fontAwesome 추가 -->
+  <!-- fontAwesome ì¶ê° -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  
+  <!-- datepicker css -->
+  <link href="/jjg/resources/common/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+  <!-- datepicker js -->
+  <script type="text/javascript" src="/jjg/resources/common/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="/jjg/resources/common/js/locales/bootstrap-datetimepicker.ko.js" charset="UTF-8"></script>
+  
   <script>
     $(document).ready(function() {
       $().ready(function() {
@@ -152,4 +161,40 @@
      
       
     });
+  </script>
+  
+  <!-- datepicker function -->
+  <script>
+  $('.form_datetime').datetimepicker({
+      language:  'ko',
+      weekStart: 1,
+      todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+      showMeridian: 1
+  });
+	$('.form_date').datetimepicker({
+      language:  'ko',
+      weekStart: 1,
+      todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0
+  });
+	$('.form_time').datetimepicker({
+      language:  'ko',
+      weekStart: 1,
+      todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 1,
+		minView: 0,
+		maxView: 1,
+		forceParse: 0
+  });
+  
   </script>
