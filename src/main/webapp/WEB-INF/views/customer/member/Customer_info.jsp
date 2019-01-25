@@ -29,25 +29,25 @@
         </div>
         <ul class="nav">
           <li class="active ">
-            <a href="./coupon.cu">
+            <a href="/coupon.cu">
               <i class="tim-icons icon-chart-bar-32"></i>
             	쿠폰함
             </a>
           </li>
           <li>
-            <a href="./oil.cu">
+            <a href="/oil.cu">
               <i class="tim-icons icon-atom"></i>
               	오일
             </a>
           </li>
           <li>
-            <a href="./reserv.cu">
+            <a href="/reserv.cu">
               <i class="tim-icons icon-satisfied"></i>
               	예약내역
             </a>
           </li>
           <li>
-            <a href="./map.cu">
+            <a href="/map.cu">
               <i class="tim-icons icon-single-copy-04"></i>
              	 지도
             </a>
@@ -59,13 +59,13 @@
             </a>
           </li>
            <li>
-          <a href="./review.cu">
+          <a href="/review.cu">
               <i class="tim-icons icon-single-copy-04"></i>
               	내 후기
             </a>
           </li>  
            <li>
-          <a href="./qna.cu">
+          <a href="/qna.cu">
               <i class="tim-icons icon-single-copy-04"></i>
               	내 문의
             </a>
@@ -85,37 +85,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <div>
-	            <button class="btn btn-link" id="search-button" data-toggle="modal" data-target="#searchModal"><i class="tim-icons icon-zoom-split" style="color: white;"></i>
-	            </button>
-	            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	            <button class="btn btn-link" data-toggle="modal" data-target=".bd-example-modal-lg-6"><i class="fas fa-microphone-alt" style="color: white;"></i>
-	            </button>
-            </div>
-            <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 음성 인식 모달 -->
-            <div class="modal fade bd-example-modal-lg-6" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-			  <div class="modal-dialog modal-lg">
-			    <div class="modal-content" style="background: rgb(39,41,61);">
-			      <div class="modal-body">
-			        <div class="table-responsive"  style="overflow: hidden;">
-			          <table class="table tablesorter " id="">
-			            <tbody>
-			                  <tr><td align="center"><b><i class="fas fa-microphone-alt" style="color: white;"></i> &nbsp;&nbsp; : &nbsp;&nbsp; 안녕하세요??</b></td></tr>
-			                  <tr>
-			                  	<td align="center">
-			                  		검색 결과
-			                  	</td>
-			                  </tr>
-			                  <tr><td align="center"><button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location.reload();">닫기</button></td></tr>      
-			            </tbody>
-			          </table>
-			        </div>
-			      </div>
-			    </div>
-			  </div>
-			</div>
-		  <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+            <a class="navbar-brand" href="javascript:void(0)">Welcome JiJuGab</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -236,7 +206,7 @@
                       <tr>
                       	<td></td>
                       	<td style="padding-left: 30%">
-                      		<button class="btn btn-info dropdown-toggle">수정</button>
+                      		<button class="btn btn-primary">수정</button>
                       	</td>
                       </tr>                    
                     </tbody>
