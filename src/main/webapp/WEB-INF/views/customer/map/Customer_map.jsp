@@ -16,7 +16,7 @@
     -->
       <div class="sidebar-wrapper">
         <div class="logo">
-          <h3 align="center" style="margin-top:10px">지주갑</h3>
+          <h3 align="center" style="margin-top:10px">지금, 주차하러 갑니다.</h3>
           <a href="javascript:void(0)" class="simple-text logo-mini">
             JJG
           </a>
