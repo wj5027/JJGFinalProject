@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="/jjg/resources/common/img/apple-icon.png">
   <link rel="icon" type="image/png" href="/jjg/resources/common/img/favicon.png">
@@ -31,7 +33,7 @@
   <script src="/jjg/resources/common/js/black-dashboard.min.js?v=1.0.0"></script>
   <!-- Black Dashboard DEMO methods, don't include it in your project! -->
   <script src="/jjg/resources/common/demo/demo.js"></script>
-  <!-- fontAwesome 추가 -->
+  <!-- fontAwesome ì¶ê° -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
   <script>
     $(document).ready(function() {

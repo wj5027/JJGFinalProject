@@ -32,14 +32,14 @@ public class CustomerMain {
 	public String CustomerCoupon() {
 		
 		
-		return "customer/main/Customer_main";
+		return "customer/member/Customer_coupon";
 	}
 	
 	@RequestMapping(value="/oil.cu", method=RequestMethod.GET)
 	public String CustomerOil() {
 		
 		
-		return "customer/main/Customer_main";
+		return "customer/member/Customer_oil";
 	}
 	
 	@RequestMapping(value="/reserv.cu", method=RequestMethod.GET)
