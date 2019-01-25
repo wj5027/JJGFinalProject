@@ -1,15 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
+
 <html>
+
+
+
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-
 <jsp:include page="/WEB-INF/views/common/bootInfo.jsp"></jsp:include>
-
-
-
+<style>
+#textContent{
+	height:200px;
+}
+</style>
 </head>
 
 <body class="">
@@ -60,7 +64,7 @@
             </a>
           </li>
            <li>
-          <a href="./review.cu">
+          <a href="/review.cu">
               <i class="tim-icons icon-single-copy-04"></i>
               	내 후기
             </a>
@@ -74,8 +78,7 @@
         </ul>
       </div>
     </div>
-
-        <div class="main-panel">
+    <div class="main-panel">
       <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
         <div class="container-fluid">
@@ -87,37 +90,8 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <div>
-               <button class="btn btn-link" id="search-button" data-toggle="modal" data-target="#searchModal"><i class="tim-icons icon-zoom-split" style="color: white;"></i>
-               </button>
-               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-               <button class="btn btn-link" data-toggle="modal" data-target=".bd-example-modal-lg-6"><i class="fas fa-microphone-alt" style="color: white;"></i>
-               </button>
-            </div>
-            <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 음성 인식 모달 -->
-            <div class="modal fade bd-example-modal-lg-6" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-           <div class="modal-dialog modal-lg">
-             <div class="modal-content" style="background: rgb(39,41,61);">
-               <div class="modal-body">
-                 <div class="table-responsive"  style="overflow: hidden;">
-                   <table class="table tablesorter " id="">
-                     <tbody>
-                           <tr><td align="center"><b><i class="fas fa-microphone-alt" style="color: white;"></i> &nbsp;&nbsp; : &nbsp;&nbsp; 안녕하세요??</b></td></tr>
-                           <tr>
-                              <td align="center">
-                                 검색 결과
-                              </td>
-                           </tr>
-                           <tr><td align="center"><button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location.reload();">닫기</button></td></tr>      
-                     </tbody>
-                   </table>
-                 </div>
-               </div>
-             </div>
-           </div>
-         </div>
-        <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->          </div>
+            <a class="navbar-brand" href="javascript:void(0)">Welcome JiJuGab</a>
+          </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -152,57 +126,92 @@
         </div>
       </div>
       <!-- End Navbar -->
-
-
-<div class="content">
+      <br>
+      <br>
+      <br>
+      <div class="insertContent">
         <div class="row">
 		  <div class="col-md-12" height="500px">
             <div class="card ">
               <div class="card-header">
-                <h3 class="card-title" align="center">공지사항</h3>
-                <hr style="border: solid 1px white;">
-              		<table width="100%" border="0" cellpadding="0" cellspacing="0">
-			<!-- BOARD TITLE -->
-			
-			
-			<tr height="20"><!-- BOARD CONTENTS -->
-				
-				<td>제목</td>
-			</tr>
-			
-			<tr height="200">
-				
-				<td valign="top" style="border: 1px solid white">내용</td>
-			</tr>
-			
-			<tr height="40">
-				<th>첨부파일</th>
-				<td>
-				</td>
-			</tr>
-			<tr>
-			<td><td>
-			</tr>
-			
-			<tr><!-- BOARD BUTTONS -->
-				<td colspan="5" align="center">
-					
-					<button class="btn btn-info btn-sm">수정</button>&nbsp;
-					<button class="btn btn-info btn-sm">삭제</button>&nbsp;					
-					<button class="btn btn-info btn-sm">목록</button>&nbsp;					
-				
-				</td>
-			</tr>
-		</table>
-		<br>
-		<br>
-		<br>
-        
+                <h3 class="card-title" align="center">내 후기 작성</h3>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table tablesorter " id="">
+                    <tbody>
+                      <tr>
+                        <td width="50px">주차장</td>
+                        <td>
+                  			<input type="text" class="form-control" name="carName" placeholder="주차장명을 입력해주세요">
+                        </td>
+                      </tr>  
+                      <tr>
+                        <td width="50px">제목</td>
+                        <td>
+                  			<input type="text" class="form-control" name="title" placeholder="제목을 입력해주세요">
+                        </td>
+                      </tr>
+                      <tr>
+                         <td>내용</td>
+                        <td>
+                  			<input type="textarea" id="textContent" class="form-control" name="content" placeholder="내용을 입력해주세요">
+                        </td> 
+                      </tr>  
+          			  <tr>
+                      	<td>첨부파일</td>
+                      	<td><input type="file" class="form-control"></td>
+                      </tr>  
+                      <tr>
+                      	<td></td>
+                      	<td style="padding-left: 30%">
+                      		<button id="insertReview" class="btn btn-info btn-sm">등록</button>
+                      	</td>
+                      </tr> 
+                                       
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-	
+      
+      
+        
+      <footer class="footer">
+        <div class="container-fluid">
+          <ul class="nav">
+            <li class="nav-item">
+              <a href="javascript:void(0)" class="nav-link">
+                Creative Tim
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="javascript:void(0)" class="nav-link">
+                About Us
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="javascript:void(0)" class="nav-link">
+                Blog
+              </a>
+            </li>
+          </ul>
+          <div class="copyright">
+            ©
+            <script>
+              document.write(new Date().getFullYear())
+            </script> made with <i class="tim-icons icon-heart-2"></i> by
+            <a href="javascript:void(0)" target="_blank">Creative Tim</a> for a better web.
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+       
 </body>
+
 </html>

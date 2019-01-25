@@ -159,7 +159,7 @@
 		  <div class="col-md-12" height="500px">
             <div class="card ">
               <div class="card-header">
-                <h3 class="card-title" align="center">공지사항</h3>
+                <h3 class="card-title" align="center">내 후기</h3>
                 <hr style="border: solid 1px white;">
               		<table width="100%" border="0" cellpadding="0" cellspacing="0">
 			<!-- BOARD TITLE -->
