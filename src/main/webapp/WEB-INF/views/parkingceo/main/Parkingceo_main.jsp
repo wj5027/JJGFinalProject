@@ -5,167 +5,53 @@
 
 <head>
 <jsp:include page="/WEB-INF/views/common/bootInfo.jsp"></jsp:include>
+<style type="text/css">
+	
+</style>
 </head>
 
 <body class="">
   <div class="wrapper">
-    <div class="sidebar" style="background: rgb(49, 49, 49) !important;">
-      <!--
-        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red"
-    -->
-      <div class="sidebar-wrapper">
-        <div class="logo">
-          <h3 align="center" style="margin-top:10px">사업자 페이지</h3>
-          <a href="javascript:void(0)" class="simple-text logo-mini">
-            JJG
-          </a>
-          <a href="javascript:void(0)" class="simple-text logo-normal">
-            지금 주차하러 갑니다
-          </a>
-        </div>
-        <ul class="nav">
-          <li class="active ">
-            <a href="./dashboard.jsp">
-              <i class="tim-icons icon-chart-bar-32"></i>
-              <p>메인 페이지</p>
-            </a>
-          </li>
-          <li>
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="tim-icons icon-atom"></i>
-              <p>사업자 관리&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b style="font-size: 15px">▽</b></p>    
-            </a>
-	        <div align="right" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-	          <a class="dropdown-item" href="#">사업자 조회</a>
-	          <a class="dropdown-item" href="#">주차장 조회</a>
-	          <a class="dropdown-item" href="#">환전 승인 및 조회</a>
-	          <a class="dropdown-item" href="#">정보 수정 신청</a>
-	          <a class="dropdown-item" href="#">쿠폰 관리</a>
-	          <a class="dropdown-item" href="#">통계</a>
-	        </div>
-          </li>
-          <li>
-            <a href="./map.jsp">
-              <i class="tim-icons icon-satisfied"></i>
-              <p>회원 관리</p>
-            </a>
-          </li>
-          <li>
-            <a href="./notifications.jsp">
-              <i class="tim-icons icon-single-copy-04"></i>
-              <p>게시판 관리</p>
-            </a>
-          </li>          
-        </ul>
-      </div>
-    </div>
+  <jsp:include page="/WEB-INF/views/parkingceo/common/Sidebar.jsp"></jsp:include>
+
+
     <div class="main-panel">
       <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
-        <div class="container-fluid">
-          <div class="navbar-wrapper">
-            <div class="navbar-toggle d-inline">
-              <button type="button" class="navbar-toggler">
-                <span class="navbar-toggler-bar bar1"></span>
-                <span class="navbar-toggler-bar bar2"></span>
-                <span class="navbar-toggler-bar bar3"></span>
-              </button>
-            </div>
-            <a class="navbar-brand" href="javascript:void(0)">Welcome</a>
-          </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navigation">
-            <ul class="navbar-nav ml-auto">
-              <li class="search-bar input-group">
-                <button class="btn btn-link" id="search-button" style="color: gray;"><i class="tim-icons icon-button-power"></i>&nbsp;&nbsp;LogOut
-                  <span class="d-lg-none d-md-block"></span>
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-      <div class="modal modal-search fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModal" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="SEARCH">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <i class="tim-icons icon-simple-remove"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+  		<jsp:include page="/WEB-INF/views/parkingceo/common/menubar.jsp"></jsp:include>
       <!-- End Navbar -->
       
-      <div class="content">
+      <div	 class="content">
+      
+      <!-- 내 주차장 검색 기능 -->
         <div class="row">
 		  <div class="col-md-12" height="500px" >
             <div class="card ">
               <div class="card-header">
-                <h4 class="card-title"> 사업자 관리</h4>
+                <h4 class="card-title"> 주차장 별 간편 주차 현황</h4>
               </div>
               <div class="card-body">
-                <div class="table-responsive">
+                <div class="table-responsive"  style="overflow: hidden;">
                   <table class="table tablesorter " id="">
                     <tbody>
                       <tr>
-                        <td>지역</td>
+                        <td align="center"><div style="color: white;">[고객]님의 주차장을 선택해주세요</div></td>
                         <td>
 							<div class="btn-group">
-								<button type="button"
-									class="btn btn-primary dropdown-toggle"
-									data-toggle="dropdown" aria-haspopup="true"
-									aria-expanded="false">전체</button>
-								<div class="dropdown-menu">
-									<a class="dropdown-item" href="#">서울</a> 
-									<a class="dropdown-item" href="#">대전</a> 
-									<a class="dropdown-item" href="#">대구</a>
-									<a class="dropdown-item" href="#">부산</a>
-								</div>
-							</div>
+						  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    주차장
+						  </button>
+						  <div class="dropdown-menu">
+						    <a class="dropdown-item" href="#">주차장1</a>
+						    <a class="dropdown-item" href="#">주차장2</a>
+						    <a class="dropdown-item" href="#">주차장3</a>
+						    <div class="dropdown-divider"></div>
+						    <a class="dropdown-item" href="#">주차장4</a>
+						  </div>
+						</div>
 						</td>
                       </tr>  
                       <tr>
-                        <td>아이디</td>
-                        <td>
-                  			<div class="row">
-		                    	<div class="form-group">
-                        			<input type="text" class="form-control" id="exampleInputPassword1" placeholder="아이디를 입력해주세요">
-                        		</div>
-                        	</div>
-                        </td>
-                      </tr>  
-                      <tr>
-                        <td>등록일</td>
-                        <td>
-                        	<button class="btn btn-primary btn-sm">1일</button> &nbsp;&nbsp;
-                        	<button class="btn btn-primary btn-sm">7일</button> &nbsp;&nbsp;
-                        	<button class="btn btn-primary btn-sm">1개월</button> &nbsp;&nbsp;
-                        	<button class="btn btn-primary btn-sm">6개월</button> &nbsp;&nbsp;
-                        	<button class="btn btn-primary btn-sm">1년</button> &nbsp;&nbsp;
-                        	 
-                  			<div class="row">
-		                    	<div class="form-group">
-		                    		<input type="date" class="form-control" value="">
-		                    	</div>
-		                    	<div class="form-group">&nbsp;&nbsp;&nbsp;<b style="font-size: 20px">~</b>&nbsp;&nbsp;&nbsp;</div>
-		                   		<div class="form-group">
-		                   			<input type="date" class="form-control" value="">
-		                 		</div>
-	                    	</div>
-                        </td>
-                      </tr>  
-                      <tr>
-                      	<td></td>
-                      	<td style="padding-left: 30%">
-                      		<button class="btn btn-primary">검색</button>
-                      	</td>
+                      	<td colspan="2" align="center"><button class="btn btn-info animation-on-hover" type="button">검색</button></td>
                       </tr>                    
                     </tbody>
                   </table>
@@ -175,149 +61,133 @@
           </div>
 
         
+        <!--  내 주차장 현황 리스트 -->
           <div class="col-md-12">
             <div class="card ">
               <div class="card-header">
-                <h4 class="card-title"> 사업자 관리</h4>
+                <h4 class="card-title">내 주차장 현황</h4>
               </div>
               <div class="card-body">
-                <div class="table-responsive">
+                <div class="table-responsive"  style="overflow: hidden;">
                   <table class="table tablesorter " id="">
                     <thead class=" text-primary">
                       <tr>
-                        <th>
-                          	계정번호
-                        </th>
-                        <th>
-                          	아이디
-                        </th>
-                        <th>
-                          	이름
-                        </th>
-                        <th>
-                          	전화번호
-                        </th>
-                        <th class="text-center">
-                          	보유 포인트
-                        </th>
-                        <th>
-                          	주소
-                        </th>
-                        <th>
-                          	비고
-                        </th>
+                        <th>	입출차번호</th>
+                        <th>회원 ID</th>
+                        <th>회원 이름</th>
+                        <th>차량번호</th>
+                        <th>주차 시작 시간</th>
+                        <th>요금</th>
+                        <th>구분</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td>
-                          	1
-                        </td>
-                        <td>
-                          	Niger
-                        </td>
-                        <td>
-                          	니제르
-                        </td>
-                        <td>
-                          	010-1234-5678
-                        </td>
-                        <td class="text-center">
-                          	7000
-                        </td>
-                        <td>
-                          	서울시 강남구 역삼동
-                        </td>
-                        <td>
-                          	특이사항 없음
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          	2
-                        </td>
-                        <td>
-                          	Red
-                        </td>
-                        <td>
-                          	레드
-                        </td>
-                        <td>
-                          	010-0001-5678
-                        </td>
-                        <td class="text-center">
-                          	12000
-                        </td>
-                        <td>
-                          	서울시 강남구 삼성동
-                        </td>
-                        <td>
-                          	특이사항 없음
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          	3
-                        </td>
-                        <td>
-                          	Blue
-                        </td>
-                        <td>
-                          	블루
-                        </td>
-                        <td>
-                          	010-0012-5678
-                        </td>
-                        <td class="text-center">
-                          	3200
-                        </td>
-                        <td>
-                          	서울시 강남구 역삼동
-                        </td>
-                        <td>
-                          	특이사항 없음
-                        </td>
-                      </tr>
+                        <td>1</td>
+                        <td>asjk158</td>
+                        <td>임수철</td>
+                        <td>25-588가</td>
+                        <td>15:54</td>
+                        <td>3000</td>
+                        <td>예약/일반</td>
+                       </tr>
                     </tbody>
+                    <tfoot>
+                    	<tr>
+                    	<th colspan="7"><div align="center"><button class="btn btn-info animation-on-hover" type="button">새로고침</button></div></th>
+                    	</tr>
+                    </tfoot>
                   </table>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <footer class="footer">
-        <div class="container-fluid">
-          <ul class="nav">
-            <li class="nav-item">
-              <a href="javascript:void(0)" class="nav-link">
-                Creative Tim
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="javascript:void(0)" class="nav-link">
-                About Us
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="javascript:void(0)" class="nav-link">
-                Blog
-              </a>
-            </li>
-          </ul>
-          <div class="copyright">
-            ©
-            <script>
-              document.write(new Date().getFullYear())
-            </script> made with <i class="tim-icons icon-heart-2"></i> by
-            <a href="javascript:void(0)" target="_blank">Creative Tim</a> for a better web.
+      
+      	<!-- 간편 입출차 시스템 -->
+    <div class="col-md-12">
+            <div class="card ">
+              <div class="card-header">
+                <h4 class="card-title"> 간편 입/출차 시스템</h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive"  style="overflow: hidden;">
+                  <table class="table tablesorter " id="">
+                    <tbody>
+                      <tr>
+                        <td align="center" width="500px"><div style="color: white;">현재 [고객]님의 현재 주차 대수/전체 주차 대수</div></td>
+                        <td align="center">
+							100/150
+						</td>
+                      </tr>  
+                      <tr>
+                      	<td>
+                      	<div class="card" style="margin-top: 20px;">
+						    <div class="card-body">
+						      <div class="form-group has-success">
+						        <input type="text" value="입차할 번호를 넣어주세요" class="form-control form-control-success" />
+						      </div>
+						    </div>
+						  </div>
+                      	</td>
+                      	<td align="center"><button class="btn btn-info animation-on-hover" type="button">입차</button></td>
+                      </tr>    
+                      <tr>
+                      	<td>
+                      	<div class="card" style="margin-top: 20px;">
+						    <div class="card-body">
+						      <div class="form-group has-success">
+						        <input type="text" value="출차할 번호를 넣어주세요" class="form-control form-control-success" />
+						      </div>
+						    </div>
+						  </div>
+                      	</td>
+                      	<td align="center"><button class="btn btn-info animation-on-hover" type="button">출차</button></td>
+                      </tr>                 
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </footer>
+      
+      	<button type="button" class="btn btn-info" data-toggle="modal" data-target=".bd-example-modal-lg-1">Large modal</button>
+
+<div class="modal fade bd-example-modal-lg-1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      ㅎㅇ
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
     </div>
+  </div>
+</div>
+      
+      <!-- content -->
+      </div>
+    </div>
+    
+    
+    
+    
   </div>
 
   
 </body>
+<script type="text/javascript">
+
+	function goMain(){
+		location.href="parkingceoMain.pc";
+	}
+
+
+</script>
 
 </html>
