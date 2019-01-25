@@ -13,66 +13,7 @@
 
 <body class="">
   <div class="wrapper">
-    <div class="sidebar" style="background: rgb(49, 49, 49) !important;">
-      <!--
-        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red"
-    -->
-      <div class="sidebar-wrapper">
-        <div class="logo">
-          <h3 align="center" style="margin-top:10px">지주갑</h3>
-          <a href="javascript:void(0)" class="simple-text logo-mini">
-            JJG
-          </a>
-          <a href="javascript:void(0)" class="simple-text logo-normal">
-           ㅇㅇㅇ님 환영합니다
-          </a>
-        </div>
-        <ul class="nav">
-          <li class="active ">
-            <a href="/coupon.cu">
-              <i class="tim-icons icon-chart-bar-32"></i>
-            	쿠폰함
-            </a>
-          </li>
-          <li>
-            <a href="/oil.cu">
-              <i class="tim-icons icon-atom"></i>
-              	오일
-            </a>
-          </li>
-          <li>
-            <a href="/reserv.cu">
-              <i class="tim-icons icon-satisfied"></i>
-              	예약내역
-            </a>
-          </li>
-          <li>
-            <a href="/map.cu">
-              <i class="tim-icons icon-single-copy-04"></i>
-             	 지도
-            </a>
-          </li> 
-          <li>
-          <a href="./customerNotice.cu">
-              <i class="tim-icons icon-single-copy-04"></i>
-              	공지사항
-            </a>
-          </li>
-           <li>
-          <a href="/review.cu">
-              <i class="tim-icons icon-single-copy-04"></i>
-              	내 후기
-            </a>
-          </li>  
-           <li>
-          <a href="/qna.cu">
-              <i class="tim-icons icon-single-copy-04"></i>
-              	내 문의
-            </a>
-          </li>           
-        </ul>
-      </div>
-    </div>
+    <jsp:include page="/WEB-INF/views/customer/common/sidebar_customer.jsp"></jsp:include>
     <div class="main-panel">
       <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
