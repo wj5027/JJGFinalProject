@@ -28,7 +28,7 @@
 
 
 	function admin(){
-		location.href="searchCEOList.ad";
+		location.href="statisticsList.ad";
 		
 	}
 
