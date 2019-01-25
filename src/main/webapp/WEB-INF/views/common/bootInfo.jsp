@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="/jjg/resources/common/img/apple-icon.png">
   <link rel="icon" type="image/png" href="/jjg/resources/common/img/favicon.png">
