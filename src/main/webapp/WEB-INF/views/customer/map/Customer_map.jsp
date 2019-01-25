@@ -3,12 +3,9 @@
 <!DOCTYPE html>
 
 <html>
-
-
-
-
 <head>
 <jsp:include page="/WEB-INF/views/common/bootInfo.jsp"></jsp:include>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=103820f64442cfd4cf984f298b7c8470"></script>
 </head>
 
 <body class="">
@@ -154,97 +151,23 @@
       
       <div class="content">
         <div class="row">
-		  <div class="col-md-12" height="500px">
-            <div class="card ">
-              <div class="card-header">
-                <h4 class="card-title">내정보수정</h4>
-              </div>
-              <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table tablesorter " id="">
-                    <tbody>
-                      <tr>
-                        <td>이름</td>
-                        <td>
-                  			<div class="row">
-		                    	<div class="form-group">
-                        			<input type="text" class="form-control" name="name" value="홍길동" disabled>
-                        		</div>
-                        	</div>
-                        </td>
-                      </tr>  
-                      <tr>
-                        <td>아이디</td>
-                        <td>
-                  			<div class="row">
-		                    	<div class="form-group">
-                        			<input type="text" class="form-control" name="userId" value="user01" disabled>
-                        		</div>
-                        	</div>
-                        </td>
-                      </tr>  
-                      <tr>
-                        <td>비밀번호</td>
-                        <td>
-                  			<div class="row">
-		                    	<div class="form-group">
-                        			<input type="password" class="form-control" name="password">
-                        		</div>
-                        	</div>
-                        </td>
-                      </tr>  
-                      <tr>
-                        <td>비밀번호 확인</td>
-                        <td>
-                  			<div class="row">
-		                    	<div class="form-group">
-                        			<input type="password" class="form-control" name="password2">
-                        		</div>
-                        	</div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>차번호</td>
-                        <td>
-                  			<div class="row">
-		                    	<div class="form-group">
-                        			<input type="text" class="form-control" id="carNo">
-                        		</div>
-                        	</div>
-                        </td>
-                      </tr>  
-                      <tr>
-                        <td>전화번호</td>
-                        <td>
-                  			<div class="row">
-		                    	<div class="form-group">
-                        			<input type="text" class="form-control" name="phone">
-                        		</div>
-                        	</div>
-                        </td>
-                      </tr>  
-                      <tr>
-                        <td>이메일</td>
-                        <td>
-                  			<div class="row">
-		                    	<div class="form-group">
-                        			<input type="email" class="form-control" name="email">
-                        		</div>
-                        	</div>
-                        </td>
-                      </tr>  
-                      <tr>
-                      	<td></td>
-                      	<td style="padding-left: 30%">
-                      		<button class="btn btn-info dropdown-toggle">수정</button>
-                      	</td>
-                      </tr>                    
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+          <div class="card-body" style="padding: 0px;">
+            <div class="map" style="position: relative; overflow: hidden;">
+	          <div id="daumMap" style="height: 100%; width: 100%; position: absolute; top: 0px; left: 0px; background-color: rgb(229, 227, 223);">
+	          </div>
             </div>
+            <script>
+				var mapContainer = document.getElementById('daumMap'), // 지도를 표시할 div 
+				mapOption = { 
+				    center: new daum.maps.LatLng(39.0318, 125.7526), // 지도의 중심좌표
+				    level: 3 // 지도의 확대 레벨
+				};
+				
+				// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+				var map = new daum.maps.Map(mapContainer, mapOption); 
+			</script>
           </div>
+
         </div>
       </div>
         

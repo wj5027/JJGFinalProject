@@ -3,12 +3,9 @@
 <!DOCTYPE html>
 
 <html>
-
-
-
-
 <head>
 <jsp:include page="/WEB-INF/views/common/bootInfo.jsp"></jsp:include>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=103820f64442cfd4cf984f298b7c8470"></script>
 </head>
 
 <body class="">
@@ -154,97 +151,18 @@
       
       <div class="content">
         <div class="row">
-		  <div class="col-md-12" height="500px">
-            <div class="card ">
-              <div class="card-header">
-                <h4 class="card-title">내정보수정</h4>
-              </div>
-              <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table tablesorter " id="">
-                    <tbody>
-                      <tr>
-                        <td>이름</td>
-                        <td>
-                  			<div class="row">
-		                    	<div class="form-group">
-                        			<input type="text" class="form-control" name="name" value="홍길동" disabled>
-                        		</div>
-                        	</div>
-                        </td>
-                      </tr>  
-                      <tr>
-                        <td>아이디</td>
-                        <td>
-                  			<div class="row">
-		                    	<div class="form-group">
-                        			<input type="text" class="form-control" name="userId" value="user01" disabled>
-                        		</div>
-                        	</div>
-                        </td>
-                      </tr>  
-                      <tr>
-                        <td>비밀번호</td>
-                        <td>
-                  			<div class="row">
-		                    	<div class="form-group">
-                        			<input type="password" class="form-control" name="password">
-                        		</div>
-                        	</div>
-                        </td>
-                      </tr>  
-                      <tr>
-                        <td>비밀번호 확인</td>
-                        <td>
-                  			<div class="row">
-		                    	<div class="form-group">
-                        			<input type="password" class="form-control" name="password2">
-                        		</div>
-                        	</div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>차번호</td>
-                        <td>
-                  			<div class="row">
-		                    	<div class="form-group">
-                        			<input type="text" class="form-control" id="carNo">
-                        		</div>
-                        	</div>
-                        </td>
-                      </tr>  
-                      <tr>
-                        <td>전화번호</td>
-                        <td>
-                  			<div class="row">
-		                    	<div class="form-group">
-                        			<input type="text" class="form-control" name="phone">
-                        		</div>
-                        	</div>
-                        </td>
-                      </tr>  
-                      <tr>
-                        <td>이메일</td>
-                        <td>
-                  			<div class="row">
-		                    	<div class="form-group">
-                        			<input type="email" class="form-control" name="email">
-                        		</div>
-                        	</div>
-                        </td>
-                      </tr>  
-                      <tr>
-                      	<td></td>
-                      	<td style="padding-left: 30%">
-                      		<button class="btn btn-info dropdown-toggle">수정</button>
-                      	</td>
-                      </tr>                    
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div class="card-body" style="padding: 0px;">
+            <table class="table tablesorter " id="">
+				<tbody>
+					<tr><td align="center"><b><i class="fas fa-microphone-alt" style="color: white;"></i> &nbsp;&nbsp; : &nbsp;&nbsp; 안녕하세요??</b></td></tr>
+					<tr>
+			    		<td align="center">
+							검색 결과
+			        	</td>
+			     	</tr>     
+				</tbody>
+			</table>
+		  </div>
         </div>
       </div>
         
