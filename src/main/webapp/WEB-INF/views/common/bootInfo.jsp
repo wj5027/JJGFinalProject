@@ -22,7 +22,7 @@
   <script src="/jjg/resources/common/js/plugins/perfect-scrollbar.jquery.min.js"></script>
   <!--  Google Maps Plugin    -->
   <!-- Place this tag in your head or just before your close body tag. -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+<!--   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
   <!-- Chart JS -->
   <script src="/jjg/resources/common/js/plugins/chartjs.min.js"></script>
   <!--  Notifications Plugin    -->
@@ -145,11 +145,11 @@
     });
   </script>
   <script>
-    $(document).ready(function() {
+ /*    $(document).ready(function() {
       // Javascript method's body can be found in assets/js/demos.js
       demo.initDashboardPageCharts();
 
      
       
-    });
+    }); */
   </script>

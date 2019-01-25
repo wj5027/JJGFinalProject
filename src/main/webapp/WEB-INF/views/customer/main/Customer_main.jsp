@@ -19,16 +19,43 @@
     -->
       <div class="sidebar-wrapper">
         <div class="logo">
-          <h3 align="center" style="margin-top:10px">지주갑</h3>
-          <a href="javascript:void(0)" class="simple-text logo-mini">
-            JJG
-          </a>
-          <a href="javascript:void(0)" class="simple-text logo-normal">
-           ㅇㅇㅇ님 환영합니다
-          </a>
+        
+        
+        
+          <h3 align="center" style="margin-top:10px"><img src="/jjg/resources/common/img/logo.png" onclick="location.href='customer.cu'"></h3>
+          
+          
+          <!-- <a id="userId" href="javascript:void(0)" class="simple-text logo-mini">
+           	송현영
+          </a> -->
+          <div style="color:white;">
+          <span id="userId" >
+          	송현영
+          </span>
+          <span >님 환영합니다.</span>
+          </div>
+          <div style="font-size: 1em;color: wheat;">
+           <span>현재 보유오일 :</span>
+          <span id="oilmount">500000</span>
+          </div>
+          <!-- <a href="javascript:void(0)" class="simple-text logo-normal">
+         	님 환영합니다.
+          </a> -->
+          
+          <!--정보수정  -->
+          <button class="btn btn-link" id="search-button" onclick="location.href='customerInfo.cu'" style="color: gray;"><i class="tim-icons icon-badge"></i>&nbsp;&nbsp;내정보수정
+                  <span class="d-lg-none d-md-block"></span>
+          </button>
+          <!--로그아웃  -->
+          <button class="btn btn-link" id="search-button" style="color: gray;"><i class="tim-icons icon-button-power"></i>&nbsp;&nbsp;로그아웃
+                  <span class="d-lg-none d-md-block"></span>
+          </button>
+          <br>
+         
+          
         </div>
         <ul class="nav">
-          <li class="active ">
+          <li >
             <a href="./coupon.cu">
               <i class="tim-icons icon-chart-bar-32"></i>
             	쿠폰함
@@ -71,6 +98,21 @@
             </a>
           </li>           
         </ul>
+        <script>
+        $(function(){
+         $(".nav").children("li").mouseover(function(){
+        	 console.log("호버");
+        	 $(this).attr("class","active");
+        	 $(this).css("background","gray");
+        	 
+         }).mouseout(function(){
+        	 $(this).attr("class","null");
+        	 $(this).css("background","rgb(49,49,49)");
+         })
+        	
+        });
+        
+        </script>
       </div>
     </div>
     <div class="main-panel">
@@ -78,13 +120,13 @@
       <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <div class="navbar-toggle d-inline">
+             <div class="navbar-toggle d-inline">
               <button type="button" class="navbar-toggler">
                 <span class="navbar-toggler-bar bar1"></span>
                 <span class="navbar-toggler-bar bar2"></span>
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
-            </div>
+            </div> 
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <div>
 	            <button class="btn btn-link" id="search-button" data-toggle="modal" data-target="#searchModal"><i class="tim-icons icon-zoom-split" style="color: white;"></i>
@@ -117,22 +159,22 @@
 			</div>
 		  <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
           </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
+           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
             <span class="navbar-toggler-bar navbar-kebab"></span>
             <span class="navbar-toggler-bar navbar-kebab"></span>
-          </button>
+          </button> 
           <div class="collapse navbar-collapse" id="navigation">
             <ul class="navbar-nav ml-auto">
               <li class="search-bar input-group">
-                <button class="btn btn-link" id="search-button" onclick="location.href='customerInfo.cu'" style="color: gray;"><i class="tim-icons icon-badge"></i>&nbsp;&nbsp;Info Edit
+              <!--   <button class="btn btn-link" id="search-button" onclick="location.href='customerInfo.cu'" style="color: gray;"><i class="tim-icons icon-badge"></i>&nbsp;&nbsp;내정보수정
                   <span class="d-lg-none d-md-block"></span>
-                </button>
+                </button> -->
               </li>
               <li class="search-bar input-group">
-                <button class="btn btn-link" id="search-button" style="color: gray;"><i class="tim-icons icon-button-power"></i>&nbsp;&nbsp;LogOut
+              <!--   <button class="btn btn-link" id="search-button" style="color: gray;"><i class="tim-icons icon-button-power"></i>&nbsp;&nbsp;로그아웃
                   <span class="d-lg-none d-md-block"></span>
-                </button>
+                </button> -->
               </li>
             </ul>
           </div>
@@ -151,8 +193,120 @@
         </div>
       </div>
       <!-- End Navbar -->
+      <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=103820f64442cfd4cf984f298b7c8470"></script>
+         <div class="content">
+        <div class="row">
+          <div class="card-body" style="padding: 0px;">
+            <div class="map" style="position: relative; overflow: hidden;">
+	          <div id="daumMap" style="height: 100%; width: 100%; position: absolute; top: 0px; left: 0px; background-color: rgb(229, 227, 223);">
+	          </div>
+            </div>
+            <script>
+            /*@@@@@@@@@@@@@@@@@지도 초기 셋팅 @@@@@@@@@@@@@@@@@@@@@@@@@  */
+				var mapContainer = document.getElementById('daumMap'), // 지도를 표시할 div 
+				mapOption = { 
+				    center: new daum.maps.LatLng(39.0318, 125.7526), // 지도의 중심좌표
+				    level: 3 // 지도의 확대 레벨
+				};
+				
+				var map = new daum.maps.Map(mapContainer, mapOption); 
+				var mypositionMarker;
+				 message = '<div style="padding:5px;">여기에 계신가요?!</div>'; // 인포윈도우에 표시될 내용입니다
+			        
+			        // 마커와 인포윈도우를 표시합니다
+			        // 마커를 생성합니다
+			    mypositionMarker = new daum.maps.Marker({  
+			        map: map, 
+			        position:new daum.maps.LatLng(39.0318, 125.7526)
+			    }); 
+			    
+			    var iwContent = message, // 인포윈도우에 표시할 내용
+			        iwRemoveable = true;
+
+			    // 인포윈도우를 생성합니다
+			    var infowindow = new daum.maps.InfoWindow({
+			        content : iwContent,
+			        removable : iwRemoveable
+			    });
+			    
+			    // 인포윈도우를 마커위에 표시합니다 
+			    infowindow.open(map, mypositionMarker);
+			    // 지도 중심좌표를 접속위치로 변경합니다
+			    map.setCenter(new daum.maps.LatLng(39.0318, 125.7526));
+		 /*@@@@@@@@@@@@@@@@@지도 초기 셋팅 @@@@@@@@@@@@@@@@@@@@@@@@@  */
+				
+		 
+		 
+		 
+		 
+		 
+		  /*@@@@@@@@@@@@@@@@@움직 일때 마다 내위치 마커 이동 @@@@@@@@@@@@@@@@@@@@@@@@@  */
+				// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
+				if (navigator.geolocation) {
+				    
+				    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+				    navigator.geolocation.watchPosition(function(position) {
+				        console.log("움직였당");
+				        var lat = position.coords.latitude, // 위도
+				            lon = position.coords.longitude; // 경도
+				        
+				        var locPosition = new daum.maps.LatLng(lat, lon); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+				          
+				        mypositionMarker.setPosition(new daum.maps.LatLng(lat, lon));
+				        map.setCenter(locPosition);
+					/* displayMarker(locPosition, message); */
+				            
+				      });
+				    
+				}
+		/*@@@@@@@@@@@@@@@@@움직 일때 마다 내위치 마커 이동 @@@@@@@@@@@@@@@@@@@@@@@@@  */
+		 /* else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+				    
+				    var locPosition = new daum.maps.LatLng(33.450701, 126.570667),    
+				        message = 'geolocation을 사용할수 없어요..'
+				        
+				    displayMarker(locPosition, message);
+				} */
+
+			/* 	// 지도에 마커와 인포윈도우를 표시하는 함수입니다
+				function displayMarker(locPosition, message) {
+
+				    // 마커를 생성합니다
+				    var marker = new daum.maps.Marker({  
+				        map: map, 
+				        position: locPosition
+				    }); 
+				    
+				    var iwContent = message, // 인포윈도우에 표시할 내용
+				        iwRemoveable = true;
+
+				    // 인포윈도우를 생성합니다
+				    var infowindow = new daum.maps.InfoWindow({
+				        content : iwContent,
+				        removable : iwRemoveable
+				    });
+				    
+				    // 인포윈도우를 마커위에 표시합니다 
+				    infowindow.open(map, marker);
+				    
+				    // 지도 중심좌표를 접속위치로 변경합니다
+				    map.setCenter(locPosition);      
+				}     */
+				
+			</script>
+          </div>
+
+        </div>
+      </div>
+				
+				
+				
+    
+    
+    
+    
       
-      <div class="content">
+     <!--  <div class="content">
         <div class="row">
 		  <div class="col-md-12" height="500px">
             <div class="card ">
@@ -246,8 +400,8 @@
             </div>
           </div>
         </div>
-      </div>
-        
+      </div> -->
+     <!--    
       <footer class="footer">
         <div class="container-fluid">
           <ul class="nav">
@@ -275,7 +429,7 @@
             <a href="javascript:void(0)" target="_blank">Creative Tim</a> for a better web.
           </div>
         </div>
-      </footer>
+      </footer> -->
     </div>
   </div>
  
