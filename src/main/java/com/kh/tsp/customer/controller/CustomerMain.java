@@ -12,7 +12,7 @@ public class CustomerMain {
 	}
 	
 	@RequestMapping(value="/customer.cu", method=RequestMethod.GET)
-	public String CustomerMain() {
+	public String Customer() {
 		
 		
 		return "customer/main/Customer_main";
@@ -36,14 +36,14 @@ public class CustomerMain {
 	public String CustomerReserve() {
 		
 		
-		return "customer/main/Customer_main";
+		return "customer/promotion/Customer_reserv";
 	}
 	
 	@RequestMapping(value="/map.cu", method=RequestMethod.GET)
 	public String CustomerMap() {
 		
 		
-		return "customer/main/Customer_main";
+		return "customer/map/Customer_map";
 	}
 	
 	@RequestMapping(value="/notice.cu", method=RequestMethod.GET)

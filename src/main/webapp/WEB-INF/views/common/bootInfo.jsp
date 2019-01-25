@@ -14,15 +14,6 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="/jjg/resources/common/demo/demo.css" rel="stylesheet" />
   <!-- JQuery import -->
-  
-  
-
-  
-  
-  
-  
-  
-  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!--   Core JS Files   -->
   <script src="/jjg/resources/common/js/core/jquery.min.js"></script>
@@ -40,6 +31,8 @@
   <script src="/jjg/resources/common/js/black-dashboard.min.js?v=1.0.0"></script>
   <!-- Black Dashboard DEMO methods, don't include it in your project! -->
   <script src="/jjg/resources/common/demo/demo.js"></script>
+  <!-- fontAwesome 추가 -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
   <script>
     $(document).ready(function() {
       $().ready(function() {
