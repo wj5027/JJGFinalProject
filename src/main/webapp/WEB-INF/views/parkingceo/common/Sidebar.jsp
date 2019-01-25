@@ -23,7 +23,7 @@
             </a>
           </li>
           <li>
-            <a href="./dashboard.jsp">
+            <a onclick="goExchangePage();">
               <i class="tim-icons icon-alert-circle-exc"></i>
               정보 수정 신청
             </a>
@@ -60,7 +60,7 @@
           <li>
             <a href="./notifications.jsp">
               <i class="tim-icons icon-bus-front-12"></i>
-              내 주차장
+              주차장 등록
             </a>
           </li>
           <li>

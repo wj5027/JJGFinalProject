@@ -125,24 +125,24 @@
                       	<div class="card" style="margin-top: 20px;">
 						    <div class="card-body">
 						      <div class="form-group has-success">
-						        <input type="text" value="입차할 번호를 넣어주세요" class="form-control form-control-success" />
+						        <input type="text" placeholder="입차할 번호를 넣어주세요" class="form-control form-control-success" />
 						      </div>
 						    </div>
 						  </div>
                       	</td>
-                      	<td align="center"><button class="btn btn-info animation-on-hover" type="button">입차</button></td>
+                      	<td align="center"><button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-1" type="button">입차</button></td>
                       </tr>    
                       <tr>
                       	<td>
                       	<div class="card" style="margin-top: 20px;">
 						    <div class="card-body">
 						      <div class="form-group has-success">
-						        <input type="text" value="출차할 번호를 넣어주세요" class="form-control form-control-success" />
+						        <input type="text" placeholder="출차할 번호를 넣어주세요" class="form-control form-control-success" />
 						      </div>
 						    </div>
 						  </div>
                       	</td>
-                      	<td align="center"><button class="btn btn-info animation-on-hover" type="button">출차</button></td>
+                      	<td align="center"><button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-2" type="button">출차</button></td>
                       </tr>                 
                     </tbody>
                   </table>
@@ -151,24 +151,200 @@
             </div>
           </div>
       
-      	<button type="button" class="btn btn-info" data-toggle="modal" data-target=".bd-example-modal-lg-1">Large modal</button>
+      
 
+
+<!-- 입차 모달 -->
 <div class="modal fade bd-example-modal-lg-1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content" style="background: rgb(39,41,61);">
+    <div class="modal-body">
+      <div class="card ">
+              <div class="card-header">
+                <h4 class="card-title"> 입차 시스템</h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive"  style="overflow: hidden;">
+                  <table class="table tablesorter " id="">
+                    <tbody>
+                      <tr>
+                        <td align="center" width="500px"><div style="color: white;">현재 입차한 [사용자]님의 차번호</div></td>
+                        <td align="center">
+							차번호쓰
+						</td>
+                      </tr>
+                       <tr>
+                        <td align="center" width="500px"><div style="color: white;">[사용자 이름]</div></td>
+                        <td align="center">
+							임수철
+						</td>
+                      </tr>
+                       <tr>
+                        <td align="center" width="500px"><div style="color: white;">입차 시간</div></td>
+                        <td align="center">
+							입차시간쓰
+						</td>
+                      </tr>   
+                      <tr>
+                      	<td>
+                      	<div class="card" style="margin-top: 20px;">
+						    <div class="card-body">
+						      <div class="form-group has-success">
+						        <input type="text" placeholder="인증 번호를 입력해주세요" class="form-control form-control-success" />
+						      </div>
+						    </div>
+						  </div>
+                      	</td>
+                      	<td align="center"> <button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-3" type="button">입력</button>
+                      	</td>
+                      </tr>
+                      <tr>
+                      	<td align="center" colspan="2"><button type="button" class="btn btn-default" data-dismiss="modal">닫기</button></td>
+                      </tr>                 
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            </div>
+    	</div>
+  </div>
+</div>
+   <!--  출차 모달 -->   
+ <div class="modal fade bd-example-modal-lg-2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      ㅎㅇ
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
+ <div class="modal-content" style="background: rgb(39,41,61);">
+    <div class="modal-body">
+      <div class="card ">
+              <div class="card-header">
+                <h4 class="card-title"> 출차 시스템</h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive"  style="overflow: hidden;">
+                  <table class="table tablesorter " id="">
+                    <tbody>
+                      <tr>
+                        <td align="center" width="500px"><div style="color: white;">현재 출차할 [사용자]님의 차번호</div></td>
+                        <td align="center">
+							차번호쓰
+						</td>
+                      </tr>
+                       <tr>
+                        <td align="center" width="500px"><div style="color: white;">[사용자 이름]</div></td>
+                        <td align="center">
+							임수철
+						</td>
+                      </tr>
+                       <tr>
+                        <td align="center" width="500px"><div style="color: white;">입차시간 - 출차 시간</div></td>
+                        <td align="center">
+							입차시간 - 출차시간쓰
+						</td>
+                      </tr>   
+                    	<tr>
+                        <td align="center" width="500px"><div style="color: white;">결제금액</div></td>
+                        <td align="center">
+							결제금액쓰
+						</td>
+                      </tr>                 
+                    </tbody>
+                  </table>
+                  <div align="center">
+                  	<button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-4" type="button" >현장 결제</button>
+                  	<button type="button" class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-5" type="button" >포인트 결제</button>
+                  	<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            </div>
+    	</div>
+  </div>
+</div>     
+
+
+	<!-- 인증번호 눌렀을시 -->
+      <div class="modal fade bd-example-modal-lg-3" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="background: rgb(39,41,61);">
+    <div class="modal-body">
+                     <div class="table-responsive"  style="overflow: hidden;">
+                  <table class="table tablesorter " id="">
+                    <tbody>
+						<tr><td align="center"><b>정상적으로 확인이 되었습니다.</b></td></tr>
+						<tr><td align="center"><button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location.reload();">닫기</button></td></tr>      
+      			</tbody>
+      		</table>
+      	</div>
+      </div>
+    </div>
+  </div>
+</div>     
+
+
+<!-- 현장 걸제 눌렀을시 -->
+      <div class="modal fade bd-example-modal-lg-4" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="background: rgb(39,41,61);">
+    <div class="modal-body">
+                     <div class="table-responsive"  style="overflow: hidden;">
+                  <table class="table tablesorter " id="">
+                    <tbody>
+						<tr><td align="center"><b>현장 결제를 진행합니다 확실하십니까?</b></td></tr>
+						<tr><td align="center"><button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-6" type="button" >확인</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button></td></tr>      
+      			</tbody>
+      		</table>
+      	</div>
+      </div>
     </div>
   </div>
 </div>
+
+
+
+
+
+
+<!-- 포인트 결제 눌렀을시 -->
+     <div class="modal fade bd-example-modal-lg-5" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="background: rgb(39,41,61);">
+    <div class="modal-body">
+                     <div class="table-responsive"  style="overflow: hidden;">
+                  <table class="table tablesorter " id="">
+                    <tbody>
+						<tr><td align="center"><b>포인트 결제를 진행합니다 확실하십니까?</b></td></tr>
+						<tr><td align="center"><button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-6" type="button">확인</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button></td></tr>      
+      			</tbody>
+      		</table>
+      	</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- 결제 확인 눌렀을시 -->
+            <div class="modal fade bd-example-modal-lg-6" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="background: rgb(39,41,61);">
+    <div class="modal-body">
+                     <div class="table-responsive"  style="overflow: hidden;">
+                  <table class="table tablesorter " id="">
+                    <tbody>
+						<tr><td align="center"><b>정상적으로 확인이 되었습니다.</b></td></tr>
+						<tr><td align="center"><button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location.reload();">닫기</button></td></tr>      
+      			</tbody>
+      		</table>
+      	</div>
+      </div>
+    </div>
+  </div>
+</div>    
       
       <!-- content -->
       </div>
@@ -186,7 +362,11 @@
 	function goMain(){
 		location.href="parkingceoMain.pc";
 	}
-
+	
+	function goExchangePage(){
+		location.href = "parkingceoExchange.pc";
+	}
+	
 
 </script>
 
