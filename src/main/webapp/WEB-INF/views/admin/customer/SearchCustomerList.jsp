@@ -20,7 +20,7 @@
 					<div class="col-md-12" height="500px">
 						<div class="card ">
 							<div class="card-header">
-								<h4 class="card-title">사업자 검색</h4>
+								<h4 class="card-title">사용자 검색</h4>
 							</div>
 							<div class="card-body">
 								<div class="table-responsive" style="overflow: hidden;">
@@ -35,8 +35,8 @@
 															data-toggle="dropdown" aria-haspopup="true"
 															aria-expanded="false">전체</button>
 														<div class="dropdown-menu dropdown-black">
-															<a class="dropdown-item" href="#">활동중인 사업자</a> <a
-																class="dropdown-item" href="#">탈퇴한 사업자</a>
+															<a class="dropdown-item" href="#">활동중인 사용자</a> <a
+																class="dropdown-item" href="#">탈퇴한 사용자</a>
 														</div>
 													</div>
 												</td>
@@ -99,7 +99,7 @@
 					<div class="col-md-12">
 						<div class="card ">
 							<div class="card-header">
-								<h4 class="card-title">사업자 검색 결과</h4>
+								<h4 class="card-title">사용자 검색 결과</h4>
 							</div>
 							<div class="card-body">
 								<div class="table-responsive" style="overflow: hidden;">
@@ -118,8 +118,8 @@
 										<tbody>
 											<tr>
 												<td class="text-center">1</td>
-												<td>Niger</td>
-												<td>니제르</td>
+												<td>choi</td>
+												<td>최민규</td>
 												<td>010-1234-5678</td>
 												<td class="text-center">7000</td>
 												<td>서울시 강남구 역삼동</td>
@@ -131,8 +131,8 @@
 											</tr>
 											<tr>
 												<td class="text-center">2</td>
-												<td>Red</td>
-												<td>레드</td>
+												<td>White</td>
+												<td>황우현</td>
 												<td>010-0001-5678</td>
 												<td class="text-center">12000</td>
 												<td>서울시 강남구 삼성동</td>
@@ -145,7 +145,7 @@
 											<tr>
 												<td class="text-center">3</td>
 												<td>Blue</td>
-												<td>블루</td>
+												<td>임수철</td>
 												<td>010-0012-5678</td>
 												<td class="text-center">3200</td>
 												<td>서울시 강남구 역삼동</td>

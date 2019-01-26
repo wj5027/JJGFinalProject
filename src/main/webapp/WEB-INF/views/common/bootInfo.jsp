@@ -156,13 +156,14 @@
     });
   </script>
   <script>
- /*    $(document).ready(function() {
+  	// 주석처리 시 그래프 나오지 않음(주석처리 하지 말 것)
+     $(document).ready(function() {
       // Javascript method's body can be found in assets/js/demos.js
       demo.initDashboardPageCharts();
 
      
       
-    }); */
+    }); 
   </script>
   
   <!-- datepicker function -->

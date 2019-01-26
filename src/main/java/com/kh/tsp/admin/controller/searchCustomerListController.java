@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 @Controller
-public class statisticsListController {
+public class searchCustomerListController {
 
-	@RequestMapping(value = "/statisticsList.ad", method = RequestMethod.GET)
-	public String statisticsList() {
+	@RequestMapping(value = "/searchCustomerList.ad", method = RequestMethod.GET)
+	public String searchCustomerList() {
 		
-		return "admin/main/StatisticsList";
+		return "admin/customer/SearchCustomerList";
 	}
 	
 }
