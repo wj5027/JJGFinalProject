@@ -43,7 +43,15 @@
     						<option value="3" style="color: black;">주차장3</option>
   						</select>
 						</td>
-                      </tr>  
+                      </tr>
+                                           <tr>
+                      <td colspan="2">
+                       <ul>
+                        <li>박스를 클릭하지 않으시고 검색 버튼을 누르면 제일 상위 박스 카테고리가 검색됩니다.</li>
+                       
+                       </ul>
+                      </td>
+                      </tr>      
                       <tr>
                       	<td colspan="2" align="center"><button class="btn btn-info animation-on-hover" type="button">검색</button></td>
                       </tr>                    
