@@ -16,7 +16,7 @@ public class parkingLotListController {
 	@RequestMapping(value = "/parkingLotList.ad", method = RequestMethod.GET)
 	public String parkingLotList() {
 		
-		return "admin/parkingLotList/ParkingLotList";
+		return "admin/parkingceo/ParkingLotList";
 	}
 	
 }

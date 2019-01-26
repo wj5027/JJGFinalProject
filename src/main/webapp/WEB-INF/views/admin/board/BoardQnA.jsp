@@ -6,6 +6,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <jsp:include page="../../common/bootInfo.jsp"></jsp:include>
 </head>
 <body>
@@ -20,34 +22,30 @@
 					<div class="col-md-12" height="500px">
 						<div class="card ">
 							<div class="card-header">
-								<h4 class="card-title">사업자 검색</h4>
+								<h4 class="card-title">문의 검색</h4>
 							</div>
 							<div class="card-body">
 								<div class="table-responsive" style="overflow: hidden;">
 									<table class="table tablesorter " id="">
 										<tbody>
 											<tr>
-												<td>구분</td>
+												<td>아이디</td>
 												<td>
-													<div class="btn-group">
-														<button type="button"
-															class="btn btn-info animation-on-hover dropdown-toggle"
-															data-toggle="dropdown" aria-haspopup="true"
-															aria-expanded="false">전체</button>
-														<div class="dropdown-menu dropdown-black">
-															<a class="dropdown-item" href="#">활동중인 사업자</a> <a
-																class="dropdown-item" href="#">탈퇴한 사업자</a>
+													<div class="row">
+														<div class="form-group">
+															<input type="text" class="form-control" id=""
+																placeholder="아이디를 입력해주세요">
 														</div>
 													</div>
 												</td>
 											</tr>
 											<tr>
-												<td>아이디</td>
+												<td>내용</td>
 												<td>
 													<div class="row">
 														<div class="form-group">
-															<input type="text" class="form-control"
-																id="exampleInputPassword1" placeholder="아이디를 입력해주세요">
+															<input type="text" class="form-control" id=""
+																placeholder="검색할 내용을 입력해주세요">
 														</div>
 													</div>
 												</td>
@@ -99,19 +97,20 @@
 					<div class="col-md-12">
 						<div class="card ">
 							<div class="card-header">
-								<h4 class="card-title">사업자 검색 결과</h4>
+								<h4 class="card-title">문의 검색 결과</h4>
+								<button id="clickModal" data-toggle="modal"
+									data-target=".bd-example-modal-lg-1" type="button"
+									style="display: none;"></button>
 							</div>
 							<div class="card-body">
 								<div class="table-responsive" style="overflow: hidden;">
-									<table class="table tablesorter " id="">
+									<table class="table tablesorter " id="listArea">
 										<thead class=" text-primary">
 											<tr>
-												<th class="text-center">계정번호</th>
+												<th class="text-center">번호</th>
 												<th>아이디</th>
-												<th>이름</th>
-												<th>전화번호</th>
-												<th class="text-center">보유 포인트</th>
-												<th>주소</th>
+												<th>제목</th>
+												<th>내용</th>
 												<th class="text-center">상태</th>
 											</tr>
 										</thead>
@@ -119,40 +118,46 @@
 											<tr>
 												<td class="text-center">1</td>
 												<td>Niger</td>
-												<td>니제르</td>
-												<td>010-1234-5678</td>
-												<td class="text-center">7000</td>
-												<td>서울시 강남구 역삼동</td>
+												<td>주차장 예약 문의 드립니다.</td>
+												<td>주차장 예약은 어떻게 해야하나요?</td>
 												<td class="text-center">
 													<button data-toggle="modal"
+														data-target=".bd-example-modal-lg-2"
+														class="btn btn-info animation-on-hover btn-sm">답변</button>
+													&nbsp;&nbsp;
+													<button data-toggle="modal"
 														data-target=".bd-example-modal-lg-3"
-														class="btn btn-warning animation-on-hover btn-sm">회원탈퇴</button>
+														class="btn btn-warning animation-on-hover btn-sm">삭제</button>
 												</td>
 											</tr>
 											<tr>
 												<td class="text-center">2</td>
-												<td>Red</td>
-												<td>레드</td>
-												<td>010-0001-5678</td>
-												<td class="text-center">12000</td>
-												<td>서울시 강남구 삼성동</td>
+												<td>Seoul</td>
+												<td>포인트 충전에 대해 문의드립니다.</td>
+												<td>포인트 충전은 카드로만 결제가 가능한가요?</td>
 												<td class="text-center">
 													<button data-toggle="modal"
-														data-target=".bd-example-modal-lg-1"
-														class="btn btn-info animation-on-hover btn-sm">회원복구</button>
+														data-target=".bd-example-modal-lg-2"
+														class="btn btn-info animation-on-hover btn-sm">답변</button>
+													&nbsp;&nbsp;
+													<button data-toggle="modal"
+														data-target=".bd-example-modal-lg-3"
+														class="btn btn-warning animation-on-hover btn-sm">삭제</button>
 												</td>
 											</tr>
 											<tr>
 												<td class="text-center">3</td>
-												<td>Blue</td>
-												<td>블루</td>
-												<td>010-0012-5678</td>
-												<td class="text-center">3200</td>
-												<td>서울시 강남구 역삼동</td>
+												<td>Dokyo</td>
+												<td>환불 관련 규정에 대해 문의드립니다.</td>
+												<td>제가 실수로 충전을 많이 했는데 환불받을 수 있을까요?</td>
 												<td class="text-center">
 													<button data-toggle="modal"
+														data-target=".bd-example-modal-lg-2"
+														class="btn btn-info animation-on-hover btn-sm">답변</button>
+													&nbsp;&nbsp;
+													<button data-toggle="modal"
 														data-target=".bd-example-modal-lg-3"
-														class="btn btn-warning animation-on-hover btn-sm">회원탈퇴</button>
+														class="btn btn-warning animation-on-hover btn-sm">삭제</button>
 												</td>
 											</tr>
 										</tbody>
@@ -169,15 +174,17 @@
 		</div>
 	</div>
 
-
-	<!-- 회원 복구 -->
+	<!-- 답변 버튼 클릭 시 모달 -->
 	<div class="modalDetail">
-		<div class="modal fade bd-example-modal-lg-1" tabindex="-1"
+		<div class="modal fade bd-example-modal-lg-2" tabindex="-1"
 			role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-lg" role="document">
 				<div class="modal-content" style="background: rgb(39, 41, 61);">
 					<div class="modal-body" style="padding-bottom: 0px;">
 						<div class="card ">
+							<div class="card-header">
+								<h4 class="card-title">문의에 대한 답변 작성</h4>
+							</div>
 							<div class="card-body" style="padding-bottom: 0px;">
 								<div class="table-responsive"
 									style="overflow: hidden; padding-bottom: 0px;">
@@ -185,14 +192,42 @@
 										style="padding-bottom: 0px;">
 										<tbody>
 											<tr>
-												<td align="center" colspan="2"><b>회원을 복구 시키시겠습니까?</b></td>
+												<th>번호</th>
+												<td>1</td>
 											</tr>
 											<tr>
-												<td align="center"><button type="button"
-														class="btn btn-warning animation-on-hover">예</button></td>&nbsp;&nbsp;
-												<td align="center"><button type="button"
+												<th>아이디</th>
+												<td>Niger</td>
+											</tr>
+											<tr>
+												<th>제목</th>
+												<td>주차장 예약 문의 드립니다.</td>
+											</tr>
+											<tr>
+												<th>내용</th>
+												<td>주차장 예약은 어떻게 해야하나요?</td>
+											</tr>
+										</tbody>
+									</table>
+									<table class="table tablesorter" id="modalTable"
+										style="padding-bottom: 0px;">
+										<tbody>
+											<tr>
+												<td>답변 작성</td>
+											</tr>
+											<tr>
+												<td><textarea rows="60" cols="5" style="resize: none;"
+														placeholder="문의에 대한 답변을 입력해주세요"
+														class="form-control form-control-success"></textarea></td>
+											</tr>
+											<tr>
+												<td align="center">
+													<button type="button"
+														class="btn btn-warning animation-on-hover">답변</button>&nbsp;&nbsp;
+													<button type="button"
 														class="btn btn-info animation-on-hover"
-														data-dismiss="modal" onclick="window.location.reload();">아니오</button></td>
+														data-dismiss="modal">취소</button>
+												</td>
 											</tr>
 										</tbody>
 									</table>
@@ -204,9 +239,9 @@
 			</div>
 		</div>
 	</div>
-	<!-- 회원복구 끝 -->
+	<!-- 답변 모달 끝 -->
 
-	<!-- 회원탈퇴 -->
+	<!-- 삭제 버튼 클릭 시 모달 -->
 	<div class="modal fade bd-example-modal-lg-3" tabindex="-1"
 		role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
@@ -218,7 +253,7 @@
 							style="margin-bottom: 0px;">
 							<tbody>
 								<tr>
-									<td align="center" colspan="2"><b>회원을 탈퇴 시키시겠습니까?</b></td>
+									<td colspan="2" align="center"><b>정말로 삭제 하시겠습니까?</b></td>
 								</tr>
 								<tr>
 									<td align="center"><button type="button"
@@ -234,7 +269,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- 회원탈퇴 끝 -->
+	<!-- 삭제 버튼 클릭 시 모달 끝 -->
 
 	<!-- 테이블 날짜버튼 클릭 시 색상 변경 -->
 	<script>
