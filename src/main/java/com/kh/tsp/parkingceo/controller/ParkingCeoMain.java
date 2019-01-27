@@ -20,7 +20,26 @@ public class ParkingCeoMain {
 		return "parkingceo/main/Parkingceo_main";
 	}
 	
+	@RequestMapping(value="/parkingceoLogin.pc", method=RequestMethod.GET)
+	public String ParkingceoLogin() {
+		
+		
+		return "parkingceo/main/Parkingceo_login";
+	}
 	
+	@RequestMapping(value="/ceoServiceTerm.pc", method=RequestMethod.GET)
+	public String ceoServiceTerm() {
+		
+		
+		return "parkingceo/main/ceoServiceTerm";
+	}
+	
+	@RequestMapping(value="/ceoJoin.pc", method=RequestMethod.GET)
+	public String ceoJoin() {
+		
+		
+		return "parkingceo/main/ceoJoin";
+	}
 	
 
 }
