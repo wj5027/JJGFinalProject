@@ -50,7 +50,7 @@
 												<td>서울시 강남구 역삼동</td>
 												<td class="text-center">
 													<button data-toggle="modal"
-														data-target=".bd-example-modal-lg-3"
+														data-target=".bd-example-modal-lg-2"
 														class="btn btn-info animation-on-hover btn-sm">승인</button>
 													&nbsp;&nbsp;
 													<button data-toggle="modal"
@@ -174,7 +174,46 @@
 	</div>
 	<!-- 취소 사유 모달 끝 -->
 
-	<!-- 승인 버튼 클릭 시 모달 -->
+	<!-- 승인버튼 클릭 시 모달 -->
+	<div class="modalDetail">
+		<div class="modal fade bd-example-modal-lg-2" tabindex="-1"
+			role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content" style="background: rgb(39, 41, 61);">
+					<div class="modal-body" style="padding-bottom: 0px;">
+						<div class="card ">
+							<div class="card-header">
+								<h4 class="card-title">주차장 승인</h4>
+							</div>
+							<div class="card-body" style="padding-bottom: 0px;">
+								<div class="table-responsive" style="overflow: hidden; padding-bottom: 0px;">
+									<table class="table tablesorter" id="modalTable" style="padding-bottom: 0px;">
+										<tbody>
+											<tr>
+												<td>정말로 승인하시겠습니까?</td>
+											</tr>
+											<tr>
+												<td align="center">
+													<button type="button" data-target=".bd-example-modal-lg-3" data-toggle="modal" 
+														class="btn btn-warning animation-on-hover">예</button>&nbsp;&nbsp;
+													<button type="button"
+														class="btn btn-info animation-on-hover"
+														data-dismiss="modal">아니오</button>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 승인버튼 클릭 시 모달 끝 -->
+	
+	<!-- 승인 버튼  -> 확인 버튼 모달 -->
 	<div class="modal fade bd-example-modal-lg-3" tabindex="-1"
 		role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
@@ -184,7 +223,7 @@
 						<table class="table tablesorter " id="" style="margin-bottom: 0px;">
 							<tbody>
 								<tr>
-									<td align="center"><b>정상적으로 환전처리 되었습니다.</b></td>
+									<td align="center"><b>정상적으로 승인처리 되었습니다.</b></td>
 								</tr>
 								<tr>
 									<td align="center"><button type="button"
@@ -198,7 +237,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- 승인 버튼 클릭 시 모달 끝 -->
+	<!-- 승인 버튼  -> 확인 버튼 모달 끝 -->
 
 </body>
 </html>

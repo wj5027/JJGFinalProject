@@ -26,12 +26,14 @@
 							</div>
 							<div class="card-body">
 								<div class="table-responsive" style="overflow: hidden;">
-									<table class="table tablesorter " id="" style="width: 50%" align="center">
+									<table class="table tablesorter " id="" style="width: 50%"
+										align="center">
 										<tbody>
 											<tr>
 												<td colspan="3" align="center">
 													<div class="form-group">
-														<select multiple class="form-control" id="" style="height: 200px">
+														<select multiple class="form-control" id="selectFilter"
+															style="height: 200px;">
 															<option>욕설1</option>
 															<option>욕설2</option>
 															<option>욕설3</option>
@@ -46,17 +48,17 @@
 												<td>
 													<div class="row">
 														<div class="form-group">
-															<input type="text" class="form-control" id="writerFilter" style="margin-top: 3%"
-																placeholder="금지할 단어를 입력해주세요">
+															<input type="text" class="form-control" id="writerFilter"
+																style="margin-top: 3%" placeholder="금지할 단어를 입력해주세요">
 														</div>
 													</div>
 												</td>
 												<td align="right">
-													<button data-toggle="modal"
+													<button data-toggle="modal" id="addModalBtn"
 														data-target=".bd-example-modal-lg-2"
 														class="btn btn-info animation-on-hover btn-sm">추가</button>
 													&nbsp;&nbsp;
-													<button data-toggle="modal"
+													<button data-toggle="modal" id="delModalBtn"
 														data-target=".bd-example-modal-lg-3"
 														class="btn btn-warning animation-on-hover btn-sm">삭제</button>
 												</td>
@@ -93,9 +95,9 @@
 												<td align="center"><b>정상적으로 추가 되었습니다.</b></td>
 											</tr>
 											<tr>
-												<td align="center"><button type="button"
+												<td align="center"><button type="button" id="addBtn"
 														class="btn btn-default animation-on-hover"
-														data-dismiss="modal" onclick="window.location.reload();">확인</button></td>
+														data-dismiss="modal">확인</button></td>
 											</tr>
 										</tbody>
 									</table>
@@ -108,7 +110,7 @@
 		</div>
 	</div>
 	<!-- 추가버튼 클릭 시 모달 끝 -->
-	
+
 	<!-- 추가버튼 클릭 시(아무값도 입력되지 않았울 때) 모달 -->
 	<div class="modalDetail">
 		<div class="modal fade bd-example-modal-lg-4" tabindex="-1"
@@ -129,7 +131,7 @@
 											<tr>
 												<td align="center"><button type="button"
 														class="btn btn-default animation-on-hover"
-														data-dismiss="modal" onclick="window.location.reload();">닫기</button></td>
+														data-dismiss="modal">닫기</button></td>
 											</tr>
 										</tbody>
 									</table>
@@ -158,11 +160,11 @@
 									<td colspan="2" align="center"><b>정말로 삭제 하시겠습니까?</b></td>
 								</tr>
 								<tr>
+									<td align="center"><button type="button" id="delBtn"
+											class="btn btn-warning animation-on-hover"
+											data-dismiss="modal">예</button></td>&nbsp;&nbsp;
 									<td align="center"><button type="button"
-											class="btn btn-warning animation-on-hover">예</button></td>&nbsp;&nbsp;
-									<td align="center"><button type="button"
-											class="btn btn-info animation-on-hover" data-dismiss="modal"
-											onclick="window.location.reload();">아니오</button></td>
+											class="btn btn-info animation-on-hover" data-dismiss="modal">아니오</button></td>
 								</tr>
 							</tbody>
 						</table>
@@ -172,6 +174,40 @@
 		</div>
 	</div>
 	<!-- 삭제 버튼 클릭 시 모달 끝 -->
+	
+	<!-- 삭제버튼 클릭 시(아무값도 선택되지 않았울 때) 모달 -->
+	<div class="modalDetail">
+		<div class="modal fade bd-example-modal-lg-5" tabindex="-1"
+			role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content" style="background: rgb(39, 41, 61);">
+					<div class="modal-body" style="padding-bottom: 0px;">
+						<div class="card ">
+							<div class="card-body" style="padding-bottom: 0px;">
+								<div class="table-responsive"
+									style="overflow: hidden; padding-bottom: 0px;">
+									<table class="table tablesorter" id="modalTable"
+										style="padding-bottom: 0px;">
+										<tbody>
+											<tr>
+												<td align="center"><b>삭제할 단어를 선택주세요</b></td>
+											</tr>
+											<tr>
+												<td align="center"><button type="button"
+														class="btn btn-default animation-on-hover"
+														data-dismiss="modal">닫기</button></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 삭제버튼 클릭 시(아무값도 선택되지 않았울 때) 모달 끝 -->
 
 	<!-- 테이블 날짜버튼 클릭 시 색상 변경 -->
 	<script>
@@ -244,6 +280,50 @@
 		});
 	</script>
 	<!-- 테이블 날짜버튼 클릭 시 색상 변경 끝 -->
+	
+	<!-- 스크립트에서 제어하기 위해 버튼을 숨겨서 만들어 놓는다. -->
+	<button id="hiddenDelBtn" data-toggle="modal" data-target=".bd-example-modal-lg-5" type="button" style="display: none;"></button>
+							
+	<!-- 필터 적용 -->
+	<script>
+		var num = 6; // value값을 주기 위한 변수 선언
+		$(function() {
+			/* 추가 버튼 클릭 시 */
+			$("#addModalBtn").click(function() {
+				var writerFilter = $("#writerFilter").val(); // 입력한 값을 담는다.		
+				
+				/* 텍스트 입력 여부에 따른 모달 출력 */
+				if(writerFilter.length > 0){
+					$("#addModalBtn").attr('data-target','.bd-example-modal-lg-2');
+
+					// ★ ★ ★ 수정 필요
+					if ($("#selectFilter option[value='" + num + "']").length == 0) {
+						$("#selectFilter").append('<option value='+num+'>'+ writerFilter+ '</option>');
+					} else {
+						num++;
+						$("#selectFilter").append('<option value='+num+'>'+ writerFilter+ '</option>');
+					}
+				}else{
+					$("#addModalBtn").attr('data-target','.bd-example-modal-lg-4');		
+				}
+				
+				$("#writerFilter").val(""); // 텍스트 안의 내용을 비워준다.		
+			});
+
+			/* 삭제 버튼 클릭 시 */
+			$("#delBtn").click(function() { // 모달에서 삭제버튼 클릭 시
+				var selectFilter = $("#selectFilter option:selected").val();
+
+				/* 목록 선택 여부에 따른 모달 출력 */
+				if(typeof selectFilter != "undefined"){
+					$("#selectFilter option:selected").remove();
+				}else{
+					$("#hiddenDelBtn").click();	
+				}
+			});
+		});
+	</script>
+	<!-- 필터 적용 끝 -->
 
 </body>
 </html>
