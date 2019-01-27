@@ -9,5 +9,5 @@
 </head>
 <body>
 		<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }"></c:set>
-		<jsp:forward page="WEB-INF/views/customer/main/Main.jsp"></jsp:forward>
+		<jsp:forward page="WEB-INF/views/customer/main/Customer_main.jsp"></jsp:forward>
 </html>

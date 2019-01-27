@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	<div class="sidebar" style="background: rgb(49, 49, 49) !important;">
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red"
@@ -16,28 +17,38 @@
            	송현영
           </a> -->
           <div style="color:white;">
-          <span id="userId" >
-          	송현영
-          </span>
-          <span >님 환영합니다.</span>
-          </div>
-          <div style="font-size: 1em;color: wheat;">
-           <span>현재 보유오일 :</span>
-          <span id="oilmount">500000</span>
+          <c:if test="${ empty loginUser }">
+          	  <button class="btn btn-info btn-sm" onclick="location.href='customer_loginPage.cu'">로그인</button>
+          </c:if>
+          <c:if test="${ !empty loginUser }">
+		      <span id="userId" >
+		           송현영
+	          </span>
+	          <span >님 환영합니다.</span>
+	          </div>
+	          <div style="font-size: 1em;color: wheat;">
+	           <span>현재 보유오일 :</span>
+	          <span id="oilmount">500000</span>
+          </c:if>
+          
           </div>
           <!-- <a href="javascript:void(0)" class="simple-text logo-normal">
          	님 환영합니다.
           </a> -->
+          <c:if test="${ empty loginUser }">
+              
+          </c:if>
+          <c:if test="${ !empty loginUser }">
+			  <!--정보수정  -->
+	          <button class="btn btn-link" id="search-button" onclick="location.href='customerInfo.cu'" style="color: gray;"><i class="tim-icons icon-badge"></i>&nbsp;&nbsp;내정보수정
+	                  <span class="d-lg-none d-md-block"></span>
+	          </button>
+	          <!--로그아웃  -->
+	          <button class="btn btn-link" id="search-button" style="color: gray;"><i class="tim-icons icon-button-power"></i>&nbsp;&nbsp;로그아웃
+	                  <span class="d-lg-none d-md-block"></span>
+	          </button>
+          </c:if>
           
-          <!--정보수정  -->
-          <button class="btn btn-link" id="search-button" onclick="location.href='customerInfo.cu'" style="color: gray;"><i class="tim-icons icon-badge"></i>&nbsp;&nbsp;내정보수정
-                  <span class="d-lg-none d-md-block"></span>
-          </button>
-          <!--로그아웃  -->
-          <button class="btn btn-link" id="search-button" style="color: gray;"><i class="tim-icons icon-button-power"></i>&nbsp;&nbsp;로그아웃
-                  <span class="d-lg-none d-md-block"></span>
-          </button>
-          <br>
          
           
         </div>
@@ -61,7 +72,7 @@
             </a>
           </li>
           <li>
-            <a href="./map.cu">
+            <a href="./customer.cu">
               <i class="tim-icons icon-single-copy-04"></i>
              	 지도
             </a>

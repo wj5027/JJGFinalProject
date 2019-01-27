@@ -20,6 +20,25 @@ public class CustomerMain {
 		return "customer/main/Customer_main";
 	}
 	
+	@RequestMapping(value="/customer_loginPage.cu", method=RequestMethod.GET)
+	public String CustomerLogin() {
+		
+		
+		return "customer/main/Customer_login";
+	}
+	
+	@RequestMapping(value="/customer_joinInput.cu", method=RequestMethod.GET)
+	public String CustomerjoinInput() {
+		
+		return "customer/main/Customer_joinInput";
+	}
+	
+	@RequestMapping(value="/customer_join.cu", method=RequestMethod.GET)
+	public String Customerjoin() {
+		
+		
+		return "customer/main/Customer_join";
+	}
 	
 	@RequestMapping(value="/customerInfo.cu", method=RequestMethod.GET)
 	public String CustomerInfo() {
@@ -47,13 +66,6 @@ public class CustomerMain {
 		
 		
 		return "customer/promotion/Customer_reserv";
-	}
-	
-	@RequestMapping(value="/map.cu", method=RequestMethod.GET)
-	public String CustomerMap() {
-		
-		
-		return "customer/map/Customer_map";
 	}
 	
 	@RequestMapping(value="/customerNotice.cu", method=RequestMethod.GET)
