@@ -32,7 +32,7 @@
 												<td>사업자 아이디</td>
 												<td>
 													<div class="row">
-														<div class="form-group">
+														<div class="form-group"  style="margin-left: 1.5%;">
 															<input type="text" class="form-control" id=""
 																placeholder="아이디를 입력해주세요">
 														</div>
@@ -42,17 +42,15 @@
 											<tr>
 												<td>지역</td>
 												<td>
-													<div class="btn-group">
-														<button type="button"
-															class="btn btn-info animation-on-hover dropdown-toggle"
-															data-toggle="dropdown" aria-haspopup="true"
-															aria-expanded="false">전체</button>
-														<div class="dropdown-menu dropdown-black">
-															<a class="dropdown-item" href="#">서울</a> <a
-																class="dropdown-item" href="#">대전</a> <a
-																class="dropdown-item" href="#">대구</a> <a
-																class="dropdown-item" href="#">부산</a>
-														</div>
+													<div style="width: 15%;">
+														<select class="custom-select nav-link dropdown-toggle"
+															id="" style="background-color: rgb(34, 42, 65);">
+															<option selected>전체</option>
+															<option value="1">서울</option>
+															<option value="2">대전</option>
+															<option value="3">대구</option>
+															<option value="4">부산</option>
+														</select>
 													</div>
 												</td>
 											</tr>
@@ -60,7 +58,7 @@
 												<td>주차장명</td>
 												<td>
 													<div class="row">
-														<div class="form-group">
+														<div class="form-group" style="margin-left: 1.5%;">
 															<input type="text" class="form-control" id=""
 																placeholder="주차장 명을 입력해주세요">
 														</div>
@@ -70,19 +68,24 @@
 											<tr>
 												<td>등록일</td>
 												<td>
-													<button id="one" class="btn btn-info animation-on-hover btn-sm">1일</button>
+													<button id="one"
+														class="btn btn-info animation-on-hover btn-sm">1일</button>
 													&nbsp;&nbsp;
-													<button id="seven" class="btn btn-info animation-on-hover btn-sm">7일</button>
+													<button id="seven"
+														class="btn btn-info animation-on-hover btn-sm">7일</button>
 													&nbsp;&nbsp;
-													<button id="month" class="btn btn-info animation-on-hover btn-sm">1개월</button>
+													<button id="month"
+														class="btn btn-info animation-on-hover btn-sm">1개월</button>
 													&nbsp;&nbsp;
-													<button id="halfYear" class="btn btn-info animation-on-hover btn-sm">6개월</button>
+													<button id="halfYear"
+														class="btn btn-info animation-on-hover btn-sm">6개월</button>
 													&nbsp;&nbsp;
-													<button id="year" class="btn btn-info animation-on-hover btn-sm">1년</button>
+													<button id="year"
+														class="btn btn-info animation-on-hover btn-sm">1년</button>
 													&nbsp;&nbsp;
 
 													<div class="row">
-														<div class="form-group">
+														<div class="form-group" style="margin-left: 1.5%;">
 															<input type="date" class="form-control" value="">
 														</div>
 														<div class="form-group">
@@ -110,7 +113,9 @@
 						<div class="card ">
 							<div class="card-header">
 								<h4 class="card-title">환전 승인 및 취소</h4>
-								<button id="clickModal" data-toggle="modal" data-target=".bd-example-modal-lg-1" type="button" style="display: none;"></button>
+								<button id="clickModal" data-toggle="modal"
+									data-target=".bd-example-modal-lg-1" type="button"
+									style="display: none;"></button>
 							</div>
 							<div class="card-body">
 								<div class="table-responsive" style="overflow: hidden;">
@@ -141,12 +146,12 @@
 												<td class="text-center">
 													<button data-toggle="modal"
 														data-target=".bd-example-modal-lg-3"
-														 class="btn btn-info animation-on-hover btn-sm">승인</button>
+														class="btn btn-info animation-on-hover btn-sm">승인</button>
 													&nbsp;&nbsp;
 													<button data-toggle="modal"
 														data-target=".bd-example-modal-lg-2"
-														  class="btn btn-warning animation-on-hover btn-sm">취소</button>
-												</td>												
+														class="btn btn-warning animation-on-hover btn-sm">취소</button>
+												</td>
 											</tr>
 											<tr>
 												<td class="text-center">2</td>
@@ -287,11 +292,13 @@
 											</tr>
 											<tr>
 												<td>상태</td>
-												<td>승인</td>		
+												<td>승인</td>
 											</tr>
 											<tr>
 												<td align="center" colspan="2">
-													<button type="button" class="btn btn-info animation-on-hover" data-dismiss="modal">닫기</button>
+													<button type="button"
+														class="btn btn-info animation-on-hover"
+														data-dismiss="modal">닫기</button>
 												</td>
 											</tr>
 										</tbody>
@@ -305,8 +312,8 @@
 		</div>
 	</div>
 	<!-- 상세보기 모달 끝 -->
-	
-	
+
+
 	<!-- 취소 사유 모달 -->
 	<div class="modalDetail">
 		<div class="modal fade bd-example-modal-lg-2" tabindex="-1"
@@ -319,8 +326,10 @@
 								<h4 class="card-title">주차장 승인 취소 사유</h4>
 							</div>
 							<div class="card-body" style="padding-bottom: 0px;">
-								<div class="table-responsive" style="overflow: hidden; padding-bottom: 0px;">
-									<table class="table tablesorter" id="modalTable" style="padding-bottom: 0px;">
+								<div class="table-responsive"
+									style="overflow: hidden; padding-bottom: 0px;">
+									<table class="table tablesorter" id="modalTable"
+										style="padding-bottom: 0px;">
 										<tbody>
 											<tr>
 												<td>취소 사유</td>
@@ -357,16 +366,18 @@
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content" style="background: rgb(39, 41, 61);">
 				<div class="modal-body" style="padding-bottom: 0px;">
-					<div class="table-responsive" style="overflow: hidden; padding-bottom: 0px;">
-						<table class="table tablesorter " id="" style="margin-bottom: 0px;">
+					<div class="table-responsive"
+						style="overflow: hidden; padding-bottom: 0px;">
+						<table class="table tablesorter " id=""
+							style="margin-bottom: 0px;">
 							<tbody>
 								<tr>
 									<td align="center"><b>정상적으로 승인 되었습니다.</b></td>
 								</tr>
 								<tr>
 									<td align="center"><button type="button"
-											class="btn btn-default animation-on-hover" data-dismiss="modal"
-											onclick="window.location.reload();">닫기</button></td>
+											class="btn btn-default animation-on-hover"
+											data-dismiss="modal" onclick="window.location.reload();">닫기</button></td>
 								</tr>
 							</tbody>
 						</table>
@@ -375,8 +386,8 @@
 			</div>
 		</div>
 	</div>
-	<!-- 승인 버튼 클릭 시 모달 끝 -->	
-	
+	<!-- 승인 버튼 클릭 시 모달 끝 -->
+
 	<!-- 테이블 날짜버튼 클릭 시 색상 변경 -->
 	<script>
 		$(function () {
@@ -418,6 +429,6 @@
 		});
 	</script>
 	<!-- 테이블 날짜버튼 클릭 시 색상 변경 끝 -->
-	
+
 </body>
 </html>

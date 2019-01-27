@@ -20,7 +20,7 @@
 					<div class="col-md-12" height="500px">
 						<div class="card ">
 							<div class="card-header">
-								<h4 class="card-title">사용자 검색</h4>
+								<h4 class="card-title">환전 통계 검색</h4>
 							</div>
 							<div class="card-body">
 								<div class="table-responsive" style="overflow: hidden;">
@@ -45,14 +45,17 @@
 													<div class="row">
 														<div class="form-group" style="margin-left: 1.5%;">
 															<input type="text" class="form-control"
-																id="" placeholder="아이디를 입력해주세요">
+																id="exampleInputPassword1" placeholder="아이디를 입력해주세요">
 														</div>
 													</div>
 												</td>
 											</tr>
 											<tr>
-												<td>등록일</td>
+												<td>날짜 검색</td>
 												<td>
+													<button id="alltime"
+														class="btn btn-info animation-on-hover btn-sm">전체</button>
+													&nbsp;&nbsp;
 													<button id="one"
 														class="btn btn-info animation-on-hover btn-sm">1일</button>
 													&nbsp;&nbsp;
@@ -67,19 +70,6 @@
 													&nbsp;&nbsp;
 													<button id="year"
 														class="btn btn-info animation-on-hover btn-sm">1년</button>
-													&nbsp;&nbsp;
-
-													<div class="row">
-														<div class="form-group" style="margin-left: 1.5%;">
-															<input type="date" class="form-control" value="">
-														</div>
-														<div class="form-group">
-															&nbsp;&nbsp;&nbsp;<b style="font-size: 20px">~</b>&nbsp;&nbsp;&nbsp;
-														</div>
-														<div class="form-group">
-															<input type="date" class="form-control" value="">
-														</div>
-													</div>
 												</td>
 											</tr>
 											<tr>
@@ -97,7 +87,7 @@
 					<div class="col-md-12">
 						<div class="card ">
 							<div class="card-header">
-								<h4 class="card-title">사용자 검색 결과</h4>
+								<h4 class="card-title">환전 통계 결과</h4>
 							</div>
 							<div class="card-body">
 								<div class="table-responsive" style="overflow: hidden;">
@@ -108,50 +98,52 @@
 												<th>아이디</th>
 												<th>이름</th>
 												<th>전화번호</th>
-												<th class="text-center">보유 포인트</th>
 												<th>주소</th>
+												<th class="text-center">환전 포인트</th>
+												<th>환전 날짜</th>
 												<th class="text-center">상태</th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr>
 												<td class="text-center">1</td>
-												<td>choi</td>
-												<td>최민규</td>
+												<td>Niger</td>
+												<td>니제르</td>
 												<td>010-1234-5678</td>
-												<td class="text-center">7000</td>
 												<td>서울시 강남구 역삼동</td>
-												<td class="text-center">
-													<button data-toggle="modal"
-														data-target=".bd-example-modal-lg-3"
-														class="btn btn-warning animation-on-hover btn-sm">회원탈퇴</button>
-												</td>
+												<td class="text-center">7000</td>
+												<td>2019-01-03</td>
+												<td class="text-center">활동중인 사업자</td>
 											</tr>
 											<tr>
 												<td class="text-center">2</td>
-												<td>White</td>
-												<td>황우현</td>
+												<td>Red</td>
+												<td>레드</td>
 												<td>010-0001-5678</td>
-												<td class="text-center">12000</td>
 												<td>서울시 강남구 삼성동</td>
-												<td class="text-center">
-													<button data-toggle="modal"
-														data-target=".bd-example-modal-lg-1"
-														class="btn btn-info animation-on-hover btn-sm">회원복구</button>
-												</td>
+												<td class="text-center">12000</td>
+												<td>2019-01-07</td>
+												<td class="text-center">활동중인 사업자</td>
 											</tr>
 											<tr>
 												<td class="text-center">3</td>
 												<td>Blue</td>
-												<td>임수철</td>
+												<td>블루</td>
 												<td>010-0012-5678</td>
-												<td class="text-center">3200</td>
 												<td>서울시 강남구 역삼동</td>
-												<td class="text-center">
-													<button data-toggle="modal"
-														data-target=".bd-example-modal-lg-3"
-														class="btn btn-warning animation-on-hover btn-sm">회원탈퇴</button>
-												</td>
+												<td class="text-center">3200</td>
+												<td>2019-01-15</td>
+												<td class="text-center">탈퇴한 사업자</td>
+											</tr>
+											<tr>
+												<td class="text-center">4</td>
+												<td>Niger</td>
+												<td>니제르</td>
+												<td>010-1234-5678</td>
+												<td>서울시 강남구 역삼동</td>
+												<td class="text-center">12000</td>
+												<td>2019-01-25</td>
+												<td class="text-center">활동중인 사업자</td>
 											</tr>
 										</tbody>
 									</table>
@@ -160,85 +152,51 @@
 						</div>
 					</div>
 				</div>
+
+				<!-- 그래프 -->
+				<div class="card" style="height: 300px; width: 100%;">
+					<div class="card-header">
+						<h4 class="card-title">
+							환전 통계 그래프 (매출:
+							<p style="display: inline;">140000</p>
+							원)
+						</h4>
+					</div>
+					<div class="card-body">
+						<canvas id="lineChartExample"></canvas>
+					</div>
+				</div>
+				<!-- 그래프 끝 -->
 			</div>
+
 			<!-- footer_admin -->
 			<jsp:include page="../../common/footer_admin.jsp"></jsp:include>
 			<!-- END footer_admin -->
 		</div>
 	</div>
 
-
-	<!-- 회원 복구 -->
-	<div class="modalDetail">
-		<div class="modal fade bd-example-modal-lg-1" tabindex="-1"
-			role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-lg" role="document">
-				<div class="modal-content" style="background: rgb(39, 41, 61);">
-					<div class="modal-body" style="padding-bottom: 0px;">
-						<div class="card ">
-							<div class="card-body" style="padding-bottom: 0px;">
-								<div class="table-responsive"
-									style="overflow: hidden; padding-bottom: 0px;">
-									<table class="table tablesorter" id="modalTable"
-										style="padding-bottom: 0px;">
-										<tbody>
-											<tr>
-												<td align="center" colspan="2"><b>회원을 복구 시키시겠습니까?</b></td>
-											</tr>
-											<tr>
-												<td align="center"><button type="button"
-														class="btn btn-warning animation-on-hover">예</button></td>&nbsp;&nbsp;
-												<td align="center"><button type="button"
-														class="btn btn-info animation-on-hover"
-														data-dismiss="modal" onclick="window.location.reload();">아니오</button></td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- 회원복구 끝 -->
-
-	<!-- 회원탈퇴 -->
-	<div class="modal fade bd-example-modal-lg-3" tabindex="-1"
-		role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content" style="background: rgb(39, 41, 61);">
-				<div class="modal-body" style="padding-bottom: 0px;">
-					<div class="table-responsive"
-						style="overflow: hidden; padding-bottom: 0px;">
-						<table class="table tablesorter " id=""
-							style="margin-bottom: 0px;">
-							<tbody>
-								<tr>
-									<td align="center" colspan="2"><b>회원을 탈퇴 시키시겠습니까?</b></td>
-								</tr>
-								<tr>
-									<td align="center"><button type="button"
-											class="btn btn-warning animation-on-hover">예</button></td>&nbsp;&nbsp;
-									<td align="center"><button type="button"
-											class="btn btn-info animation-on-hover" data-dismiss="modal"
-											onclick="window.location.reload();">아니오</button></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- 회원탈퇴 끝 -->
-
 	<!-- 테이블 날짜버튼 클릭 시 색상 변경 -->
 	<script>
 		$(function() {
+			$("#alltime").click(
+					function() {
+						$("#alltime").attr("class",
+								"btn btn-warning animation-on-hover btn-sm");
+						$("#one").attr("class",
+								"btn btn-info animation-on-hover btn-sm");
+						$("#seven").attr("class",
+								"btn btn-info animation-on-hover btn-sm");
+						$("#month").attr("class",
+								"btn btn-info animation-on-hover btn-sm");
+						$("#halfYear").attr("class",
+								"btn btn-info animation-on-hover btn-sm");
+						$("#year").attr("class",
+								"btn btn-info animation-on-hover btn-sm");
+					});
 			$("#one").click(
 					function() {
+						$("#alltime").attr("class",
+								"btn btn-info animation-on-hover btn-sm");
 						$("#one").attr("class",
 								"btn btn-warning animation-on-hover btn-sm");
 						$("#seven").attr("class",
@@ -252,6 +210,8 @@
 					});
 			$("#seven").click(
 					function() {
+						$("#alltime").attr("class",
+								"btn btn-info animation-on-hover btn-sm");
 						$("#one").attr("class",
 								"btn btn-info animation-on-hover btn-sm");
 						$("#seven").attr("class",
@@ -265,6 +225,8 @@
 					});
 			$("#month").click(
 					function() {
+						$("#alltime").attr("class",
+								"btn btn-info animation-on-hover btn-sm");
 						$("#one").attr("class",
 								"btn btn-info animation-on-hover btn-sm");
 						$("#seven").attr("class",
@@ -278,6 +240,8 @@
 					});
 			$("#halfYear").click(
 					function() {
+						$("#alltime").attr("class",
+								"btn btn-info animation-on-hover btn-sm");
 						$("#one").attr("class",
 								"btn btn-info animation-on-hover btn-sm");
 						$("#seven").attr("class",
@@ -291,6 +255,8 @@
 					});
 			$("#year").click(
 					function() {
+						$("#alltime").attr("class",
+								"btn btn-info animation-on-hover btn-sm");
 						$("#one").attr("class",
 								"btn btn-info animation-on-hover btn-sm");
 						$("#seven").attr("class",
@@ -305,6 +271,95 @@
 		});
 	</script>
 	<!-- 테이블 날짜버튼 클릭 시 색상 변경 끝 -->
+
+	<!-- 통계 그래프 -->
+	<script>
+		gradientChartOptionsConfiguration = {
+			maintainAspectRatio : false,
+			legend : {
+				display : false
+			},
+
+			tooltips : {
+				backgroundColor : '#fff',
+				titleFontColor : '#333',
+				bodyFontColor : '#666',
+				bodySpacing : 4,
+				xPadding : 12,
+				mode : "nearest",
+				intersect : 0,
+				position : "nearest"
+			},
+			responsive : true,
+			scales : {
+				yAxes : [ {
+					barPercentage : 1.6,
+					gridLines : {
+						drawBorder : false,
+						color : 'rgba(29,140,248,0.0)',
+						zeroLineColor : "transparent",
+					},
+					ticks : {
+						suggestedMin : 50,
+						suggestedMax : 110,
+						padding : 20,
+						fontColor : "#9a9a9a"
+					}
+				} ],
+
+				xAxes : [ {
+					barPercentage : 1.6,
+					gridLines : {
+						drawBorder : false,
+						color : 'rgba(220,53,69,0.1)',
+						zeroLineColor : "transparent",
+					},
+					ticks : {
+						padding : 20,
+						fontColor : "#9a9a9a"
+					}
+				} ]
+			}
+		};
+
+		var ctx = document.getElementById("lineChartExample").getContext("2d");
+
+		var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+
+		gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
+		gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+		gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+
+		var data = {
+			labels : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월',
+					'10월', '11월', '12월' ],
+			datasets : [ {
+				label : "Data",
+				fill : true,
+				backgroundColor : gradientStroke,
+				borderColor : '#d048b6',
+				borderWidth : 2,
+				borderDash : [],
+				borderDashOffset : 0.0,
+				pointBackgroundColor : '#d048b6',
+				pointBorderColor : 'rgba(255,255,255,0)',
+				pointHoverBackgroundColor : '#d048b6',
+				pointBorderWidth : 20,
+				pointHoverRadius : 4,
+				pointHoverBorderWidth : 15,
+				pointRadius : 4,
+				data : [ 60, 110, 70, 100, 75, 90, 80, 100, 70, 80, 120, 80 ],
+			} ]
+		};
+
+		var myChart = new Chart(ctx, {
+			type : 'line',
+			data : data,
+			options : gradientChartOptionsConfiguration
+		});
+	</script>
+	<!-- 통계 그래프 끝 -->
+
 
 </body>
 </html>

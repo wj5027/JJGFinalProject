@@ -29,15 +29,13 @@
 											<tr>
 												<td>구분</td>
 												<td>
-													<div class="btn-group">
-														<button type="button"
-															class="btn btn-info animation-on-hover dropdown-toggle"
-															data-toggle="dropdown" aria-haspopup="true"
-															aria-expanded="false">전체</button>
-														<div class="dropdown-menu dropdown-black">
-															<a class="dropdown-item" href="#">활동중인 사업자</a> <a
-																class="dropdown-item" href="#">탈퇴한 사업자</a>
-														</div>
+													<div style="width: 20%;">
+														<select class="custom-select nav-link dropdown-toggle"
+															id="" style="background-color: rgb(34, 42, 65);">
+															<option selected>전체</option>
+															<option value="1">활동중인 사업자</option>
+															<option value="2">탈퇴한 사업자</option>
+														</select>
 													</div>
 												</td>
 											</tr>
@@ -45,7 +43,7 @@
 												<td>아이디</td>
 												<td>
 													<div class="row">
-														<div class="form-group">
+														<div class="form-group"  style="margin-left: 1.5%;">
 															<input type="text" class="form-control"
 																id="exampleInputPassword1" placeholder="아이디를 입력해주세요">
 														</div>
@@ -72,7 +70,7 @@
 													&nbsp;&nbsp;
 
 													<div class="row">
-														<div class="form-group">
+														<div class="form-group" style="margin-left: 1.5%;">
 															<input type="date" class="form-control" value="">
 														</div>
 														<div class="form-group">

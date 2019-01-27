@@ -32,7 +32,7 @@
 												<td>아이디</td>
 												<td>
 													<div class="row">
-														<div class="form-group">
+														<div class="form-group" style="margin-left: 1.5%;">
 															<input type="text" class="form-control" id=""
 																placeholder="아이디를 입력해주세요">
 														</div>
@@ -43,7 +43,7 @@
 												<td>내용</td>
 												<td>
 													<div class="row">
-														<div class="form-group">
+														<div class="form-group" style="margin-left: 1.5%;">
 															<input type="text" class="form-control" id=""
 																placeholder="검색할 내용을 입력해주세요">
 														</div>
@@ -70,7 +70,7 @@
 													&nbsp;&nbsp;
 
 													<div class="row">
-														<div class="form-group">
+														<div class="form-group" style="margin-left: 1.5%;">
 															<input type="date" class="form-control" value="">
 														</div>
 														<div class="form-group">
