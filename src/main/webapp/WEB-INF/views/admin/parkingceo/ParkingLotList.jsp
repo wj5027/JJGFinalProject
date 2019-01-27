@@ -32,7 +32,7 @@
 												<td>사업자 아이디</td>
 												<td>
 													<div class="row">
-														<div class="form-group">
+														<div class="form-group"  style="margin-left: 1.5%;">
 															<input type="text" class="form-control" id=""
 																placeholder="아이디를 입력해주세요">
 														</div>
@@ -42,17 +42,15 @@
 											<tr>
 												<td>지역</td>
 												<td>
-													<div class="btn-group">
-														<button type="button"
-															class="btn btn-info animation-on-hover dropdown-toggle"
-															data-toggle="dropdown" aria-haspopup="true"
-															aria-expanded="false">전체</button>
-														<div class="dropdown-menu dropdown-black">
-															<a class="dropdown-item" href="#">서울</a> <a
-																class="dropdown-item" href="#">대전</a> <a
-																class="dropdown-item" href="#">대구</a> <a
-																class="dropdown-item" href="#">부산</a>
-														</div>
+													<div style="width: 15%;">
+														<select class="custom-select nav-link dropdown-toggle"
+															id="" style="background-color: rgb(34, 42, 65);">
+															<option selected>전체</option>
+															<option value="1">서울</option>
+															<option value="2">대전</option>
+															<option value="3">대구</option>
+															<option value="4">부산</option>
+														</select>
 													</div>
 												</td>
 											</tr>
@@ -60,7 +58,7 @@
 												<td>주차장명</td>
 												<td>
 													<div class="row">
-														<div class="form-group">
+														<div class="form-group"  style="margin-left: 1.5%;">
 															<input type="text" class="form-control" id=""
 																placeholder="주차장 명을 입력해주세요">
 														</div>
@@ -82,7 +80,7 @@
 													&nbsp;&nbsp;
 
 													<div class="row">
-														<div class="form-group">
+														<div class="form-group"  style="margin-left: 1.5%;">
 															<input type="date" class="form-control" value="">
 														</div>
 														<div class="form-group">

@@ -31,7 +31,7 @@
 					class="dropdown-item" href="parkingLotCertification.ad">주차장 인증</a>
 				<a class="dropdown-item" href="exchangeMoney.ad">환전 승인 및 조회</a> <a
 					class="dropdown-item" href="couponCertification.ad">쿠폰 관리</a> <a
-					class="dropdown-item" href="#">통계</a>
+					class="dropdown-item" href="statisticsCEO.ad">통계</a>
 			</div></li>
 		<li><a class="nav-link dropdown-toggle" href=""
 			id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -43,7 +43,7 @@
 			<div align="right" class="dropdown-menu dropdown-black"
 				aria-labelledby="navbarDropdownMenuLink">
 				<a class="dropdown-item" href="searchCustomerList.ad">사용자 조회</a> <a
-					class="dropdown-item" href="#">통계</a>
+					class="dropdown-item" href="statisticsCustomer.ad">통계</a>
 			</div></li>
 		<li><a class="nav-link dropdown-toggle" href=""
 			id="navbarDropdownMenuLink" data-toggle="dropdown"
