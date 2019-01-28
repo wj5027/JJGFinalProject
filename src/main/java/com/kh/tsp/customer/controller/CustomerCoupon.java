@@ -5,16 +5,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class CustomerInfo {
+public class CustomerCoupon {
 
-	public CustomerInfo() {}
-	
-	@RequestMapping(value="customerInfo.cu", method=RequestMethod.POST)
-	public String CustomerInfo() {
+	public CustomerCoupon() {
 		
-		return "customer/member/Customer_info";
 	}
 
-
-
+	@RequestMapping(value="/coupon.cu", method=RequestMethod.GET)
+	public String CustomerCoupon() {
+		
+		return "customer/member/Customer_coupon";
+	}
+	
 }
