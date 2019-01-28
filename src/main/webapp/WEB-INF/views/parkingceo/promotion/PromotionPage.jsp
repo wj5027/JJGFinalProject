@@ -24,7 +24,7 @@
       
       <!-- 내 쿠폰 신청 기능 -->
         <div class="row">
-		  <div class="col-md-12" height="500px" >
+		  <div class="col-md-12" style="height: 500px;" >
             <div class="card ">
               <div class="card-header">
                 <h4 class="card-title">쿠폰 신청</h4>
