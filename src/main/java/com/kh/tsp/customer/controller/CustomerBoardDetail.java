@@ -12,7 +12,7 @@ public class CustomerBoardDetail {
 	@RequestMapping(value="customerNoticeDetail.cu", method=RequestMethod.GET)
 	public String CustomerNoticeDetail() {
 		
-		return "customer/board/Customer_notice_detail";
+		return "customer/board/Customer_notice_detail";//ss
 	}
 	
 	@RequestMapping(value="reviewDetail.cu", method=RequestMethod.GET)
