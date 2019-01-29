@@ -11,17 +11,15 @@
 <jsp:include page="/WEB-INF/views/common/bootInfo.jsp"></jsp:include>
 </head>
 
+     
 <body class="">
   <div class="wrapper">
-    <jsp:include page="/WEB-INF/views/customer/common/sidebar_customer.jsp"></jsp:include>
-    <div class="main-panel">
-      <jsp:include page="/WEB-INF/views/customer/common/nav_customer.jsp"></jsp:include>
-      <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=103820f64442cfd4cf984f298b7c8470"></script>
-         <div class="content">
-        <div class="row">
+   <jsp:include page="/WEB-INF/views/customer/common/nav_customer.jsp"></jsp:include>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=103820f64442cfd4cf984f298b7c8470"></script>
+     <!--  <div class="row"> -->
           <div class="card-body" style="padding: 0px;">
             <div class="map" style="position: relative; overflow: hidden;">
-	          <div id="daumMap" style="height: 100%; width: 100%; position: absolute; top: 0px; left: 0px; background-color: rgb(229, 227, 223);">
+	          <div id="daumMap" style="height: 160%; width: 100%; position: absolute; top: 0px; left: 0px; background-color: rgb(229, 227, 223);">
 	          </div>
             </div>
             <script>
@@ -117,11 +115,12 @@
 				}     */
 				
 			</script>
+			     
+			  <jsp:include page="/WEB-INF/views/customer/common/sidebar_customer.jsp"></jsp:include>
           </div>
-
-        </div>
-      </div>
-				
+  
+ 
+  
 				
 				
     
