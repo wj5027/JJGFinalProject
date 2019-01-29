@@ -19,6 +19,7 @@ public class ParkingCeoExchange {
 		return "parkingceo/exchange/ExchangePage";
 	}
 	
+	//실험용 메소드
 	@RequestMapping(value="/test.pc", method=RequestMethod.GET)
 	public String ParkingTest() {
 		
