@@ -21,7 +21,7 @@
           <div class="collapse navbar-collapse" id="navigation">
             <ul class="navbar-nav ml-auto">
               <li class="search-bar input-group">
-                <button class="btn btn-link" id="search-button" style="color: gray;"><i class="tim-icons icon-button-power"></i>&nbsp;&nbsp;LogOut
+                <button class="btn btn-link" id="search-button" onclick="location.href='parkingCeoLogout.pc'" style="color: gray;"><i class="tim-icons icon-button-power"></i>&nbsp;&nbsp;LogOut
                   <span class="d-lg-none d-md-block"></span>
                 </button>
               </li>

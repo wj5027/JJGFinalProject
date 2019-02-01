@@ -40,10 +40,15 @@ public class CustomerMain {
 	public String allLogin(@ModelAttribute Member m,Model model) {
 		try {
 			Member loginUser = cms.selectCheckMember(m);
-			System.out.println("로그인 유저 확인 : " + loginUser);
 			model.addAttribute("loginUser", loginUser);
 			
-			return "redirect:customer.cu";
+			if(loginUser.getMember_type().equals("U") || loginUser.getMember_type().equals("u")) {
+				return "redirect:customer.cu";				
+			}else if(loginUser.getMember_type().equals("A") || loginUser.getMember_type().equals("a")) {
+				return "redirect:statisticsList.ad";	
+			}else {
+				return "redirect:parkingceoMain.pc";	
+			}
 		}catch(Exception e) {
 			model.addAttribute("message", "로그인 실패!");
 			return "common/errorPage";
@@ -57,6 +62,20 @@ public class CustomerMain {
 		status.setComplete();
 		return "redirect:customer.cu";
 	}
+	
+	//관리자 로그아웃 메소드
+	@RequestMapping(value="adminLogout.ad")
+	public String adminLogOut(SessionStatus status) {
+		status.setComplete();
+		return "redirect:customer.cu";
+	}
+	
+	@RequestMapping(value="parkingCeoLogout.pc")
+	public String parkingCeoLogOut(SessionStatus status) {
+		status.setComplete();
+		return "redirect:customer.cu";
+	}
+	
 	
 	
 }
