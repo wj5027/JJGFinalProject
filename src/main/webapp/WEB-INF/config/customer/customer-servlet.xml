@@ -24,7 +24,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	
+
 	
 	<aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
 	
@@ -35,7 +35,7 @@
 		<beans:bean id="jsonView" class="net.sf.json.spring.web.servlet.view.JsonView"></beans:bean>
 	<beans:bean id="viewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
 		<beans:property name="order" value="1"></beans:property>
-	</beans:bean>
+	</beans:bean> 
 	
 	<beans:bean id="jacksonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></beans:bean>
 	<beans:bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
@@ -46,7 +46,7 @@
 		</beans:property>
 	</beans:bean>
 	
-	<annotation-driven />
+		<annotation-driven />
 	<context:component-scan base-package="com.kh.tsp" />
 	
 </beans:beans>
