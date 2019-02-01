@@ -23,30 +23,29 @@
                 <h4 class="card-title">로그인</h4>
               </div>
               <div class="card-body">
-                <!-- <form action=""> -->
-                  	아이디 : <input type="text" class="form-control" name="userId"><br>
-                  	비밀번호 : <input type="password" class="form-control" name="userPw"><br>
+                <form action="allLogin.cu" method="post">
+                  	아이디 : <input type="text" class="form-control" name="member_id" id="member_id"><br>
+                  	비밀번호 : <input type="password" class="form-control" name="member_pwd" id="member_pwd"><br>
                     
                     <div align="center" style="width: 100%">
-                    <button class="btn btn-info btn-sm" onclick="join();">회원가입</button>&nbsp;&nbsp;&nbsp;
-                    <button class="btn btn-info btn-sm" type="submit">로그인</button>
-                    <br>
-                    <button class="btn btn-info btn-sm" onclick="parkingceo();">사장님 페이지</button>&nbsp;&nbsp;&nbsp;
-                    <button class="btn btn-info btn-sm" onclick="#">비밀번호 찾기</button>
-                    <br><br>
-                    <button class="btn btn-info btn-sm" onclick="">카카오톡 로그인 자리</button>
-                    <br><br>
-                    <button class="btn btn-info btn-sm" onclick="">네이버 로그인 자리</button>
+                    <button class="btn btn-info btn-sm"  type="button" onclick="join();" style="width: 120px;">회원가입</button>
+                    <button class="btn btn-info btn-sm" type="submit"  style="width: 120px;">로그인</button>
                     </div>
+                    <div align="center" style="width: 100%">
+                    <br>
+                    <button class="btn btn-info btn-sm" type="button" onclick="parkingceoLogin();" style="width: 120px;">제휴 페이지</button>
+                    <button class="btn btn-info btn-sm" type="button" onclick="" style="width: 120px;">비밀번호 찾기</button>
+                    <br><br>
+                    <button class="btn btn-info btn-sm" type="button" onclick="" style="width: 120px;">카카오톡 로그인</button>
+                    <button class="btn btn-info btn-sm" type="button" onclick="" style="width: 120px;">네이버 로그인	</button>
+                    </div>
+                 </form>
                     
                     <br><br><br><br>
                    	임시 : <br>
-                   	<button onclick="parkingceo();">지주갑 사업자 관리 페이지</button><br>
-                   	<button onclick="parkingceoLogin();">지주갑 사업자 관리 로그인 페이지</button><br>
 					<button onclick="admin();">지주갑 관리자 페이지</button><br>
 					<button onclick="customer();">지주갑 사용자 페이지</button><br>
 					<button onclick="parkingceoTest();">사업자 데이트피커 테스트</button><br>
-                 <!-- </form> -->
               </div>
             </div>
           </div>
@@ -81,6 +80,9 @@
 	function parkingceoTest(){
 		location.href = "test.pc";
 	}
+	
+
+	
 
 </script>
 
