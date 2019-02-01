@@ -134,7 +134,7 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
+											<tr id="listAreaTr">
 												<td class="text-center">1</td>
 												<td>Niger</td>
 												<td>니제르 주차장</td>
@@ -143,7 +143,7 @@
 												<td class="text-center">170000</td>
 												<td>2017-01-25</td>
 												<td>서울시 강남구 역삼동</td>
-												<td class="text-center">
+												<td class="text-center"><!--  onclick="event.cancelBubble=true;" -->
 													<button data-toggle="modal"
 														data-target=".bd-example-modal-lg-4"
 														class="btn btn-info animation-on-hover btn-sm">승인</button>
@@ -234,12 +234,14 @@
 				$(this).parent().css({"background":"rgb(28, 28, 38)", "cursor":"pointer"});
 			}).mouseout(function () { // 마우스가 위에 없을 때	
 				$(this).parent().css({"background":"rgb(39, 41, 61)"});	
-			}).click(function () { // 클릭 했을 때
-				$("#clickModal").click();	
+			});
+			
+			$("#listAreaTr").click(function () { // 클릭 했을 때
+					$("#clickModal").click();						
+			});
 // 				var num = $(this).parent().children().eq(0).text(); // 각각의 글 번호를 가져온다. td 첫번째			
 // 				console.log(num);				
 <%-- 				location.href = "<%=request.getContextPath()%>/selectOne.no?num="+num; // 해당 글 번호를 같이 넘긴다.(ex. http://localhost:8001/jsp/selectOne.no?num=1) --%>
-			});
 		});
 	</script>
 
