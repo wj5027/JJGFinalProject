@@ -20,7 +20,9 @@
           <c:if test="${ empty loginUser }">
           	  <button class="btn btn-info btn-sm" onclick="location.href='customer_loginPage.cu'">로그인</button>
           </c:if>
+          </div>
           <c:if test="${ !empty loginUser }">
+          <div style="color:white;">
 		      <span id="userId" >
 		           송현영
 	          </span>
@@ -29,9 +31,10 @@
 	          <div style="font-size: 1em;color: wheat;">
 	           <span>현재 보유오일 :</span>
 	          <span id="oilmount">500000</span>
+	          </div>
           </c:if>
           
-          </div>
+          
           <!-- <a href="javascript:void(0)" class="simple-text logo-normal">
          	님 환영합니다.
           </a> -->
@@ -44,7 +47,7 @@
 	                  <span class="d-lg-none d-md-block"></span>
 	          </button>
 	          <!--로그아웃  -->
-	          <button class="btn btn-link" id="search-button" style="color: gray;"><i class="tim-icons icon-button-power"></i>&nbsp;&nbsp;로그아웃
+	          <button class="btn btn-link" id="search-button" onclick="location.href='customerLogOut.cu'" style="color: gray;"><i class="tim-icons icon-button-power"></i>&nbsp;&nbsp;로그아웃
 	                  <span class="d-lg-none d-md-block"></span>
 	          </button>
           </c:if>

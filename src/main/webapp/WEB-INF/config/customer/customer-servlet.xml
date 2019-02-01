@@ -19,10 +19,7 @@
 	<resources mapping="/resources/**" location="/resources/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
-	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<beans:property name="prefix" value="/WEB-INF/views/" />
-		<beans:property name="suffix" value=".jsp" />
-	</beans:bean>
+
 	
 
 	
@@ -44,6 +41,11 @@
 				<beans:ref bean="jacksonMessageConverter"/>
 			</beans:list>
 		</beans:property>
+	</beans:bean>
+	
+		<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
 		<annotation-driven />
