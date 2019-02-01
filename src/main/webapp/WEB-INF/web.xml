@@ -7,9 +7,9 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:root-context.xml
+ 								/WEB-INF/config/common/spring-security.xml 
 		</param-value>
 	</context-param>
-<!-- 								/WEB-INF/config/common/spring-security.xml -->
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
