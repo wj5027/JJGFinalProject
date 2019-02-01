@@ -213,7 +213,7 @@
 		});
 	</script>
 
-	<!-- 상세보기 모달 -->
+	<!-- 상세보기 모달 1 -->
 	<div class="modalDetail">
 		<div class="modal fade bd-example-modal-lg-1" tabindex="-1"
 			role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -266,9 +266,9 @@
 											</tr>
 											<tr>
 												<td align="center" colspan="2">
-													<button type="button" class="btn btn-warning animation-on-hover"  data-target=".bd-example-modal-lg-2" data-toggle="modal" >주차장 삭제</button>&nbsp;&nbsp;
-													<button type="button" class="btn btn-warning animation-on-hover">제휴 승인</button>&nbsp;&nbsp; <!-- 제휴 취소 상태일 때 승인버튼만 활성화 -->
-													<button type="button" class="btn btn-warning animation-on-hover">제휴 취소</button>&nbsp;&nbsp; <!-- 제휴 승인 상태일 때 취소버튼만 활성화 -->
+													<button type="button" class="btn btn-warning animation-on-hover"  data-target=".bd-example-modal-lg-2" data-toggle="modal">주차장 삭제</button>&nbsp;&nbsp;
+													<button type="button" class="btn btn-warning animation-on-hover"  data-target=".bd-example-modal-lg-4" data-toggle="modal">제휴 승인</button>&nbsp;&nbsp; <!-- 제휴 취소 상태일 때 승인버튼만 활성화 -->
+													<button type="button" class="btn btn-warning animation-on-hover"  data-target=".bd-example-modal-lg-6" data-toggle="modal">제휴 취소</button>&nbsp;&nbsp; <!-- 제휴 승인 상태일 때 취소버튼만 활성화 -->
 													<button type="button" class="btn btn-info animation-on-hover" data-dismiss="modal">닫기</button>
 												</td>
 											</tr>
@@ -284,7 +284,8 @@
 	</div>
 	<!-- 상세보기 모달 끝 -->
 		
-	<!-- 주차장 삭제버튼 클릭 시 모달 -->
+	<!-- ////////////////////////////////////// 삭제 //////////////////////////////////////// -->
+	<!-- 주차장 삭제버튼 클릭 시 모달 2 -->
 	<div class="modalDetail">
 		<div class="modal fade bd-example-modal-lg-2" tabindex="-1"
 			role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -322,6 +323,188 @@
 		</div>
 	</div>
 	<!-- 주차장 삭제버튼 클릭 시 모달 끝 -->
+		
+	<!-- 주차장 삭제버튼 클릭 > 예 버튼 클릭 시 모달 3 -->
+	<div class="modalDetail">
+		<div class="modal fade bd-example-modal-lg-3" tabindex="-1"
+			role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content" style="background: rgb(39, 41, 61);">
+					<div class="modal-body" style="padding-bottom: 0px;">
+						<div class="card ">
+							<div class="card-body" style="padding-bottom: 0px;">
+								<div class="table-responsive" style="overflow: hidden; padding-bottom: 0px;">
+									<table class="table tablesorter" id="" style="padding-bottom: 0px;">
+										<tbody>
+											<tr>
+												<td>주차장이 삭제되었습니다.</td>
+											</tr>
+											<tr>
+												<td align="center"><button type="button" onclick="location.href='parkingLotList.ad'"
+														class="btn btn-info animation-on-hover"
+														data-dismiss="modal">닫기</button>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 주차장 삭제버튼 클릭 > 예 버튼 클릭 시 모달 끝 -->
+	<!-- ////////////////////////////////////// 삭제 //////////////////////////////////////// -->
+			
+	<!-- ////////////////////////////////////// 제휴 승인 //////////////////////////////////////// -->
+	<!-- 제휴 승인 버튼 클릭 시 모달 4 -->
+	<div class="modalDetail">
+		<div class="modal fade bd-example-modal-lg-4" tabindex="-1"
+			role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content" style="background: rgb(39, 41, 61);">
+					<div class="modal-body" style="padding-bottom: 0px;">
+						<div class="card ">
+							<div class="card-header">
+								<h4 class="card-title">주차장 삭제</h4>
+							</div>
+							<div class="card-body" style="padding-bottom: 0px;">
+								<div class="table-responsive" style="overflow: hidden; padding-bottom: 0px;">
+									<table class="table tablesorter" id="" style="padding-bottom: 0px;">
+										<tbody>
+											<tr>
+												<td>제휴 승인 하시겠습니까?</td>
+											</tr>
+											<tr>
+												<td align="center">
+													<button type="button" data-target=".bd-example-modal-lg-5" data-toggle="modal" 
+														class="btn btn-warning animation-on-hover">예</button>&nbsp;&nbsp;
+													<button type="button"
+														class="btn btn-info animation-on-hover"
+														data-dismiss="modal">아니오</button>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 제휴 승인 버튼 클릭 시 모달 끝 -->
+		
+	<!-- 제휴 승인 버튼 클릭 > 예 버튼 클릭 시 모달 5 -->
+	<div class="modalDetail">
+		<div class="modal fade bd-example-modal-lg-5" tabindex="-1"
+			role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content" style="background: rgb(39, 41, 61);">
+					<div class="modal-body" style="padding-bottom: 0px;">
+						<div class="card ">
+							<div class="card-body" style="padding-bottom: 0px;">
+								<div class="table-responsive" style="overflow: hidden; padding-bottom: 0px;">
+									<table class="table tablesorter" id="" style="padding-bottom: 0px;">
+										<tbody>
+											<tr>
+												<td>승인 처리 되었습니다.</td>
+											</tr>
+											<tr>
+												<td align="center"><button type="button" onclick="location.href='parkingLotList.ad'"
+														class="btn btn-info animation-on-hover"
+														data-dismiss="modal">닫기</button>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 제휴 승인 버튼 클릭 > 예 버튼 클릭 시 모달 끝 -->
+	<!-- ////////////////////////////////////// 제휴 승인 //////////////////////////////////////// -->
+			
+	<!-- ////////////////////////////////////// 제휴 취소 //////////////////////////////////////// -->
+	<!-- 제휴 승인 버튼 클릭 시 모달 6 -->
+	<div class="modalDetail">
+		<div class="modal fade bd-example-modal-lg-6" tabindex="-1"
+			role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content" style="background: rgb(39, 41, 61);">
+					<div class="modal-body" style="padding-bottom: 0px;">
+						<div class="card ">
+							<div class="card-header">
+								<h4 class="card-title">제휴 취소</h4>
+							</div>
+							<div class="card-body" style="padding-bottom: 0px;">
+								<div class="table-responsive" style="overflow: hidden; padding-bottom: 0px;">
+									<table class="table tablesorter" id="" style="padding-bottom: 0px;">
+										<tbody>
+											<tr>
+												<td>제휴 취소 하시겠습니까?</td>
+											</tr>
+											<tr>
+												<td align="center">
+													<button type="button" data-target=".bd-example-modal-lg-7" data-toggle="modal" 
+														class="btn btn-warning animation-on-hover">예</button>&nbsp;&nbsp;
+													<button type="button"
+														class="btn btn-info animation-on-hover"
+														data-dismiss="modal">아니오</button>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 제휴 승인 버튼 클릭 시 모달 끝 -->
+		
+	<!-- 제휴 승인 버튼 클릭 > 예 버튼 클릭 시 모달 7 -->
+	<div class="modalDetail">
+		<div class="modal fade bd-example-modal-lg-7" tabindex="-1"
+			role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content" style="background: rgb(39, 41, 61);">
+					<div class="modal-body" style="padding-bottom: 0px;">
+						<div class="card ">
+							<div class="card-body" style="padding-bottom: 0px;">
+								<div class="table-responsive" style="overflow: hidden; padding-bottom: 0px;">
+									<table class="table tablesorter" id="" style="padding-bottom: 0px;">
+										<tbody>
+											<tr>
+												<td>취소 처리 되었습니다.</td>
+											</tr>
+											<tr>
+												<td align="center"><button type="button" onclick="location.href='parkingLotList.ad'"
+														class="btn btn-info animation-on-hover"
+														data-dismiss="modal">닫기</button>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 제휴 승인 버튼 클릭 > 예 버튼 클릭 시 모달 끝 -->
+	<!-- ////////////////////////////////////// 제휴 취소 //////////////////////////////////////// -->
 	
 	<!-- 테이블 날짜버튼 클릭 시 색상 변경 -->
 	<script>
