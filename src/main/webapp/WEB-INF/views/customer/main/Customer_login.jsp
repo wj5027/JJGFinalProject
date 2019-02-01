@@ -41,11 +41,7 @@
                     </div>
                  </form>
                     
-                    <br><br><br><br>
-                   	임시 : <br>
-					<button onclick="admin();">지주갑 관리자 페이지</button><br>
-					<button onclick="customer();">지주갑 사용자 페이지</button><br>
-					<button onclick="parkingceoTest();">사업자 데이트피커 테스트</button><br>
+                    <br><br><br>
               </div>
             </div>
           </div>
