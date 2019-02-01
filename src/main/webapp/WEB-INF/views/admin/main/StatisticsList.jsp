@@ -115,7 +115,7 @@
 					<div class="col-md-12">
 						<div class="card ">
 							<div class="card-header">
-								<h4 class="card-title">사업자 관리</h4>
+								<h4 class="card-title">오늘 현황</h4>
 							</div>
 							<div class="card-body">
 								<div class="table-responsive" style="overflow: hidden;">
@@ -139,8 +139,8 @@
 												<td class="text-center">32</td>
 											</tr>
 											<tr>
-												<td>사업자 정보수정</td>
-												<td>신청</td>
+												<td>매출</td>
+												<td>동계</td>
 												<td class="text-center">15</td>
 											</tr>
 											<tr>
