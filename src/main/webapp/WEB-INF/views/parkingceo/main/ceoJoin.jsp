@@ -37,9 +37,6 @@
                   	비밀번호 확인 <input type="password" class="form-control" name="userPw2"><br>
                   	차번호 <input type="text" class="form-control" name="carNo"><br>
                   	사업자번호 <input type="text" class="form-control" name="businessNo"><br>
-                  	<div align="right" style="width: 100%">
-                  		<button class="btn btn-info btn-sm" onclick="#">사업자 번호 확인</button>
-                  	</div>
                   	이메일 <input type="email" class="form-control" name="email"><br>
                   	<div align="right" style="width: 100%">
                   		<button class="btn btn-info btn-sm" onclick="#">인증번호 발송</button>
