@@ -8,9 +8,13 @@
 
 <typeAliases>
 	<typeAlias type="com.kh.tsp.customer.model.vo.Member" alias="Member"/>
+	<typeAlias type="com.kh.tsp.customer.model.vo.Board" alias="Board"/>
+	
 </typeAliases>
 <mappers>
 	<mapper resource="mappers/customer/member-servlet.xml"/>
+	<mapper resource="mappers/customer/board-mapper.xml"/>
+	
 </mappers>
 
 

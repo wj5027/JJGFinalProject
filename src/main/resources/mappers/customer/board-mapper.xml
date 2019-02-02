@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="Board">
+  	<resultMap type="com.kh.tsp.customer.model.vo.Board" id="boardListSet">
+  		<id property="bno" column="BOARD_NO"/>
+  		<result property="bTitle" column="BOARD_TITLE"/>
+  		<result property="bContext" column="BOARD_CONTEXT"/>
+  		<result property="bViews" column="BOARD_VIEWS"/>
+  		<result property="createDate" column="CREATION_DATE"/>
+  		<result property="modifyDate" column="MODIFED_DATE"/>
+  		<result property="bType" column="BOARD_TYPE"/>
+  		<result property="status" column="STATUS"/>
+  		<result property="mno" column="MEMBER_NO"/>
+  		<result property="pno" column="PARKING_NO"/>
+  		
+  	</resultMap>
+  	
+  	<resultMap type="com.kh.tsp.customer.model.vo.Board" id="noticeListSet">
+  		<id property="bno" column="BOARD_NO"/>
+  		<result property="bTitle" column="BOARD_TITLE"/>
+  		<result property="bContext" column="BOARD_CONTEXT"/>
+  		<result property="bViews" column="BOARD_VIEWS"/>
+  		<result property="createDate" column="CREATION_DATE"/>
+  		<result property="modifyDate" column="MODIFED_DATE"/>
+  		<result property="bType" column="BOARD_TYPE"/>
+  		<result property="status" column="STATUS"/>
+  		<result property="mno" column="MEMBER_NO"/>
+  		<result property="pno" column="PARKING_NO"/>
+  		
+  	</resultMap>
+  	
+  	<!-- 공지사항 게시물 목록 조회용 쿼리문 -->
+  	<select id="boardList" resultMap="boardListSet">
+  		SELECT *
+  		FROM BOARD B
+  		JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
+  		WHERE B.STATUS = 'Y'
+  		AND B.BOARD_TYPE = '공지'
+  		ORDER BY BOARD_NO DESC
+  	</select>
+  	
+  	<!-- 게시물 조회수 증가용 쿼리문 -->
+  	<update id="updateBoardCount" parameterType="_int">
+  		UPDATE BOARD
+  		SET BOARD_VIEWS = (SELECT BOARD_VIEWS FROM BOARD WHERE BOARD_NO = #{bno}) + 1
+  		WHERE BOARD_NO = #{bno}
+  	</update>
+  	
+  	<!-- 상세보기 쿼리문 -->
+  	<select id="selectOneNotice" parameterType="_int" resultMap="noticeListSet">
+  		SELECT *
+  		FROM BOARD B
+  		JOIN MEMBER M ON (B.MEMBER_NO = M.MEMBER_NO) 
+  		WHERE B.BOARD_NO = #{bno}
+  		AND B.STATUS = 'Y'
+  	</select>
+  	
+  	<!-- 공지 삭제 쿼리문 -->
+  	<update id="deleteNotice" parameterType="_int">
+  		UPDATE BOARD
+  		SET STATUS = 'N'
+  		WHERE BOARD_NO = #{bno}
+  	</update>
+  </mapper>
