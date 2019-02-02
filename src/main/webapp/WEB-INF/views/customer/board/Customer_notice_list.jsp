@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -28,22 +29,34 @@
             <div class="card ">
               <div class="card-header">
                 <h3 class="card-title" align="center">공지사항</h3>
-                <hr style="border: solid 1px white;">
+                <!-- <hr style="border: solid 1px white;"> -->
               <div align="center">
-   <a href="./customerNoticeDetail.cu">쿠폰행사안내</a><h5>2019/01/25</h5>
-   
+<!--    <a href="./customerNoticeDetail.cu">쿠폰행사안내</a><h5>2019/01/25</h5>
+ -->   
    <hr style="border: solid 1px white;">
-   <a href="#">추가된 주차장 목록 안내</a><h5>2019/01/22</h5>
    
-   <hr style="border: solid 1px white;">
-   <a href="#">이용 업데이트 안내</a><h5>2019/01/10</h5>
+   <c:forEach var="b" items="${ list }">
+   	<table>
+   		
+   		<tr>
+   			<td class="noticeDetail"><input type="hidden" name="bno" value="${b.bno}">${ b.bTitle }</td>
+			 	
+   		</tr>
+   		<tr>
+   			<td>${ b.createDate }</td>
+   			
+   		</tr>
+   		<hr style="border: solid 1px white;">
+   	</table>
+   		<%-- <a href="./customerNoticeDetail.cu" >${ b.bTitle }<intput type="hidden" name="bno" value="${ b.bno }"></a><h5>${ b.createDate }</h5> --%>
+   		
+   </c:forEach>
    
-   <hr style="border: solid 1px white;">
-   <a href="#">예약 이벤트 안내</a><h5>2019/01/02</h5>
    
    <hr style="border: solid 1px white;">
     </div>
        </div>
+       
        <div align="center">
        <button id="insertNotice">작성</button>
        </div>
@@ -145,6 +158,14 @@
        		$(".content").hide();
        		$(".insertContent").show();
        	});
+   });
+   
+   $(function(){
+	  $(".noticeDetail").click(function(){
+		  var num = $("input[name='bno']").val();
+		  console.log(num);
+		location.href="./customerNoticeDetail.cu?num="+num;  
+	  });
    });
 </script>
 </body>
