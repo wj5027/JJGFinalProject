@@ -6,7 +6,7 @@
 <head>
 <jsp:include page="/WEB-INF/views/common/bootInfo.jsp"></jsp:include>
 <style type="text/css">
-	
+
 </style>
 </head>
 
@@ -29,15 +29,17 @@
               <div class="card-header">
                 <h4 class="card-title" style="text-align: center;">사장님 로그인 페이지</h4>
               </div>
-              <div class="card-body"">
+              <div class="card-body">
               	<div>
-                  	아이디 <input type="text" class="form-control" name="userId"><br>
-                  	비밀번호 <input type="password" class="form-control" name="userPw"><br>
+              	<form action="allLogin.cu" method="post">
+                  	아이디 <input type="text" class="form-control" name="member_id"><br>
+                  	비밀번호 <input type="password" class="form-control" name="member_pwd"><br>
                     
                     <div align="center" style="width: 100%">
-                    <button class="btn btn-info btn-sm" onclick="join();">제휴가입</button>&nbsp;&nbsp;&nbsp;
+                    <button class="btn btn-info btn-sm" type="button" onclick="join();">제휴가입</button>&nbsp;&nbsp;&nbsp;
                     <button class="btn btn-info btn-sm" type="submit">로그인</button>
 				</div>
+				</form>
               </div>
             </div>
           </div>
@@ -46,6 +48,8 @@
     </div>
   </div>
 </div>
+
+
   
 </body>
 
