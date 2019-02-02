@@ -8,9 +8,11 @@
 
 <typeAliases>
 	<typeAlias type="com.kh.tsp.customer.model.vo.Member" alias="Member"/>
+	<typeAlias type="com.kh.tsp.admin.model.vo.MemberAdmin" alias="MemberAdmin"/>
 </typeAliases>
 <mappers>
 	<mapper resource="mappers/customer/member-servlet.xml"/>
+	<mapper resource="mappers/admin/parkingCEO-servlet.xml"/>
 </mappers>
 
 
