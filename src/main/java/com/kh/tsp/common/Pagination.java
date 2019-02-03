@@ -8,7 +8,7 @@ public class Pagination {
 
 	public static PageInfo getPageInfo(int currentPage, int listCount) {
 		PageInfo pi = null;
-		int limit = 10;
+		int limit = 5;
 		int buttonCount = 10;
 		int maxPage = 0;
 		int startPage = 0;

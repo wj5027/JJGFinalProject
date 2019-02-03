@@ -34,4 +34,18 @@ public class ParkingCEOServiceImpl implements ParkingCEOService{
 		return list;
 	}
 
+	// È¸¿ø Å»Åð
+	@Override
+	public int deleteParkingCEO(MemberAdmin md) throws ParkingCEOSelectListException {
+		int result = pcd.deleteParkingCEO(sqlSession, md);
+		return result;
+	}
+
+	// È¸¿ø Å»Åð
+	@Override
+	public int updateRecoverParkingCEO(MemberAdmin md) throws ParkingCEOSelectListException {
+		int result = pcd.updateRecoverParkingCEO(sqlSession, md);
+		return result;
+	}
+
 }

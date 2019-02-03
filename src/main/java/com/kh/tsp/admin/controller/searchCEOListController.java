@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -23,7 +24,12 @@ public class searchCEOListController {
 	@Autowired
 	private ParkingCEOService pcs;
 	
-	@RequestMapping(value = "searchCEOList.ad", method = RequestMethod.GET)
+	@RequestMapping("goSearchCEOListPage.ad")
+	public String goMain() {
+		return "admin/parkingceo/SearchCEOList";
+	}
+	
+	@RequestMapping("selectCEOList.ad")
 	public String searchCEOList(HttpServletRequest request, HttpServletResponse response) {
 
 		int currentPage =1;
@@ -37,19 +43,60 @@ public class searchCEOListController {
 			ArrayList<MemberAdmin> list =pcs.selectParkingCEOList(pi);
 			request.setAttribute("pi", pi);
 			request.setAttribute("list", list);
-						
+
 			return "admin/parkingceo/SearchCEOList";
 			
 		} catch (ParkingCEOSelectListException e) {
-			request.setAttribute("msg", "회원조회 실패!");
+			request.setAttribute("msg", e.getMessage());
 			return "common/errorPage";
 		}
 	}
 	
-	
-	
-	
-	
+	// 회원 탈퇴
+	@RequestMapping("deleteParkingCEO.ad")
+	public String deleteParkingCEO(String memberNo, Model model){
+		System.out.println("memberNo : "+memberNo);
+
+		MemberAdmin md = new MemberAdmin();
+		md.setMemberNo(Integer.parseInt(memberNo));
+		
+		int result=0;
+
+		System.out.println("md : "+md);
+		
+		try {
+			result = pcs.deleteParkingCEO(md);
+			System.out.println("result(controller) try문 : "+result);
+			return "redirect:goSearchCEOListPage";
+		} catch (ParkingCEOSelectListException e) {
+			model.addAttribute("msg", e.getMessage());
+			System.out.println("result(controller) catch문 : "+result);
+			return "common/errorPage";
+		}
+	}
+
+	// 회원 복구
+	@RequestMapping("updateRecoverParkingCEO.ad")
+	public String updateRecoverParkingCEO(String memberNo, Model model){
+		System.out.println("memberNo : "+memberNo);
+
+		MemberAdmin md = new MemberAdmin();
+		md.setMemberNo(Integer.parseInt(memberNo));
+		
+		int result=0;
+
+		System.out.println("md : "+md);
+		
+		try {
+			result = pcs.updateRecoverParkingCEO(md);
+			System.out.println("result(controller) try문 : "+result);
+			return "redirect:goSearchCEOListPage";
+		} catch (ParkingCEOSelectListException e) {
+			model.addAttribute("msg", e.getMessage());
+			System.out.println("result(controller) catch문 : "+result);
+			return "common/errorPage";
+		}
+	}
 	
 	
 	

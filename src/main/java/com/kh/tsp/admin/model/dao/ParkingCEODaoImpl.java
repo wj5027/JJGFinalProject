@@ -38,4 +38,36 @@ public class ParkingCEODaoImpl  implements ParkingCEODao{
 		return list;
 	}
 
+	// 회원 탈퇴
+	@Override
+	public int deleteParkingCEO(SqlSessionTemplate sqlSession, MemberAdmin md) throws ParkingCEOSelectListException {
+		
+		int memberNo = md.getMemberNo();
+		System.out.println("memberNo : "+memberNo);
+		
+		int result = sqlSession.update("MemberAdmin.deleteParkingCEO", memberNo);
+		System.out.println("result(DAO 회원탈퇴) : "+result);
+		
+		if(result<=0) {
+			throw new ParkingCEOSelectListException("사업자 회원 탈퇴 실패!");
+		}
+		return result;
+	}
+
+	// 회원 복구
+	@Override
+	public int updateRecoverParkingCEO(SqlSessionTemplate sqlSession, MemberAdmin md) throws ParkingCEOSelectListException {
+		
+		int memberNo = md.getMemberNo();
+		System.out.println("memberNo : "+memberNo);
+		
+		int result = sqlSession.update("MemberAdmin.updateRecoverParkingCEO", memberNo);
+		System.out.println("result(DAO 회원복구) : "+result);
+		
+		if(result<=0) {
+			throw new ParkingCEOSelectListException("사업자 회원 복구 실패!");
+		}
+		return result;
+	}
+
 }
