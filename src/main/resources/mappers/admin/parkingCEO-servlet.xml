@@ -25,16 +25,11 @@
 	<!-- 사업자 수 -->
   	<select id="getListCount" resultType="_int">
   		SELECT COUNT(*) FROM MEMBER
-  		WHERE MEMBER_TYPE='B' AND STATUS = 'Y'
+  		WHERE MEMBER_TYPE='B'
   	</select>
   	
   	<!-- 사업자 조회 -->
-  	<select id="selectParkingCEOList" resultMap="MemberAdminResultSet">
-  		<!-- SELECT * 
-		FROM MEMBER
-		WHERE MEMBER_TYPE='B' AND STATUS = 'Y'
-		ORDER BY MEMBER_NO DESC -->
-		
+  	<select id="selectParkingCEOList" resultMap="MemberAdminResultSet">		
 		SELECT DISTINCT M.MEMBER_NO, M.MEMBER_ID, M.MEMBER_NAME, M.PHONE, M.EMAIL, M.STATUS, (SELECT SUM(OIL) FROM OIL_LIST WHERE MEMBER_NO=M.MEMBER_NO GROUP BY MEMBER_NO) AS OIL
 		FROM MEMBER M 
 		LEFT OUTER JOIN OIL_LIST O ON(M.MEMBER_NO=O.MEMBER_NO)
@@ -42,9 +37,19 @@
 		ORDER BY M.MEMBER_NO DESC
   	</select>
   	
+  	<!-- 회원 탈퇴 -->
+  	<update id="deleteParkingCEO"  parameterType="String">
+  		UPDATE MEMBER
+  		SET STATUS = 'N'
+  		WHERE MEMBER_TYPE='B' AND STATUS='Y' AND MEMBER_NO = #{memberNo}
+  	</update>
   	
-  	
-  	
+  	<!-- 회원 복구 -->
+  	<update id="updateRecoverParkingCEO"  parameterType="String">
+  		UPDATE MEMBER
+  		SET STATUS = 'Y'
+  		WHERE MEMBER_TYPE='B' AND STATUS='N' AND MEMBER_NO = #{memberNo}
+  	</update>
   	
 
 </mapper>

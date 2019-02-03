@@ -16,4 +16,10 @@ public interface ParkingCEODao {
 	// 사업자 조회
 	ArrayList<MemberAdmin> selectParkingCEOList(SqlSessionTemplate sqlSession, PageInfo pi) throws ParkingCEOSelectListException;
 
+	// 회원 탈퇴
+	int deleteParkingCEO(SqlSessionTemplate sqlSession, MemberAdmin md) throws ParkingCEOSelectListException;
+
+	// 회원 복구
+	int updateRecoverParkingCEO(SqlSessionTemplate sqlSession, MemberAdmin md) throws ParkingCEOSelectListException;
+
 }

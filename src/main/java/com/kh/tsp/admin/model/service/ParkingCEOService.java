@@ -14,4 +14,10 @@ public interface ParkingCEOService {
 	// 사업자 조회
 	ArrayList<MemberAdmin> selectParkingCEOList(PageInfo pi) throws ParkingCEOSelectListException;
 
+	// 회원 탈퇴
+	int deleteParkingCEO(MemberAdmin md) throws ParkingCEOSelectListException;
+
+	// 회원 복구
+	int updateRecoverParkingCEO(MemberAdmin md) throws ParkingCEOSelectListException;
+
 }
