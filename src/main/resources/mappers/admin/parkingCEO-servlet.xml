@@ -28,7 +28,7 @@
   		WHERE MEMBER_TYPE='B'
   	</select>
   	
-  	<!-- 사업자 조회 -->
+  	<!-- 사업자 리스트 -->
   	<select id="selectParkingCEOList" resultMap="MemberAdminResultSet">		
 		SELECT DISTINCT M.MEMBER_NO, M.MEMBER_ID, M.MEMBER_NAME, M.PHONE, M.EMAIL, M.STATUS, (SELECT SUM(OIL) FROM OIL_LIST WHERE MEMBER_NO=M.MEMBER_NO GROUP BY MEMBER_NO) AS OIL
 		FROM MEMBER M 
@@ -51,5 +51,16 @@
   		WHERE MEMBER_TYPE='B' AND STATUS='N' AND MEMBER_NO = #{memberNo}
   	</update>
   	
+  	<!-- 사업자 리스트 -->
+  	<select id="selectSearchParkingCEOList" resultMap="MemberAdminResultSet" parameterType="java.util.Map">		
+		SELECT DISTINCT M.MEMBER_NO, M.MEMBER_ID, M.MEMBER_NAME, M.PHONE, M.EMAIL, M.STATUS, (SELECT SUM(OIL) FROM OIL_LIST WHERE MEMBER_NO=M.MEMBER_NO GROUP BY MEMBER_NO) AS OIL
+		FROM MEMBER M 
+		LEFT OUTER JOIN OIL_LIST O ON(M.MEMBER_NO=O.MEMBER_NO)
+		WHERE M.MEMBER_TYPE='B'
+		AND M.STATUS =#{selectStatus}
+		OR ( M.STATUS != #{selectStatus} and M.MEMBER_ID=#{memberId})
+		OR (M.MEMBER_ID != #{memberId} and M.ENROLL_DATE between #{startDate} and #{endDate} )
+		ORDER BY M.MEMBER_NO DESC
+  	</select>
 
 </mapper>

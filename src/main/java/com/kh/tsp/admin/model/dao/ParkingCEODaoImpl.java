@@ -1,6 +1,8 @@
 package com.kh.tsp.admin.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -23,7 +25,7 @@ public class ParkingCEODaoImpl  implements ParkingCEODao{
 		return listCount;
 	}
 
-	// 사업자 조회
+	// 사업자 리스트
 	@Override
 	public ArrayList<MemberAdmin> selectParkingCEOList(SqlSessionTemplate sqlSession, PageInfo pi) throws ParkingCEOSelectListException {
 		ArrayList<MemberAdmin> list = null;
@@ -68,6 +70,38 @@ public class ParkingCEODaoImpl  implements ParkingCEODao{
 			throw new ParkingCEOSelectListException("사업자 회원 복구 실패!");
 		}
 		return result;
+	}
+
+	// 사업자 검색 결과
+	@Override
+	public ArrayList<MemberAdmin> selectSearchParkingCEOList(SqlSessionTemplate sqlSession, PageInfo pi,
+			String selectStatus, String memberId, String today, String startDate, String endDate) throws ParkingCEOSelectListException {
+		ArrayList<MemberAdmin> list = null;
+		int offset = (pi.getCurrentPage()-1)* pi.getLimit();	
+
+		System.out.println("selectStatus DAO: "+selectStatus);
+		System.out.println("memberId DAO: "+memberId);
+		System.out.println("today DAO: "+today);
+		System.out.println("startDate DAO: "+startDate);
+		System.out.println("endDate DAO: "+endDate);
+		
+		Map<String, String> hmap = new HashMap();
+
+		hmap.put("selectStatus", selectStatus);
+		hmap.put("memberId", memberId);
+		hmap.put("today", today);
+		hmap.put("startDate", startDate);
+		hmap.put("endDate", endDate);
+		
+		//RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		list = (ArrayList)sqlSession.selectList("MemberAdmin.selectSearchParkingCEOList", hmap);
+		
+		System.out.println("DAO list : "+list);
+		
+		if(list == null) {
+			throw new ParkingCEOSelectListException("사업자 회원 조회 실패");
+		}
+		return list;
 	}
 
 }

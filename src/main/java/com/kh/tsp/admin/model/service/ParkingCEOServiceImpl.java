@@ -27,7 +27,7 @@ public class ParkingCEOServiceImpl implements ParkingCEOService{
 		return listCount;
 	}
 
-	// 사업자 조회
+	// 사업자 리스트
 	@Override
 	public ArrayList<MemberAdmin> selectParkingCEOList(PageInfo pi) throws ParkingCEOSelectListException {
 		ArrayList<MemberAdmin> list = pcd.selectParkingCEOList(sqlSession,pi);
@@ -46,6 +46,14 @@ public class ParkingCEOServiceImpl implements ParkingCEOService{
 	public int updateRecoverParkingCEO(MemberAdmin md) throws ParkingCEOSelectListException {
 		int result = pcd.updateRecoverParkingCEO(sqlSession, md);
 		return result;
+	}
+
+	// 사업자 검색 결과
+	@Override
+	public ArrayList<MemberAdmin> selectSearchParkingCEOList(PageInfo pi, String selectStatus, String memberId,
+			String today, String startDate, String endDate) throws ParkingCEOSelectListException {
+		ArrayList<MemberAdmin> list = pcd.selectSearchParkingCEOList(sqlSession,pi, selectStatus, memberId, today, startDate, endDate);
+		return list;
 	}
 
 }

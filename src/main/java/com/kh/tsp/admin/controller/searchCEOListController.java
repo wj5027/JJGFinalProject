@@ -98,7 +98,36 @@ public class searchCEOListController {
 		}
 	}
 	
-	
+	// 회원 검색
+	@RequestMapping("selectSearchCEOList.ad")
+	public String searchCEOList2(HttpServletRequest request, HttpServletResponse response,
+												String selectStatus, String memberId, String today, String startDate, String endDate) {
+
+		System.out.println("selectStatus : "+selectStatus);
+		System.out.println("memberId : "+memberId);
+		System.out.println("today : "+today);
+		System.out.println("startDate : "+startDate);
+		System.out.println("endDate : "+endDate);
+		
+		int currentPage =1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		try {
+			int listCount = pcs.getListCount();
+			PageInfo pi = Pagination.getPageInfo(currentPage,listCount);
+			ArrayList<MemberAdmin> list =pcs.selectSearchParkingCEOList(pi, selectStatus, memberId, today, startDate, endDate);
+			request.setAttribute("pi", pi);
+			request.setAttribute("list", list);
+
+			return "admin/parkingceo/SearchCEOList2";
+			
+		} catch (ParkingCEOSelectListException e) {
+			request.setAttribute("msg", e.getMessage());
+			return "common/errorPage";
+		}
+	}
 	
 	
 	

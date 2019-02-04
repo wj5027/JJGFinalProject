@@ -13,7 +13,7 @@ public interface ParkingCEODao {
 	// 사업자 수
 	int getListCount(SqlSessionTemplate sqlSession) throws ParkingCEOSelectListException;
 
-	// 사업자 조회
+	// 사업자 리스트
 	ArrayList<MemberAdmin> selectParkingCEOList(SqlSessionTemplate sqlSession, PageInfo pi) throws ParkingCEOSelectListException;
 
 	// 회원 탈퇴
@@ -21,5 +21,9 @@ public interface ParkingCEODao {
 
 	// 회원 복구
 	int updateRecoverParkingCEO(SqlSessionTemplate sqlSession, MemberAdmin md) throws ParkingCEOSelectListException;
+
+	// 사업자 검색 결과
+	ArrayList<MemberAdmin> selectSearchParkingCEOList(SqlSessionTemplate sqlSession, PageInfo pi, String selectStatus,
+			String memberId, String today, String startDate, String endDate) throws ParkingCEOSelectListException;
 
 }
