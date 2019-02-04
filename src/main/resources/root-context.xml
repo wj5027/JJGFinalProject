@@ -12,6 +12,24 @@
 	">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
+		<!-- 이메일 인증 시스템 -->
+	<bean id="SendingMail" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+      <property name="host" value="smtp.gmail.com" />
+      <property name="port" value="587" />
+      <property name="username" value="matthaeus5370@gmail.com" />
+      <property name="password" value="ps5370mv!ds02" />
+      <property name="javaMailProperties">
+        <props>
+               <prop key="mail.transport.protocol">smtp</prop>
+               <prop key="mail.smtp.auth">true</prop>
+               <prop key="mail.smtp.starttls.enable">true</prop>
+               <prop key="mail.debug">true</prop>
+         </props>
+		</property>
+	</bean>
+	
+	
+	
 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSession"></constructor-arg>
 	</bean>	
@@ -46,6 +64,8 @@
 		<aop:pointcut expression="execution(* com.kh.tsp..*ServiceImpl.*(..))" id="serviceMethod"/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethod" id="transactionAdvisor"/>
 	</aop:config>
+	
+
 	
 	
 </beans>
