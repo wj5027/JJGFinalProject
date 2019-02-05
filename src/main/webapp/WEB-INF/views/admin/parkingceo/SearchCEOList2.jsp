@@ -62,9 +62,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 																<select class="custom-select nav-link dropdown-toggle"
 																	id="selectStatus" name="selectStatus"
 																	style="background-color: rgb(34, 42, 65);">
-																	<option value="A" selected>전체</option>
-																	<option value="Y">활동중인 사업자</option>
-																	<option value="N">탈퇴한 사업자</option>
+																	<option value="0" selected>전체</option>
+																	<option value="1">활동중인 사업자</option>
+																	<option value="2">탈퇴한 사업자</option>
 																</select>
 															</div>
 														</td>
@@ -134,7 +134,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 						<div class="col-md-12">
 							<div class="card ">
 								<div class="card-header">
-									<h4 class="card-title">사업자 리스트</h4>
+									<h4 class="card-title">사업자 검색 결과</h4>
 								</div>
 								<div class="card-body">
 									<div class="table-responsive" style="overflow: hidden;">
@@ -188,7 +188,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 											<!-- 첫번째 페이지 -->
 											<c:if test="${pi.currentPage != 1}">
-												<c:url var="blistFirst" value="selectCEOList.ad">
+												<c:url var="blistFirst" value="selectSearchCEOList.ad">
 													<c:param name="currentPage" value="1" />
 												</c:url>
 												<a href="${blistFirst}"><button
@@ -204,7 +204,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 													class="btn btn-info animation-on-hover btn-sm"><</button>
 											</c:if>
 											<c:if test="${pi.currentPage > 1}">
-												<c:url var="blistBack" value="/selectCEOList.ad">
+												<c:url var="blistBack" value="selectSearchCEOList.ad">
 													<c:param name="currentPage" value="${pi.currentPage-1}" />
 												</c:url>
 												<a href="${blistBack}"><button
@@ -219,7 +219,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 														class="btn btn-info animation-on-hover btn-sm">${p}</button>
 												</c:if>
 												<c:if test="${p ne pi.currentPage}">
-													<c:url var="blistCheck" value="selectCEOList.ad">
+													<c:url var="blistCheck" value="selectSearchCEOList.ad">
 														<c:param name="currentPage" value="${p}" />
 													</c:url>
 													<a href="${blistCheck}"><button
@@ -232,7 +232,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 													class="btn btn-info animation-on-hover btn-sm">></button>
 											</c:if>
 											<c:if test="${pi.currentPage < pi.maxPage}">
-												<c:url var="blistEnd" value="selectCEOList.ad">
+												<c:url var="blistEnd" value="selectSearchCEOList.ad">
 													<c:param name="currentPage" value="${pi.currentPage+1}" />
 												</c:url>
 												<a href="${blistEnd}"><button
@@ -241,7 +241,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 											<!-- 끝 페이지 -->
 											<c:if test="${pi.currentPage != pi.maxPage}">
-												<c:url var="blistEnd2" value="selectCEOList.ad">
+												<c:url var="blistEnd2" value="selectSearchCEOList.ad">
 													<c:param name="currentPage" value="${pi.maxPage}" />
 												</c:url>
 												<a href="${blistEnd2}"><button
@@ -415,7 +415,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 													<td align="center"><button type="button"
 															class="btn btn-info animation-on-hover"
 															data-dismiss="modal"
-															onclick="location.href='selectCEOList.ad'">닫기</button></td>
+															onclick="location.href='selectSearchCEOList.ad'">닫기</button></td>
 												</tr>
 											</tbody>
 										</table>
