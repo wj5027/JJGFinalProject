@@ -11,10 +11,10 @@
           <h3 align="center" style="margin-top:10px">사업자 페이지</h3>
           <c:if test="${not empty loginUser }">
           <div align="center" style="color: white;">
-          [이름]님 환영합니다!
+         ${loginUser.member_name }님 환영합니다!
           </div>
           <br>
-          <div align="center" style="color: white; font-size: 12px;">[현재오일]은 ㅇㅇㅇ입니다.</div>  
+          <div align="center" style="color: white; font-size: 12px;">현재오일은 ${loginUser.oil }오일 입니다.</div>  
           <br>
           </c:if>
         </div>

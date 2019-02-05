@@ -46,9 +46,10 @@
                   	<div align="right" style="width: 100%">
                   		<button class="btn btn-info btn-sm" type="button" id="checkEmail" onclick="chkCode();" disabled="disabled">확인</button>
                   	</div>
+                  	환급 받으실 은행명 <input type="text" class="form-control" name="bank_name" id="bank_name"><br>
                   	 환급 받으실 계좌번호 <input type="text" class="form-control" name="bank_id" id="bank_id"><br>
                   	<div align="right" style="width: 100%">
-                  		<button class="btn btn-info btn-sm" type="button" onclick="mailSender();">인증번호 발송</button>
+                  		<button class="btn btn-info btn-sm" type="button" onclick="#">조회</button>
                   	</div>
               	
               	
@@ -174,6 +175,27 @@
 			alert("비정상적인 번호입니다. 재 확인해주세요");
 			$("#insertParkingCeo").attr('disabled', true);
 		}
+	}
+	
+	//계좌 인증 코드 메소드
+	function bankCheck(){
+		$.ajax({
+			url : "	https://openapi.open-platform.or.kr/inquiry/real_name",
+			type : "POST",
+			contentType : "application/json; charset=UTF-8",
+			data : {bank_code_std:"098",
+					account_num:"110331334379",
+					account_holder_info:"921217",
+					tran_dtime:"20190205122630"},
+			success:function(data){
+				console.log(data);
+			},
+			error:function(data){
+				console.log("통신 실패!");
+			}
+		});
+		
+		
 	}
 
 
