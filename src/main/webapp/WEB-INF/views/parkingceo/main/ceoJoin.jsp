@@ -35,7 +35,8 @@
               		아이디 <input type="text" class="form-control" name="member_id"><br>
                   	비밀번호 <input type="password" class="form-control" name="member_pwd"><br>
                   	비밀번호 확인 <input type="password" class="form-control" name="member_pwd2"><br>
-                  	차번호 <input type="text" class="form-control" name="member_carNo"><br>
+                  	차 번호 <input type="text" class="form-control" name="member_carNo"><br>
+                  	휴대폰 번호 <input type="text" class="form-control" name="phone"><br>
                   	사업자번호 <input type="text" class="form-control" name="business_no"><br>
                   	이메일 <input type="email" class="form-control" name="email" id="userEmail"><br>
                   	<div align="right" style="width: 100%">
@@ -44,6 +45,10 @@
                   	이메일 인증번호 <input type="text" class="form-control" name="certificationNo" id="certificationNo"><br>
                   	<div align="right" style="width: 100%">
                   		<button class="btn btn-info btn-sm" type="button" id="checkEmail" onclick="chkCode();" disabled="disabled">확인</button>
+                  	</div>
+                  	 환급 받으실 계좌번호 <input type="text" class="form-control" name="bank_id" id="bank_id"><br>
+                  	<div align="right" style="width: 100%">
+                  		<button class="btn btn-info btn-sm" type="button" onclick="mailSender();">인증번호 발송</button>
                   	</div>
               	
               	
