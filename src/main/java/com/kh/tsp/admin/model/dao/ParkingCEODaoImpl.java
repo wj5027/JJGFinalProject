@@ -95,7 +95,7 @@ public class ParkingCEODaoImpl  implements ParkingCEODao{
 		return listCount;
 	}
 
-	// 사업자 검색 결과
+	// 사업자 검색 결과.
 	@Override
 	public ArrayList<MemberAdmin> selectSearchParkingCEOList(SqlSessionTemplate sqlSession, PageInfo pi,
 			String selectStatus, String memberId, String today, String startDate, String endDate) throws ParkingCEOSelectListException {
