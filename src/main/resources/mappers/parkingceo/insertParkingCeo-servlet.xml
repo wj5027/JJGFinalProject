@@ -24,7 +24,8 @@
 	
 	<insert id="insertParkingCeo" parameterType="Member">
 		INSERT INTO MEMBER
-		VALUES (MNO_SEQ.NEXTVAL,#{member_id},#{member_pwd},'B','M','0',#{email},)
+		VALUES (MNO_SEQ.NEXTVAL,#{member_id},#{member_pwd},'B','M',0,#{email},#{phone},#{member_name},#{member_carNo},'Y'
+		,null,#{bank_id},#{bank_name},SYSDATE)
 	
 	</insert>
 

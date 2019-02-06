@@ -60,16 +60,14 @@ public class ParkingCeoMain {
 	//사업자 회원가입 기능
 	@RequestMapping(value="/insertParkinCeo.pc")
 	public String inserParkingCeo(@ModelAttribute Member m, Model model ) {
-		
-		try {
-			int insertParkingCeo = ps.insertParkingCeo(m);
+		System.out.println(m);
+	try{
+			ps.insertParkingCeo(m);
 		}catch(Exception e) {
-			model.addAttribute("message", "사업자 회원가입 실패!");
+			model.addAttribute("message", e.getMessage());
 			return "common/errorPage";
 		}
-		
-		
-		return null;
+		return "redirect:parkingceoLogin.pc";
 	}
 	
 
