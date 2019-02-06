@@ -19,9 +19,13 @@ public interface ParkingCEOService {
 
 	// 회원 복구
 	int updateRecoverParkingCEO(MemberAdmin md) throws ParkingCEOSelectListException;
+	
+	// 사업자 검색 수
+	int getSearchListCount(String selectStatus, String memberId, String today, String startDate, String endDate) throws ParkingCEOSelectListException;
 
 	// 사업자 검색결과
 	ArrayList<MemberAdmin> selectSearchParkingCEOList(PageInfo pi, String selectStatus, String memberId, String today,
 			String startDate, String endDate) throws ParkingCEOSelectListException;
+
 
 }

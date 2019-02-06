@@ -115,7 +115,8 @@ public class searchCEOListController {
 		}
 		
 		try {
-			int listCount = pcs.getListCount();
+			int listCount = pcs.getSearchListCount(selectStatus, memberId, today, startDate, endDate);
+			System.out.println("listCount : "+listCount);
 			PageInfo pi = Pagination.getPageInfo(currentPage,listCount);
 			ArrayList<MemberAdmin> list =pcs.selectSearchParkingCEOList(pi, selectStatus, memberId, today, startDate, endDate);
 			request.setAttribute("pi", pi);

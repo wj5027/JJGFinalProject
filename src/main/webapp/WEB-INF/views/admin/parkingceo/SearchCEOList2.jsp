@@ -62,9 +62,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 																<select class="custom-select nav-link dropdown-toggle"
 																	id="selectStatus" name="selectStatus"
 																	style="background-color: rgb(34, 42, 65);">
-																	<option value="0" selected>전체</option>
-																	<option value="1">활동중인 사업자</option>
-																	<option value="2">탈퇴한 사업자</option>
+																	<option value="A" selected>전체</option>
+																	<option value="Y">활동중인 사업자</option>
+																	<option value="N">탈퇴한 사업자</option>
 																</select>
 															</div>
 														</td>

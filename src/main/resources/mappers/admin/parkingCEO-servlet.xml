@@ -38,18 +38,48 @@
   	</select>
   	
   	<!-- 회원 탈퇴 -->
-  	<update id="deleteParkingCEO"  parameterType="String">
+  	<update id="deleteParkingCEO"  parameterType="_int">
   		UPDATE MEMBER
   		SET STATUS = 'N'
   		WHERE MEMBER_TYPE='B' AND STATUS='Y' AND MEMBER_NO = #{memberNo}
   	</update>
   	
   	<!-- 회원 복구 -->
-  	<update id="updateRecoverParkingCEO"  parameterType="String">
+  	<update id="updateRecoverParkingCEO"  parameterType="_int">
   		UPDATE MEMBER
   		SET STATUS = 'Y'
   		WHERE MEMBER_TYPE='B' AND STATUS='N' AND MEMBER_NO = #{memberNo}
   	</update>
+	
+	<!-- 사업자 검색 수 -->
+  	<select id="getSearchListCount" resultType="_int" parameterType="java.util.Map">
+  		SELECT COUNT(*) FROM MEMBER
+  		WHERE MEMBER_TYPE='B'
+		<if test="selectStatus!=null and (selectStatus eq 'A'.toString())">
+			AND STATUS='Y' OR STATUS='N'
+		</if>
+		<if test="selectStatus!=null and (selectStatus eq 'Y'.toString())">
+			AND STATUS='Y'
+		</if>
+		<if test="selectStatus!=null and (selectStatus eq 'N'.toString())">
+			AND STATUS='N'
+		</if>
+		<if test="memberId != ''">
+			AND MEMBER_ID LIKE '%'||#{memberId}||'%'
+		</if>
+		<if test="today != null">
+		<![CDATA[
+			AND (TO_DATE(ENROLL_DATE,'yyyy/mm/dd') >= TO_DATE(#{today},'yyyy/mm/dd') 
+					AND TO_DATE(ENROLL_DATE,'yyyy/mm/dd') < TO_DATE(SYSDATE,'yyyy/mm/dd'))
+		]]>		
+		</if>
+		<if test="startDate != null or endDate != null">
+		<![CDATA[
+			AND (TO_DATE(ENROLL_DATE,'yyyy-mm-dd') >= TO_DATE(#{startDate},'yyyy-mm-dd') 
+					AND TO_DATE(ENROLL_DATE,'yyyy-mm-dd') < TO_DATE(#{endDate},'yyyy-mm-dd'))
+		]]>		
+		</if>
+  	</select>
   	
   	<!-- 사업자 리스트 -->
   	<select id="selectSearchParkingCEOList" resultMap="MemberAdminResultSet" parameterType="java.util.Map">		
@@ -57,9 +87,30 @@
 		FROM MEMBER M 
 		LEFT OUTER JOIN OIL_LIST O ON(M.MEMBER_NO=O.MEMBER_NO)
 		WHERE M.MEMBER_TYPE='B'
-		AND M.STATUS =#{selectStatus}
-		OR ( M.STATUS != #{selectStatus} and M.MEMBER_ID=#{memberId})
-		OR (M.MEMBER_ID != #{memberId} and M.ENROLL_DATE between #{startDate} and #{endDate} )
+		<if test="selectStatus!=null and (selectStatus eq 'A'.toString())">
+			AND M.STATUS='Y' OR M.STATUS='N'
+		</if>
+		<if test="selectStatus!=null and (selectStatus eq 'Y'.toString())">
+			AND M.STATUS='Y'
+		</if>
+		<if test="selectStatus!=null and (selectStatus eq 'N'.toString())">
+			AND M.STATUS='N'
+		</if>
+		<if test="memberId != ''">
+			AND M.MEMBER_ID LIKE '%'||#{memberId}||'%'
+		</if>
+		<if test="today != null">
+		<![CDATA[
+			AND (TO_DATE(M.ENROLL_DATE,'yyyy/mm/dd') >= TO_DATE(#{today},'yyyy/mm/dd') 
+					AND TO_DATE(M.ENROLL_DATE,'yyyy/mm/dd') < TO_DATE(SYSDATE,'yyyy/mm/dd'))
+		]]>	
+		</if>
+		<if test="startDate != null or endDate != null">
+		<![CDATA[
+			AND (TO_DATE(M.ENROLL_DATE,'yyyy-mm-dd') >= TO_DATE(#{startDate},'yyyy-mm-dd') 
+					AND TO_DATE(M.ENROLL_DATE,'yyyy-mm-dd') < TO_DATE(#{endDate},'yyyy-mm-dd'))
+		]]>	
+		</if>
 		ORDER BY M.MEMBER_NO DESC
   	</select>
 
