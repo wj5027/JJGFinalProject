@@ -147,6 +147,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 													<th>전화번호</th>
 													<th class="text-center">이메일</th>
 													<th class="text-center">보유 포인트</th>
+													<th class="text-center">가입일</th>
 													<th class="text-center">상태</th>
 												</tr>
 											</thead>
@@ -164,6 +165,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 														<c:if test="${!empty ceo.oil}">
 															<td class="text-center">${ceo.oil}</td>
 														</c:if>
+														<td class="text-center">${ceo.enrollDate}</td>
 														<c:if test="${ceo.status == 'Y'}">
 															<td class="text-center">
 																<button data-toggle="modal"
@@ -460,6 +462,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 			$("#detailDate").click(function () {
 				$("#dayBtn").css("visibility","hidden");
 				$("#datePicker").css("visibility","visible");
+				today = "";
 				return false;
 			});
 			
@@ -476,7 +479,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 	<script>
 		$(function() {
 			var d =  new Date();
-			var today="";
+			today="";
 			
 			$("#one").click(function () {
 				$("#one").attr("class", "btn btn-warning animation-on-hover btn-sm");

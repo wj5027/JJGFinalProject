@@ -20,35 +20,35 @@ public class ParkingCEOServiceImpl implements ParkingCEOService{
 	@Autowired
 	private ParkingCEODao pcd;
 	
-	// »ç¾÷ÀÚ ¼ö
+	// ì‚¬ì—…ì ìˆ˜
 	@Override
 	public int getListCount() throws ParkingCEOSelectListException {
 		int listCount = pcd.getListCount(sqlSession);
 		return listCount;
 	}
 
-	// »ç¾÷ÀÚ ¸®½ºÆ®
+	// ì‚¬ì—…ì ë¦¬ìŠ¤íŠ¸
 	@Override
 	public ArrayList<MemberAdmin> selectParkingCEOList(PageInfo pi) throws ParkingCEOSelectListException {
 		ArrayList<MemberAdmin> list = pcd.selectParkingCEOList(sqlSession,pi);
 		return list;
 	}
 
-	// È¸¿ø Å»Åğ
+	// íšŒì› íƒˆí‡´
 	@Override
 	public int deleteParkingCEO(MemberAdmin md) throws ParkingCEOSelectListException {
 		int result = pcd.deleteParkingCEO(sqlSession, md);
 		return result;
 	}
 
-	// È¸¿ø Å»Åğ
+	// íšŒì› íƒˆí‡´
 	@Override
 	public int updateRecoverParkingCEO(MemberAdmin md) throws ParkingCEOSelectListException {
 		int result = pcd.updateRecoverParkingCEO(sqlSession, md);
 		return result;
 	}
 
-	// »ç¾÷ÀÚ °Ë»ö ¼ö
+	// ì‚¬ì—…ì ê²€ìƒ‰ ìˆ˜
 	@Override
 	public int getSearchListCount(String selectStatus, String memberId, String today, String startDate, String endDate)
 			throws ParkingCEOSelectListException {
@@ -56,7 +56,7 @@ public class ParkingCEOServiceImpl implements ParkingCEOService{
 		return listCount;
 	}
 
-	// »ç¾÷ÀÚ °Ë»ö °á°ú
+	// ì‚¬ì—…ì ê²€ìƒ‰ ê²°ê³¼
 	@Override
 	public ArrayList<MemberAdmin> selectSearchParkingCEOList(PageInfo pi, String selectStatus, String memberId,
 			String today, String startDate, String endDate) throws ParkingCEOSelectListException {

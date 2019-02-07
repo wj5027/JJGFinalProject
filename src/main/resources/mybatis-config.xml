@@ -13,7 +13,7 @@
 </typeAliases>
 <mappers>
 	<mapper resource="mappers/customer/member-servlet.xml"/>
-  <mapper resource="mappers/admin/parkingCEO-servlet.xml"/>
+  <mapper resource="mappers/admin/parkingCEO-mapper.xml"/>
 	<mapper resource="mappers/customer/board-mapper.xml"/>
 	<mapper resource="mappers/parkingceo/insertParkingCeo-servlet.xml"/>
 

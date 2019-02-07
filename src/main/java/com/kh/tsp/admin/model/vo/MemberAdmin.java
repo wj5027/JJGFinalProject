@@ -3,21 +3,21 @@ package com.kh.tsp.admin.model.vo;
 import java.sql.Date;
 
 public class MemberAdmin implements java.io.Serializable{
-	private int memberNo;					// È¸¿ø¹øÈ£ - No
-	private String memberId;				// È¸¿ø¾ÆÀÌµğ - No
-	private String memberPassword;	// ºñ¹Ğ¹øÈ£ - No
-	private String memberType;			// »ç¿ëÀÚ±¸ºĞ (°ü¸®ÀÚ:A / »ç¿ëÀÚ:U / »ç¾÷ÀÚ: B) - No
-	private String idType;					// °èÁ¤±¸ºĞ (ÀÚÈ¸¿ø:M / Ä«Ä«¿ÀÈ¸¿ø:K / ³×ÀÌ¹öÈ¸¿ø:N) - No
-	private String oil;						// Æ÷ÀÎÆ® - No 
-	private String email;					// ÀÌ¸ŞÀÏ - No
-	private String phone;					// ÀüÈ­¹øÈ£ - No
-	private String memberName;		// ÀÌ¸§ - No
-	private String memberCarNo;		// Â÷¹øÈ£ - Yes
-	private String status;					// »óÅÂ (Y,N) - No ('Y')
-	private String kakaoId;				// Ä«Ä«¿À¾ÆÀÌµğ - Yes
-	private String bankId;					// °èÁÂ¹øÈ£ - Yes
-	private String bankName;				// ÀºÇà - Yes
-	private Date enrollDate;				// °¡ÀÔÀÏ - No
+	private int memberNo;					// íšŒì›ë²ˆí˜¸ - No
+	private String memberId;				// íšŒì›ì•„ì´ë”” - No
+	private String memberPassword;	// ë¹„ë°€ë²ˆí˜¸ - No
+	private String memberType;			// ì‚¬ìš©ìêµ¬ë¶„ (ê´€ë¦¬ì:A / ì‚¬ìš©ì:U / ì‚¬ì—…ì: B) - No
+	private String idType;					// ê³„ì •êµ¬ë¶„ (ìíšŒì›:M / ì¹´ì¹´ì˜¤íšŒì›:K / ë„¤ì´ë²„íšŒì›:N) - No
+	private String oil;						// í¬ì¸íŠ¸ - No 
+	private String email;					// ì´ë©”ì¼ - No
+	private String phone;					// ì „í™”ë²ˆí˜¸ - No
+	private String memberName;		// ì´ë¦„ - No
+	private String memberCarNo;		// ì°¨ë²ˆí˜¸ - Yes
+	private String status;					// ìƒíƒœ (Y,N) - No ('Y')
+	private String kakaoId;				// ì¹´ì¹´ì˜¤ì•„ì´ë”” - Yes
+	private String bankId;					// ê³„ì¢Œë²ˆí˜¸ - Yes
+	private String bankName;				// ì€í–‰ - Yes
+	private Date enrollDate;				// ê°€ì…ì¼ - No
 	
 	public MemberAdmin() {}
 

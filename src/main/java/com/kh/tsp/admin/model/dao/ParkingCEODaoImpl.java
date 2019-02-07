@@ -18,17 +18,17 @@ import com.kh.tsp.common.PageInfo;
 @Repository
 public class ParkingCEODaoImpl  implements ParkingCEODao{
 
-	// »ç¾÷ÀÚ ¼ö
+	// ì‚¬ì—…ì ìˆ˜
 	@Override
 	public int getListCount(SqlSessionTemplate sqlSession) throws ParkingCEOSelectListException {
 		int listCount = sqlSession.selectOne("MemberAdmin.getListCount");
 		if(listCount <=0) {
-			throw new ParkingCEOSelectListException("»ç¾÷ÀÚ È¸¿ø ¼ö Á¶È¸ ½ÇÆĞ!");
+			throw new ParkingCEOSelectListException("ì‚¬ì—…ì íšŒì› ìˆ˜ ì¡°íšŒ ì‹¤íŒ¨!");
 		}
 		return listCount;
 	}
 
-	// »ç¾÷ÀÚ ¸®½ºÆ®
+	// ì‚¬ì—…ì ë¦¬ìŠ¤íŠ¸
 	@Override
 	public ArrayList<MemberAdmin> selectParkingCEOList(SqlSessionTemplate sqlSession, PageInfo pi) throws ParkingCEOSelectListException {
 		ArrayList<MemberAdmin> list = null;
@@ -38,12 +38,12 @@ public class ParkingCEODaoImpl  implements ParkingCEODao{
 		list = (ArrayList)sqlSession.selectList("MemberAdmin.selectParkingCEOList", null, rowBounds);
 		
 		if(list == null) {
-			throw new ParkingCEOSelectListException("»ç¾÷ÀÚ È¸¿ø Á¶È¸ ½ÇÆĞ");
+			throw new ParkingCEOSelectListException("ì‚¬ì—…ì íšŒì› ì¡°íšŒ ì‹¤íŒ¨");
 		}
 		return list;
 	}
 
-	// È¸¿ø Å»Åğ
+	// íšŒì› íƒˆí‡´
 	@Override
 	public int deleteParkingCEO(SqlSessionTemplate sqlSession, MemberAdmin md) throws ParkingCEOSelectListException {
 		
@@ -51,15 +51,15 @@ public class ParkingCEODaoImpl  implements ParkingCEODao{
 		System.out.println("memberNo : "+memberNo);
 		
 		int result = sqlSession.update("MemberAdmin.deleteParkingCEO", memberNo);
-		System.out.println("result(DAO È¸¿øÅ»Åğ) : "+result);
+		System.out.println("result(DAO íšŒì›íƒˆí‡´) : "+result);
 		
 		if(result<=0) {
-			throw new ParkingCEOSelectListException("»ç¾÷ÀÚ È¸¿ø Å»Åğ ½ÇÆĞ!");
+			throw new ParkingCEOSelectListException("ì‚¬ì—…ì íšŒì› íƒˆí‡´ ì‹¤íŒ¨!");
 		}
 		return result;
 	}
 
-	// È¸¿ø º¹±¸
+	// íšŒì› ë³µêµ¬
 	@Override
 	public int updateRecoverParkingCEO(SqlSessionTemplate sqlSession, MemberAdmin md) throws ParkingCEOSelectListException {
 		
@@ -67,15 +67,15 @@ public class ParkingCEODaoImpl  implements ParkingCEODao{
 		System.out.println("memberNo : "+memberNo);
 		
 		int result = sqlSession.update("MemberAdmin.updateRecoverParkingCEO", memberNo);
-		System.out.println("result(DAO È¸¿øº¹±¸) : "+result);
+		System.out.println("result(DAO íšŒì›ë³µêµ¬) : "+result);
 		
 		if(result<=0) {
-			throw new ParkingCEOSelectListException("»ç¾÷ÀÚ È¸¿ø º¹±¸ ½ÇÆĞ!");
+			throw new ParkingCEOSelectListException("ì‚¬ì—…ì íšŒì› ë³µêµ¬ ì‹¤íŒ¨!");
 		}
 		return result;
 	}
 
-	// »ç¾÷ÀÚ °Ë»ö ¼ö
+	// ì‚¬ì—…ì ê²€ìƒ‰ ìˆ˜
 	@Override
 	public int getSearchListCount(SqlSessionTemplate sqlSession, String selectStatus, String memberId, String today,
 			String startDate, String endDate) throws ParkingCEOSelectListException {
@@ -89,13 +89,13 @@ public class ParkingCEODaoImpl  implements ParkingCEODao{
 		hmap.put("endDate", endDate);
 		
 		int listCount = sqlSession.selectOne("MemberAdmin.getSearchListCount", hmap);
-		if(listCount <=0) {
-			throw new ParkingCEOSelectListException("»ç¾÷ÀÚ °Ë»ö È¸¿ø ¼ö Á¶È¸ ½ÇÆĞ!");
-		}
+		/*if(listCount <=0) {
+			throw new ParkingCEOSelectListException("ì‚¬ì—…ì ê²€ìƒ‰ íšŒì› ìˆ˜ ì¡°íšŒ ì‹¤íŒ¨!");
+		}*/
 		return listCount;
 	}
 
-	// »ç¾÷ÀÚ °Ë»ö °á°ú.
+	// ì‚¬ì—…ì ê²€ìƒ‰ ê²°ê³¼.
 	@Override
 	public ArrayList<MemberAdmin> selectSearchParkingCEOList(SqlSessionTemplate sqlSession, PageInfo pi,
 			String selectStatus, String memberId, String today, String startDate, String endDate) throws ParkingCEOSelectListException {
@@ -122,9 +122,9 @@ public class ParkingCEODaoImpl  implements ParkingCEODao{
 		
 		System.out.println("DAO list : "+list);
 		
-		if(list == null) {
-			throw new ParkingCEOSelectListException("»ç¾÷ÀÚ È¸¿ø Á¶È¸ ½ÇÆĞ");
-		}
+		/*if(list == null) {
+			throw new ParkingCEOSelectListException("ì‚¬ì—…ì íšŒì› ì¡°íšŒ ì‹¤íŒ¨");
+		}*/
 		return list;
 	}
 
