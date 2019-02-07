@@ -31,6 +31,7 @@
               </div>
               <div class="card-body">
                 <div class="table-responsive">
+                <form action="insertNotice.cu" method="post">
                   <table class="table tablesorter " id="">
                     <tbody>
                       
@@ -53,12 +54,13 @@
                       <tr>
                       	<td></td>
                       	<td style="padding-left: 30%">
-                      		<button class="btn btn-info btn-sm">등록</button>
+                      		<button class="btn btn-info btn-sm" id="submitBtn">등록</button>
                       	</td>
                       </tr> 
                                        
                     </tbody>
                   </table>
+                  </form>
                 </div>
               </div>
             </div>
@@ -96,7 +98,13 @@
       </footer>
     </div>
   </div>
- 
+ <script>
+ 	 /* $(function(){
+ 		$("#submitBtn").click(function(){
+ 			location.href="./insertNotice.cu";
+ 		});
+ 	});  */
+ </script>
 </body>
 
 </html>

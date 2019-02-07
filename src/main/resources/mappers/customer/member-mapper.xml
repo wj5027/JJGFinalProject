@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Member">
+	<resultMap type="com.kh.tsp.customer.model.vo.Member" id="MemberResultSet">
+			<id property="member_no" column="MEMBER_NO"/>
+			<result property="member_id" column="MEMBER_ID"/>
+			<result property="member_pwd" column="MEMBER_PASSWORD"/>
+			<result property="member_type" column="MEMBER_TYPE"/>
+			<result property="id_type" column="ID_TYPE"/>
+			<result property="oil" column="OIL"/>
+			<result property="email" column="EMAIL"/>
+			<result property="phone" column="PHONE"/>
+			<result property="member_name" column="MEMBER_NAME"/>
+			<result property="member_carNo" column="MEMBER_CARNO"/>
+			<result property="status" column="STATUS"/>
+			<result property="kakao_id" column="KAKAO_ID"/>
+			<result property="bank_id" column="BANK_ID"/>
+			<result property="bank_name" column="BANK_NAME"/>
+			<result property="enroll_date" column="ENROLL_DATE"/>	
+	</resultMap>
+
+
+	<!--<resultMap type="Parking" id="parkingResultSet">
+			<id property="PARKING_NO" column="PARKING_NO"/>
+			<result property="PARKING_NAME" column="PARKING_NAME"/>
+			<result property="OPERATE_TYPE" column="OPERATE_TYPE"/>
+			<result property="PARKING_TYPE" column="PARKING_TYPE"/>
+			<result property="ROAD_ADDRESS" column="ROAD_ADDRESS"/>
+			<result property="ADDRESS" column="ADDRESS"/>
+			<result property="PARKING_SIZE" column="PARKING_SIZE"/>
+			<result property="OPEN_DAYS" column="OPEN_DAYS"/>
+			<result property="WEEKDAY_STIME" column="WEEKDAY_STIME"/>
+			<result property="WEEKDAY_ETIME" column="WEEKDAY_ETIME"/>
+			<result property="SAT_STIME" column="SAT_STIME"/>
+			<result property="SAT_ETIME" column="SAT_ETIME"/>
+			<result property="HOLIDAY_STIME" column="HOLIDAY_STIME"/>
+			<result property="HOLIDAY_ETIME" column="HOLIDAY_ETIME"/>
+			<result property="PRICE_INFO" column="PRICE_INFO"/>
+			<result property="PARKING_NTIME" column="PARKING_NTIME"/>	
+			<result property="PARKING_NPRICE" column="PARKING_NPRICE"/>
+			<result property="PARKING_ATIME" column="PARKING_ATIME"/>
+			<result property="PARKING_APRICE" column="PARKING_APRICE"/>
+			<result property="PAY_TYPE" column="PAY_TYPE"/>
+			<result property="REMARKS" column="REMARKS"/>
+			<result property="LATITUDE" column="LATITUDE"/>
+			<result property="LONGITUDE" column="LONGITUDE"/>
+			<result property="PARKING_MANGEMENT" column="PARKING_MANGEMENT"/>
+			<result property="MANAGEMENT_TEL" column="MANAGEMENT_TEL"/>
+			<result property="MEMBER_NO" column="MEMBER_NO"/>
+			<result property="LEFT_SIZE" column="LEFT_SIZE"/>
+			<result property="STATUS" column="STATUS"/>
+	</resultMap>-->
+
+	
+	<select id="selectCheckMember" resultMap="MemberResultSet" parameterType="Member">
+		SELECT * FROM
+		MEMBER WHERE 
+		STATUS = 'Y'
+		AND MEMBER_ID = #{member_id}
+		AND MEMBER_PASSWORD = #{member_pwd}
+	</select>
+
+<!--	
+	<select id="selectnearParkings" resultMap="parkingResultSet">
+		SELECT *
+		FROM PARKING
+		WHERE STATUS='Y'
+		AND ADDRESS LIKE '%' || '강남' || '%'
+	
+	</select>
+-->
+
+</mapper>

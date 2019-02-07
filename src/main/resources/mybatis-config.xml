@@ -7,16 +7,19 @@
 <configuration>
 
 <typeAliases>
-	<typeAlias type="com.kh.tsp.customer.model.vo.Member" alias="Member"/>
-  <typeAlias type="com.kh.tsp.admin.model.vo.MemberAdmin" alias="MemberAdmin"/>
-	<typeAlias type="com.kh.tsp.customer.model.vo.Board" alias="Board"/>
+	 <typeAlias type="com.kh.tsp.customer.model.vo.Member" alias="Member"/>
+ 	 <typeAlias type="com.kh.tsp.admin.model.vo.MemberAdmin" alias="MemberAdmin"/>
+	 <typeAlias type="com.kh.tsp.customer.model.vo.Board" alias="Board"/>
+	 <typeAlias type="com.kh.tsp.customer.model.vo.Parking" alias="Parking"/>
 </typeAliases>
 <mappers>
-	<mapper resource="mappers/customer/member-servlet.xml"/>
-  <mapper resource="mappers/admin/parkingCEO-mapper.xml"/>
-	<mapper resource="mappers/customer/board-mapper.xml"/>
-	<mapper resource="mappers/parkingceo/insertParkingCeo-servlet.xml"/>
 
+	<mapper resource="mappers/customer/member-mapper.xml"/>
+  <mapper resource="mappers/admin/parkingCEO-servlet.xml"/>
+
+	<mapper resource="mappers/customer/board-mapper.xml"/>
+	<mapper resource="mappers/parkingceo/insertParkingCeo-mapper.xml"/>
+	<mapper resource="mappers/parkingceo/parkingCeoPromotion-mapper.xml"/>
 	
 </mappers>
 
