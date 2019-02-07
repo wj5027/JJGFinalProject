@@ -12,11 +12,11 @@
 	<typeAlias type="com.kh.tsp.customer.model.vo.Board" alias="Board"/>
 </typeAliases>
 <mappers>
-	<mapper resource="mappers/customer/member-servlet.xml"/>
+	<mapper resource="mappers/customer/member-mapper.xml"/>
   <mapper resource="mappers/admin/parkingCEO-servlet.xml"/>
 	<mapper resource="mappers/customer/board-mapper.xml"/>
-	<mapper resource="mappers/parkingceo/insertParkingCeo-servlet.xml"/>
-
+	<mapper resource="mappers/parkingceo/insertParkingCeo-mapper.xml"/>
+	<mapper resource="mappers/parkingceo/parkingCeoPromotion-mapper.xml"/>
 	
 </mappers>
 

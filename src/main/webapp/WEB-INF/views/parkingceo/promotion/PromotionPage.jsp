@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -31,50 +32,55 @@
               </div>
               <div class="card-body">
                 <div class="table-responsive"  style="overflow: hidden;">
+                <form action="insertPromotion.pc" method="post" onSubmit="return test33();">
                   <table class="table tablesorter " id="">
                     <tbody>
                       <tr>
                         <td align="center"><div style="color: white;">주차장 명</div></td>
                         <td>
-						<input type="text" placeholder="주차장 명을 넣어주세요" class="form-control form-control-success"  style="width: 500px;"/>
+						<select class="custom-select nav-link dropdown-toggle" id="inputGroupSelect01" style="width: 500px;" name="parking_no">
+    						<c:if test="${not empty  CurrentParkinglist}">
+    						<option selected style="color: black;" value=${CurrentParkinglist[0].parking_no } id="pakringOption1">주차장을 선택해주세요</option>
+    						<c:set var="number" value="1"/>
+    						<c:forEach var="list" items="${CurrentParkinglist }" varStatus="status">
+    							<option value=${list.parking_no } style="color: black;">${list.parking_name }</option>
+    						</c:forEach>
+    						</c:if>
+    						<c:if test="${empty CurrentParkinglist }">
+    							<option selected style="color: black;" value="none">등록하신 주차장이 없습니다.</option>
+    						</c:if>
+  						</select>
 						</td>
                       </tr>
                       <tr>
                         <td align="center"><div style="color: white;">쿠폰명</div></td>
                         <td>
-						<input type="text" placeholder="쿠폰 명을 넣어주세요" class="form-control form-control-success" style="width: 500px;"/>
+						<input type="text" placeholder="쿠폰 명을 넣어주세요" class="form-control form-control-success" style="width: 500px;" name="coupon_name"/>
 						</td>
                       </tr>
                       <tr>
                         <td align="center"><div style="color: white;">가격/할인률</div></td>
                         <td>
-                        <select class="custom-select nav-link dropdown-toggle" id="inputGroupSelect02" style="width: 500px;">
-    						<option selected style="color: black;">카테고리를 선택해주세요</option>
-    						<option value="1" style="color: black;">가격</option>
-    						<option value="2" style="color: black;">할인률</option>
+                        <select class="custom-select nav-link dropdown-toggle" id="inputGroupSelect02" style="width: 500px;" name="selectDiscount">
+    						<option selected style="color: black;" value="oilMoney">카테고리를 선택해주세요</option>
+    						<option value="oilMoney" style="color: black;">가격</option>
+    						<option value="percent" style="color: black;">할인률</option>
   						</select>
-						<input type="text" placeholder="숫자를 입력해주세요" class="form-control form-control-success" style="width: 500px;"/>
+						<input type="text" placeholder="숫자를 입력해주세요" class="form-control form-control-success" style="width: 500px;" name="discountValue" id="discountValue"/>
 						</td>
                       </tr>
                       <tr>
-                      	<td align="center"><div style="color: white;">기간을 선택해주세요(기본 3개월)</div></td>
-                      <!-- 	<td><button class="btn btn-info btn-round btn-sm">오늘</button>
-                      			<button class="btn btn-info btn-round btn-sm">1주일</button>
-                      			<button class="btn btn-info btn-round btn-sm">1개월</button>
-                      			<button class="btn btn-info btn-round btn-sm">3개월</button>
-                      			<button class="btn btn-info btn-round btn-sm">6개월</button>
-                      			<button class="btn btn-info btn-round btn-sm">1년</button>
-                      	</td> -->
+                      	<td align="center"><div style="color: white;">기간을 선택해주세요</div></td>
                       	<td>
                       	<div>
                       		   <div class="input-group date form_date col-md-5" data-date="" data-date-format="yyyy MM dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style="margin: 0; padding: 0; display: inline-block;">
-		    					<div style="width: 70%"><input class="form-control"  id="startDay" size="16" type="text" placeholder="시작일" readonly style="color: white; width: 100%; cursor: pointer !important;">
+		    					<div style="width: 70%"><input class="form-control"  id="startDay" size="16" type="text" placeholder="시작일" readonly style="color: white; width: 100%; cursor: pointer !important;" name="startDay">
 		  	 					<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 								<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
 		    			</div>
 		  				</div>
                       	<div class="input-group date form_date col-md-5" data-date="" data-date-format="yyyy MM dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" style="margin: 0; padding: 0; display: inline-block;">
-		    					<div style="width: 70%"><input class="form-control"  id="EndDay" size="16" type="text" placeholder="종료일" readonly style="color: white; width: 100%; cursor: pointer !important;">
+		    					<div style="width: 70%"><input class="form-control"  id="EndDay" size="16" type="text" placeholder="종료일" readonly style="color: white; width: 100%; cursor: pointer !important;" name="endDay">
 		  	 					<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 								<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
 		    			</div>
@@ -82,10 +88,16 @@
                       	</div>
                       	</td>
                       </tr>
-                                <tr>
+                        <tr>
                         <td align="center"><div style="color: white;">비고</div></td>
                         <td>
-						<input type="text" placeholder="비고란" class="form-control form-control-success" style="width: 500px;"/>
+						<input type="text" placeholder="비고란" class="form-control form-control-success" style="width: 500px;" name="remark"/>
+						</td>
+                      </tr>
+                        <tr>
+                        <td align="center"><div style="color: white;">수량</div></td>
+                        <td>
+						<input type="text" placeholder="수량을 적어주세요" class="form-control form-control-success" style="width: 500px;" name="amount"/>
 						</td>
                       </tr>
                                            <tr>
@@ -99,10 +111,11 @@
                       </td>
                       </tr>      
                       <tr>
-                      	<td colspan="2" align="center"><button class="btn btn-info animation-on-hover" type="button">신청</button></td>
+                      	<td colspan="2" align="center"><button class="btn btn-info animation-on-hover" type="submit">신청</button></td>
                       </tr>                    
                     </tbody>
                   </table>
+                  </form>
                 </div>
               </div>
             </div>
@@ -162,6 +175,11 @@
 		location.href = "goNotePage.pc";
 	}
 	
+	
+
+	
+	
+	
 	$('.form_date').datetimepicker({
         language:  'ko',
         weekStart: 1,
@@ -172,6 +190,38 @@
 		minView: 2,
 		forceParse: 0
     });
+	
+	function test33(){
+		if($("#inputGroupSelect01 option:selected").val() == "none"){
+			alert("주차장이 없습니다. 등록해주세요");
+			return false;
+		}
+		if($("#inputGroupSelect02 option:selected").val() == "percent"){
+			if($("#discountValue").val() > 100){
+				alert("할인률은 100을 넘길 수 없습니다. 재확인 해주세요");
+				return false;
+			}
+		}
+		
+		var selectStartDay = $("#startDay").val().replace('월','');
+		var StartDayCheckDate = new Date(selectStartDay);
+		var toDayDate = new Date();
+		var toDay = toDayDate.toLocaleDateString();
+		var StartDayCheck = StartDayCheckDate.toLocaleDateString();
+		if(toDay > StartDayCheck){
+			alert("쿠폰 시작일은 오늘 기준으로 입력해주세요");
+			return false;
+		}
+		var selectEndDay = $("#EndDay").val().replace('월','');
+		var endDayCheckDate = new Date(selectEndDay);
+		var endDayCheck = endDayCheckDate.toLocaleDateString();
+		if(toDay >= endDayCheck){
+			alert("쿠폰 종료일은 내일 기준으로 입력해주세요");
+			return false;
+		}
+		return true;
+	}
+
 	
 
 </script>
