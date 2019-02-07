@@ -12,13 +12,13 @@ public class Board {
 	private Date modifyDate;
 	private String bType;
 	private String status;
-	private int mno;
+	private String mno;
 	private String pno;
 	
 	public Board() {}
 
 	public Board(int bno, String bTitle, String bContext, int bViews, Date createDate, Date modifyDate, String bType,
-			String status, int mno, String pno) {
+			String status, String mno, String pno) {
 		super();
 		this.bno = bno;
 		this.bTitle = bTitle;
@@ -96,11 +96,11 @@ public class Board {
 		this.status = status;
 	}
 
-	public int getMno() {
+	public String getMno() {
 		return mno;
 	}
 
-	public void setMno(int mno) {
+	public void setMno(String mno) {
 		this.mno = mno;
 	}
 

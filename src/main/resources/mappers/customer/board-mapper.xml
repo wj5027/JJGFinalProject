@@ -41,7 +41,7 @@
   		<result property="modifyDate" column="MODIFED_DATE"/>
   		<result property="bType" column="BOARD_TYPE"/>
   		<result property="status" column="STATUS"/>
-  		<result property="mno" column="MEMBER_NO"/>
+  		<result property="mno" column="MEMBER_NAME"/>
   		<result property="pno" column="PARKING_NO"/>
   		
   	</resultMap>
@@ -105,13 +105,56 @@
   		0, SYSDATE, null, '공지', 'Y', #{mno}, null)
   	</insert>
   	
-  	<!-- 후기 목록 쿼리문 -->
+  	<!-- 내 문의 목록 쿼리문 -->
   	<select id="selectQnaList" resultMap="qnaList">
   		SELECT * FROM BOARD B
   		JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
   		WHERE B.STATUS = 'Y'  		
         AND B.BOARD_TYPE = '관리자문의'
         OR B.BOARD_TYPE = '사업자문의'
-  		ORDER BY BOARD_NO DESC;
+  		ORDER BY BOARD_NO DESC
   	</select>
+  	
+  	<!-- 관리자문의 등록 쿼리문 -->
+  	<insert id="insertQna" parameterType="Board">
+  		INSERT INTO BOARD
+  		VALUES(BNO_SEQ.NEXTVAL, #{bTitle}, #{bContext}, 
+  		0, SYSDATE, null, '관리자문의', 'Y', #{mno}, null)
+  	</insert>
+  	
+  	<!-- 문의 상세보기 쿼리문 -->
+  	<select id="selectOneQna" parameterType="_int" resultMap="qnaList">
+  		SELECT *
+  		FROM BOARD B
+  		JOIN MEMBER M ON (B.MEMBER_NO = M.MEMBER_NO) 
+  		WHERE B.BOARD_NO = #{bno}
+  		AND B.STATUS = 'Y'
+  	</select>
+  	
+  	<!-- 문의 수정1 쿼리문 -->
+  	
+  	<select id="updateQna" parameterType="_int" resultMap="qnaList">
+  		SELECT *
+  		FROM BOARD B
+  		JOIN MEMBER M ON (B.MEMBER_NO = M.MEMBER_NO) 
+  		WHERE B.BOARD_NO = #{bno}
+  		AND B.STATUS = 'Y'
+  	</select>
+  	
+  	<!-- 공지 수정2 쿼리문 -->
+  	<update id="updateQna2" parameterType="Board">
+  		UPDATE BOARD
+  		SET BOARD_TITLE = #{bTitle}, BOARD_CONTEXT = #{bContext}
+  		WHERE BOARD_NO = #{bno}
+  		AND STATUS = 'Y'
+  		
+  	</update>
+  	
+  	<!-- 문의 삭제 쿼리문 -->
+  	<update id="deleteQna2" parameterType="_int">
+  		UPDATE BOARD
+  		SET STATUS = 'N'
+  		WHERE BOARD_NO = #{bno}
+  		
+  	</update>
   </mapper>

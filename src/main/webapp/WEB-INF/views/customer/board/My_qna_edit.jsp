@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <!DOCTYPE html>
 
 <html>
@@ -27,28 +28,27 @@
 		  <div class="col-md-12" height="500px">
             <div class="card ">
               <div class="card-header">
-                <h3 class="card-title" align="center">내 문의 작성</h3>
+                <h3 class="card-title" align="center">내 문의 수정</h3>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
+                <form action="updateQna2.cu" method="post">
                   <table class="table tablesorter " id="">
                     <tbody>
                       <tr>
                         <td width="50px">제목</td>
-                        <td>
-                  			<input type="text" class="form-control" name="title" placeholder="제목을 입력해주세요">
+                        <td>                       
+                        	<input type="hidden" name="bno" value="${ b.bno }">           
+                  			<input type="text" class="form-control" name="title" value="${ b.bTitle }">
                         </td>
                       </tr>  
                       <tr>
                          <td>내용</td>
                         <td>
-                  			<input type="textarea" id="textContent" class="form-control" name="content" placeholder="내용을 입력해주세요">
+                  			<input type="textarea" id="textContent" class="form-control" name="content" value="${ b.bContext }">
                         </td> 
                       </tr>  
-          			  <tr>
-                      	<td>첨부파일</td>
-                      	<td><input type="file" class="form-control"></td>
-                      </tr>  
+          			    
                       <tr>
                       	<td></td>
                       	<td style="padding-left: 30%">
@@ -58,6 +58,7 @@
                                        
                     </tbody>
                   </table>
+                  </form>
                 </div>
               </div>
             </div>
