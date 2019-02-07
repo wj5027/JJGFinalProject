@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
@@ -19,7 +19,7 @@
      <!--  <div class="row"> -->
           <div class="card-body" style="padding: 0px;">
             <div class="map" style="position: relative; overflow: hidden;">
-	          <div id="daumMap" style="height: 160%; width: 100%; position: absolute; top: 0px; left: 0px; background-color: rgb(229, 227, 223);">
+	          <div id="daumMap" style="height: 100%; width: 100%; position: absolute; top: 0px; left: 0px; background-color: rgb(229, 227, 223);">
 	          </div>
             </div>
             <script>
@@ -64,7 +64,7 @@
 		  /*@@@@@@@@@@@@@@@@@움직 일때 마다 내위치 마커 이동 @@@@@@@@@@@@@@@@@@@@@@@@@  */
 				// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
 				if (navigator.geolocation) {
-				    
+				    console.log("지오로케이션사용");
 				    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
 				    navigator.geolocation.watchPosition(function(position) {
 				        console.log("움직였당");
@@ -74,6 +74,7 @@
 				        var locPosition = new daum.maps.LatLng(lat, lon); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
 				          
 				        mypositionMarker.setPosition(new daum.maps.LatLng(lat, lon));
+				        map.setLevel(1, {anchor: new daum.maps.LatLng(lat, lon)});
 				        map.setCenter(locPosition);
 					/* displayMarker(locPosition, message); */
 				            
@@ -113,6 +114,25 @@
 				    // 지도 중심좌표를 접속위치로 변경합니다
 				    map.setCenter(locPosition);      
 				}     */
+				var adresses;
+				$.ajax({
+					url:"getnearParkings.cu",
+					type:"post",
+					success:function(data){
+						console.log(data);
+						for(parking in data.parkings){
+							console.log(data.parkings[parking].ADDRESS);
+						}
+						
+					},
+					error:function(status){
+						console.log(status);
+					}
+				});
+				
+				
+				
+				
 				
 			</script>
 			     

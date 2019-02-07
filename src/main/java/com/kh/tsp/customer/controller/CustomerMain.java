@@ -1,6 +1,11 @@
 package com.kh.tsp.customer.controller;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,9 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.tsp.customer.model.service.CustomerMainService;
 import com.kh.tsp.customer.model.vo.Member;
+import com.kh.tsp.customer.model.vo.Parking;
+import com.kh.tsp.customer.model.vo.parking;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -26,10 +34,10 @@ public class CustomerMain {
 	public CustomerMain() {
 		
 	}
+	
 
-	@RequestMapping(value="/customer.cu", method=RequestMethod.GET)
+	@RequestMapping(value="/customer.cu")
 	public String Customer() {
-		
 		
 		return "customer/main/Customer_main";
 	}
@@ -75,6 +83,29 @@ public class CustomerMain {
 		status.setComplete();
 		return "redirect:customer.cu";
 	}
+	
+	//내주변 주차장 정보 가져오기 메소드
+	@RequestMapping(value="getnearParkings.cu")
+		public ModelAndView getnearParkings(ModelAndView mv) {
+			
+			ArrayList<Parking> parkings =null;
+			
+			parkings =cms.getnearParkings();
+			
+			for(Parking p :parkings) {
+				System.out.println(p);
+			}
+			System.out.println(parkings.size());
+		
+		
+		
+			mv.addObject("parkings",parkings);
+			mv.setViewName("jsonView");
+			
+			
+			return mv;
+		}
+
 	
 	
 	
