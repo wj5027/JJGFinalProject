@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.parkingceo.model.dao.PromotionDao;
+import com.kh.tsp.parkingceo.model.vo.PromotionVo;
 
 
 
@@ -28,6 +29,11 @@ public class PromotionServiceImpl implements PromotionService {
 	@Override
 	public ArrayList<HashMap<String, Object>> selectCurrentParkingList(Member m) {
 		return pd.selectCurrentParkingList(sqlSession,m);
+	}
+
+	@Override
+	public void insertPromotion(PromotionVo pv) {
+		pd.insertPromotion(sqlSession,pv);
 	}
 
 
