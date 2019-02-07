@@ -21,7 +21,9 @@
 			<result property="bank_name" column="BANK_NAME"/>
 			<result property="enroll_date" column="ENROLL_DATE"/>	
 	</resultMap>
-	<resultMap type="Parking" id="parkingResultSet">
+
+
+	<!--<resultMap type="Parking" id="parkingResultSet">
 			<id property="PARKING_NO" column="PARKING_NO"/>
 			<result property="PARKING_NAME" column="PARKING_NAME"/>
 			<result property="OPERATE_TYPE" column="OPERATE_TYPE"/>
@@ -50,7 +52,8 @@
 			<result property="MEMBER_NO" column="MEMBER_NO"/>
 			<result property="LEFT_SIZE" column="LEFT_SIZE"/>
 			<result property="STATUS" column="STATUS"/>
-	</resultMap>
+	</resultMap>-->
+
 	
 	<select id="selectCheckMember" resultMap="MemberResultSet" parameterType="Member">
 		SELECT * FROM
@@ -59,7 +62,8 @@
 		AND MEMBER_ID = #{member_id}
 		AND MEMBER_PASSWORD = #{member_pwd}
 	</select>
-	
+
+<!--	
 	<select id="selectnearParkings" resultMap="parkingResultSet">
 		SELECT *
 		FROM PARKING
@@ -67,5 +71,6 @@
 		AND ADDRESS LIKE '%' || '강남' || '%'
 	
 	</select>
+-->
 
 </mapper>

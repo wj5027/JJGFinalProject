@@ -60,7 +60,6 @@ public class ParkingCeoMain {
 	//사업자 회원가입 기능
 	@RequestMapping(value="/insertParkinCeo.pc")
 	public String inserParkingCeo(@ModelAttribute Member m, Model model ) {
-		System.out.println(m);
 	try{
 			ps.insertParkingCeo(m);
 		}catch(Exception e) {
