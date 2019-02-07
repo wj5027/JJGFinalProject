@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MemberAdmin2">
+	<resultMap type="com.kh.tsp.admin.model.vo.MemberAdmin" id="MemberAdminResultSet">
+			<id property="memberNo" column="MEMBER_NO"/>
+			<result property="memberId" column="MEMBER_ID"/>
+			<result property="memberPassword" column="MEMBER_PASSWORD"/>
+			<result property="memberType" column="MEMBER_TYPE"/>
+			<result property="idType" column="ID_TYPE"/>
+			<result property="oil" column="OIL"/>
+			<result property="email" column="EMAIL"/>
+			<result property="phone" column="PHONE"/>
+			<result property="memberName" column="MEMBER_NAME"/>
+			<result property="memberCarNo" column="MEMBER_CARNO"/>
+			<result property="status" column="STATUS"/>
+			<result property="kakaoId" column="KAKAO_ID"/>
+			<result property="bankId" column="BANK_ID"/>
+			<result property="bankName" column="BANK_NAME"/>
+			<result property="enrollDate" column="ENROLL_DATE"/>	
+	</resultMap>
+	
+	<!-- 사업자 수 -->
+  	<select id="getListCount" resultType="_int">
+  		SELECT COUNT(*) FROM MEMBER
+  		WHERE MEMBER_TYPE='U'
+  	</select>
+  	
+  	<!-- 사업자 리스트 -->
+  	<select id="selectCustomerList" resultMap="MemberAdminResultSet">		
+		SELECT DISTINCT M.MEMBER_NO, M.MEMBER_ID, M.MEMBER_NAME, M.PHONE, M.EMAIL, M.ENROLL_DATE, M.STATUS, (SELECT SUM(OIL) FROM OIL_LIST WHERE MEMBER_NO=M.MEMBER_NO GROUP BY MEMBER_NO) AS OIL
+		FROM MEMBER M 
+		LEFT OUTER JOIN OIL_LIST O ON(M.MEMBER_NO=O.MEMBER_NO)
+		WHERE M.MEMBER_TYPE='U'
+		ORDER BY M.MEMBER_NO DESC
+  	</select>
+  	
+  	<!-- 회원 탈퇴 -->
+  	<update id="deleteCustomer"  parameterType="_int">
+  		UPDATE MEMBER
+  		SET STATUS = 'N'
+  		WHERE MEMBER_TYPE='U' AND STATUS='Y' AND MEMBER_NO = #{memberNo}
+  	</update>
+  	
+  	<!-- 회원 복구 -->
+  	<update id="updateRecoverCustomer"  parameterType="_int">
+  		UPDATE MEMBER
+  		SET STATUS = 'Y'
+  		WHERE MEMBER_TYPE='U' AND STATUS='N' AND MEMBER_NO = #{memberNo}
+  	</update>
+	
+	<!-- 사업자 검색 수 -->
+  	<select id="getSearchListCount" resultType="_int" parameterType="java.util.Map">
+  		SELECT COUNT(*) FROM MEMBER
+  		WHERE MEMBER_TYPE='U'
+		<if test="selectStatus!='' and (selectStatus eq 'A'.toString())">
+			AND STATUS IN('Y','N')
+		</if>
+		<if test="selectStatus!='' and (selectStatus eq 'Y'.toString())">
+			AND STATUS='Y'
+		</if>
+		<if test="selectStatus!='' and (selectStatus eq 'N'.toString())">
+			AND STATUS='N'
+		</if>
+		<if test="memberId != ''">
+			AND MEMBER_ID LIKE '%'||#{memberId}||'%'
+		</if>
+		<if test="today != ''">
+		<![CDATA[
+			AND (TO_CHAR(TO_DATE(ENROLL_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') >= TO_CHAR(TO_DATE(#{today},'yyyy/mm/dd'), 'yyyy/mm/dd') 
+					AND TO_CHAR(TO_DATE(ENROLL_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') < TO_CHAR(TO_DATE(SYSDATE,'rrrr/mm/dd'), 'yyyy/mm/dd'))
+		]]>		
+		</if>
+		<if test="startDate != ''">
+		<![CDATA[
+			AND (TO_CHAR(TO_DATE(ENROLL_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') >= TO_CHAR(TO_DATE(#{startDate},'yyyy-mm-dd'),'yyyy-mm-dd') 
+					AND TO_CHAR(TO_DATE(ENROLL_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') < TO_CHAR(TO_DATE(#{endDate},'yyyy-mm-dd'),'yyyy-mm-dd'))
+		]]>		
+		</if>
+  	</select>
+  	
+  	<!-- 사업자 리스트 -->
+  	<select id="selectSearchCustomerList" resultMap="MemberAdminResultSet" parameterType="java.util.Map">		
+		SELECT DISTINCT M.MEMBER_NO, M.MEMBER_ID, M.MEMBER_NAME, M.PHONE, M.EMAIL, M.ENROLL_DATE, M.STATUS, (SELECT SUM(OIL) FROM OIL_LIST WHERE MEMBER_NO=M.MEMBER_NO GROUP BY MEMBER_NO) AS OIL
+		FROM MEMBER M 
+		LEFT OUTER JOIN OIL_LIST O ON(M.MEMBER_NO=O.MEMBER_NO)
+		WHERE M.MEMBER_TYPE='U'
+		<if test="selectStatus!='' and (selectStatus eq 'A'.toString())">
+			AND M.STATUS IN('Y','N')
+		</if>
+		<if test="selectStatus!='' and (selectStatus eq 'Y'.toString())">
+			AND M.STATUS='Y'
+		</if>
+		<if test="selectStatus!='' and (selectStatus eq 'N'.toString())">
+			AND M.STATUS='N'
+		</if>
+		<if test="memberId != ''">
+			AND M.MEMBER_ID LIKE '%'||#{memberId}||'%'
+		</if>
+		<if test="today != ''">
+		<![CDATA[
+			AND (TO_CHAR(TO_DATE(M.ENROLL_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') >= TO_CHAR(TO_DATE(#{today},'yyyy/mm/dd'), 'yyyy/mm/dd') 
+					AND TO_CHAR(TO_DATE(M.ENROLL_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') <= TO_CHAR(TO_DATE(SYSDATE,'rrrr/mm/dd'), 'yyyy/mm/dd'))
+		]]>		
+		</if>
+		<if test="startDate != ''">
+		<![CDATA[
+			AND (TO_CHAR(TO_DATE(M.ENROLL_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') >= TO_CHAR(TO_DATE(#{startDate},'yyyy-mm-dd'),'yyyy-mm-dd') 
+					AND TO_CHAR(TO_DATE(M.ENROLL_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') <= TO_CHAR(TO_DATE(#{endDate},'yyyy-mm-dd'),'yyyy-mm-dd'))
+		]]>		
+		</if>
+		ORDER BY M.MEMBER_NO DESC
+  	</select>
+
+</mapper>

@@ -43,16 +43,17 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 				<!-- END sidebar_admin -->
 
 				<div class="content">
-					<div class="row">
-					
+					<div class="row">					
 				
 				<!-- 검색 결과가 없을 때 출력되는 모달. -->
 				<c:if test="${nullCheck=='nullCheck'}">
-					<div class="alert alert-warning alert-dismissible fade show" role="alert" style="position: absolute; z-index: 10;">
-			  			<strong>Holy guacamole!</strong> You should check in on some of those fields below.
-			  				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			      			<i class="tim-icons icon-simple-remove"></i>
-			  			</button>
+					<div style="margin: 5% 20%; position: absolute; z-index: 10;">
+						<div align="center" class="alert alert-default alert-dismissible fade show" role="alert" style="width: 400px; height: 80px; padding-top: 6%; font-size: 20px;">
+				  			<strong>검색결과</strong>가 없습니다.
+				  				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				      			<i class="tim-icons icon-simple-remove"></i>
+				  			</button>
+						</div>
 					</div>
 				</c:if>
 				<!-- 검색 결과가 없을 때 출력되는 모달 끝 -->
@@ -167,7 +168,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach var="ceo" items="${list}">
+												<c:forEach var="ceo" items="${list}" varStatus="varstatus">
 													<tr>
 														<td class="text-center">${ceo.memberNo}</td>
 														<td>${ceo.memberId}</td>
@@ -183,14 +184,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 														<td class="text-center">${ceo.enrollDate}</td>
 														<c:if test="${ceo.status == 'Y'}">
 															<td class="text-center">
-																<button data-toggle="modal"
+																<button data-toggle="modal" onclick="selectNo(${varstatus.count - 1});"
 																	data-target=".bd-example-modal-lg-3"
 																	class="btn btn-warning animation-on-hover btn-sm">회원탈퇴</button>
 															</td>
 														</c:if>
 														<c:if test="${ceo.status == 'N'}">
 															<td class="text-center">
-																<button data-toggle="modal"
+																<button data-toggle="modal" onclick="selectNo(${varstatus.count - 1});"
 																	data-target=".bd-example-modal-lg-1"
 																	class="btn btn-info animation-on-hover btn-sm">회원복구</button>
 															</td>
@@ -323,16 +324,16 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 		<!-- 회원 복구 > 예 버튼 클릭 시 memberNo 가져오기 -->
 		<script>
+			function selectNo(cu) {
+				console.log(cu)
+				selectedNo = cu;
+			}
 			$(function() {
-				$("#updateRecoverParkingCEO")
-						.click(
-								function() {
-									var memberNo = $("#listTable td").parent()
-											.children().eq(0).text();
-									//alert(memberNo)
-									location.href = 'updateRecoverParkingCEO.ad?memberNo='
-											+ memberNo;
-								});
+				$("#updateRecoverParkingCEO").click(function() {
+					var memberNo = $("#listTable td").parent().eq(selectedNo).children().eq(0).text();
+
+					location.href = 'updateRecoverParkingCEO.ad?memberNo='+ memberNo;
+				});
 			});
 		</script>
 		<!-- 회원 복구 > 예 버튼 클릭 시 memberNo 가져오기 끝 -->
@@ -405,9 +406,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 		<!-- 탈퇴 버튼 > 예 버튼 클릭 시 memberNo 가져오기 -->
 		<script>
+			function selectNo(cu) {
+				console.log(cu)
+				selectedNo = cu;
+			}
 			$(function() {
 				$("#deleteParkingCEO").click(function() {
-					var memberNo = $("#listTable td").parent().children().eq(0).text();
+					var memberNo = $("#listTable td").parent().eq(selectedNo).children().eq(0).text();
 
 					location.href = 'deleteParkingCEO.ad?memberNo='+ memberNo;
 				});
@@ -464,17 +469,24 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 			/* 아이디 */
 			$("#memberId").click(function() {
 				var memberId = $("#memberId").val();
-				console.log(memberId);
 			});
 
-			/* 날짜 선택 */
+			/* 상세날짜 선택 */
+			var startDate = "";
+			var startArray = "";	        
+			var start_date = "";
 			$("#startDate").click(function() {
-				var startDate = $("#startDate").val();
-				console.log(startDate);
+				startDate = $("#startDate").val();
+				startArray = startDate.split('-');
+				start_date = new Date(startArray[0], startArray[1], startArray[2]);
 			});
+			var endDate = "";
+			var endArray = "";
+			var end_date = "";
 			$("#endDate").click(function() {
-				var endDate = $("#endDate").val();
-				console.log(endDate);
+				endDate = $("#endDate").val();
+				endArray = endDate.split('-');
+				end_date = new Date(endArray[0], endArray[1], endArray[2]);
 			});
 
 			/* 날짜 상세 검색 버튼 */
@@ -485,8 +497,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 				return false;
 			});
 
-			/* 검색 버튼 클릭 시 */
-			$("#searchList").click(function() {
+			/* 검색 버튼 */
+			$("#searchList").click(function () {
+				$("#startDate").click();
+				$("#endDate").click();
+				if(start_date.getTime() > end_date.getTime()) {
+		            alert("종료날짜보다 시작날짜가 작아야합니다.");
+		            return false;
+		        }
 			});
 
 		});
