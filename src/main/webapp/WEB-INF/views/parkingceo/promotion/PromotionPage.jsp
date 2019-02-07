@@ -111,7 +111,7 @@
                       </td>
                       </tr>      
                       <tr>
-                      	<td colspan="2" align="center"><button class="btn btn-info animation-on-hover" type="submit">신청</button></td>
+                      	<td colspan="2" align="center"><button class="btn btn-info animation-on-hover" type="submit" >신청</button></td>
                       </tr>                    
                     </tbody>
                   </table>
@@ -128,7 +128,27 @@
     
     
   </div>
-
+  
+  <c:if test="${promotionChk == 'success'}">
+<div style="margin: 20% 40%; position: absolute; z-index: 10;">
+                  <div align="center" class="alert alert-default alert-dismissible fade show" role="alert" style="width: 400px; height: 80px; padding-top: 6%; font-size: 20px;">
+                       <strong>쿠폰 신청</strong>완료.
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                           <i class="tim-icons icon-simple-remove"></i>
+                       </button>
+                  </div>
+               </div>
+  </c:if>
+	<c:if test="${promotionChk == 'failed'}">
+	       <div style="position: absolute; z-index: 10; margin: 20% 40%;">
+                  <div align="center" class="alert alert-default alert-dismissible fade show" role="alert" style="width: 400px; height: 80px; padding-top: 6%; font-size: 20px;">
+                       <strong>쿠폰 신청</strong>실패.
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                           <i class="tim-icons icon-simple-remove"></i>
+                       </button>
+                  </div>
+               </div>
+	 </c:if>
   
 </body>
 <script type="text/javascript">
@@ -215,7 +235,9 @@
 		var selectEndDay = $("#EndDay").val().replace('월','');
 		var endDayCheckDate = new Date(selectEndDay);
 		var endDayCheck = endDayCheckDate.toLocaleDateString();
-		if(toDay >= endDayCheck){
+		if(toDay <= endDayCheck){
+			console.log(toDay);
+			console.log(endDayCheck);
 			alert("쿠폰 종료일은 내일 기준으로 입력해주세요");
 			return false;
 		}

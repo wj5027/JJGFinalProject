@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.tsp.customer.model.vo.Member;
+import com.kh.tsp.parkingceo.model.vo.PromotionVo;
 
 @Repository
 public class PromotionDaoImpl implements PromotionDao {
@@ -18,6 +19,11 @@ public class PromotionDaoImpl implements PromotionDao {
 	@Override
 	public ArrayList<HashMap<String, Object>> selectCurrentParkingList(SqlSessionTemplate sqlSession, Member m) {
 		return (ArrayList)sqlSession.selectList("ParkingCeoPromotion.selectCurrentParkingList", m);
+	}
+
+	@Override
+	public void insertPromotion(SqlSessionTemplate sqlSession, PromotionVo pv) {
+		sqlSession.insert("ParkingCeoPromotion.insertPromotion", pv);
 	}
 
 }
