@@ -71,6 +71,12 @@
 		AND ADDRESS LIKE '%' || '강남' || '%'
 	
 	</select>
+	
+	<select id="searchLocalParkings" resultMap="parkingResultSet" parameterType="String">
+		SELECT * FROM parking
+		WHERE status = 'Y'
+		AND address LIKE '%' || #{keyword} || '%'
+	</select>
 
 
 </mapper>

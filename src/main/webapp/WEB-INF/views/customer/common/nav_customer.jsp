@@ -151,10 +151,10 @@
  	            if (event.results[i].isFinal) {
  	                final_transcript += event.results[i][0].transcript;
  	                console.log("final_transcript="+final_transcript);
- 	                if (final_transcript == '서울') {
- 	                	$("#STTResult").html("<h1>서울?</h1>");
+ 	                if (final_transcript == '지역 강남') {
+ 	                	searchVoice('강남', '지역');
 					} else if (final_transcript == '근처 주차장') {
-						
+						searchVoice('XX', '근처 주차장');
 					} else {
 						$("#STTtext").text("올바른 키워드로 말해주세요!")
 					}
@@ -168,6 +168,91 @@
  	    };
 	}
 </script>
+<script type="text/javascript">
+function searchText(keyword, type) {
+	var table = $("#STTResult");
+	var type;
+	
+	if (condition) {
+		
+	}
+	
+	$.ajax({
+		url:"searchTextParking.me",
+		type:"post",
+		data:{keyword:keyword, type:type},
+		success:function(data){
+			console.log(data);
+		},
+		error:function(status){
+			console.log(status);
+		}
+		
+	});
+}
+
+function searchVoice(keyword, type) {
+	var table = $("#STTResult");
+	
+	if (type == '근처 주차장') {
+		
+		if (navigator.geolocation) {
+			
+			navigator.geolocation.getCurrentPosition(function(position) {
+				
+				var lati = position.coords.latitude;
+				var longi = position.coords.longitude;
+				
+				var location = lati + "/" + longi;
+				
+				$.ajax({
+					url:"searchVoiceParking.cu",
+					type:"post",
+					data:{keyword:location, type:type},
+					success:function(data){
+						console.log(data);
+					},
+					error:function(status){
+						console.log(status);
+					}
+					
+				});
+			});
+		}
+
+	} else {
+		console.log(keyword + "/" + type);
+		
+		$.ajax({
+			url:"searchVoiceParking.cu",
+			type:"post",
+			data:{keyword:keyword, type:type},
+			success:function(data){
+				console.log(data);
+			},
+			error:function(status){
+				console.log(status);
+			}
+			
+		});
+	}
+	
+	
+}
+</script>
+<!-- <script type="text/javascript">
+var lati;
+var longi;
+if (navigator.geolocation) {
+	console.log("이것도 되는거야?");
+    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+    navigator.geolocation.watchPosition(function(position) {
+        lati = position.coords.latitude; // 위도
+        longi = position.coords.longitude; // 경도
+    });
+    console.log(lati + "/" + longi);
+}
+</script> -->
 
       
       
