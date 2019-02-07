@@ -7,9 +7,10 @@
 <configuration>
 
 <typeAliases>
-	<typeAlias type="com.kh.tsp.customer.model.vo.Member" alias="Member"/>
-  <typeAlias type="com.kh.tsp.admin.model.vo.MemberAdmin" alias="MemberAdmin"/>
-	<typeAlias type="com.kh.tsp.customer.model.vo.Board" alias="Board"/>
+	 <typeAlias type="com.kh.tsp.customer.model.vo.Member" alias="Member"/>
+ 	 <typeAlias type="com.kh.tsp.admin.model.vo.MemberAdmin" alias="MemberAdmin"/>
+	 <typeAlias type="com.kh.tsp.customer.model.vo.Board" alias="Board"/>
+	 <typeAlias type="com.kh.tsp.customer.model.vo.Parking" alias="Parking"/>
 </typeAliases>
 <mappers>
 	<mapper resource="mappers/customer/member-mapper.xml"/>
