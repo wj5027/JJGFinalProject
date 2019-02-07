@@ -30,19 +30,21 @@
                 <h3 class="card-title" align="center">내 문의</h3>
                 <hr style="border: solid 1px white;">
               <div align="center">
-  	<table>
-  		<th>작성일</th>
-  		
-  		<th>제목</th>
-  		
-  		<tbody>
-  		<tr>
-  		<td>19/01/20</td>
-  		<td><a href="./qnaDetail.cu">어반플레이스 강남 민영 주차장 문의</a></td>
-  	
-  		</tr>
-  		</tbody>
-  	</table>
+  	<c:forEach var="b" items="${ list }">
+	  	<table>
+	  		<th>작성일</th>
+	  		
+	  		<th>제목</th>
+	  		
+	  		<tbody>
+	  		<tr>
+	  		<td>${ b.createDate }</td>
+	  		<td class="qnaDetail"><input type="hidden" name="bno" value="${b.bno}">${ b.bTitle }</td>
+	  	
+	  		</tr>
+	  		</tbody>
+	  	</table>
+  	</c:forEach>
     </div>
        </div>
        
@@ -143,6 +145,14 @@
        		$(".content").hide();
        		$(".insertContent").show();
        	});
+   });
+   
+   $(function(){
+	  $(".qnaDetail").click(function(){
+		  var num = $("input[name='bno']").val();
+		  console.log(num);
+		  location.href="./qnaDetail.cu?num="+num;
+	  });
    });
 </script>
        

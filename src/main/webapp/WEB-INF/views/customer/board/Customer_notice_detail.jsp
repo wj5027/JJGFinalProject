@@ -71,7 +71,9 @@
       <script>
       	$(function(){
       		$("#editBtn").click(function(){
-      			location.href="./updateNotice.cu";
+      			var num = $("input[name='bno']").val();
+      			console.log(num);
+      			location.href="./updateNotice.cu?num="+num;
       		});
       	});
       

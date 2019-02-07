@@ -39,7 +39,7 @@
    	<table>
    		
    		<tr>
-   			<td class="noticeDetail"><input type="hidden" name="bno" value="${b.bno}">${ b.bTitle }</td>
+   			<td class="noticeDetail" ><input type="hidden" name="bno" value="${b.bno}">${ b.bTitle }</td>
 			 	
    		</tr>
    		<tr>
@@ -117,6 +117,7 @@
               </div>
               <div class="card-body">
                 <div class="table-responsive">
+                <form action="insertNotice.cu" method="post">
                   <table class="table tablesorter " id="">
                     <tbody>
                        
@@ -132,10 +133,7 @@
                   			<input type="textarea" id="textContent" class="form-control" name="content" placeholder="내용을 입력해주세요">
                         </td> 
                       </tr>  
-          			  <tr>
-                      	<td>첨부파일</td>
-                      	<td><input type="file" class="form-control"></td>
-                      </tr>  
+          			   
                       <tr>
                       	<td></td>
                       	<td style="padding-left: 30%">
@@ -145,6 +143,7 @@
                                        
                     </tbody>
                   </table>
+                  </form>
                 </div>
               </div>
             </div>

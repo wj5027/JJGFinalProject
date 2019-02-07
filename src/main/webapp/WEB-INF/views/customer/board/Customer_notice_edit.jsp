@@ -31,34 +31,34 @@
               </div>
               <div class="card-body">
                 <div class="table-responsive">
+                 	<form action="updateNotice2.cu" method="post">
                   <table class="table tablesorter " id="">
                     <tbody>
                        
                       <tr>
                         <td width="50px">제목</td>
                         <td>
-                  			<input type="text" class="form-control" name="title" placeholder="제목을 입력해주세요">
+                        <input type="hidden" name="bno" value="${ b.bno }">
+                  			<input type="text" class="form-control" name="title" value="${ b.bTitle }" >
                         </td>
                       </tr>
                       <tr>
                          <td>내용</td>
                         <td>
-                  			<input type="textarea" id="textContent" class="form-control" name="content" placeholder="내용을 입력해주세요">
+                  			<input type="textarea" id="textContent" class="form-control" name="content" value="${ b.bContext }">
                         </td> 
                       </tr>  
-          			  <tr>
-                      	<td>첨부파일</td>
-                      	<td><input type="file" class="form-control"></td>
-                      </tr>  
+          			    
                       <tr>
                       	<td></td>
                       	<td style="padding-left: 30%">
-                      		<button class="btn btn-info btn-sm">등록</button>
+                      		<button class="btn btn-info btn-sm" id="editBtn">등록</button>
                       	</td>
                       </tr> 
                                        
                     </tbody>
                   </table>
+                  </form>
                 </div>
               </div>
             </div>
@@ -96,7 +96,13 @@
       </footer>
     </div>
   </div>
- 
+<script>
+	$(function(){
+		$("#editBtn").click(function(){
+			
+		});
+	});
+</script> 
 </body>
 
 </html>
