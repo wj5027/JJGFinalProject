@@ -1,6 +1,7 @@
 package com.kh.tsp.customer.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,27 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 	@Override
 	public ArrayList<Parking> getnearParkings() {
 		return cmd.selectnearParkings(sqlSession);
+	}
+
+	@Override
+	public HashMap<Integer, Parking> searchVoiceParking(String keyword, String type) {
+		
+		HashMap<Integer, Parking> hmap;
+		
+		if (type.equals("지역")) {
+			hmap = cmd.searchVoiceLocalParking(sqlSession, keyword);
+		} else if (type.equals("근처 주차장")) {
+			//37.4996559/127.0330656
+			String[] temp = keyword.split("/");
+			double lat = Double.parseDouble(temp[0]);
+			double lon = Double.parseDouble(temp[1]);
+			
+			hmap = cmd.searchVoiceNearParking(sqlSession, lat, lon);
+		} else {
+			hmap = null;
+		}
+		
+		return hmap;
 	}
 	
 	
