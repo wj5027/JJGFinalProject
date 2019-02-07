@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -27,27 +28,28 @@
               <div class="card-header">
                 <h3 class="card-title" align="center">내 문의</h3>
                 <hr style="border: solid 1px white;">
+              		<form action="deleteQna.cu" method="post">
               		<table width="100%" border="0" cellpadding="0" cellspacing="0">
 			<!-- BOARD TITLE -->
 			
-			
+			<tr>
+				<td>작성자</td>
+				<td>${ b.mno }</td>
+			</tr>
 			<tr height="30"><!-- BOARD CONTENTS -->
 				
 				<td width="60px">제목</td>
-				<td>제목</td>
+				<td><input type="hidden" name="bno" value="${ b.bno }">${ b.bTitle }</td>
 			</tr>
 			
 			<tr height="200">
 				<td>내용</td>
-				<td valign="top" style="border: 1px solid white">내용</td>
+				<td valign="top" style="border: 1px solid white">${ b.bContext }</td>
 			</tr>
 			
-			<tr height="40">
-				<td>첨부파일</td>
-				<td>123.jpg</td>
-			</tr>
+			
 			</table>
-			
+			</form>
 			<table width="100%" border="0" cellpadding="0" cellspacing="0">
 			
 			<tr>
@@ -60,8 +62,8 @@
 			
 			
 					
-					<button class="btn btn-info btn-sm">수정</button>&nbsp;
-					<button class="btn btn-info btn-sm">삭제</button>&nbsp;					
+					<button id="editBtn" class="btn btn-info btn-sm">수정</button>&nbsp;
+					<button id="deleteBtn" class="btn btn-info btn-sm">삭제</button>&nbsp;					
 					<button class="btn btn-info btn-sm">목록</button>&nbsp;					
 				
 		
@@ -74,6 +76,22 @@
           </div>
         </div>
       </div>
+<script>
+	$(function(){
+		$("#editBtn").click(function(){
+			var num = $("input[name='bno']").val();
+			console.log(num);
+			location.href="./updateQna.cu?num="+num;
+		});
+	});
 	
+	 $(function(){
+		$("#deleteBtn").click(function(){
+			/*  var num = $("input[name='bno']").val();
+			console.log(num);  */
+			location.href="./deleteQna.cu";
+		});
+	}); 
+</script>	
 </body>
 </html>

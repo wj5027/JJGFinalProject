@@ -22,8 +22,18 @@ public interface BoardDao {
 	int updateNotice2(SqlSessionTemplate sqlSession, Board b);
 	//공지사항 등록
 	int insertNotice(SqlSessionTemplate sqlSession, Board b);
-	//후기 목록
+	//문의 목록
 	List<Board> selectQnaList(Board b);
+	//문의 등록
+	int insertQna(SqlSessionTemplate sqlSession, Board b);
+	//문의 상세보기
+	Board selectOneQna(SqlSessionTemplate sqlSession, int bno);
+	//문의 수정1
+	Board updateQna(SqlSessionTemplate sqlSession, int bno);
+	//문의 수정2
+	int updateQna2(SqlSessionTemplate sqlSession, Board b);
+	//문의 삭제
+	int deleteQna(SqlSessionTemplate sqlSession, int bno);
 	
 	
 	

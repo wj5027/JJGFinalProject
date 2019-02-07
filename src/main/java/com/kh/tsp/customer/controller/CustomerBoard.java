@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.tsp.customer.model.exception.BoardSelectListException;
@@ -49,11 +50,21 @@ public class CustomerBoard {
 	}
 	
 	@RequestMapping(value="/qna.cu", method=RequestMethod.GET)
-	public String CustomerQnA(Board b, Model model) {
+	public String CustomerQnA(Board b, HttpServletRequest request,
+								HttpServletResponse response) {
 		List<Board> list = bs.selectQnaList(b);
 		System.out.println("서블릿 list: "+list);
-		model.addAttribute("list", list);
+		request.setAttribute("list", list);
 		
+		//작성자
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String mno = Integer.toString(loginUser.getMember_no());
+				
+		b = new Board();		
+		b.setMno(mno);
+		
+		System.out.println("servlet mno: "+mno);
 		return "customer/board/My_qna_list";
 	}
 	
@@ -132,7 +143,7 @@ public class CustomerBoard {
 		//작성자
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
-		int mno = loginUser.getMember_no();
+		String mno = Integer.toString(loginUser.getMember_no());
 		
 		Board b = new Board();
 		b.setbTitle(title);
@@ -140,7 +151,9 @@ public class CustomerBoard {
 		b.setMno(mno);
 		
 		System.out.println("서블릿 mno : "+mno);
-		
+		if(loginUser == null) {
+			request.setAttribute("message", "로그인하세요");
+		}
 		int result = bs.insertNotice(b);
 		
 		if(result > 0) {
@@ -149,10 +162,112 @@ public class CustomerBoard {
 			
 		}else {
 			
-			request.setAttribute("msg", "등록 실패");
+			request.setAttribute("message", "등록 실패");
 			
 			return "common/errorPage";
 		}
 		
 	}
+	
+	//문의 등록
+	@RequestMapping(value="/insertQna.cu")
+	public String insertQna(HttpServletRequest request, HttpServletResponse response) {
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		
+		System.out.println("문의 등록서블릿 title : "+title);
+		System.out.println("문의 등록서블릿 content : "+content);
+		
+		//작성자
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String mno = Integer.toString(loginUser.getMember_no());
+		
+		Board b = new Board();
+		b.setbTitle(title);
+		b.setbContext(content);
+		b.setMno(mno);
+		
+		System.out.println("서블릿 mno : "+mno);
+		if(loginUser == null) {
+			request.setAttribute("message", "로그인하세요");
+		}
+		int result = bs.insertQna(b);
+		
+		if(result > 0) {
+			
+			return "redirect:qna.cu";
+			
+		}else {
+			
+			request.setAttribute("message", "등록 실패");
+			
+			return "common/errorPage";
+		}
+	}
+	
+	//문의 수정1
+	@RequestMapping(value="/updateQna.cu")
+	public String updateQna(HttpServletRequest request, HttpServletResponse response) {
+		int bno = Integer.parseInt(request.getParameter("num"));
+		
+		System.out.println("수정 서블릿1 bno : "+bno);
+		
+		Board b = bs.updateQna(bno);
+		
+		request.setAttribute("b", b);
+		
+		return "customer/board/My_qna_edit";
+		
+	}
+	
+	//문의 수정2
+		@RequestMapping(value="/updateQna2.cu")
+		public String updateQna2(HttpServletRequest request, HttpServletResponse response) {
+			int bno = Integer.parseInt(request.getParameter("bno"));
+			System.out.println("수정 서블릿2 bno : "+bno);
+		
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+			
+			System.out.println("제목: "+title);
+			System.out.println("내용: "+content);
+			
+			Board b = new Board();
+			b.setBno(bno);
+			b.setbTitle(title);
+			b.setbContext(content);
+			
+			
+			
+			int result = bs.updateQna2(b);
+			System.out.println("servlet2 result : "+result);
+		
+			if(result > 0) {
+				return "redirect:qna.cu";
+			}else {
+				request.setAttribute("message", "수정 실패");
+				return "common/errorPage";
+			}
+			
+		}
+	//문의 삭제
+	@RequestMapping(value="/deleteQna.cu", method=RequestMethod.GET)
+	public String deleteQna(@RequestParam("bno")String bno, Model model) {
+		System.out.println("삭제 서블릿 bno : "+bno);
+		
+		int result = bs.deleteQna(Integer.parseInt(bno));
+		
+		if(result > 0) {
+			
+			return "redirect:qna.cu";
+		}else {
+			model.addAttribute("message", "문의 삭제 실패");
+			
+			return "common/errorPage";
+		}
+		
+	}
+		
+	
 }

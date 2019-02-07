@@ -59,11 +59,41 @@ public class BoardDaoImpl implements BoardDao{
 		
 		return sqlSession.insert("Board.insertNotice", b);
 	}
-	//후기 목록
+	//문의 목록
 	@Override
 	public List<Board> selectQnaList(Board b) {
 		System.out.println("dao b: "+b);
 		return sqlSession.selectList("selectQnaList", b);
+	}
+	//문의 등록
+	@Override
+	public int insertQna(SqlSessionTemplate sqlSession, Board b) {
+
+		return sqlSession.insert("Board.insertQna", b);
+	}
+	//문의 상세보기
+	@Override
+	public Board selectOneQna(SqlSessionTemplate sqlSession, int bno) {
+		
+		return sqlSession.selectOne("Board.selectOneQna", bno);
+	}
+	//문의 수정1
+	@Override
+	public Board updateQna(SqlSessionTemplate sqlSession, int bno) {
+		
+		return sqlSession.selectOne("Board.updateQna", bno);
+	}
+	//문의 수정2
+	@Override
+	public int updateQna2(SqlSessionTemplate sqlSession, Board b) {
+		
+		return sqlSession.update("Board.updateQna2", b);
+	}
+	//문의 삭제
+	@Override
+	public int deleteQna(SqlSessionTemplate sqlSession, int bno) {
+		
+		return sqlSession.delete("Board.deleteQna", bno);
 	}
 	
 	

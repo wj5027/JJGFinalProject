@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -30,21 +31,25 @@
                 <h3 class="card-title" align="center">내 문의</h3>
                 <hr style="border: solid 1px white;">
               <div align="center">
-  	<c:forEach var="b" items="${ list }">
+  	
 	  	<table>
-	  		<th>작성일</th>
+	  		<th width="50%">작성일</th>
 	  		
 	  		<th>제목</th>
-	  		
+	  		<c:forEach var="b" items="${ list }">
+  	
+  	 <c:if test="${ loginUser.member_name eq b.mno }"> 
 	  		<tbody>
 	  		<tr>
 	  		<td>${ b.createDate }</td>
-	  		<td class="qnaDetail"><input type="hidden" name="bno" value="${b.bno}">${ b.bTitle }</td>
+	  		<td class="qnaDetail">${ b.bTitle }</td><input type="hidden" name="bno" value="${b.bno}">
 	  	
 	  		</tr>
+	  		</c:if> 
+  	</c:forEach>
 	  		</tbody>
 	  	</table>
-  	</c:forEach>
+	  	 
     </div>
        </div>
        
@@ -109,8 +114,13 @@
               </div>
               <div class="card-body">
                 <div class="table-responsive">
+                <form action="insertQna.cu" method="post">
                   <table class="table tablesorter " id="">
                     <tbody>
+                    <tr>
+                    	<td>작성자</td>
+                    	<td>${ loginUser.member_name }</td>
+                    </tr>
                       <tr>
                         <td width="50px">제목</td>
                         <td>
@@ -120,7 +130,7 @@
                       <tr>
                          <td>내용</td>
                         <td>
-                  			<input type="textarea" id="textContent" class="form-control" name="content" placeholder="내용을 입력해주세요">
+                  			<input type="textarea" id="content" class="form-control" name="content" placeholder="내용을 입력해주세요">
                         </td> 
                       </tr>  
           			 
@@ -132,6 +142,7 @@
                                        
                     </tbody>
                   </table>
+                  </form>
                 </div>
               </div>
             </div>
