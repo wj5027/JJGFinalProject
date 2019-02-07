@@ -49,6 +49,30 @@ public class BoardServiceImpl implements BoardService {
 		
 		return bd.deleteNotice(sqlSession, bno);
 	}
+	//공지사항 수정1
+	@Override
+	public Board updateNotice(int bno) {
+		
+		return bd.updateNotice(sqlSession, bno);
+	}
+	//공지사항 수정2
+	@Override
+	public int updateNotice2(Board b) {
+		System.out.println("service b: "+b);
+		return bd.updateNotice2(sqlSession, b);
+	}
+	//공지사항 등록
+	@Override
+	public int insertNotice(Board b) {
+
+		return bd.insertNotice(sqlSession, b);
+	}
+	//후기 목록
+	@Override
+	public List<Board> selectQnaList(Board b) {
+		System.out.println("service b: "+b);
+		return bd.selectQnaList(b);
+	}
 	
 	
 

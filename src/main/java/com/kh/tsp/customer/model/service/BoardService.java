@@ -16,6 +16,14 @@ public interface BoardService {
 	Board selectOneNotice(int bno);
 	//공지사항 삭제
 	int deleteNotice(int bno);
+	//공지사항 수정1
+	Board updateNotice(int bno);
+	//공지사항 수정2
+	int updateNotice2(Board b);
+	//공지사항 등록
+	int insertNotice(Board b);
+	//후기 등록
+	List<Board> selectQnaList(Board b);
 	
 	
 	
