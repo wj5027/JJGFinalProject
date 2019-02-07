@@ -1,5 +1,8 @@
 package com.kh.tsp.admin.model.dao;
 
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -72,20 +75,12 @@ public class ParkingCEODaoImpl  implements ParkingCEODao{
 		return result;
 	}
 
-	// 사업자 검색 결과
+	// 사업자 검색 수
 	@Override
-	public ArrayList<MemberAdmin> selectSearchParkingCEOList(SqlSessionTemplate sqlSession, PageInfo pi,
-			String selectStatus, String memberId, String today, String startDate, String endDate) throws ParkingCEOSelectListException {
-		ArrayList<MemberAdmin> list = null;
-		int offset = (pi.getCurrentPage()-1)* pi.getLimit();	
+	public int getSearchListCount(SqlSessionTemplate sqlSession, String selectStatus, String memberId, String today,
+			String startDate, String endDate) throws ParkingCEOSelectListException {
 
-		System.out.println("selectStatus DAO: "+selectStatus);
-		System.out.println("memberId DAO: "+memberId);
-		System.out.println("today DAO: "+today);
-		System.out.println("startDate DAO: "+startDate);
-		System.out.println("endDate DAO: "+endDate);
-		
-		Map<String, String> hmap = new HashMap();
+		Map<String, Object> hmap = new HashMap();
 
 		hmap.put("selectStatus", selectStatus);
 		hmap.put("memberId", memberId);
@@ -93,8 +88,37 @@ public class ParkingCEODaoImpl  implements ParkingCEODao{
 		hmap.put("startDate", startDate);
 		hmap.put("endDate", endDate);
 		
-		//RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
-		list = (ArrayList)sqlSession.selectList("MemberAdmin.selectSearchParkingCEOList", hmap);
+		int listCount = sqlSession.selectOne("MemberAdmin.getSearchListCount", hmap);
+		if(listCount <=0) {
+			throw new ParkingCEOSelectListException("사업자 검색 회원 수 조회 실패!");
+		}
+		return listCount;
+	}
+
+	// 사업자 검색 결과.
+	@Override
+	public ArrayList<MemberAdmin> selectSearchParkingCEOList(SqlSessionTemplate sqlSession, PageInfo pi,
+			String selectStatus, String memberId, String today, String startDate, String endDate) throws ParkingCEOSelectListException {
+		ArrayList<MemberAdmin> list = null;
+		
+		int offset = (pi.getCurrentPage()-1)* pi.getLimit();			
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+
+		System.out.println("selectStatus DAO: "+selectStatus);
+		System.out.println("memberId DAO: "+memberId);
+		System.out.println("today DAO: "+today);
+		System.out.println("startDate DAO: "+startDate);
+		System.out.println("endDate DAO: "+endDate);
+		
+		Map<String, Object> hmap = new HashMap();
+
+		hmap.put("selectStatus", selectStatus);
+		hmap.put("memberId", memberId);
+		hmap.put("today", today);
+		hmap.put("startDate", startDate);
+		hmap.put("endDate", endDate);
+		
+		list = (ArrayList)sqlSession.selectList("MemberAdmin.selectSearchParkingCEOList", hmap, rowBounds);
 		
 		System.out.println("DAO list : "+list);
 		

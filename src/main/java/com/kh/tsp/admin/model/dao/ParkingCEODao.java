@@ -22,6 +22,10 @@ public interface ParkingCEODao {
 	// 회원 복구
 	int updateRecoverParkingCEO(SqlSessionTemplate sqlSession, MemberAdmin md) throws ParkingCEOSelectListException;
 
+	// 사업자 검색 수
+	int getSearchListCount(SqlSessionTemplate sqlSession, String selectStatus, String memberId, String today,
+			String startDate, String endDate) throws ParkingCEOSelectListException;
+
 	// 사업자 검색 결과
 	ArrayList<MemberAdmin> selectSearchParkingCEOList(SqlSessionTemplate sqlSession, PageInfo pi, String selectStatus,
 			String memberId, String today, String startDate, String endDate) throws ParkingCEOSelectListException;

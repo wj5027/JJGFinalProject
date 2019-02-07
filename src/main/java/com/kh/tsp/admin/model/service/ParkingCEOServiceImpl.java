@@ -48,6 +48,14 @@ public class ParkingCEOServiceImpl implements ParkingCEOService{
 		return result;
 	}
 
+	// 사업자 검색 수
+	@Override
+	public int getSearchListCount(String selectStatus, String memberId, String today, String startDate, String endDate)
+			throws ParkingCEOSelectListException {
+		int listCount = pcd.getSearchListCount(sqlSession,selectStatus, memberId, today, startDate, endDate);
+		return listCount;
+	}
+
 	// 사업자 검색 결과
 	@Override
 	public ArrayList<MemberAdmin> selectSearchParkingCEOList(PageInfo pi, String selectStatus, String memberId,
