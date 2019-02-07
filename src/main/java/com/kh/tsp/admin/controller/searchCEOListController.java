@@ -21,6 +21,8 @@ import com.kh.tsp.common.Pagination;
 @Controller
 public class searchCEOListController {
 
+	String nullCheck=null;
+
 	@Autowired
 	private ParkingCEOService pcs;
 	
@@ -29,6 +31,7 @@ public class searchCEOListController {
 		return "admin/parkingceo/SearchCEOList";
 	}
 	
+	// ì „ì²´ ì¡°íšŒ
 	@RequestMapping("selectCEOList.ad")
 	public String searchCEOList(HttpServletRequest request, HttpServletResponse response) {
 
@@ -43,6 +46,13 @@ public class searchCEOListController {
 			ArrayList<MemberAdmin> list =pcs.selectParkingCEOList(pi);
 			request.setAttribute("pi", pi);
 			request.setAttribute("list", list);
+			
+			System.out.println("nullCheck : "+nullCheck);
+			
+			if(nullCheck != null) {
+				request.setAttribute("nullCheck", nullCheck);
+				nullCheck=null;
+			}
 
 			return "admin/parkingceo/SearchCEOList";
 			
@@ -52,7 +62,7 @@ public class searchCEOListController {
 		}
 	}
 	
-	// È¸¿ø Å»Åğ
+	// íšŒì› íƒˆí‡´
 	@RequestMapping("deleteParkingCEO.ad")
 	public String deleteParkingCEO(String memberNo, Model model){
 		System.out.println("memberNo : "+memberNo);
@@ -66,16 +76,16 @@ public class searchCEOListController {
 		
 		try {
 			result = pcs.deleteParkingCEO(md);
-			System.out.println("result(controller) try¹® : "+result);
-			return "redirect:goSearchCEOListPage";
+			System.out.println("result(controller) tryë¬¸ : "+result);
+			return "redirect:selectCEOList.ad";
 		} catch (ParkingCEOSelectListException e) {
 			model.addAttribute("msg", e.getMessage());
-			System.out.println("result(controller) catch¹® : "+result);
+			System.out.println("result(controller) catchë¬¸ : "+result);
 			return "common/errorPage";
 		}
 	}
 
-	// È¸¿ø º¹±¸
+	// íšŒì› ë³µêµ¬
 	@RequestMapping("updateRecoverParkingCEO.ad")
 	public String updateRecoverParkingCEO(String memberNo, Model model){
 		System.out.println("memberNo : "+memberNo);
@@ -89,16 +99,16 @@ public class searchCEOListController {
 		
 		try {
 			result = pcs.updateRecoverParkingCEO(md);
-			System.out.println("result(controller) try¹® : "+result);
-			return "redirect:goSearchCEOListPage";
+			System.out.println("result(controller) tryë¬¸ : "+result);
+			return "redirect:selectCEOList.ad";
 		} catch (ParkingCEOSelectListException e) {
 			model.addAttribute("msg", e.getMessage());
-			System.out.println("result(controller) catch¹® : "+result);
+			System.out.println("result(controller) catchë¬¸ : "+result);
 			return "common/errorPage";
 		}
 	}
 	
-	// È¸¿ø °Ë»ö
+	// íšŒì› ê²€ìƒ‰
 	@RequestMapping("selectSearchCEOList.ad")
 	public String searchCEOList2(HttpServletRequest request, HttpServletResponse response,
 												String selectStatus, String memberId, String today, String startDate, String endDate) {
@@ -121,8 +131,13 @@ public class searchCEOListController {
 			ArrayList<MemberAdmin> list =pcs.selectSearchParkingCEOList(pi, selectStatus, memberId, today, startDate, endDate);
 			request.setAttribute("pi", pi);
 			request.setAttribute("list", list);
-
-			return "admin/parkingceo/SearchCEOList2";
+			
+			if(listCount==0 || list == null) {
+				nullCheck="nullCheck";
+				return "redirect:selectCEOList.ad";
+			}else {
+				return "admin/parkingceo/SearchCEOList2";				
+			}
 			
 		} catch (ParkingCEOSelectListException e) {
 			request.setAttribute("msg", e.getMessage());

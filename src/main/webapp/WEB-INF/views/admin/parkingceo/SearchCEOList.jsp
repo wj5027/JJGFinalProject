@@ -44,13 +44,27 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 				<div class="content">
 					<div class="row">
+					
+				
+				<!-- 검색 결과가 없을 때 출력되는 모달. -->
+				<c:if test="${nullCheck=='nullCheck'}">
+					<div class="alert alert-warning alert-dismissible fade show" role="alert" style="position: absolute; z-index: 10;">
+			  			<strong>Holy guacamole!</strong> You should check in on some of those fields below.
+			  				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			      			<i class="tim-icons icon-simple-remove"></i>
+			  			</button>
+					</div>
+				</c:if>
+				<!-- 검색 결과가 없을 때 출력되는 모달 끝 -->
+				
 						<div class="col-md-12" height="500px">
 							<div class="card ">
 								<div class="card-header">
 									<h4 class="card-title">사업자 검색</h4>
 								</div>
 
-								<form id="formList" method="POST" action="selectSearchCEOList.ad">
+								<form id="formList" method="POST"
+									action="selectSearchCEOList.ad">
 									<div class="card-body">
 										<div class="table-responsive" style="overflow: hidden;">
 											<table class="table tablesorter " id="">
@@ -82,8 +96,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 													</tr>
 													<tr>
 														<td>등록일</td>
-														<td>
-															<input type="hidden" name="today" id="today">
+														<td><input type="hidden" name="today" id="today">
 															<div id="dayBtn" name="dayBtn">
 																<button id="one" onclick="return one()"
 																	class="btn btn-info animation-on-hover btn-sm">1일</button>
@@ -97,16 +110,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 																<button id="halfYear" onclick="return halfYear()"
 																	class="btn btn-info animation-on-hover btn-sm">6개월</button>
 																&nbsp;&nbsp;
-																<button id="year" onclick="return year()" 
+																<button id="year" onclick="return year()"
 																	class="btn btn-info animation-on-hover btn-sm">1년</button>
 																&nbsp;&nbsp;
 																<button id="detailDate" onclick="return detailDate()"
 																	class="btn btn-warning animation-on-hover btn-sm">날짜 상세 검색</button>
 															</div>
 
-															<div class="row" id="datePicker" style="margin-top: 1%; visibility: hidden;">
+															<div class="row" id="datePicker"
+																style="margin-top: 1%; visibility: hidden;">
 																<div class="form-group" style="margin-left: 1.5%;">
-																	<input type="date" class="form-control" value="" id="startDate" name="startDate">
+																	<input type="date" class="form-control" value=""
+																		id="startDate" name="startDate">
 																</div>
 																<div class="form-group">
 																	&nbsp;&nbsp;&nbsp;<b style="font-size: 20px">~</b>&nbsp;&nbsp;&nbsp;
@@ -147,6 +162,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 													<th>전화번호</th>
 													<th class="text-center">이메일</th>
 													<th class="text-center">보유 포인트</th>
+													<th class="text-center">가입일</th>
 													<th class="text-center">상태</th>
 												</tr>
 											</thead>
@@ -164,6 +180,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 														<c:if test="${!empty ceo.oil}">
 															<td class="text-center">${ceo.oil}</td>
 														</c:if>
+														<td class="text-center">${ceo.enrollDate}</td>
 														<c:if test="${ceo.status == 'Y'}">
 															<td class="text-center">
 																<button data-toggle="modal"
@@ -285,7 +302,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 												</tr>
 												<tr>
 													<td align="center"><button type="button"
-															id="recoverParkingCEO" data-toggle="modal"
+															id="updateRecoverParkingCEO" data-toggle="modal"
 															data-target=".bd-example-modal-lg-2"
 															class="btn btn-warning animation-on-hover">예</button></td>&nbsp;&nbsp;
 													<td align="center"><button type="button"
@@ -306,12 +323,16 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 		<!-- 회원 복구 > 예 버튼 클릭 시 memberNo 가져오기 -->
 		<script>
-			$(function () {
-				$("#updateRecoverParkingCEO").click(function () {
-					var memberNo = $("#listTable td").parent().children().eq(0).text();
-					
-					location.href='updateRecoverParkingCEO.ad?memberNo='+memberNo;
-				});
+			$(function() {
+				$("#updateRecoverParkingCEO")
+						.click(
+								function() {
+									var memberNo = $("#listTable td").parent()
+											.children().eq(0).text();
+									//alert(memberNo)
+									location.href = 'updateRecoverParkingCEO.ad?memberNo='
+											+ memberNo;
+								});
 			});
 		</script>
 		<!-- 회원 복구 > 예 버튼 클릭 시 memberNo 가져오기 끝 -->
@@ -384,11 +405,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 		<!-- 탈퇴 버튼 > 예 버튼 클릭 시 memberNo 가져오기 -->
 		<script>
-			$(function () {
-				$("#deleteParkingCEO").click(function () {
+			$(function() {
+				$("#deleteParkingCEO").click(function() {
 					var memberNo = $("#listTable td").parent().children().eq(0).text();
-					
-					location.href='deleteParkingCEO.ad?memberNo='+memberNo;
+
+					location.href = 'deleteParkingCEO.ad?memberNo='+ memberNo;
 				});
 			});
 		</script>
@@ -414,8 +435,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 												<tr>
 													<td align="center"><button type="button"
 															class="btn btn-info animation-on-hover"
-															data-dismiss="modal"
-															onclick="location.href='selectCEOList.ad'">닫기</button></td>
+															data-dismiss="modal" onclick="window.location.reload();">닫기</button></td>
 												</tr>
 											</tbody>
 										</table>
@@ -427,45 +447,46 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 				</div>
 			</div>
 		</div>
-		<!-- 회원 탈퇴 > 예 버튼 끝 -->
+		<!-- 회원 탈퇴 > 예 버튼 끝 -->		
 		<!-- /////////////////////////////////// 모달 끝 /////////////////////////////////////////// -->
 	</c:if>
 
+
 	<!-- 검색 -->
 	<script>
-		$(function () {
+		$(function() {
 			/* 구분 */
-			$("#selectStatus").click(function () {
+			$("#selectStatus").click(function() {
 				var selected = $("#selectStatus option:selected").val();
 				console.log(selected);
 			});
-			
+
 			/* 아이디 */
-			$("#memberId").click(function () {
+			$("#memberId").click(function() {
 				var memberId = $("#memberId").val();
 				console.log(memberId);
 			});
-			
+
 			/* 날짜 선택 */
-			$("#startDate").click(function () {
+			$("#startDate").click(function() {
 				var startDate = $("#startDate").val();
 				console.log(startDate);
-			}); 
-			$("#endDate").click(function () {
+			});
+			$("#endDate").click(function() {
 				var endDate = $("#endDate").val();
 				console.log(endDate);
 			});
-			
+
 			/* 날짜 상세 검색 버튼 */
-			$("#detailDate").click(function () {
-				$("#dayBtn").css("visibility","hidden");
-				$("#datePicker").css("visibility","visible");
+			$("#detailDate").click(function() {
+				$("#dayBtn").css("visibility", "hidden");
+				$("#datePicker").css("visibility", "visible");
+				today = "";
 				return false;
 			});
-			
-			/* 검색 버튼 클릭 시 */		
-			$("#searchList").click(function () {
-<%-- 				$("#formList").attr("action", "<%=request.getContextPath()%>/searchList.pr"); --%>
+
+			/* 검색 버튼 클릭 시 */
+			$("#searchList").click(function() {
 			});
 
 		});
@@ -475,83 +496,81 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 	<!-- 테이블 날짜버튼 클릭 시 색상 변경 -->
 	<script>
 		$(function() {
-			var d =  new Date();
-			var today="";
-			
-			$("#one").click(function () {
+			var d = new Date();
+			var today = "";
+
+			$("#one").click(function() {
 				$("#one").attr("class", "btn btn-warning animation-on-hover btn-sm");
 				$("#seven").attr("class", "btn btn-info animation-on-hover btn-sm");
 				$("#month").attr("class", "btn btn-info animation-on-hover btn-sm");
 				$("#halfYear").attr("class", "btn btn-info animation-on-hover btn-sm");
 				$("#year").attr("class", "btn btn-info animation-on-hover btn-sm");
-				
-				today = d.getFullYear() + '/' + ('0' + (d.getMonth() + 1)).slice(-2) + '/' + ('0' + (d.getDate()-1)).slice(-2);
+
+				today = d.getFullYear() + '/' + ('0' + (d.getMonth() + 1)).slice(-2) + '/' + ('0' + (d.getDate() - 1)).slice(-2);
 				console.log(today);
-				
+
 				$("#today").val(today);
-				
-				//$("#startDate").val(today);
-				
+
 				return false;
 			});
-			$("#seven").click(function () {
+			$("#seven").click(function() {
 				$("#one").attr("class", "btn btn-info animation-on-hover btn-sm");
 				$("#seven").attr("class", "btn btn-warning animation-on-hover btn-sm");
 				$("#month").attr("class", "btn btn-info animation-on-hover btn-sm");
 				$("#halfYear").attr("class", "btn btn-info animation-on-hover btn-sm");
 				$("#year").attr("class", "btn btn-info animation-on-hover btn-sm");
-				
-				var o = new Date(d.getFullYear(), d.getMonth()+1, d.getDate()-7); // 2월달 날짜계산 필요
+
+				var o = new Date(d.getFullYear(), d.getMonth() + 1, d.getDate() - 7); // 2월달 날짜계산 필요
 				today = o.getFullYear() + '/' + ('0' + o.getMonth()).slice(-2) + '/' + ('0' + o.getDate()).slice(-2);
 				console.log(today);
 
 				$("#today").val(today);
-				
+
 				return false
 			});
-			$("#month").click(function () {
+			$("#month").click(function() {
 				$("#one").attr("class", "btn btn-info animation-on-hover btn-sm");
 				$("#seven").attr("class", "btn btn-info animation-on-hover btn-sm");
 				$("#month").attr("class", "btn btn-warning animation-on-hover btn-sm");
 				$("#halfYear").attr("class", "btn btn-info animation-on-hover btn-sm");
 				$("#year").attr("class", "btn btn-info animation-on-hover btn-sm");
-				
+
 				var o = new Date(d.getFullYear(), d.getMonth(), d.getDate());
 				today = o.getFullYear() + '/' + ('0' + o.getMonth()).slice(-2) + '/' + ('0' + o.getDate()).slice(-2);
 				console.log(today);
 
 				$("#today").val(today);
-				
+
 				return false
 			});
-			$("#halfYear").click(function () {
+			$("#halfYear").click(function() {
 				$("#one").attr("class", "btn btn-info animation-on-hover btn-sm");
 				$("#seven").attr("class", "btn btn-info animation-on-hover btn-sm");
 				$("#month").attr("class", "btn btn-info animation-on-hover btn-sm");
 				$("#halfYear").attr("class", "btn btn-warning animation-on-hover btn-sm");
 				$("#year").attr("class", "btn btn-info animation-on-hover btn-sm");
 
-				var o = new Date(d.getFullYear(), (d.getMonth()+1)-6, d.getDate());
+				var o = new Date(d.getFullYear(),(d.getMonth() + 1) - 6, d.getDate());
 				today = o.getFullYear() + '/' + ('0' + o.getMonth()).slice(-2) + '/' + ('0' + o.getDate()).slice(-2);
 				console.log(today);
 
 				$("#today").val(today);
-				
+
 				return false
 			});
-			$("#year").click(function () {
+			$("#year").click(function() {
 				$("#one").attr("class", "btn btn-info animation-on-hover btn-sm");
 				$("#seven").attr("class", "btn btn-info animation-on-hover btn-sm");
 				$("#month").attr("class", "btn btn-info animation-on-hover btn-sm");
 				$("#halfYear").attr("class", "btn btn-info animation-on-hover btn-sm");
 				$("#year").attr("class", "btn btn-warning animation-on-hover btn-sm");
 
-				var o = new Date(d.getFullYear()-1, d.getMonth()+1, d.getDate());
+				var o = new Date(d.getFullYear() - 1, d.getMonth() + 1,d.getDate());
 				today = o.getFullYear() + '/' + ('0' + o.getMonth()).slice(-2) + '/' + ('0' + o.getDate()).slice(-2);
 				console.log(today);
 
 				$("#today").val(today);
-				
+
 				return false
 			});
 		});

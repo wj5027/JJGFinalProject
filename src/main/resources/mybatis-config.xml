@@ -13,8 +13,10 @@
 	 <typeAlias type="com.kh.tsp.customer.model.vo.Parking" alias="Parking"/>
 </typeAliases>
 <mappers>
+
 	<mapper resource="mappers/customer/member-mapper.xml"/>
   <mapper resource="mappers/admin/parkingCEO-servlet.xml"/>
+
 	<mapper resource="mappers/customer/board-mapper.xml"/>
 	<mapper resource="mappers/parkingceo/insertParkingCeo-mapper.xml"/>
 	<mapper resource="mappers/parkingceo/parkingCeoPromotion-mapper.xml"/>

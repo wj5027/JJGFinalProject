@@ -8,22 +8,22 @@ import com.kh.tsp.common.PageInfo;
 
 public interface ParkingCEOService {
 
-	// »ç¾÷ÀÚ ¼ö
+	// ì‚¬ì—…ì ìˆ˜
 	int getListCount() throws ParkingCEOSelectListException;
 
-	// »ç¾÷ÀÚ ¸®½ºÆ®
+	// ì‚¬ì—…ì ë¦¬ìŠ¤íŠ¸
 	ArrayList<MemberAdmin> selectParkingCEOList(PageInfo pi) throws ParkingCEOSelectListException;
 
-	// È¸¿ø Å»Åğ
+	// íšŒì› íƒˆí‡´
 	int deleteParkingCEO(MemberAdmin md) throws ParkingCEOSelectListException;
 
-	// È¸¿ø º¹±¸
+	// íšŒì› ë³µêµ¬
 	int updateRecoverParkingCEO(MemberAdmin md) throws ParkingCEOSelectListException;
 	
-	// »ç¾÷ÀÚ °Ë»ö ¼ö
+	// ì‚¬ì—…ì ê²€ìƒ‰ ìˆ˜
 	int getSearchListCount(String selectStatus, String memberId, String today, String startDate, String endDate) throws ParkingCEOSelectListException;
 
-	// »ç¾÷ÀÚ °Ë»ö°á°ú
+	// ì‚¬ì—…ì ê²€ìƒ‰ê²°ê³¼
 	ArrayList<MemberAdmin> selectSearchParkingCEOList(PageInfo pi, String selectStatus, String memberId, String today,
 			String startDate, String endDate) throws ParkingCEOSelectListException;
 

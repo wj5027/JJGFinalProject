@@ -10,23 +10,23 @@ import com.kh.tsp.common.PageInfo;
 
 public interface ParkingCEODao {
 
-	// »ç¾÷ÀÚ ¼ö
+	// ì‚¬ì—…ì ìˆ˜
 	int getListCount(SqlSessionTemplate sqlSession) throws ParkingCEOSelectListException;
 
-	// »ç¾÷ÀÚ ¸®½ºÆ®
+	// ì‚¬ì—…ì ë¦¬ìŠ¤íŠ¸
 	ArrayList<MemberAdmin> selectParkingCEOList(SqlSessionTemplate sqlSession, PageInfo pi) throws ParkingCEOSelectListException;
 
-	// È¸¿ø Å»Åğ
+	// íšŒì› íƒˆí‡´
 	int deleteParkingCEO(SqlSessionTemplate sqlSession, MemberAdmin md) throws ParkingCEOSelectListException;
 
-	// È¸¿ø º¹±¸
+	// íšŒì› ë³µêµ¬
 	int updateRecoverParkingCEO(SqlSessionTemplate sqlSession, MemberAdmin md) throws ParkingCEOSelectListException;
 
-	// »ç¾÷ÀÚ °Ë»ö ¼ö
+	// ì‚¬ì—…ì ê²€ìƒ‰ ìˆ˜
 	int getSearchListCount(SqlSessionTemplate sqlSession, String selectStatus, String memberId, String today,
 			String startDate, String endDate) throws ParkingCEOSelectListException;
 
-	// »ç¾÷ÀÚ °Ë»ö °á°ú
+	// ì‚¬ì—…ì ê²€ìƒ‰ ê²°ê³¼
 	ArrayList<MemberAdmin> selectSearchParkingCEOList(SqlSessionTemplate sqlSession, PageInfo pi, String selectStatus,
 			String memberId, String today, String startDate, String endDate) throws ParkingCEOSelectListException;
 
