@@ -23,7 +23,7 @@
 	</resultMap>
 
 
-	<!--<resultMap type="Parking" id="parkingResultSet">
+	<resultMap type="Parking" id="parkingResultSet">
 			<id property="PARKING_NO" column="PARKING_NO"/>
 			<result property="PARKING_NAME" column="PARKING_NAME"/>
 			<result property="OPERATE_TYPE" column="OPERATE_TYPE"/>
@@ -52,7 +52,7 @@
 			<result property="MEMBER_NO" column="MEMBER_NO"/>
 			<result property="LEFT_SIZE" column="LEFT_SIZE"/>
 			<result property="STATUS" column="STATUS"/>
-	</resultMap>-->
+	</resultMap>
 
 	
 	<select id="selectCheckMember" resultMap="MemberResultSet" parameterType="Member">
@@ -63,7 +63,7 @@
 		AND MEMBER_PASSWORD = #{member_pwd}
 	</select>
 
-<!--	
+
 	<select id="selectnearParkings" resultMap="parkingResultSet">
 		SELECT *
 		FROM PARKING
@@ -71,6 +71,6 @@
 		AND ADDRESS LIKE '%' || '강남' || '%'
 	
 	</select>
--->
+
 
 </mapper>

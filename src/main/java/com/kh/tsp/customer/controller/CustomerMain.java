@@ -19,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.tsp.customer.model.service.CustomerMainService;
 import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.customer.model.vo.Parking;
-import com.kh.tsp.customer.model.vo.parking;
 
 @SessionAttributes("loginUser")
 @Controller
