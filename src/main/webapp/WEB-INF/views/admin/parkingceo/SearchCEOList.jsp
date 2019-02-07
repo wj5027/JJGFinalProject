@@ -46,7 +46,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 					<div class="row">
 					
 				
-				<!-- 검색 결과가 없을 때 출력되는 모달 -->
+				<!-- 검색 결과가 없을 때 출력되는 모달. -->
 				<c:if test="${nullCheck=='nullCheck'}">
 					<div class="alert alert-warning alert-dismissible fade show" role="alert" style="position: absolute; z-index: 10;">
 			  			<strong>Holy guacamole!</strong> You should check in on some of those fields below.
