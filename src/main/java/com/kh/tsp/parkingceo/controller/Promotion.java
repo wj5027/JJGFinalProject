@@ -21,7 +21,7 @@ import com.kh.tsp.parkingceo.model.vo.PromotionVo;
 @Controller
 public class Promotion {
 	
-	String promotionChk = null;
+	private String promotionChk = null;
 	
 	@Autowired
 	private PromotionService ps;
@@ -38,7 +38,6 @@ public class Promotion {
 			ArrayList<HashMap<String, Object>> list = ps.selectCurrentParkingList(m);
 			model.addAttribute("CurrentParkinglist", list);
 			if (promotionChk !=null) {
-				System.out.println(promotionChk);
 				model.addAttribute("promotionChk", promotionChk);
 			}
 		}catch(Exception e) {

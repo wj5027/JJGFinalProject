@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ExchangeMoney">
+	<insert id="insertExchangeMoney" parameterType="com.kh.tsp.parkingceo.model.vo.ExchangeMoneyVo">
+		INSERT INTO EXCHANGE
+		VALUES (EXCHANGE_NO_SEQ.NEXTVAL,#{status},#{oil},#{cash},null,SYSDATE,#{member_no},null,#{account_holder},#{application_bank},#{application_account_number})
+	</insert>
+	<update id="updateMemberExchangeMoney">
+		UPDATE MEMBER SET OIL = OIL - #{oil} WHERE MEMBER_NO = #{member_no}
+	</update>
+</mapper>

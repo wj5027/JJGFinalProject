@@ -68,7 +68,7 @@
 		SELECT *
 		FROM PARKING
 		WHERE STATUS='Y'
-		AND ADDRESS LIKE '%' || '강남' || '%'
+<!-- 		AND ADDRESS LIKE '%' || '강남' || '%' -->
 	
 	</select>
 	

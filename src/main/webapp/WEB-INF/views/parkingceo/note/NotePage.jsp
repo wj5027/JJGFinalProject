@@ -36,23 +36,23 @@
                       <tr>
                         <td align="center"><div style="color: white;">현황을 보시려면 우측의 박스를 클릭해주세요</div></td>
                         <td>
-						<select class="custom-select nav-link dropdown-toggle" id="inputGroupSelect02">
-    						<option selected style="color: black;">쪽지함을 선택해주세요</option>
-    						<option value="1" style="color: black;">주차장 등록 현황</option>
-    						<option value="2" style="color: black;">주차장 정보 신청 현황</option>
-    						<option value="3" style="color: black;">쿠폰 신청 현황</option>
-    						<option value="3" style="color: black;">환전 신청 현황</option>
+						<select class="custom-select nav-link dropdown-toggle" id="inputGroupSelect01" name="selectNote">
+    						<option selected style="color: black;" value="insertParkingStatus">쪽지함을 선택해주세요</option>
+    						<option value="insertParkingStatus" style="color: black;">주차장 등록 현황</option>
+    						<option value="exchangeParkingStatus" style="color: black;">주차장 정보 신청 현황</option>
+    						<option value="insertCouponStatus" style="color: black;">쿠폰 신청 현황</option>
+    						<option value="insertExchangeMoneyStatus" style="color: black;">환전 신청 현황</option>
   						</select>
 						</td>
                       </tr>
                                    <tr>
                       	<td align="center"><div style="color: white;">기간을 선택해주세요(기본 3개월)</div></td>
-                      	<td><button class="btn btn-info btn-round btn-sm">오늘</button>
-                      			<button class="btn btn-info btn-round btn-sm">1주일</button>
-                      			<button class="btn btn-info btn-round btn-sm">1개월</button>
-                      			<button class="btn btn-info btn-round btn-sm">3개월</button>
-                      			<button class="btn btn-info btn-round btn-sm">6개월</button>
-                      			<button class="btn btn-info btn-round btn-sm">1년</button>
+                      	<td><button class="btn btn-info btn-round btn-sm selectBtn" onclick="chkBtnValue(1);">오늘</button>
+                      			<button class="btn btn-info btn-round btn-sm selectBtn" onclick="chkBtnValue(7);">1주일</button>
+                      			<button class="btn btn-info btn-round btn-sm selectBtn" onclick="chkBtnValue(30);">1개월</button>
+                      			<button class="btn btn-info btn-round btn-sm selectBtn" onclick="chkBtnValue(90);">3개월</button>
+                      			<button class="btn btn-info btn-round btn-sm selectBtn" onclick="chkBtnValue(180);">6개월</button>
+                      			<button class="btn btn-info btn-round btn-sm selectBtn" onclick="chkBtnValue(365);">1년</button>
                       	</td>
                       </tr>
                       <tr>
@@ -64,7 +64,7 @@
                       </td>
                       </tr>    
                       <tr>
-                      	<td colspan="2" align="center"><button class="btn btn-info animation-on-hover" type="button">검색</button></td>
+                      	<td colspan="2" align="center"><button class="btn btn-info animation-on-hover" type="button" onclick="selectNoteBtn();">검색</button></td>
                       </tr>                    
                     </tbody>
                   </table>
@@ -169,6 +169,33 @@
 	function goNotePage(){
 		location.href = "goNotePage.pc";
 	}
+	
+	//페이징 처리할 변수 선언 및 기간 변수 선언
+	var currentPage = 0;
+	var btnValue = 90;
+	
+	//기간 버튼을 눌렀을시 값 변경되는 메소드
+	function chkBtnValue(data){
+		btnValue = data;
+	}
+	
+	//검색 버튼 메소드
+	function selectNoteBtn(data){
+		var selectBox = $("#inputGroupSelect01 option:selected").val();
+		/* currentPage = data; */
+		$.ajax({
+			url : "selectNoteList.pc",
+			type : "post",
+			data : {btnValue:btnValue,selectBox:selectBox,currentPage:currentPage},
+			success: function(data){
+				console.log(data);
+			},
+			error:function(data){
+				console.log("데이터 통신 실패");
+			}
+		});
+	}
+	
 
 </script>
 
