@@ -31,4 +31,15 @@ public class CustomerMap {
 				
 		return hmap;
     }
+	
+	// 사용자 - 음성 검색
+	@RequestMapping("searchTextParking.cu")
+	public @ResponseBody HashMap<String, Parking> searchTextParking(@RequestParam String keyword, HttpServletResponse response) {
+		
+		HashMap<String, Parking> hmap = cms.selectSearchTextParking(keyword);
+		
+		System.out.println(hmap.toString());
+		
+		return hmap;
+    }
 }

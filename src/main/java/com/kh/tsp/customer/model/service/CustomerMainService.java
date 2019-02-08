@@ -13,6 +13,8 @@ public interface CustomerMainService {
 	ArrayList<Parking> getnearParkings();
 
 	HashMap<Integer, Parking> searchVoiceParking(String keyword, String type);
+
+	HashMap<String, Parking> selectSearchTextParking(String keyword);
 	
 
 }

@@ -56,8 +56,10 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 		
 		return hmap;
 	}
-	
-	
-	
 
+	@Override
+	public HashMap<String, Parking> selectSearchTextParking(String keyword) {
+		return cmd.selectSearchTextParking(sqlSession, keyword);
+	}
+	
 }
