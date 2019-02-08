@@ -67,6 +67,31 @@
               </li>
             </ul>
           </div>
+          <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 텍스트 검색 모달 -->
+            <div class="modal fade bd-search-modal-lg-6" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			  <div class="modal-dialog modal-lg">
+			    <div class="modal-content" style="background: rgb(39,41,61);">
+			      <div class="modal-body" style="padding-bottom: 0px;">
+			        <div class="table-responsive"  style="overflow: hidden; padding-bottom: 0px;">
+			          <table class="table tablesorter " id="" style="margin-bottom: 0px;">
+			            <tbody id="searchTextResult">
+			            	  <tr align="center">
+			            	  	<th>주차장 명 검색 결과</th>
+			            	  </tr>
+			                  <tr>
+			                  	<td align="center"><b><i class="fas fa-microphone-alt" style="color: white;"></i> &nbsp;&nbsp; - &nbsp;&nbsp; 검색결과</b></td>
+			                  </tr>
+			                  <tr>
+			                  	<td align="center"><button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location.reload();">닫기</button></td>
+			                  </tr>      
+			            </tbody>
+			          </table>
+			        </div>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+		  <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
         </div>
       </nav>
       <div class="modal modal-search fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModal" aria-hidden="true">
@@ -74,14 +99,42 @@
           <div class="modal-content">
             <div class="modal-header">
               <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="SEARCH">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <button type="button" class="close" id="closeSearchModal" data-dismiss="modal" aria-label="Close">
                 <i class="tim-icons icon-simple-remove"></i>
               </button>
+              <input type="hidden" id="hiddenModal" class="btn btn-link" data-toggle="modal" data-target=".bd-search-modal-lg-6">
             </div>
           </div>
         </div>
       </div>
       <!-- End Navbar -->
+      
+      <script type="text/javascript">
+		// 텍스트 검색 스크립트
+		$(function() {
+			$("#inlineFormInputGroup").keypress(function(e) { 
+			    if (e.keyCode == 13){
+			    	var keyword = $("#inlineFormInputGroup").val();
+			    	
+			        $("#closeSearchModal").click();
+			        
+			        $.ajax({
+			    		url:"searchTextParking.cu",
+			    		type:"post",
+			    		data:{keyword:keyword},
+			    		success:function(data){
+			    			$("#hiddenModal").click();
+			    			console.log(data);
+			    		},
+			    		error:function(status){
+			    			console.log(status);
+			    		}
+			    		
+			    	});
+			    }    
+			});
+		});
+	  </script>
       
       <!-- <script>
       /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 음성 인식 */
@@ -169,28 +222,6 @@
 	}
 </script>
 <script type="text/javascript">
-function searchText(keyword, type) {
-	var table = $("#STTResult");
-	var type;
-	
-	if (condition) {
-		
-	}
-	
-	$.ajax({
-		url:"searchTextParking.me",
-		type:"post",
-		data:{keyword:keyword, type:type},
-		success:function(data){
-			console.log(data);
-		},
-		error:function(status){
-			console.log(status);
-		}
-		
-	});
-}
-
 function searchVoice(keyword, type) {
 	var table = $("#STTResult");
 	

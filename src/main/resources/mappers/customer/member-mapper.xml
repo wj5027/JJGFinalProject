@@ -77,6 +77,19 @@
 		WHERE status = 'Y'
 		AND address LIKE '%' || #{keyword} || '%'
 	</select>
+	
+	<select id="selectSearchTitleParking" resultMap="parkingResultSet" parameterType="string">
+		SELECT *
+		FROM PARKING
+		WHERE STATUS='Y'
+		AND parking_name LIKE '%' || #{keyword} || '%'
+	</select>
+	
+	<select id="searchAddrParking" resultMap="parkingResultSet" parameterType="String">
+		SELECT * FROM parking
+		WHERE status = 'Y'
+		AND address LIKE '%' || #{keyword} || '%'
+	</select>
 
 
 </mapper>

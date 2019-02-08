@@ -18,4 +18,6 @@ public interface CustomerMainDao {
 
 	HashMap<Integer, Parking> searchVoiceNearParking(SqlSessionTemplate sqlSession, double lat, double lon);
 
+	HashMap<String, Parking> selectSearchTextParking(SqlSessionTemplate sqlSession, String keyword);
+
 }
