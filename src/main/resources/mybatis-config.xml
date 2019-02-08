@@ -20,9 +20,9 @@
   	<mapper resource="mappers/admin/customer-mapper.xml"/>
 
 	<mapper resource="mappers/customer/board-mapper.xml"/>
-	<mapper resource="mappers/parkingceo/insertParkingCeo-mapper.xml"/>
+	<mapper resource="mappers/parkingceo/ParkingCeo-mapper.xml"/>
 	<mapper resource="mappers/parkingceo/parkingCeoPromotion-mapper.xml"/>
-	
+	<mapper resource="mappers/parkingceo/ExchangeMoney-mapper.xml"/>
 </mappers>
 
 

@@ -6,7 +6,7 @@
 <head>
 <jsp:include page="/WEB-INF/views/common/bootInfo.jsp"></jsp:include>
 <style type="text/css">
-		#hiddenButton{
+	#hiddenButton{
 		display: none;
 	}
 </style>
