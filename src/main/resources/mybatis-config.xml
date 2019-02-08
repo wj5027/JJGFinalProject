@@ -11,16 +11,21 @@
  	 <typeAlias type="com.kh.tsp.admin.model.vo.MemberAdmin" alias="MemberAdmin"/>
  	 <typeAlias type="com.kh.tsp.admin.model.vo.MemberAdmin" alias="MemberAdmin2"/>
 	 <typeAlias type="com.kh.tsp.customer.model.vo.Board" alias="Board"/>
+	 <typeAlias type="com.kh.tsp.customer.model.vo.Board" alias="BoardAdmin"/>
 	 <typeAlias type="com.kh.tsp.customer.model.vo.Parking" alias="Parking"/>
 </typeAliases>
 <mappers>
 
-	<mapper resource="mappers/customer/member-mapper.xml"/>
   	<mapper resource="mappers/admin/parkingCEO-mapper.xml"/>
   	<mapper resource="mappers/admin/customer-mapper.xml"/>
+	<mapper resource="mappers/admin/boardAdmin-mapper.xml"/>
 
+	<mapper resource="mappers/customer/member-mapper.xml"/>
 	<mapper resource="mappers/customer/board-mapper.xml"/>
+
+
 	<mapper resource="mappers/parkingceo/ParkingCeo-mapper.xml"/>
+
 	<mapper resource="mappers/parkingceo/parkingCeoPromotion-mapper.xml"/>
 	<mapper resource="mappers/parkingceo/ExchangeMoney-mapper.xml"/>
 </mappers>

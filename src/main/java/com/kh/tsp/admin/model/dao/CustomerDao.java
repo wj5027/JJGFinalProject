@@ -10,10 +10,10 @@ import com.kh.tsp.common.PageInfo;
 
 public interface CustomerDao {
 
-	// 사업자 수
+	// 사용자 수
 	int getListCount(SqlSessionTemplate sqlSession) throws CustomerSelectListException;
 
-	// 사업자 리스트
+	// 사용자 리스트
 	ArrayList<MemberAdmin> selectCustomerList(SqlSessionTemplate sqlSession, PageInfo pi) throws CustomerSelectListException;
 
 	// 회원 탈퇴
@@ -22,11 +22,11 @@ public interface CustomerDao {
 	// 회원 복구
 	int updateRecoverCustomer(SqlSessionTemplate sqlSession, MemberAdmin md) throws CustomerSelectListException;
 
-	// 사업자 검색 수
+	// 사용자 검색 수
 	int getSearchListCount(SqlSessionTemplate sqlSession, String selectStatus, String memberId, String today,
 			String startDate, String endDate) throws CustomerSelectListException;
 
-	// 사업자 검색 결과
+	// 사용자 검색 결과
 	ArrayList<MemberAdmin> selectSearchCustomerList(SqlSessionTemplate sqlSession, PageInfo pi, String selectStatus,
 			String memberId, String today, String startDate, String endDate) throws CustomerSelectListException;
 

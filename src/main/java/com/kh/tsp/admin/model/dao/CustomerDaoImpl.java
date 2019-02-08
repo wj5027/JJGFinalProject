@@ -18,17 +18,17 @@ import com.kh.tsp.common.PageInfo;
 @Repository
 public class CustomerDaoImpl  implements CustomerDao{
 
-	// 사업자 수
+	// 사용자 수
 	@Override
 	public int getListCount(SqlSessionTemplate sqlSession) throws CustomerSelectListException {
 		int listCount = sqlSession.selectOne("MemberAdmin2.getListCount");
 		if(listCount <=0) {
-			throw new CustomerSelectListException("사업자 회원 수 조회 실패!");
+			throw new CustomerSelectListException("사용자 회원 수 조회 실패!");
 		}
 		return listCount;
 	}
 
-	// 사업자 리스트
+	// 사용자 리스트
 	@Override
 	public ArrayList<MemberAdmin> selectCustomerList(SqlSessionTemplate sqlSession, PageInfo pi) throws CustomerSelectListException {
 		ArrayList<MemberAdmin> list = null;
@@ -38,7 +38,7 @@ public class CustomerDaoImpl  implements CustomerDao{
 		list = (ArrayList)sqlSession.selectList("MemberAdmin2.selectCustomerList", null, rowBounds);
 		
 		if(list == null) {
-			throw new CustomerSelectListException("사업자 회원 조회 실패");
+			throw new CustomerSelectListException("사용자 회원 조회 실패");
 		}
 		return list;
 	}
@@ -54,7 +54,7 @@ public class CustomerDaoImpl  implements CustomerDao{
 		System.out.println("result(DAO 회원탈퇴) : "+result);
 		
 		if(result<=0) {
-			throw new CustomerSelectListException("사업자 회원 탈퇴 실패!");
+			throw new CustomerSelectListException("사용자 회원 탈퇴 실패!");
 		}
 		return result;
 	}
@@ -70,12 +70,12 @@ public class CustomerDaoImpl  implements CustomerDao{
 		System.out.println("result(DAO 회원복구) : "+result);
 		
 		if(result<=0) {
-			throw new CustomerSelectListException("사업자 회원 복구 실패!");
+			throw new CustomerSelectListException("사용자 회원 복구 실패!");
 		}
 		return result;
 	}
 
-	// 사업자 검색 수
+	// 사용자 검색 수
 	@Override
 	public int getSearchListCount(SqlSessionTemplate sqlSession, String selectStatus, String memberId, String today,
 			String startDate, String endDate) throws CustomerSelectListException {
@@ -90,12 +90,12 @@ public class CustomerDaoImpl  implements CustomerDao{
 		
 		int listCount = sqlSession.selectOne("MemberAdmin2.getSearchListCount", hmap);
 		/*if(listCount <=0) {
-			throw new CustomerSelectListException("사업자 검색 회원 수 조회 실패!");
+			throw new CustomerSelectListException("사용자 검색 회원 수 조회 실패!");
 		}*/
 		return listCount;
 	}
 
-	// 사업자 검색 결과.
+	// 사용자 검색 결과.
 	@Override
 	public ArrayList<MemberAdmin> selectSearchCustomerList(SqlSessionTemplate sqlSession, PageInfo pi,
 			String selectStatus, String memberId, String today, String startDate, String endDate) throws CustomerSelectListException {
@@ -123,7 +123,7 @@ public class CustomerDaoImpl  implements CustomerDao{
 		System.out.println("DAO list : "+list);
 		
 		/*if(list == null) {
-			throw new CustomerSelectListException("사업자 회원 조회 실패");
+			throw new CustomerSelectListException("사용자 회원 조회 실패");
 		}*/
 		return list;
 	}

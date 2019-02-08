@@ -28,9 +28,9 @@
   		WHERE MEMBER_TYPE='U'
   	</select>
   	
-  	<!-- 사업자 리스트 -->
+  	<!-- 사용자 전체 리스트 -->
   	<select id="selectCustomerList" resultMap="MemberAdminResultSet">		
-		SELECT DISTINCT M.MEMBER_NO, M.MEMBER_ID, M.MEMBER_NAME, M.PHONE, M.EMAIL, M.ENROLL_DATE, M.STATUS, (SELECT SUM(OIL) FROM OIL_LIST WHERE MEMBER_NO=M.MEMBER_NO GROUP BY MEMBER_NO) AS OIL
+		SELECT DISTINCT M.MEMBER_NO, M.MEMBER_ID, M.MEMBER_NAME, M.PHONE, M.EMAIL, M.ENROLL_DATE, M.STATUS, (SELECT SUM(OIL) FROM OIL_LIST WHERE MEMBER_NO=M.MEMBER_NO AND OIL_LIST_TYPE='충전' GROUP BY MEMBER_NO) AS OIL
 		FROM MEMBER M 
 		LEFT OUTER JOIN OIL_LIST O ON(M.MEMBER_NO=O.MEMBER_NO)
 		WHERE M.MEMBER_TYPE='U'
@@ -51,7 +51,7 @@
   		WHERE MEMBER_TYPE='U' AND STATUS='N' AND MEMBER_NO = #{memberNo}
   	</update>
 	
-	<!-- 사업자 검색 수 -->
+	<!-- 사용자 검색 수 -->
   	<select id="getSearchListCount" resultType="_int" parameterType="java.util.Map">
   		SELECT COUNT(*) FROM MEMBER
   		WHERE MEMBER_TYPE='U'
@@ -70,20 +70,20 @@
 		<if test="today != ''">
 		<![CDATA[
 			AND (TO_CHAR(TO_DATE(ENROLL_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') >= TO_CHAR(TO_DATE(#{today},'yyyy/mm/dd'), 'yyyy/mm/dd') 
-					AND TO_CHAR(TO_DATE(ENROLL_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') < TO_CHAR(TO_DATE(SYSDATE,'rrrr/mm/dd'), 'yyyy/mm/dd'))
+					AND TO_CHAR(TO_DATE(ENROLL_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') <= TO_CHAR(TO_DATE(SYSDATE,'rrrr/mm/dd'), 'yyyy/mm/dd'))
 		]]>		
 		</if>
 		<if test="startDate != ''">
 		<![CDATA[
 			AND (TO_CHAR(TO_DATE(ENROLL_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') >= TO_CHAR(TO_DATE(#{startDate},'yyyy-mm-dd'),'yyyy-mm-dd') 
-					AND TO_CHAR(TO_DATE(ENROLL_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') < TO_CHAR(TO_DATE(#{endDate},'yyyy-mm-dd'),'yyyy-mm-dd'))
+					AND TO_CHAR(TO_DATE(ENROLL_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') <= TO_CHAR(TO_DATE(#{endDate},'yyyy-mm-dd'),'yyyy-mm-dd'))
 		]]>		
 		</if>
   	</select>
   	
-  	<!-- 사업자 리스트 -->
+  	<!-- 사용자 검색 리스트 -->
   	<select id="selectSearchCustomerList" resultMap="MemberAdminResultSet" parameterType="java.util.Map">		
-		SELECT DISTINCT M.MEMBER_NO, M.MEMBER_ID, M.MEMBER_NAME, M.PHONE, M.EMAIL, M.ENROLL_DATE, M.STATUS, (SELECT SUM(OIL) FROM OIL_LIST WHERE MEMBER_NO=M.MEMBER_NO GROUP BY MEMBER_NO) AS OIL
+		SELECT DISTINCT M.MEMBER_NO, M.MEMBER_ID, M.MEMBER_NAME, M.PHONE, M.EMAIL, M.ENROLL_DATE, M.STATUS, (SELECT SUM(OIL) FROM OIL_LIST WHERE MEMBER_NO=M.MEMBER_NO AND OIL_LIST_TYPE='충전' GROUP BY MEMBER_NO) AS OIL
 		FROM MEMBER M 
 		LEFT OUTER JOIN OIL_LIST O ON(M.MEMBER_NO=O.MEMBER_NO)
 		WHERE M.MEMBER_TYPE='U'
