@@ -111,6 +111,18 @@ public class BoardServiceImpl implements BoardService {
 		
 		return bd.deleteQna(sqlSession, bno);
 	}
+	//후기 목록
+	@Override
+	public List<Board> selectReviewList(Board b) {
+
+		return bd.selectReviewList(sqlSession, b);
+	}
+	//후기 작성
+	@Override
+	public int insertReview(Board b) {
+		System.out.println("service b : "+b);
+		return bd.insertReview(sqlSession, b);
+	}
 	
 	
 

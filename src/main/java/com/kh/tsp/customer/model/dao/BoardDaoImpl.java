@@ -95,6 +95,18 @@ public class BoardDaoImpl implements BoardDao{
 		
 		return sqlSession.delete("Board.deleteQna", bno);
 	}
+	//후기 목록
+	@Override
+	public List<Board> selectReviewList(SqlSessionTemplate sqlSession, Board b) {
+
+		return sqlSession.selectList("selectReviewList", b);
+	}
+	//후기 작성
+	@Override
+	public int insertReview(SqlSessionTemplate sqlSession, Board b) {
+		System.out.println("dao b: "+b);
+		return sqlSession.insert("Board.insertReview", b);
+	}
 	
 	
 	

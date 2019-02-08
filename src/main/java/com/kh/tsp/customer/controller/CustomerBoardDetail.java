@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -33,8 +34,9 @@ public class CustomerBoardDetail {
 	}
 	//후기 상세보기
 	@RequestMapping(value="reviewDetail.cu", method=RequestMethod.GET)
-	public String MyReviewDetail() {
+	public String MyReviewDetail(@ModelAttribute Board b) {
 		
+		System.out.println("후기 상세보기 b: "+b);
 		return "customer/board/My_review_detail";
 	}
 	

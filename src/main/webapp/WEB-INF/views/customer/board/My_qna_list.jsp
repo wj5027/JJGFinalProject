@@ -32,7 +32,7 @@
                 <hr style="border: solid 1px white;">
               <div align="center">
   	
-	  	<table>
+	  	<table id="listArea">
 	  		<th width="50%">작성일</th>
 	  		
 	  		<th>제목</th>
@@ -42,7 +42,7 @@
 	  		<tbody>
 	  		<tr>
 	  		<td>${ b.createDate }</td>
-	  		<td class="qnaDetail">${ b.bTitle }</td><input type="hidden" name="bno" value="${b.bno}">
+	  		<td><input type="hidden" id="bno" name="bno" value="${b.bno}">${ b.bTitle }</td>
 	  	
 	  		</tr>
 	  		</c:if> 
@@ -159,12 +159,13 @@
    });
    
    $(function(){
-	  $(".qnaDetail").click(function(){
-		  var num = $("input[name='bno']").val();
-		  console.log(num);
-		  location.href="./qnaDetail.cu?num="+num;
-	  });
-   });
+		  $("#listArea td").click(function(){
+			  var num = $(this).find("#bno").val();
+			  console.log(num);
+			location.href="./qnaDetail.cu?num="+num;  
+		  });
+	   });
+
 </script>
        
 </body>

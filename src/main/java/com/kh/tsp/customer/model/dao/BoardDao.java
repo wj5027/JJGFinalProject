@@ -34,6 +34,10 @@ public interface BoardDao {
 	int updateQna2(SqlSessionTemplate sqlSession, Board b);
 	//문의 삭제
 	int deleteQna(SqlSessionTemplate sqlSession, int bno);
+	//후기 목록
+	List<Board> selectReviewList(SqlSessionTemplate sqlSession, Board b);
+	//후기 작성
+	int insertReview(SqlSessionTemplate sqlSession, Board b);
 	
 	
 	
