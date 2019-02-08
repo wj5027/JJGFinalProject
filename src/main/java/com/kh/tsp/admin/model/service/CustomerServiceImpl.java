@@ -20,14 +20,14 @@ public class CustomerServiceImpl implements CustomerService{
 	@Autowired
 	private CustomerDao cd;
 	
-	// 사업자 수
+	// 사용자 수
 	@Override
 	public int getListCount() throws CustomerSelectListException {
 		int listCount = cd.getListCount(sqlSession);
 		return listCount;
 	}
 
-	// 사업자 리스트
+	// 사용자 리스트
 	@Override
 	public ArrayList<MemberAdmin> selectCustomerList(PageInfo pi) throws CustomerSelectListException {
 		ArrayList<MemberAdmin> list = cd.selectCustomerList(sqlSession,pi);
@@ -48,7 +48,7 @@ public class CustomerServiceImpl implements CustomerService{
 		return result;
 	}
 
-	// 사업자 검색 수
+	// 사용자 검색 수
 	@Override
 	public int getSearchListCount(String selectStatus, String memberId, String today, String startDate, String endDate)
 			throws CustomerSelectListException {
@@ -56,7 +56,7 @@ public class CustomerServiceImpl implements CustomerService{
 		return listCount;
 	}
 
-	// 사업자 검색 결과
+	// 사용자 검색 결과
 	@Override
 	public ArrayList<MemberAdmin> selectSearchCustomerList(PageInfo pi, String selectStatus, String memberId,
 			String today, String startDate, String endDate) throws CustomerSelectListException {

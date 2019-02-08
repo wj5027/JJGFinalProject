@@ -8,10 +8,10 @@ import com.kh.tsp.common.PageInfo;
 
 public interface CustomerService {
 
-	// 사업자 수
+	// 사용자 수
 	int getListCount() throws CustomerSelectListException;
 
-	// 사업자 리스트
+	// 사용자 리스트
 	ArrayList<MemberAdmin> selectCustomerList(PageInfo pi) throws CustomerSelectListException;
 
 	// 회원 탈퇴
@@ -20,10 +20,10 @@ public interface CustomerService {
 	// 회원 복구
 	int updateRecoverCustomer(MemberAdmin md) throws CustomerSelectListException;
 	
-	// 사업자 검색 수
+	// 사용자 검색 수
 	int getSearchListCount(String selectStatus, String memberId, String today, String startDate, String endDate) throws CustomerSelectListException;
 
-	// 사업자 검색결과
+	// 사용자 검색결과
 	ArrayList<MemberAdmin> selectSearchCustomerList(PageInfo pi, String selectStatus, String memberId, String today,
 			String startDate, String endDate) throws CustomerSelectListException;
 

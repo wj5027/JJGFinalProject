@@ -28,7 +28,7 @@
   		WHERE MEMBER_TYPE='B'
   	</select>
   	
-  	<!-- 사업자 리스트 -->
+  	<!-- 사업자 전체 리스트 -->
   	<select id="selectParkingCEOList" resultMap="MemberAdminResultSet">		
 		SELECT DISTINCT M.MEMBER_NO, M.MEMBER_ID, M.MEMBER_NAME, M.PHONE, M.EMAIL, M.ENROLL_DATE, M.STATUS, (SELECT SUM(OIL) FROM OIL_LIST WHERE MEMBER_NO=M.MEMBER_NO GROUP BY MEMBER_NO) AS OIL
 		FROM MEMBER M 
@@ -70,18 +70,18 @@
 		<if test="today != ''">
 		<![CDATA[
 			AND (TO_CHAR(TO_DATE(ENROLL_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') >= TO_CHAR(TO_DATE(#{today},'yyyy/mm/dd'), 'yyyy/mm/dd') 
-					AND TO_CHAR(TO_DATE(ENROLL_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') < TO_CHAR(TO_DATE(SYSDATE,'rrrr/mm/dd'), 'yyyy/mm/dd'))
+					AND TO_CHAR(TO_DATE(ENROLL_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') <= TO_CHAR(TO_DATE(SYSDATE,'rrrr/mm/dd'), 'yyyy/mm/dd'))
 		]]>		
 		</if>
 		<if test="startDate != ''">
 		<![CDATA[
 			AND (TO_CHAR(TO_DATE(ENROLL_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') >= TO_CHAR(TO_DATE(#{startDate},'yyyy-mm-dd'),'yyyy-mm-dd') 
-					AND TO_CHAR(TO_DATE(ENROLL_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') < TO_CHAR(TO_DATE(#{endDate},'yyyy-mm-dd'),'yyyy-mm-dd'))
+					AND TO_CHAR(TO_DATE(ENROLL_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') <= TO_CHAR(TO_DATE(#{endDate},'yyyy-mm-dd'),'yyyy-mm-dd'))
 		]]>		
 		</if>
   	</select>
   	
-  	<!-- 사업자 리스트 -->
+  	<!-- 사업자 검색 리스트 -->
   	<select id="selectSearchParkingCEOList" resultMap="MemberAdminResultSet" parameterType="java.util.Map">		
 		SELECT DISTINCT M.MEMBER_NO, M.MEMBER_ID, M.MEMBER_NAME, M.PHONE, M.EMAIL, M.ENROLL_DATE, M.STATUS, (SELECT SUM(OIL) FROM OIL_LIST WHERE MEMBER_NO=M.MEMBER_NO GROUP BY MEMBER_NO) AS OIL
 		FROM MEMBER M 

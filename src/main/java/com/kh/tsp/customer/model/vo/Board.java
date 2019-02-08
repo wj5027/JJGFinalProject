@@ -2,7 +2,7 @@ package com.kh.tsp.customer.model.vo;
 
 import java.sql.Date;
 
-public class Board {
+public class Board implements java.io.Serializable{
 	
 	private int bno;
 	private String bTitle;
@@ -14,11 +14,12 @@ public class Board {
 	private String status;
 	private String mno;
 	private String pno;
+	private String mId;
 	
 	public Board() {}
 
 	public Board(int bno, String bTitle, String bContext, int bViews, Date createDate, Date modifyDate, String bType,
-			String status, String mno, String pno) {
+			String status, String mno, String pno, String mId) {
 		super();
 		this.bno = bno;
 		this.bTitle = bTitle;
@@ -30,6 +31,7 @@ public class Board {
 		this.status = status;
 		this.mno = mno;
 		this.pno = pno;
+		this.mId = mId;
 	}
 
 	public int getBno() {
@@ -112,11 +114,19 @@ public class Board {
 		this.pno = pno;
 	}
 
+	public String getmId() {
+		return mId;
+	}
+
+	public void setmId(String mId) {
+		this.mId = mId;
+	}
+
 	@Override
 	public String toString() {
 		return "Board [bno=" + bno + ", bTitle=" + bTitle + ", bContext=" + bContext + ", bViews=" + bViews
 				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", bType=" + bType + ", status="
-				+ status + ", mno=" + mno + ", pno=" + pno + "]";
+				+ status + ", mno=" + mno + ", pno=" + pno + ", mId=" + mId + "]";
 	}
 
 	
