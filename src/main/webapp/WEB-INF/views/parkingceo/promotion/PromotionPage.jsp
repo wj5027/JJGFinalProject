@@ -32,7 +32,7 @@
               </div>
               <div class="card-body">
                 <div class="table-responsive"  style="overflow: hidden;">
-                <form action="insertPromotion.pc" method="post" onSubmit="return test33();">
+                <form action="insertPromotion.pc" method="post" onSubmit="return insertPromotion();">
                   <table class="table tablesorter " id="">
                     <tbody>
                       <tr>
@@ -211,7 +211,7 @@
 		forceParse: 0
     });
 	
-	function test33(){
+	function insertPromotion(){
 		if($("#inputGroupSelect01 option:selected").val() == "none"){
 			alert("주차장이 없습니다. 등록해주세요");
 			return false;

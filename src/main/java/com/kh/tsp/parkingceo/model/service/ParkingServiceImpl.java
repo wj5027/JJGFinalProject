@@ -23,5 +23,21 @@ public class ParkingServiceImpl implements ParkingService{
 	public int insertParkingCeo(Member m) {
 		return pd.insertParkingCeo(sqlSession,m);
 	}
+	@Override
+	public int selectNoteListCount(String selectBox, Member m) {
+		int listCount = 0;
+		if(selectBox.equals("insertParkingStatus")) {
+			listCount = pd.selectInsertParkingListCount(sqlSession,m);
+		}else if(selectBox.equals("exchangeParkingStatus")) {
+			listCount = pd.exchangeParkingListCount(sqlSession,m);
+		}else if(selectBox.equals("insertCouponStatus")) {
+			listCount = pd.insertCouponListCount(sqlSession,m);
+		}else {
+			listCount = pd.insertExchangeMoneyListCount(sqlSession,m);
+		}
+		return listCount;
+	}
+
+
 
 }

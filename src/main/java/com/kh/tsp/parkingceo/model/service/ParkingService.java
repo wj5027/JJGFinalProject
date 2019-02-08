@@ -6,4 +6,8 @@ public interface ParkingService {
 
 	int insertParkingCeo(Member m);
 
+	int selectNoteListCount(String selectBox, Member m);
+
+	
+
 }
