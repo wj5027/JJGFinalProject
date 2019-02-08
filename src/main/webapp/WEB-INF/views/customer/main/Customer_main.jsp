@@ -15,7 +15,7 @@
 <body class="">
   <div class="wrapper">
    <jsp:include page="/WEB-INF/views/customer/common/nav_customer.jsp"></jsp:include>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=103820f64442cfd4cf984f298b7c8470"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=103820f64442cfd4cf984f298b7c8470&libraries=services,clusterer,drawing"></script>
      <!--  <div class="row"> -->
           <div class="card-body" style="padding: 0px;">
             <div class="map" style="position: relative; overflow: hidden;">
@@ -23,7 +23,7 @@
 	          </div>
             </div>
             <script>
-            /*@@@@@@@@@@@@@@@@@지도 초기 셋팅 @@@@@@@@@@@@@@@@@@@@@@@@@  */
+             /*@@@@@@@@@@@@@@@@@지도 초기 셋팅 @@@@@@@@@@@@@@@@@@@@@@@@@  */
 				var mapContainer = document.getElementById('daumMap'), // 지도를 표시할 div 
 				mapOption = { 
 				    center: new daum.maps.LatLng(39.0318, 125.7526), // 지도의 중심좌표
@@ -31,14 +31,32 @@
 				};
 				
 				var map = new daum.maps.Map(mapContainer, mapOption); 
+				// 지도 타입 변경 컨트롤을 생성한다
+				var mapTypeControl = new daum.maps.MapTypeControl();
+
+				// 지도의 상단 우측에 지도 타입 변경 컨트롤을 추가한다
+				map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);	
+
+				// 지도에 확대 축소 컨트롤을 생성한다
+				var zoomControl = new daum.maps.ZoomControl();
+
+				// 지도의 우측에 확대 축소 컨트롤을 추가한다
+				map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
 				var mypositionMarker;
 				 message = '<div style="padding:5px;">여기에 계신가요?!</div>'; // 인포윈도우에 표시될 내용입니다
 			        
+				 var imageSrc = 'resources/common/img/myPosition1.png', // 마커이미지의 주소입니다    
+				    imageSize = new daum.maps.Size(50, 50), // 마커이미지의 크기입니다
+				    imageOption = {offset: new daum.maps.Point(50, 50)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+				    var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption);
+				 
+				 
 			        // 마커와 인포윈도우를 표시합니다
 			        // 마커를 생성합니다
 			    mypositionMarker = new daum.maps.Marker({  
 			        map: map, 
-			        position:new daum.maps.LatLng(39.0318, 125.7526)
+			        position:new daum.maps.LatLng(39.0318, 125.7526),
+			   		image: markerImage
 			    }); 
 			    
 			    var iwContent = message, // 인포윈도우에 표시할 내용
@@ -48,15 +66,14 @@
 			    var infowindow = new daum.maps.InfoWindow({
 			        content : iwContent,
 			        removable : iwRemoveable
+			        
 			    });
 			    
 			    // 인포윈도우를 마커위에 표시합니다 
 			    infowindow.open(map, mypositionMarker);
 			    // 지도 중심좌표를 접속위치로 변경합니다
 			    map.setCenter(new daum.maps.LatLng(39.0318, 125.7526));
-		 /*@@@@@@@@@@@@@@@@@지도 초기 셋팅 @@@@@@@@@@@@@@@@@@@@@@@@@  */
 				
-		 
 		 
 		 
 		 
@@ -74,7 +91,7 @@
 				        var locPosition = new daum.maps.LatLng(lat, lon); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
 				          
 				        mypositionMarker.setPosition(new daum.maps.LatLng(lat, lon));
-				        map.setLevel(1, {anchor: new daum.maps.LatLng(lat, lon)});
+				        map.setLevel(10, {anchor: new daum.maps.LatLng(lat, lon)});
 				        map.setCenter(locPosition);
 					/* displayMarker(locPosition, message); */
 				            
@@ -114,18 +131,52 @@
 				    // 지도 중심좌표를 접속위치로 변경합니다
 				    map.setCenter(locPosition);      
 				}     */
-				var adresses;
+				
+				
+				
+				
+				var geocoder = new daum.maps.services.Geocoder();
+				//클러스터 생성
+				 var clusterer = new daum.maps.MarkerClusterer({
+				        map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
+				        averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
+				        minLevel: 10 // 클러스터 할 최소 지도 레벨 
+				    });
+				 
 				$.ajax({
 					url:"getnearParkings.cu",
-					type:"post",
+					type:"get",
 					success:function(data){
 						console.log(data);
-						for(parking in data.parkings){
-							console.log(data.parkings[parking].ADDRESS);
-						}
-						
-					},
-					error:function(status){
+						var markers=[];
+					 	for(t in data.parkings){
+							var lat =data.parkings[t].latitude;
+							var lon =data.parkings[t].longitude;
+							
+							var marker= new daum.maps.Marker({
+						            position:new daum.maps.LatLng(lat, lon)
+						        });
+							markers.push(marker);
+						} 
+					 	clusterer.addMarkers(markers);
+/* 							geocoder.addressSearch(parkingadress, function(result, status) {
+
+							    // 정상적으로 검색이 완료됐으면 
+							     if (status === daum.maps.services.Status.OK) {
+
+							        var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+
+							        // 결과값으로 받은 위치를 마커로 표시합니다
+							       
+							        
+							        
+							       
+								}else{
+									console.log(parkingadress+"이거 문제임");
+								}
+							})	
+ */							
+						},error:function(status){
 						console.log(status);
 					}
 				});
