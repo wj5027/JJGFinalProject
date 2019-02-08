@@ -102,7 +102,6 @@
         <script>
         $(function(){
          $(".nav").children("li").mouseover(function(){
-        	 console.log("호버");
         	 $(this).attr("class","active");
         	 $(this).css("background","gray");
         	 
