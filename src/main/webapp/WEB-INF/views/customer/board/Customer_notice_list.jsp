@@ -36,10 +36,10 @@
    <hr style="border: solid 1px white;">
    
    <c:forEach var="b" items="${ list }">
-   	<table>
+   	<table id="listArea">
    		
    		<tr>
-   			<td class="noticeDetail" ><input type="hidden" name="bno" value="${b.bno}">${ b.bTitle }</td>
+   			<td><input type="hidden" id="bno" name="bno" value="${b.bno}">${ b.bTitle }</td>
 			 	
    		</tr>
    		<tr>
@@ -160,8 +160,8 @@
    });
    
    $(function(){
-	  $(".noticeDetail").click(function(){
-		  var num = $("input[name='bno']").val();
+	  $("#listArea td").click(function(){
+		  var num = $(this).find("#bno").val();
 		  console.log(num);
 		location.href="./customerNoticeDetail.cu?num="+num;  
 	  });

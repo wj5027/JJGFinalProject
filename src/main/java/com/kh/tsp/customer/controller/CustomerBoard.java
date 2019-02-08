@@ -11,6 +11,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,8 +44,27 @@ public class CustomerBoard {
 	
 	
 	@RequestMapping(value="/review.cu", method=RequestMethod.GET)
-	public String CustomerReview() {
+	public String CustomerReview(Board b, Model model,HttpServletRequest request,
+			HttpServletResponse response) {
+		List<Board> list = bs.selectReviewList(b);
 		
+		model.addAttribute("list", list);
+		System.out.println("후기 서블릿 list: "+list);
+		
+		//작성자
+				HttpSession session = request.getSession();
+				Member loginUser = (Member)session.getAttribute("loginUser");
+				if(loginUser == null) {
+					request.setAttribute("message", "로그인하세요");
+					return "common/errorPage";
+				}
+				
+				String mno = Integer.toString(loginUser.getMember_no());
+						
+				b = new Board();		
+				b.setMno(mno);
+				
+				System.out.println("servlet mno: "+mno);
 		
 		return "customer/board/My_review_list";
 	}
@@ -59,6 +79,11 @@ public class CustomerBoard {
 		//작성자
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
+		if(loginUser == null) {
+			request.setAttribute("message", "로그인하세요");
+			return "common/errorPage";
+		}
+		
 		String mno = Integer.toString(loginUser.getMember_no());
 				
 		b = new Board();		
@@ -183,10 +208,12 @@ public class CustomerBoard {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		String mno = Integer.toString(loginUser.getMember_no());
 		
+		
 		Board b = new Board();
 		b.setbTitle(title);
 		b.setbContext(content);
 		b.setMno(mno);
+		
 		
 		System.out.println("서블릿 mno : "+mno);
 		if(loginUser == null) {
@@ -253,7 +280,9 @@ public class CustomerBoard {
 		}
 	//문의 삭제
 	@RequestMapping(value="/deleteQna.cu", method=RequestMethod.GET)
-	public String deleteQna(@RequestParam("bno")String bno, Model model) {
+	public String deleteQna(String bno) {
+		
+		
 		System.out.println("삭제 서블릿 bno : "+bno);
 		
 		int result = bs.deleteQna(Integer.parseInt(bno));
@@ -262,12 +291,53 @@ public class CustomerBoard {
 			
 			return "redirect:qna.cu";
 		}else {
-			model.addAttribute("message", "문의 삭제 실패");
+			/*model.addAttribute("message", "문의 삭제 실패");*/
 			
 			return "common/errorPage";
 		}
 		
 	}
 		
+	//후기 등록
+	@RequestMapping(value="/insertReview.cu", method=RequestMethod.POST)
+	public String insertReview(HttpServletRequest request, HttpServletResponse response) {
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		
+		System.out.println("후기 등록서블릿 title : "+title);
+		System.out.println("후기 등록서블릿 content : "+content);
+		
+		//작성자
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String mno = Integer.toString(loginUser.getMember_no());
+		String pno = request.getParameter("pno");
+		
+		Board b = new Board();
+		b.setbTitle(title);
+		b.setbContext(content);
+		b.setMno(mno);
+		b.setPno(pno);
+		
+		System.out.println("서블릿 mno : "+mno);
+		System.out.println("서블릿pno : "+pno);
+		if(loginUser == null) {
+			request.setAttribute("message", "로그인하세요");
+		}
+		int result = bs.insertReview(b);
+		
+		if(result > 0) {
+			
+			return "redirect:review.cu";
+			
+		}else {
+			
+			request.setAttribute("message", "등록 실패");
+			
+			return "common/errorPage";
+		}
+	}
+	
+	
 	
 }

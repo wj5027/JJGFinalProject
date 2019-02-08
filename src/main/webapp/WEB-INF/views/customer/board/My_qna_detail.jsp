@@ -28,7 +28,7 @@
               <div class="card-header">
                 <h3 class="card-title" align="center">내 문의</h3>
                 <hr style="border: solid 1px white;">
-              		<form action="deleteQna.cu" method="post">
+              		
               		<table width="100%" border="0" cellpadding="0" cellspacing="0">
 			<!-- BOARD TITLE -->
 			
@@ -49,7 +49,7 @@
 			
 			
 			</table>
-			</form>
+			
 			<table width="100%" border="0" cellpadding="0" cellspacing="0">
 			
 			<tr>
@@ -64,7 +64,7 @@
 					
 					<button id="editBtn" class="btn btn-info btn-sm">수정</button>&nbsp;
 					<button id="deleteBtn" class="btn btn-info btn-sm">삭제</button>&nbsp;					
-					<button class="btn btn-info btn-sm">목록</button>&nbsp;					
+					<button id="goToList" class="btn btn-info btn-sm">목록</button>&nbsp;					
 				
 		
 		<br>
@@ -85,13 +85,19 @@
 		});
 	});
 	
-	 $(function(){
+	  $(function(){
 		$("#deleteBtn").click(function(){
-			/*  var num = $("input[name='bno']").val();
-			console.log(num);  */
-			location.href="./deleteQna.cu";
+		  	 var bno = $("input[name='bno']").val();
+			console.log(bno);   
+			location.href="./deleteQna.cu?bno="+bno;
 		});
-	}); 
+	});  
+	
+	$(function(){
+		$("#goToList").click(function(){
+			location.href="./qna.cu";
+		});
+	});
 </script>	
 </body>
 </html>

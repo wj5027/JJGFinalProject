@@ -34,6 +34,10 @@ public interface BoardService {
 	int updateQna2(Board b);
 	//문의 삭제
 	int deleteQna(int bno);
+	//후기 목록
+	List<Board> selectReviewList(Board b);
+	//후기 작성
+	int insertReview(Board b);
 	
 	
 	
