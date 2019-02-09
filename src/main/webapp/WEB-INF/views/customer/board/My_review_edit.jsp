@@ -27,28 +27,31 @@
 		  <div class="col-md-12" height="500px">
             <div class="card ">
               <div class="card-header">
-                <h3 class="card-title" align="center">내 후기 작성</h3>
+                <h3 class="card-title" align="center">내 후기 수정</h3>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
+                <form action="updateReview2.cu" method="post">
                   <table class="table tablesorter " id="">
                     <tbody>
+                    <tr>
+                    	<td>작성자</td>
+                    	<td>${ b.mno }</td>
+                    </tr>
                       <tr>
-                        <td width="50px">주차장</td>
-                        <td>
-                  			<input type="text" class="form-control" name="carName" placeholder="주차장명을 입력해주세요">
-                        </td>
+                        <td width="50px">주차장 명</td>
+                        <td>${ b.pno }</td>
                       </tr>  
                       <tr>
                         <td width="50px">제목</td>
                         <td>
-                  			<input type="text" class="form-control" name="title" placeholder="제목을 입력해주세요">
+                  			<input type="hidden" name="num" id="num" value="${ b.bno }"><input type="text" class="form-control" name="title" value="${ b.bTitle }">
                         </td>
                       </tr>
                       <tr>
                          <td>내용</td>
                         <td>
-                  			<input type="textarea" id="textContent" class="form-control" name="content" placeholder="내용을 입력해주세요">
+                  			<input type="textarea" id="textContent" class="form-control" name="content" value="${ b.bContext }">
                         </td> 
                       </tr>  
           			  <tr>
@@ -64,6 +67,7 @@
                                        
                     </tbody>
                   </table>
+                  </form>
                 </div>
               </div>
             </div>

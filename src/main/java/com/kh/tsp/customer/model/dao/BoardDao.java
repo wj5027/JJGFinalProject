@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.tsp.common.PageInfo;
 import com.kh.tsp.customer.model.vo.Board;
 
 public interface BoardDao {
@@ -38,6 +39,26 @@ public interface BoardDao {
 	List<Board> selectReviewList(SqlSessionTemplate sqlSession, Board b);
 	//후기 작성
 	int insertReview(SqlSessionTemplate sqlSession, Board b);
+	//후기 상세보기
+	Board selectOneReview(SqlSessionTemplate sqlSession, int bno);
+	//후기 수정1
+	Board updateReview(SqlSessionTemplate sqlSession, int bno);
+	//후기 수정2
+	int updateReview2(SqlSessionTemplate sqlSession, Board b);
+	//후기 삭제
+	int deleteReview(SqlSessionTemplate sqlSession, int bno);
+	//후기 전체 게시글 수 조회
+	int getListCount(SqlSessionTemplate sqlSession);
+	//페이징 된 후기 목록 조회
+	ArrayList<Board> selectReviewList(SqlSessionTemplate sqlSession, PageInfo pi);
+	//공지 전체 게시글 수 조회
+	int getNoticeListCount(SqlSessionTemplate sqlSession);
+	//페이징 처리 된 공지 목록 조회
+	ArrayList<Board> selectNoticeList(SqlSessionTemplate sqlSession, PageInfo pi);
+	//문의 전체 게시글 수 조회
+	int getQnaListCount(SqlSessionTemplate sqlSession);
+	//페이징 처리 된 문의 목록 조회
+	ArrayList<Board> selectQnaList(SqlSessionTemplate sqlSession, PageInfo pi);
 	
 	
 	

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.kh.tsp.common.PageInfo;
 import com.kh.tsp.customer.model.dao.BoardDao;
 import com.kh.tsp.customer.model.exception.BoardSelectListException;
 import com.kh.tsp.customer.model.vo.Board;
@@ -123,6 +124,77 @@ public class BoardServiceImpl implements BoardService {
 		System.out.println("service b : "+b);
 		return bd.insertReview(sqlSession, b);
 	}
+	
+	//후기 상세보기
+	@Override
+	public Board selectOneReview(int bno) {
+		Board b = null;
+		
+		//조회수 증가
+		int result = bd.updateCount(sqlSession, bno);
+		
+		if(result > 0) {
+			b = bd.selectOneReview(sqlSession, bno);
+		}
+		
+		return b;
+	}
+	//후기 수정1
+	@Override
+	public Board updateReview(int bno) {
+		
+		return bd.updateReview(sqlSession, bno);
+	}
+	//후기 수정2
+	@Override
+	public int updateReview2(Board b) {
+		
+		return bd.updateReview2(sqlSession, b);
+	}
+	//후기 삭제
+	@Override
+	public int deleteReview(int bno) {
+		
+		return bd.deleteReview(sqlSession, bno);
+	}
+	//후기 전체 게시물 수
+	@Override
+	public int getListCount() {
+
+		return bd.getListCount(sqlSession);
+	}
+	//페이징 처리 된 후기 목록
+	@Override
+	public ArrayList<Board> selectReviewList(PageInfo pi) {
+
+		return bd.selectReviewList(sqlSession, pi);
+	}
+	//공지 게시글 수 조회
+	@Override
+	public int getNoticeListCount() {
+	
+		return bd.getNoticeListCount(sqlSession);
+	}
+	//페이징 처리 된 공지 목록 조회
+	@Override
+	public ArrayList<Board> selectNoticeList(PageInfo pi) {
+
+		return bd.selectNoticeList(sqlSession, pi);
+	}
+	//문의 전체 게시글 수 조회
+	@Override
+	public int getQnaListCount() {
+
+		return bd.getQnaListCount(sqlSession);
+	}
+	//페이징 된 문의 목록 조회
+	@Override
+	public ArrayList<Board> selectQnaList(PageInfo pi) {
+		
+		return bd.selectQnaList(sqlSession, pi);
+	}
+	
+	
 	
 	
 

@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.ui.Model;
 
+import com.kh.tsp.common.PageInfo;
 import com.kh.tsp.customer.model.exception.BoardSelectListException;
 import com.kh.tsp.customer.model.vo.Board;
 
@@ -38,6 +39,28 @@ public interface BoardService {
 	List<Board> selectReviewList(Board b);
 	//후기 작성
 	int insertReview(Board b);
+	//후기 상세보기
+	Board selectOneReview(int bno);
+	//후기 수정1(상세보기)
+	Board updateReview(int bno);
+	//후기 수정2
+	int updateReview2(Board b);
+	//후기 삭제
+	int deleteReview(int bno);
+	//후기 전체 게시물 수 
+	int getListCount();
+	//후기 목록
+	ArrayList<Board> selectReviewList(PageInfo pi);
+	//공지 전체 게시글 수 조회
+	int getNoticeListCount();
+	//공지 목록 
+	ArrayList<Board> selectNoticeList(PageInfo pi);
+	//문의 전체 게시글 수 조회
+	int getQnaListCount();
+	//페이징 된 문의 목록
+	ArrayList<Board> selectQnaList(PageInfo pi);
+	
+	
 	
 	
 	

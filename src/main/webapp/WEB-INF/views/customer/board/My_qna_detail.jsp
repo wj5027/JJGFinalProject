@@ -54,9 +54,9 @@
 			
 			<tr>
 				<td width="60px">댓글&nbsp;</td>
-				<td valign="top" style="border: 1px solid white" colspan="2">댓글내용　　　　　　　　　</td>
+				<td   colspan="2">댓글내용　　　　　　　　　</td>
 				
-				<td>&nbsp;<button height="20"class="btn btn-info btn-sm">등록</button></td>
+				<td>&nbsp;<button float="right" class="btn btn-info btn-sm">등록</button></td>
 			</tr>
 			</table>
 			

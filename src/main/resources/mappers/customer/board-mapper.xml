@@ -31,7 +31,21 @@
   		<result property="pno" column="PARKING_NO"/>
   		
   	</resultMap>
-  	
+  	<!-- 문의 MEMBER 조인 안한 것 -->
+  	<resultMap type="com.kh.tsp.customer.model.vo.Board" id="qnaList0">
+  		<id property="bno" column="BOARD_NO"/>
+  		<result property="bTitle" column="BOARD_TITLE"/>
+  		<result property="bContext" column="BOARD_CONTEXT"/>
+  		<result property="bViews" column="BOARD_VIEWS"/>
+  		<result property="createDate" column="CREATION_DATE"/>
+  		<result property="modifyDate" column="MODIFED_DATE"/>
+  		<result property="bType" column="BOARD_TYPE"/>
+  		<result property="status" column="STATUS"/>
+  		<result property="mno" column="MEMBER_NAME"/>
+  		<result property="pno" column="PARKING_NO"/>
+  		
+  	</resultMap>
+  	<!-- 문의 MEMBER까지 조인 한 것 -->
   	<resultMap type="com.kh.tsp.customer.model.vo.Board" id="qnaList">
   		<id property="bno" column="BOARD_NO"/>
   		<result property="bTitle" column="BOARD_TITLE"/>
@@ -46,7 +60,8 @@
   		
   	</resultMap>
   	
-  	<resultMap type="com.kh.tsp.customer.model.vo.Board" id="reviewListSet">
+  	<!-- 후기 조인 MEMBER조인 안 한 것 -->
+  	<resultMap type="com.kh.tsp.customer.model.vo.Board" id="reviewListSet0">
   		<id property="bno" column="BOARD_NO"/>
   		<result property="bTitle" column="BOARD_TITLE"/>
   		<result property="bContext" column="BOARD_CONTEXT"/>
@@ -60,6 +75,21 @@
   		
   	</resultMap>
   	
+  	<!-- 후기 문의 MEMBER까지 조인 된 것 -->
+  	<resultMap type="com.kh.tsp.customer.model.vo.Board" id="reviewListSet">
+  		<id property="bno" column="BOARD_NO"/>
+  		<result property="bTitle" column="BOARD_TITLE"/>
+  		<result property="bContext" column="BOARD_CONTEXT"/>
+  		<result property="bViews" column="BOARD_VIEWS"/>
+  		<result property="createDate" column="CREATION_DATE"/>
+  		<result property="modifyDate" column="MODIFED_DATE"/>
+  		<result property="bType" column="BOARD_TYPE"/>
+  		<result property="status" column="STATUS"/>
+  		<result property="mno" column="MEMBER_NAME"/>
+  		<result property="pno" column="PARKING_NAME"/>
+  		
+  	</resultMap>
+  	
   	<!-- 공지사항 게시물 목록 조회용 쿼리문 -->
   	<select id="boardList" resultMap="boardListSet">
   		SELECT *
@@ -69,6 +99,8 @@
   		AND B.BOARD_TYPE = '공지'
   		ORDER BY BOARD_NO DESC
   	</select>
+  	
+  	
   	
   	<!-- 게시물 조회수 증가용 쿼리문 -->
   	<update id="updateBoardCount" parameterType="_int">
@@ -120,7 +152,7 @@
   	</insert>
   	
   	<!-- 내 문의 목록 쿼리문 -->
-  	<select id="selectQnaList" resultMap="qnaList">
+  	<select id="selectQnaList" resultMap="qnaList0">
   		SELECT * FROM BOARD B
   		JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
   		WHERE B.STATUS = 'Y'  		
@@ -155,7 +187,7 @@
   		AND B.STATUS = 'Y'
   	</select>
   	
-  	<!-- 공지 수정2 쿼리문 -->
+  	<!-- 문의 수정2 쿼리문 -->
   	<update id="updateQna2" parameterType="Board">
   		UPDATE BOARD
   		SET BOARD_TITLE = #{bTitle}, BOARD_CONTEXT = #{bContext}
@@ -173,11 +205,10 @@
   	</update>
   	
   	<!-- 후기 목록 쿼리문 -->
-  	<select id="selectReviewList" resultMap="reviewListSet">
+  	<select id="selectReviewList" resultMap="reviewListSet0">
   		SELECT * FROM BOARD B
-  		JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
   		JOIN PARKING P ON(B.PARKING_NO = P.PARKING_NO)
-  		WHERE B.STATUS = 'Y'  		
+  		WHERE B.STATUS = 'Y'  	
         AND B.BOARD_TYPE = '후기'
   		ORDER BY BOARD_NO DESC
   	</select>
@@ -189,4 +220,68 @@
   		0, SYSDATE, null, '후기', 'Y', #{mno}, #{pno})
   	</insert>
   	
+  	<!-- 후기 상세보기 쿼리문 -->
+  	<select id="selectOneReview" parameterType="_int" resultMap="reviewListSet">
+  		SELECT *
+  		FROM BOARD B
+  		JOIN MEMBER M ON (B.MEMBER_NO = M.MEMBER_NO)
+  		JOIN PARKING P ON(B.PARKING_NO = P.PARKING_NO) 
+  		WHERE B.BOARD_NO = #{bno}
+  		AND B.BOARD_TYPE = '후기'
+  		AND B.STATUS = 'Y'
+  	</select>
+  	
+  	<!-- 후기 수정1 쿼리문 -->
+  	<select id="updateReview" parameterType="_int" resultMap="reviewListSet">
+  		SELECT *
+  		FROM BOARD B
+  		JOIN MEMBER M ON (B.MEMBER_NO = M.MEMBER_NO)
+  		JOIN PARKING P ON(B.PARKING_NO = P.PARKING_NO) 
+  		WHERE B.BOARD_NO = #{bno}
+  		AND B.BOARD_TYPE = '후기'
+  		AND B.STATUS = 'Y'
+  	</select>
+  	
+  	<!-- 후기 수정2 쿼리문 -->
+  	<update id="updateReview2" parameterType="Board">
+  		UPDATE BOARD
+  		SET BOARD_TITLE = #{bTitle}, BOARD_CONTEXT = #{bContext}
+  		WHERE BOARD_NO = #{bno}
+  		AND BOARD_TYPE = '후기'
+  		AND STATUS = 'Y'
+  		
+  	</update>
+  	
+  	<!-- 후기 삭제 쿼리문 -->
+  	<update id="deleteReview" parameterType="_int">
+  		UPDATE BOARD
+  		SET STATUS = 'N'
+  		WHERE BOARD_NO = #{bno}
+  		AND BOARD_TYPE = '후기'
+  	</update>
+  	
+  	<!-- 후기 게시글 수 조회용 쿼리문 -->
+  	<select id="selectListCount" resultType="_int">
+  		SELECT COUNT(*)
+  		FROM BOARD
+  		WHERE STATUS='Y'
+  		AND BOARD_TYPE = '후기'
+  	</select>
+  	
+  	<!-- 공지 전체게시글 수 조회용 쿼리문 -->
+  	<select id="selectNoticeListCount" resultType="_int">
+  		SELECT COUNT(*)
+  		FROM BOARD
+  		WHERE STATUS='Y'
+  		AND BOARD_TYPE = '공지'
+  	</select>
+  	
+  	<!-- 문의 전체 게시글 수 조회용 쿼리문 -->
+  	<select id="selectQnaListCount" resultType="_int">
+  		SELECT COUNT(*)
+  		FROM BOARD
+  		WHERE STATUS='Y'
+  		AND BOARD_TYPE = '관리자문의'
+        OR BOARD_TYPE = '사업자문의'
+  	</select>
   </mapper>

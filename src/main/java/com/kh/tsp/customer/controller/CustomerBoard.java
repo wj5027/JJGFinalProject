@@ -17,11 +17,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.tsp.common.PageInfo;
+import com.kh.tsp.common.Pagination;
 import com.kh.tsp.customer.model.exception.BoardSelectListException;
 import com.kh.tsp.customer.model.service.BoardService;
 import com.kh.tsp.customer.model.service.BoardServiceImpl;
 import com.kh.tsp.customer.model.vo.Board;
 import com.kh.tsp.customer.model.vo.Member;
+
 
 @Controller
 public class CustomerBoard {
@@ -34,11 +37,39 @@ public class CustomerBoard {
 	}
 	
 	@RequestMapping(value="/customerNotice.cu", method=RequestMethod.GET)
-	public String CustomerNotice(Board b, Model model) {
-		List<Board> list = bs.selectNoticeList(b);
+	public String CustomerNotice(Board b, Model model,HttpServletRequest request,
+			HttpServletResponse response) {
+		/*List<Board> list = bs.selectNoticeList(b);
 		model.addAttribute("list", list);
 		
-		return "customer/board/Customer_notice_list";
+		return "customer/board/Customer_notice_list";*/
+		
+		int currentPage = 1;
+				 
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+				
+		int listCount = bs.getNoticeListCount();
+		System.out.println("공지 전체게시글 수 : "+listCount);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+				
+		ArrayList<Board> list = bs.selectNoticeList(pi);
+				
+
+		if(list == null) {
+			model.addAttribute("msg", "공지 목록 불러오기 실패");
+			return "common/errorPage";
+		}else {
+			model.addAttribute("list", list);
+			model.addAttribute("pi", pi);
+			model.addAttribute("b", b);
+					
+			return "customer/board/Customer_notice_list";
+		}
+				
+				
 	}
 	
 	
@@ -46,7 +77,7 @@ public class CustomerBoard {
 	@RequestMapping(value="/review.cu", method=RequestMethod.GET)
 	public String CustomerReview(Board b, Model model,HttpServletRequest request,
 			HttpServletResponse response) {
-		List<Board> list = bs.selectReviewList(b);
+		/*List<Board> list = bs.selectReviewList(b);
 		
 		model.addAttribute("list", list);
 		System.out.println("후기 서블릿 list: "+list);
@@ -66,13 +97,47 @@ public class CustomerBoard {
 				
 				System.out.println("servlet mno: "+mno);
 		
-		return "customer/board/My_review_list";
+		return "customer/board/My_review_list";*/
+		//작성자
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String mno = Integer.toString(loginUser.getMember_no());
+				
+		
+		
+		int currentPage = 1;
+		 
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount = bs.getListCount();
+		System.out.println("후기 전체게시글 수 : "+listCount);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Board> list = bs.selectReviewList(pi);
+		
+
+		if(list == null) {
+			request.setAttribute("msg", "후기 목록 불러오기 실패");
+			return "common/errorPage";
+		}else {
+			request.setAttribute("loginUser", loginUser);
+			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
+			request.setAttribute("b", b);
+			
+			return "customer/board/My_review_list";
+		}
+		
+		
+		
 	}
 	
 	@RequestMapping(value="/qna.cu", method=RequestMethod.GET)
 	public String CustomerQnA(Board b, HttpServletRequest request,
 								HttpServletResponse response) {
-		List<Board> list = bs.selectQnaList(b);
+		/*List<Board> list = bs.selectQnaList(b);
 		System.out.println("서블릿 list: "+list);
 		request.setAttribute("list", list);
 		
@@ -90,7 +155,36 @@ public class CustomerBoard {
 		b.setMno(mno);
 		
 		System.out.println("servlet mno: "+mno);
-		return "customer/board/My_qna_list";
+		return "customer/board/My_qna_list";*/
+		//작성자
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String mno = Integer.toString(loginUser.getMember_no());
+
+		int currentPage = 1;
+				 
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+				
+		int listCount = bs.getQnaListCount();
+		System.out.println("문의 전체게시글 수 : "+listCount);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+				
+		ArrayList<Board> list = bs.selectQnaList(pi);
+				
+
+		if(list == null) {
+			request.setAttribute("message", "문의 목록 불러오기 실패");
+			return "common/errorPage";
+		}else {
+			request.setAttribute("loginUser", loginUser);
+			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
+					
+			return "customer/board/My_qna_list";
+		}
+						
 	}
 	
 	//공지사항 수정용1
@@ -337,6 +431,63 @@ public class CustomerBoard {
 			return "common/errorPage";
 		}
 	}
+	
+	//후기 수정1
+	@RequestMapping(value="/updateReview.cu")
+	public String updateReview(String num, Model model) {
+		int bno = Integer.parseInt(num);
+		
+		System.out.println("후기 수정 서블릿1 bno : "+bno);
+		
+		Board b = bs.updateReview(bno);
+		
+		model.addAttribute("b", b);
+		
+		return "customer/board/My_review_edit";
+		
+	}
+	
+	//후기 수정2
+	@RequestMapping(value="/updateReview2.cu")
+	public String updateReview(String num, String title, String content, Model model) {
+		int bno = Integer.parseInt(num);
+		System.out.println("수정 서블릿2 bno : "+bno);
+		
+		System.out.println("제목: "+title);
+		System.out.println("내용: "+content);
+		
+		Board b = new Board();
+		b.setBno(bno);
+		b.setbTitle(title);
+		b.setbContext(content);
+		
+		int result = bs.updateReview2(b);
+		System.out.println("servlet2 result : "+result);
+	
+		if(result > 0) {
+			return "redirect:review.cu";
+		}else {
+			model.addAttribute("message", "수정 실패");
+			return "common/errorPage";
+		}
+		
+	}
+	//후기 삭제
+	@RequestMapping(value="/deleteReview.cu", method=RequestMethod.GET)
+	public String delteReview(String num, Model model) {
+		int bno = Integer.parseInt(num);
+		
+		int result = bs.deleteReview(bno);
+		
+		if(result > 0) {
+			return "redirect:review.cu";
+		}else {
+			model.addAttribute("message", "삭제 실패");
+			return "common/errorPage";
+		}
+	}
+	
+	
 	
 	
 	

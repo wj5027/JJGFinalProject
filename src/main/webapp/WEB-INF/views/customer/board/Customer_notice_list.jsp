@@ -68,18 +68,18 @@
 				[이전] &nbsp;
 			</c:if>
 			<c:if test="${ pi.currentPage > 1 }">
-				<c:url var="blistBack" value="/selectList.bo">
+				<c:url var="blistBack" value="/customerNotice.cu">
 					<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
 				</c:url>
-				<%-- <a href="${ blistBack }">[이전]</a> &nbsp; --%>
+				 <a href="${ blistBack }">[이전]</a> &nbsp; 
 			</c:if>
 			
 			<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 				<c:if test="${ p eq pi.currentPage }">
-					<font color="lightgrey" size="4">[1]</font>
+					<font color="lightgrey" size="4">[${p}]</font>
 				</c:if>
 				<c:if test="${ p ne pi.currentPage }">
-					<c:url var="blistCheck" value="selectList.bo">
+					<c:url var="blistCheck" value="customerNotice.cu">
 						<c:param name="currentPage" value="${p}"/>
 					</c:url>
 					<a href="${ blistCheck }">${p}</a>
@@ -90,11 +90,11 @@
 				&nbsp; [다음]
 			</c:if>
 			<c:if test="${ pi.currentPage < pi.maxPage }">
-				<c:url var="blistEnd" value="selectList.bo">
+				<c:url var="blistEnd" value="customerNotice.cu">
 					<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
 				</c:url>
 				
-				<!-- <a href="#">&nbsp;[다음]</a>  -->
+				 <a href="${ blistEnd }">&nbsp;[다음]</a>  
 			</c:if>
 		</div>
  
