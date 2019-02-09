@@ -39,21 +39,22 @@
    
    	<table id="listArea">
    		<th width="30%">작성일</th>
-   		<th width="40%">주차장 명</th>
-   		<th>제목</th>
+   		<th width="40%">제목</th>
+   		<th>주차장 명</th>
    		
    		<c:forEach var="b" items="${ list }">
+   		
+   		<c:if test="${ loginUser.member_no eq b.mno }">
    		<tbody>
    		<tr>
    			<td>${ b.createDate }</td>
-
-   			<td>${ b.pno }</td>
-   		
-   			<td><input type="hidden" id="bno" name="bno" value="${b.bno}">${ b.bTitle }</td>
-			 	
+ 		
+   			<td><input type="hidden" id="num" name="num" value="${b.bno}">${ b.bTitle }</td>
+			<td>${ b.pno }</td>	
    		</tr>
    		
    		<!-- <hr style="border: solid 1px white;"> -->
+   		   </c:if>
    		   </c:forEach>
    		</tbody>
    	</table>
@@ -70,24 +71,25 @@
        </div>
               <div class="card-body">
                 <div class="table-responsive">
+                
                 <!-- 페이징 버튼 영역 -->
 		<div id="pagingArea" align="center">
 			<c:if test="${ pi.currentPage <= 1 }">
 				[이전] &nbsp;
 			</c:if>
 			<c:if test="${ pi.currentPage > 1 }">
-				<c:url var="blistBack" value="/selectList.bo">
+				<c:url var="blistBack" value="/review.cu">
 					<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
 				</c:url>
-				<%-- <a href="${ blistBack }">[이전]</a> &nbsp; --%>
+				<a href="${ blistBack }">[이전]</a> &nbsp; 
 			</c:if>
 			
 			<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 				<c:if test="${ p eq pi.currentPage }">
-					<font color="lightgrey" size="4">[1]</font>
+					<font color="lightgrey" size="4">[${p}]</font>
 				</c:if>
 				<c:if test="${ p ne pi.currentPage }">
-					<c:url var="blistCheck" value="selectList.bo">
+					<c:url var="blistCheck" value="review.cu">
 						<c:param name="currentPage" value="${p}"/>
 					</c:url>
 					<a href="${ blistCheck }">${p}</a>
@@ -98,11 +100,11 @@
 				&nbsp; [다음]
 			</c:if>
 			<c:if test="${ pi.currentPage < pi.maxPage }">
-				<c:url var="blistEnd" value="selectList.bo">
+				<c:url var="blistEnd" value="review.cu">
 					<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
 				</c:url>
 				
-				<!-- <a href="#">&nbsp;[다음]</a>  -->
+				 <a href="${ blistEnd }">&nbsp;[다음]</a> 
 			</c:if>
 		</div>
  
@@ -173,7 +175,15 @@
        		$(".insertContent").show();
        	});
    });
-   
+   $(function(){
+		$("#listArea td").click(function(){
+			var num = $(this).find("#num").val();
+			console.log(num);
+			
+			
+			location.href="./reviewDetail.cu?num="+num;
+		});
+	});
  
 </script>
 </body>

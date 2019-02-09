@@ -3,12 +3,14 @@ package com.kh.tsp.customer.model.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 
+import com.kh.tsp.common.PageInfo;
 import com.kh.tsp.customer.model.exception.BoardSelectListException;
 import com.kh.tsp.customer.model.vo.Board;
 
@@ -107,6 +109,84 @@ public class BoardDaoImpl implements BoardDao{
 		System.out.println("dao b: "+b);
 		return sqlSession.insert("Board.insertReview", b);
 	}
+	//후기 상세보기
+	@Override
+	public Board selectOneReview(SqlSessionTemplate sqlSession, int bno) {
+		
+		return sqlSession.selectOne("Board.selectOneReview", bno);
+
+	}
+	//후기 수정1
+	@Override
+	public Board updateReview(SqlSessionTemplate sqlSession, int bno) {
+		
+		return sqlSession.selectOne("Board.updateReview", bno);
+	}
+	//후기 수정2
+	@Override
+	public int updateReview2(SqlSessionTemplate sqlSession, Board b) {
+			
+		return sqlSession.update("Board.updateReview2", b);
+	}
+	//후기 삭제
+	@Override
+	public int deleteReview(SqlSessionTemplate sqlSession, int bno) {
+
+		return sqlSession.update("Board.deleteReview", bno);
+	}
+	//후기 전체 게시글 수 조회
+	@Override
+	public int getListCount(SqlSessionTemplate sqlSession) {
+
+		return sqlSession.selectOne("Board.selectListCount");
+	}
+	//페이징 처리 된 후기 목록 조회
+	@Override
+	public ArrayList<Board> selectReviewList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		ArrayList<Board> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		//몇 개의 게시물을 건너뛰고 조회할지에 대한 변수(ex.2p면 10개의 게시물을 건너뛰고 조회해야함 11번째부터)
+
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		return (ArrayList)sqlSession.selectList("Board.selectReviewList", null, rowBounds);
+	}
+	//공지 전체 게시글 수 조회
+	@Override
+	public int getNoticeListCount(SqlSessionTemplate sqlSession) {
+	
+		return sqlSession.selectOne("Board.selectNoticeListCount");
+	}
+	//페이징 처리 된 공지 목록 조회
+	@Override
+	public ArrayList<Board> selectNoticeList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		ArrayList<Board> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		return (ArrayList)sqlSession.selectList("Board.boardList", null, rowBounds);
+	}
+	//문의 전체 게시글 수 조회
+	@Override
+	public int getQnaListCount(SqlSessionTemplate sqlSession) {
+
+		return sqlSession.selectOne("Board.selectQnaListCount");
+	}
+	//페이징 처리 된 문의 목록 조회
+	@Override
+	public ArrayList<Board> selectQnaList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		ArrayList<Board> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		return (ArrayList)sqlSession.selectList("Board.selectQnaList", null, rowBounds);
+	}
+	
 	
 	
 	
