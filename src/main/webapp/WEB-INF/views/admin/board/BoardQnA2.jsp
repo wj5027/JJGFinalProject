@@ -173,7 +173,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 													<td class="text-center">
 														<button data-toggle="modal"
 															data-target=".bd-example-modal-lg-2"
-															class="btn btn-default animation-on-hover btn-sm" onclick="answer(${varstatus.count - 1});">답변</button>
+															class="btn btn-default animation-on-hover btn-sm" onclick="selectNo(${varstatus.count - 1});">답변</button>
 														&nbsp;&nbsp;
 														<c:if test="${qna.status == 'Y'}">
 															<button data-toggle="modal"
@@ -342,29 +342,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 		<!-- 답변 > 예 버튼 클릭 시 memberNo 가져오기 -->
 		<script>
-			function answer(qna) {
-				var boardNo = $("#listTable td").parent().eq(qna).children().eq(0).text();
-				console.log("게시판번호: "+boardNo)
-				
-				$.ajax({
-					url:"answerBoardQnA.ad",
-					type:"get",
-					data:{boardNo:boardNo},
-					success:function(data){
-						console.log(data.boardNo);
-						},error:function(status){
-						console.log(status);
-					}
-				});
+			function selectNo(qna) {
+				console.log(qna)
+				selectedNo = qna;
 			}
-			/* $(function() {
+			$(function() {
 				$("#answerBoard").click(function() {
 					var boardNo = $("#listTable td").parent().eq(selectedNo).children().eq(0).text();
 					console.log(boardNo)
 
-					//location.href = 'answerBoardQnA.ad?boardNo='+ boardNo;
+					//location.href = 'answerBoard.ad?boardNo='+ boardNo;
 				});
-			}); */
+			});
 		</script>
 		<!-- 답변 > 예 버튼 클릭 시 memberNo 가져오기 끝 -->
 

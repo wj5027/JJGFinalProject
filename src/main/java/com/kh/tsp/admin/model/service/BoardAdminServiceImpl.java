@@ -34,4 +34,40 @@ public class BoardAdminServiceImpl implements BoardAdminService{
 		return list;
 	}
 
+	// 문의 게시판 삭제
+	@Override
+	public int deleteBoardQnA(Board b) throws SelectBoardListException {
+		int result = bd.deleteBoardQnA(sqlSession, b);
+		return result;
+	}
+
+	// 문의 게시판 복구
+	@Override
+	public int updateRecoverBoardQnA(Board b) throws SelectBoardListException {
+		int result = bd.updateRecoverBoardQnA(sqlSession, b);
+		return result;
+	}
+
+	// 문의 게시판 검색 수
+	@Override
+	public int getSearchListCount(String mId, String bTitle, String today, String startDate, String endDate) throws SelectBoardListException {
+		int listCount = bd.getSearchListCount(sqlSession,mId, bTitle, today, startDate, endDate);
+		return listCount;
+	}
+
+	// 문의 게시판 검색 리스트
+	@Override
+	public ArrayList<Board> selectSearchParkingCEOList(PageInfo pi, String mId, String bTitle, String today,
+			String startDate, String endDate) throws SelectBoardListException {
+		ArrayList<Board> list = bd.selectSearchBoardQnAList(sqlSession,pi, mId, bTitle, today, startDate, endDate);
+		return list;
+	}
+
+	// 문의 게시판 답변
+	@Override
+	public int answerBoardQnA(Board b) throws SelectBoardListException {
+		int result = bd.answerBoardQnA(sqlSession, b);
+		return result;
+	}
+
 }
