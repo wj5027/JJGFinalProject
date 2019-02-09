@@ -27,12 +27,78 @@
   	
   	<!-- 문의게시판 전체 리스트 -->
   	<select id="selectBoardQnAList" resultMap="BoardAdminResultSet">
-  		SELECT M.MEMBER_NO, M.MEMBER_ID, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, B.CREATION_DATE, B.MODIFIED_DATE, B.BOARD_TYPE, B.BOARD_TYPE
+  		SELECT M.MEMBER_NO, M.MEMBER_ID, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, B.CREATION_DATE, B.MODIFIED_DATE, B.BOARD_TYPE, B.BOARD_TYPE, B.STATUS
   		FROM BOARD B
   		INNER JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
-  		WHERE B.STATUS = 'Y'
-  		AND B.BOARD_TYPE = '관리자문의'
+  		WHERE B.BOARD_TYPE = '관리자문의'
   		ORDER BY BOARD_NO DESC
+  	</select>
+  	
+  	<!-- 문의게시판 삭제 -->
+  	<update id="deleteBoardQnA"  parameterType="_int">
+  		UPDATE BOARD
+  		SET STATUS = 'N'
+  		WHERE STATUS='Y' AND BOARD_NO = #{boardNo}
+  	</update>
+  	
+  	<!-- 문의게시판 복구 -->
+  	<update id="updateRecoverBoardQnA"  parameterType="_int">
+  		UPDATE BOARD
+  		SET STATUS = 'Y'
+  		WHERE STATUS='N' AND BOARD_NO = #{boardNo}
+  	</update>
+  	
+	<!-- 문의게시판 검색 수 -->
+  	<select id="getSearchListCount" resultType="_int" parameterType="java.util.Map">
+  		SELECT COUNT(*) 
+  		FROM BOARD B
+  		INNER JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
+  		WHERE B.BOARD_TYPE = '관리자문의'
+		<if test="mId != ''">
+			AND M.MEMBER_ID LIKE '%'||#{mId}||'%'
+		</if>
+		<if test="bTitle != ''">
+			AND B.BOARD_TITLE LIKE '%'||#{bTitle}||'%'
+		</if>
+		<if test="today != ''">
+		<![CDATA[
+			AND (TO_CHAR(TO_DATE(B.CREATION_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') >= TO_CHAR(TO_DATE(#{today},'yyyy/mm/dd'), 'yyyy/mm/dd') 
+					AND TO_CHAR(TO_DATE(B.CREATION_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') <= TO_CHAR(TO_DATE(SYSDATE,'rrrr/mm/dd'), 'yyyy/mm/dd'))
+		]]>		
+		</if>
+		<if test="startDate != ''">
+		<![CDATA[
+			AND (TO_CHAR(TO_DATE(B.CREATION_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') >= TO_CHAR(TO_DATE(#{startDate},'yyyy-mm-dd'),'yyyy-mm-dd') 
+					AND TO_CHAR(TO_DATE(B.CREATION_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') <= TO_CHAR(TO_DATE(#{endDate},'yyyy-mm-dd'),'yyyy-mm-dd'))
+		]]>		
+		</if>
+  	</select>
+  	
+  	<!-- 문의 게시판 리스트 -->
+  	<select id="selectSearchBoardQnAList" resultMap="BoardAdminResultSet" parameterType="java.util.Map">		
+  		SELECT M.MEMBER_NO, M.MEMBER_ID, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, B.CREATION_DATE, B.MODIFIED_DATE, B.BOARD_TYPE, B.BOARD_TYPE, B.STATUS
+  		FROM BOARD B
+  		INNER JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
+  		WHERE B.BOARD_TYPE = '관리자문의'
+		<if test="mId != ''">
+			AND M.MEMBER_ID LIKE '%'||#{mId}||'%'
+		</if>
+		<if test="bTitle != ''">
+			AND B.BOARD_TITLE LIKE '%'||#{bTitle}||'%'
+		</if>
+		<if test="today != ''">
+		<![CDATA[
+			AND (TO_CHAR(TO_DATE(B.CREATION_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') >= TO_CHAR(TO_DATE(#{today},'yyyy/mm/dd'), 'yyyy/mm/dd') 
+					AND TO_CHAR(TO_DATE(B.CREATION_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') <= TO_CHAR(TO_DATE(SYSDATE,'rrrr/mm/dd'), 'yyyy/mm/dd'))
+		]]>		
+		</if>
+		<if test="startDate != ''">
+		<![CDATA[
+			AND (TO_CHAR(TO_DATE(B.CREATION_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') >= TO_CHAR(TO_DATE(#{startDate},'yyyy-mm-dd'),'yyyy-mm-dd') 
+					AND TO_CHAR(TO_DATE(B.CREATION_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') <= TO_CHAR(TO_DATE(#{endDate},'yyyy-mm-dd'),'yyyy-mm-dd'))
+		]]>		
+		</if>
+		ORDER BY B.BOARD_NO DESC
   	</select>
   	
   </mapper>
