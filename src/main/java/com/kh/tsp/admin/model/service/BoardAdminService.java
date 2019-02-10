@@ -28,6 +28,9 @@ public interface BoardAdminService {
 			String endDate) throws SelectBoardListException;
 
 	// 문의 게시판 답변
-	int answerBoardQnA(Board b) throws SelectBoardListException;
+	Board answerBoardQnA(Board b) throws SelectBoardListException;
+
+	// 답변 작성
+	int insertAnswerBoard(String bno, String mno, String textareaId) throws SelectBoardListException;
 
 }

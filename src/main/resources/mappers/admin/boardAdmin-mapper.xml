@@ -16,6 +16,18 @@
   		<result property="mno" column="MEMBER_NO"/>
   		<result property="pno" column="PARKING_NO"/>
   		<result property="mId" column="MEMBER_ID"/>
+  		<result property="cancelYN" column="CANCEL_YN"/>
+  		<result property="replyContext" column="REPLY_CONTEXT"/>
+  	</resultMap>
+  	  
+  	<resultMap type="com.kh.tsp.admin.model.vo.ReplyAdmin" id="ReplyAdminResultSet">
+  		<id property="replyNo" column="REPLY_NO"/>
+  		<result property="context" column="CONTEXT"/>
+  		<result property="relpyDate" column="REPLY_DATE"/>
+  		<result property="cancelYN" column="CANCEL_YN"/>
+  		<result property="modifyYN" column="MODIFY_YN"/>
+  		<result property="boardNo" column="BOARD_NO"/>
+  		<result property="memberNo" column="MEMBER_NO"/>
   	</resultMap>
   	
 	<!-- 문의게시판 전체 수 -->
@@ -27,9 +39,10 @@
   	
   	<!-- 문의게시판 전체 리스트 -->
   	<select id="selectBoardQnAList" resultMap="BoardAdminResultSet">
-  		SELECT M.MEMBER_NO, M.MEMBER_ID, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, B.CREATION_DATE, B.MODIFIED_DATE, B.BOARD_TYPE, B.BOARD_TYPE, B.STATUS
+  		SELECT M.MEMBER_NO, M.MEMBER_ID, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, B.CREATION_DATE, B.MODIFIED_DATE, B.BOARD_TYPE, B.BOARD_TYPE, B.STATUS, R.CANCEL_YN, R.REPLY_CONTEXT
   		FROM BOARD B
   		INNER JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
+        LEFT OUTER JOIN REPLY R ON(B.BOARD_NO = R.BOARD_NO)
   		WHERE B.BOARD_TYPE = '관리자문의'
   		ORDER BY BOARD_NO DESC
   	</select>
@@ -100,5 +113,18 @@
 		</if>
 		ORDER BY B.BOARD_NO DESC
   	</select>
+  	  	
+  	<!-- 문의 게시판 답변 -->
+  	<select id="answerBoardQnA" resultMap="BoardAdminResultSet" parameterType="_int">
+  		SELECT M.MEMBER_NO, M.MEMBER_ID, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, B.CREATION_DATE, B.MODIFIED_DATE, B.BOARD_TYPE, B.BOARD_TYPE, B.STATUS
+  		FROM BOARD B
+  		INNER JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
+  		WHERE B.BOARD_TYPE = '관리자문의'
+  			AND B.BOARD_NO = #{bno}
+  	</select>
   	
+  	<!-- 답변 작성 -->
+  	<insert id="insertAnswerBoard" parameterType="java.util.Map">	
+  		INSERT INTO REPLY VALUES(REPLY_NO_SEQ.NEXTVAL, #{textareaId}, SYSDATE, 'Y', NULL, #{bno}, #{mno})
+  	</insert>
   </mapper>
