@@ -55,7 +55,7 @@
 			<div align="right" class="dropdown-menu dropdown-black"
 				aria-labelledby="navbarDropdownMenuLink">
 				<a class="dropdown-item" href="selectBoardQnA.ad">문의 게시판</a> <a
-					class="dropdown-item" href="boardReview.ad">후기 게시판</a><a
+					class="dropdown-item" href="selectBoardReview.ad">후기 게시판</a><a
 					class="dropdown-item" href="filter.ad">필터설정</a>
 			</div></li>
 	</ul>

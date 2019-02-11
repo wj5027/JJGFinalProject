@@ -110,8 +110,9 @@ public class boardQnAController {
 	// 문의 게시판 검색
 	@RequestMapping("selectSearchBoardQnAList.ad")
 	public String searchBoardQnAList2(HttpServletRequest request, HttpServletResponse response,
-												String mId, String bTitle, String today, String startDate, String endDate) {
+												String selectStatus, String mId, String bTitle, String today, String startDate, String endDate) {
 
+		System.out.println("selectStatus : "+selectStatus);
 		System.out.println("mId : "+mId);
 		System.out.println("bTitle : "+bTitle);
 		System.out.println("today : "+today);
@@ -124,10 +125,10 @@ public class boardQnAController {
 		}
 		
 		try {
-			int listCount = bs.getSearchListCount(mId, bTitle, today, startDate, endDate);
+			int listCount = bs.getSearchListCount(selectStatus, mId, bTitle, today, startDate, endDate);
 			System.out.println("listCount : "+listCount);
 			PageInfo pi = Pagination.getPageInfo(currentPage,listCount);
-			ArrayList<Board> list =bs.selectSearchParkingCEOList(pi, mId, bTitle, today, startDate, endDate);
+			ArrayList<Board> list =bs.selectSearchParkingCEOList(pi, selectStatus, mId, bTitle, today, startDate, endDate);
 			request.setAttribute("pi", pi);
 			request.setAttribute("list", list);
 
@@ -177,6 +178,24 @@ public class boardQnAController {
 		
 		try {
 			result = bs.insertAnswerBoard(bno, mno, textareaId);
+			return "redirect:selectBoardQnA.ad";
+		} catch (SelectBoardListException e) {
+			model.addAttribute("msg", e.getMessage());
+			return "common/errorPage";
+		}
+	}
+	
+	// 답변 수정
+	@RequestMapping("updateAnswerBoard.ad")
+	public String updateAnswerBoard(String updateTextareaId, String replyNo, Model model) {
+
+		System.out.println("updateTextareaId : "+updateTextareaId);
+		System.out.println("replyNo : "+replyNo);
+		
+		int result=0;
+		
+		try {
+			result = bs.updateAnswerBoard(updateTextareaId, replyNo);
 			return "redirect:selectBoardQnA.ad";
 		} catch (SelectBoardListException e) {
 			model.addAttribute("msg", e.getMessage());

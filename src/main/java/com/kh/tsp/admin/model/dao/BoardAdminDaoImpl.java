@@ -75,11 +75,12 @@ public class BoardAdminDaoImpl  implements BoardAdminDao{
 
 	// 문의 게시판 검색 수
 	@Override
-	public int getSearchListCount(SqlSessionTemplate sqlSession, String mId, String bTitle, String today,
+	public int getSearchListCount(SqlSessionTemplate sqlSession, String selectStatus, String mId, String bTitle, String today,
 			String startDate, String endDate) throws SelectBoardListException {
 
 		Map<String, Object> hmap = new HashMap<String, Object>();
 
+		hmap.put("selectStatus", selectStatus);
 		hmap.put("mId", mId);
 		hmap.put("bTitle", bTitle);
 		hmap.put("today", today);
@@ -93,7 +94,7 @@ public class BoardAdminDaoImpl  implements BoardAdminDao{
 
 	// 문의 게시판 검색 리스트
 	@Override
-	public ArrayList<Board> selectSearchBoardQnAList(SqlSessionTemplate sqlSession, PageInfo pi, String mId,
+	public ArrayList<Board> selectSearchBoardQnAList(SqlSessionTemplate sqlSession, PageInfo pi, String selectStatus, String mId,
 			String bTitle, String today, String startDate, String endDate) throws SelectBoardListException {
 		
 		ArrayList<Board> list = null;
@@ -101,6 +102,7 @@ public class BoardAdminDaoImpl  implements BoardAdminDao{
 		int offset = (pi.getCurrentPage()-1)* pi.getLimit();			
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 
+		System.out.println("selectStatus DAO: "+selectStatus);
 		System.out.println("mId DAO: "+mId);
 		System.out.println("bTitle DAO: "+bTitle);
 		System.out.println("today DAO: "+today);
@@ -109,6 +111,7 @@ public class BoardAdminDaoImpl  implements BoardAdminDao{
 		
 		Map<String, Object> hmap = new HashMap();
 
+		hmap.put("selectStatus", selectStatus);
 		hmap.put("mId", mId);
 		hmap.put("bTitle", bTitle);
 		hmap.put("today", today);
@@ -152,6 +155,104 @@ public class BoardAdminDaoImpl  implements BoardAdminDao{
 		
 		if(result<=0) {
 			throw new SelectBoardListException("문의 게시판 답변 작성 실패!");
+		}
+		return result;
+	}
+
+	
+	// 답변 수정
+	@Override
+	public int updateAnswerBoard(SqlSessionTemplate sqlSession, String updateTextareaId,
+			String replyNo) throws SelectBoardListException {
+
+		Map<String, Object> hmap = new HashMap();
+
+		hmap.put("updateTextareaId", updateTextareaId);
+		hmap.put("replyNo", Integer.parseInt(replyNo));
+		
+		int result = sqlSession.update("BoardAdmin.updateAnswerBoard", hmap);
+		
+		if(result<=0) {
+			throw new SelectBoardListException("문의 게시판 답변 수정 실패!");
+		}
+		return result;
+	}
+
+	
+	
+	
+
+	// 후기 게시판 수
+	@Override
+	public int getReviewListCount(SqlSessionTemplate sqlSession) throws SelectBoardListException {
+		int listCount = sqlSession.selectOne("BoardAdmin.getReviewListCount");
+		System.out.println("후기 게시판 수 : "+listCount);
+		if(listCount <=0) {
+			throw new SelectBoardListException("후기 게시판 수 조회 실패!");
+		}
+		return listCount;
+	}
+
+	// 후기 게시판 전체 리스트
+	@Override
+	public ArrayList<Board> selectBoardReviewList(SqlSessionTemplate sqlSession, PageInfo pi)
+			throws SelectBoardListException {
+		ArrayList<Board> list = null;
+		int offset = (pi.getCurrentPage()-1)* pi.getLimit();	
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		list = (ArrayList)sqlSession.selectList("BoardAdmin.selectBoardReviewList", null, rowBounds);
+		System.out.println("후기 게시판 전체 리스트 : "+list);
+		if(list == null) {
+			throw new SelectBoardListException("후기 게시판 전체 리스트 조회 실패");
+		}
+		return list;
+	}
+
+	// 후기 게시판 답변 ajax
+	@Override
+	public Board detailBoardReview(SqlSessionTemplate sqlSession, Board b) throws SelectBoardListException {
+
+		int bno = b.getBno();
+		System.out.println("bno : "+bno);
+		
+		b = sqlSession.selectOne("BoardAdmin.detailBoardReview", bno);
+		System.out.println("result(DAO 후기 게시판 답변) : "+b);
+		
+		if(b==null) {
+			throw new SelectBoardListException("특정 후기 게시판 불러오가 실패!");
+		}
+		return b;
+	}
+
+	// 후기 게시판 삭제
+	@Override
+	public int deleteBoardReview(SqlSessionTemplate sqlSession, Board b) throws SelectBoardListException {
+
+		int boardNo = b.getBno();
+		System.out.println("boardNo : "+boardNo);
+		
+		int result = sqlSession.update("BoardAdmin.deleteBoardReview", boardNo);
+		System.out.println("result(DAO 삭제) : "+result);
+		
+		if(result<=0) {
+			throw new SelectBoardListException("후기 게시판 삭제 실패!");
+		}
+		return result;
+	}
+
+	// 후기 게시판 복구
+	@Override
+	public int updateRecoverBoardReview(SqlSessionTemplate sqlSession, Board b) throws SelectBoardListException {
+
+		int boardNo = b.getBno();
+		System.out.println("boardNo : "+boardNo);
+		
+		int result = sqlSession.update("BoardAdmin.updateRecoverBoardReview", boardNo);
+		System.out.println("result(DAO 복구) : "+result);
+		
+		if(result<=0) {
+			throw new SelectBoardListException("후기 게시판 복구 실패!");
 		}
 		return result;
 	}

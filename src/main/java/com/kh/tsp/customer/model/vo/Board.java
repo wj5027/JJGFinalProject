@@ -17,11 +17,16 @@ public class Board implements java.io.Serializable{
 	private String mId;
 	private String cancelYN;
 	private String replyContext;
+	private int replyNo;
+	private String parkingName;	
+	private String roadAddress;
+	private int parkingSize;
 	
 	public Board() {}
 
 	public Board(int bno, String bTitle, String bContext, int bViews, Date createDate, Date modifyDate, String bType,
-			String status, String mno, String pno, String mId, String cancelYN, String replyContext) {
+			String status, String mno, String pno, String mId, String cancelYN, String replyContext, int replyNo,
+			String parkingName, String roadAddress, int parkingSize) {
 		super();
 		this.bno = bno;
 		this.bTitle = bTitle;
@@ -36,6 +41,10 @@ public class Board implements java.io.Serializable{
 		this.mId = mId;
 		this.cancelYN = cancelYN;
 		this.replyContext = replyContext;
+		this.replyNo = replyNo;
+		this.parkingName = parkingName;
+		this.roadAddress = roadAddress;
+		this.parkingSize = parkingSize;
 	}
 
 	public int getBno() {
@@ -142,13 +151,44 @@ public class Board implements java.io.Serializable{
 		this.replyContext = replyContext;
 	}
 
+	public int getReplyNo() {
+		return replyNo;
+	}
+
+	public void setReplyNo(int replyNo) {
+		this.replyNo = replyNo;
+	}
+
+	public String getParkingName() {
+		return parkingName;
+	}
+
+	public void setParkingName(String parkingName) {
+		this.parkingName = parkingName;
+	}
+
+	public String getRoadAddress() {
+		return roadAddress;
+	}
+
+	public void setRoadAddress(String roadAddress) {
+		this.roadAddress = roadAddress;
+	}
+
+	public int getParkingSize() {
+		return parkingSize;
+	}
+
+	public void setParkingSize(int parkingSize) {
+		this.parkingSize = parkingSize;
+	}
+
 	@Override
 	public String toString() {
 		return "Board [bno=" + bno + ", bTitle=" + bTitle + ", bContext=" + bContext + ", bViews=" + bViews
 				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", bType=" + bType + ", status="
 				+ status + ", mno=" + mno + ", pno=" + pno + ", mId=" + mId + ", cancelYN=" + cancelYN
-				+ ", replyContext=" + replyContext + "]";
+				+ ", replyContext=" + replyContext + ", replyNo=" + replyNo + ", parkingName=" + parkingName
+				+ ", roadAddress=" + roadAddress + ", parkingSize=" + parkingSize + "]";
 	}
-
-	
 }

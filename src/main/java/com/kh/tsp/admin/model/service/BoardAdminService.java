@@ -21,10 +21,10 @@ public interface BoardAdminService {
 	int updateRecoverBoardQnA(Board b) throws SelectBoardListException;
 
 	// 문의 게시판 검색 수
-	int getSearchListCount(String mId, String bTitle, String today, String startDate, String endDate) throws SelectBoardListException;
+	int getSearchListCount(String selectStatus, String mId, String bTitle, String today, String startDate, String endDate) throws SelectBoardListException;
 
 	// 문의 게시판 검색 리스트
-	ArrayList<Board> selectSearchParkingCEOList(PageInfo pi, String mId, String bTitle, String today, String startDate,
+	ArrayList<Board> selectSearchParkingCEOList(PageInfo pi, String selectStatus, String mId, String bTitle, String today, String startDate,
 			String endDate) throws SelectBoardListException;
 
 	// 문의 게시판 답변
@@ -32,5 +32,26 @@ public interface BoardAdminService {
 
 	// 답변 작성
 	int insertAnswerBoard(String bno, String mno, String textareaId) throws SelectBoardListException;
+
+	// 답변 수정
+	int updateAnswerBoard(String updateTextareaId, String replyNo) throws SelectBoardListException;
+
+	
+	
+
+	// 후기 게시판 수
+	int getReviewListCount() throws SelectBoardListException;
+
+	// 문의 게시판 전체 리스트
+	ArrayList<Board> selectBoardReviewList(PageInfo pi) throws SelectBoardListException;
+
+	// 후기 게시판 답변 ajax
+	Board detailBoardReview(Board b) throws SelectBoardListException;
+
+	// 후기 게시판 삭제
+	int deleteBoardReview(Board b) throws SelectBoardListException;
+
+	// 후기 게시판 복구
+	int updateRecoverBoardReview(Board b) throws SelectBoardListException;
 
 }
