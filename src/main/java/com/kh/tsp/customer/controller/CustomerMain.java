@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -160,6 +163,19 @@ ArrayList<Parking> parkings =null;
 			return hmap;
 		}
 	
+	//카카오톡
+	@RequestMapping(value="kakao.cu")
+	public String kakao(HttpServletRequest request, HttpServletResponse response, Model model) {
+		String name=request.getParameter("nickname");
+		Member loginUser = new Member();
+		loginUser.setMember_name(name);
+		
+		model.addAttribute("loginUser", loginUser);
+		
+		
+		
+		return "redirect:customer.cu";
+	}
 	
 	
 }

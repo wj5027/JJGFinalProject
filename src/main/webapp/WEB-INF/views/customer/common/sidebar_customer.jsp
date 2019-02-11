@@ -24,7 +24,7 @@
           <c:if test="${ !empty loginUser }">
           <div style="color:white;">
 		      <span id="userId" >
-		           송현영
+		           ${ loginUser.member_name }
 	          </span>
 	          <span >님 환영합니다.</span>
 	          </div>
