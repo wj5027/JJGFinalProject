@@ -20,4 +20,8 @@ public interface CustomerMainDao {
 
 	HashMap<String, Parking> selectSearchTextParking(SqlSessionTemplate sqlSession, String keyword);
 
+	Member selectCheckKakao(SqlSessionTemplate sqlSession, String kakao_id);
+
+	int insertKakao(SqlSessionTemplate sqlSession, Member m);
+
 }

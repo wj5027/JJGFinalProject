@@ -61,5 +61,19 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 	public HashMap<String, Parking> selectSearchTextParking(String keyword) {
 		return cmd.selectSearchTextParking(sqlSession, keyword);
 	}
+
+	@Override
+	public Member selectCheckKakao(String kakao_id) {
+
+		return cmd.selectCheckKakao(sqlSession, kakao_id);
+	}
+	//카카오톡 회원가입
+	@Override
+	public int insertKakao(Member m) {
+
+		return cmd.insertKakao(sqlSession, m);
+	}
+
+	
 	
 }
