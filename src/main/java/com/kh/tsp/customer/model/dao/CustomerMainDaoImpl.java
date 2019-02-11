@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.customer.model.vo.Parking;
+import com.kh.tsp.customer.model.vo.Reservation;;
 
 @Repository
 public class CustomerMainDaoImpl implements CustomerMainDao {
@@ -27,26 +28,34 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 	}
 
 	@Override
-	public HashMap<Integer, Parking> searchVoiceLocalParking(SqlSessionTemplate sqlSession, String keyword) {
-		HashMap<Integer, Parking> hmap = new HashMap<Integer, Parking>();
-		
-		ArrayList<Parking> list = (ArrayList)sqlSession.selectList("Member.searchLocalParkings", keyword);
+	public HashMap<String, Parking> searchVoiceLocalParking(SqlSessionTemplate sqlSession, String keyword) {
+		HashMap<String, Parking> hmap = new HashMap<String, Parking>();
+		System.out.println(keyword);
+		ArrayList<Parking> list = (ArrayList)sqlSession.selectList("Member.selectSearchTitleParking", keyword);// 1. 이름 기준 검색
 		
 		for (int i = 0; i < list.size(); i++) {
-			hmap.put(i + 1, list.get(i));
+			hmap.put("" + (i + 100001), list.get(i));
 		}
+		
+		list = (ArrayList)sqlSession.selectList("Member.searchAddrParking", keyword); // 2. 주소 기준 검색
+		
+		for (int i = 0; i < list.size(); i++) {
+			hmap.put("" + (i + 200001), list.get(i));
+		}
+		
+		System.out.println(hmap);
 		
 		return hmap;
 	}
 
 	@Override
-	public HashMap<Integer, Parking> searchVoiceNearParking(SqlSessionTemplate sqlSession, double lat, double lon) {
-		HashMap<Integer, Parking> hmap = new HashMap<Integer, Parking>();
+	public HashMap<String, Parking> searchVoiceNearParking(SqlSessionTemplate sqlSession, double lat, double lon) {
+		HashMap<String, Parking> hmap = new HashMap<String, Parking>();
 		
 		ArrayList<Parking> list = (ArrayList)sqlSession.selectList("Member.searchLocalParkings", lat);
 		
 		for (int i = 0; i < list.size(); i++) {
-			hmap.put(i + 1, list.get(i));
+			hmap.put("" + (i + 1), list.get(i));
 		}
 		
 		return hmap;
@@ -57,18 +66,25 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 		HashMap<String, Parking> hmap = new HashMap<String, Parking>();
 		System.out.println(keyword);
 		ArrayList<Parking> list = (ArrayList)sqlSession.selectList("Member.selectSearchTitleParking", keyword);// 1. 이름 기준 검색
-		System.out.println(list);
+		
 		for (int i = 0; i < list.size(); i++) {
-			hmap.put("1." + (i + 1), list.get(i));
+			hmap.put("" + (i + 100001), list.get(i));
 		}
 		
 		list = (ArrayList)sqlSession.selectList("Member.searchAddrParking", keyword); // 2. 주소 기준 검색
 		
 		for (int i = 0; i < list.size(); i++) {
-			hmap.put("2." + (i + 1), list.get(i));
+			hmap.put("" + (i + 200001), list.get(i));
 		}
 		
+		System.out.println(hmap);
+		
 		return hmap;
+	}
+
+	@Override
+	public ArrayList<Reservation> selectShowReserv(SqlSessionTemplate sqlSession, Member member) {
+		return (ArrayList)sqlSession.selectList("Member.selectReserve", member);
 	}
 
 }

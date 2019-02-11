@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.customer.model.vo.Parking;
+import com.kh.tsp.customer.model.vo.Reservation;
 
 public interface CustomerMainService {
 
@@ -12,9 +13,11 @@ public interface CustomerMainService {
 
 	ArrayList<Parking> getnearParkings();
 
-	HashMap<Integer, Parking> searchVoiceParking(String keyword, String type);
+	HashMap<String, Parking> searchVoiceParking(String keyword, String type);
 
 	HashMap<String, Parking> selectSearchTextParking(String keyword);
+
+	ArrayList<Reservation> selectShowReserv(Member member);
 	
 
 }

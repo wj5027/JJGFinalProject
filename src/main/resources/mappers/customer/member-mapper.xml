@@ -53,6 +53,19 @@
 			<result property="LEFT_SIZE" column="LEFT_SIZE"/>
 			<result property="STATUS" column="STATUS"/>
 	</resultMap>
+	
+	<resultMap type="Reservation" id="reserveResultSet">
+			<id property="resNo" column="RES_NO"/>
+			<result property="resApplyDate" column="RES_APPLY_DATE"/>
+			<result property="resDate" column="RES_DATE"/>
+			<result property="status" column="STATUS"/>
+			<result property="memberNo" column="MEMBER_NO"/>
+			<result property="parkingNo" column="PARKING_NO"/>
+			<result property="parkingName" column="PARKING_NAME"/>
+			<result property="cancelReason" column="CANCEL_REASON"/>
+			<result property="carNo" column="CAR_NO"/>
+			<result property="reserveTime" column="RESERVETIME"/>
+	</resultMap>
 
 	
 	<select id="selectCheckMember" resultMap="MemberResultSet" parameterType="Member">
@@ -89,6 +102,13 @@
 		SELECT * FROM parking
 		WHERE status = 'Y'
 		AND address LIKE '%' || #{keyword} || '%'
+	</select>
+	
+	<select id="selectReserve" resultMap="reserveResultSet" parameterType="Member">
+		SELECT r.res_no, r.res_apply_date, r.res_date, r.status, r.member_no, r.parking_no, p.parking_name, r.cancel_reason, r.car_no, TO_CHAR(r.res_date, 'RRRRMMDDHH24MI') AS RESERVETIME FROM parking_reservation r
+		JOIN parking p ON(r.parking_no = p.parking_no)
+		WHERE r.member_no = #{member_no}
+		ORDER BY res_date DESC
 	</select>
 
 
