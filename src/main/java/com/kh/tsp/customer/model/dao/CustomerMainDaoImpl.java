@@ -71,4 +71,16 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 		return hmap;
 	}
 
+	@Override
+	public Member selectCheckKakao(SqlSessionTemplate sqlSession, String kakao_id) {
+
+		return sqlSession.selectOne("Member.selectCheckKakao", kakao_id);
+	}
+	//카카오톡 회원가입
+	@Override
+	public int insertKakao(SqlSessionTemplate sqlSession, Member m) {
+
+		return sqlSession.insert("Member.insertKakao",m);
+	}
+
 }

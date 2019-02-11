@@ -37,12 +37,17 @@
                     <button class="btn btn-info btn-sm" type="button" onclick="" style="width: 120px;">비밀번호 찾기</button>
                     <br><br>                  
                    <!--  <a href="http://developers.kakao.com/logout"></a>-->                    
-                    <a id="kakao-login-btn"></a>
+                    
                     <br>
 					<button class="btn btn-info btn-sm" type="button" onclick="" style="width: 120px;">네이버 로그인	</button>
                     </div>
                  </form>
-                    
+                    <br>
+                   <form id="kakao" action="kakao.cu" method="post" align="center">
+                   	<input type="hidden" id="kakao_id" name="kakao_id" value="">
+                   	<input type="hidden" id="member_name" name="member_name" value="">
+                   	<a id="kakao-login-btn"></a>
+                   </form>
                     <br><br><br>
               </div>
             </div>
@@ -93,8 +98,24 @@
             console.log(JSON.stringify(res.id));
             //console.log(JSON.stringify(res.properties.profile_image));
             console.log(JSON.stringify(res.properties.nickname));
-         	location.href="kakao.cu?nickname="+res.properties.nickname;
+         	//location.href="kakao.cu?nickname="+res.properties.nickname;
             //alert(JSON.stringify(authObj));
+            
+           $("#kakao_id").val(res.id)
+           $("#member_name").val(res.properties.nickname)
+           $("#kakao").submit();
+           
+            /* $.ajax({
+            	url:"kakao.cu",
+            	type:"post",
+            	data:{kakao_id:res.id, nickname:res.properties.nickname},
+            	success:function(data){
+            		console.log("성공");
+            	},
+            	error:function(status){
+            		console.log(status);
+            	}
+            }); */
           },
           fail: function(error) {
             alert(JSON.stringify(error));
