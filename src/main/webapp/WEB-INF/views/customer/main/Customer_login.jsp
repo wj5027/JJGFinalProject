@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <html>
 
 
@@ -35,9 +35,11 @@
                     <br>
                     <button class="btn btn-info btn-sm" type="button" onclick="parkingceoLogin();" style="width: 120px;">제휴 페이지</button>
                     <button class="btn btn-info btn-sm" type="button" onclick="" style="width: 120px;">비밀번호 찾기</button>
-                    <br><br>
-                    <button class="btn btn-info btn-sm" type="button" onclick="" style="width: 120px;">카카오톡 로그인</button>
-                    <button class="btn btn-info btn-sm" type="button" onclick="" style="width: 120px;">네이버 로그인	</button>
+                    <br><br>                  
+                   <!--  <a href="http://developers.kakao.com/logout"></a>-->                    
+                    <a id="kakao-login-btn"></a>
+                    <br>
+					<button class="btn btn-info btn-sm" type="button" onclick="" style="width: 120px;">네이버 로그인	</button>
                     </div>
                  </form>
                     
@@ -77,8 +79,48 @@
 		location.href = "test.pc";
 	}
 	
-
+	// 사용할 앱의 JavaScript 키를 설정해 주세요.
+    Kakao.init('7b1dba10e7202c6538408b93f85572ab');
+    // 카카오 로그인 버튼을 생성합니다.
+    Kakao.Auth.createLoginButton({
+      container: '#kakao-login-btn',
+      success: function(authObj) {
+        // 로그인 성공시, API를 호출합니다.
+        Kakao.API.request({
+          url: '/v1/user/me',
+          success: function(res) {
+            //console.log(JSON.stringify(res.kaccount_email));
+            console.log(JSON.stringify(res.id));
+            //console.log(JSON.stringify(res.properties.profile_image));
+            console.log(JSON.stringify(res.properties.nickname));
+         	location.href="kakao.cu?nickname="+res.properties.nickname;
+            //alert(JSON.stringify(authObj));
+          },
+          fail: function(error) {
+            alert(JSON.stringify(error));
+          }
+        });
+      },
+      fail: function(err) {
+        alert(JSON.stringify(err));
+      }
+    });
 	
+  /* //<![CDATA[
+    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+    Kakao.init('7b1dba10e7202c6538408b93f85572ab');
+    function loginWithKakao() {
+      // 로그인 창을 띄웁니다.
+      Kakao.Auth.login({
+        success: function(authObj) {
+          alert(JSON.stringify(authObj));
+        },
+        fail: function(err) {
+          alert(JSON.stringify(err));
+        }
+      });
+    };
+  //]]>  */
 
 </script>
 
