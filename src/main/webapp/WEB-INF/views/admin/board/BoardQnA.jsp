@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -70,6 +71,20 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 										<div class="table-responsive" style="overflow: hidden;">
 											<table class="table tablesorter " id="">
 												<tbody>
+													<tr>
+														<td>구분</td>
+														<td>
+															<div style="width: 20%;">
+																<select class="custom-select nav-link dropdown-toggle"
+																	id="selectStatus" name="selectStatus"
+																	style="background-color: rgb(34, 42, 65);">
+																	<option value="A" selected>전체</option>
+																	<option value="N">답변 작성하기</option>
+																	<option value="Y">답변 수정하기</option>
+																</select>
+															</div>
+														</td>
+													</tr>
 													<tr>
 														<td>아이디</td>
 														<td>
@@ -168,13 +183,21 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 												<tr>
 													<td class="text-center">${qna.bno}</td>
 													<td>${qna.mId}</td>
-													<td>${qna.bTitle}</td>
-													<td>${qna.bContext}</td>
+													<td>
+														<c:set var = "bTitle" value = "${qna.bTitle}"/>
+														${fn:substring(bTitle, 0, 15)}
+														<c:if test="${fn:length(bTitle) > 15}">...</c:if>	
+													</td>
+													<td>
+														<c:set var = "bContext" value = "${qna.bContext}"/>
+														${fn:substring(bContext, 0, 20)}
+														<c:if test="${fn:length(bContext) > 20}">...</c:if>	
+													</td>
 													<td class="text-center">${qna.bViews}</td>
 													<td class="text-center">${qna.createDate}</td>
 													<td class="text-center">
 														<c:if test="${qna.cancelYN!=null}">
-															<button data-toggle="modal"
+															<button data-toggle="modal" style="color: gray;"
 																data-target=".bd-example-modal-lg-2"
 																class="btn btn-default animation-on-hover btn-sm" onclick="answer(${varstatus.count - 1});">답변수정</button>&nbsp;&nbsp;
 														</c:if>
@@ -344,12 +367,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 						$select.append('<tr>'
 											+'<td colspan="2">답변 작성</td>'
 											+'</tr>');
-						$select.append('<tr>'
+						
+						/* 관리자 답변 미작성 시 */
+						if(data.replyContext == null){
+							$select.append('<tr>'
 											+'<td colspan="2">'
-											+'<textarea id="textareaId" rows="60" cols="5" style="resize: none;" placeholder="문의에 대한 답변을 입력해주세요" class="form-control form-control-success"></textarea>'
+											+'<textarea id="textareaId" rows="60" cols="5" style="resize: none;" placeholder="문의에 대한 답변을 입력해주세요" class="form-control form-control-success"></textarea>'											
 											+'</td>'
 											+'</tr>');
-						$select.append('<tr>'
+							$select.append('<tr>'
 											+'<td align="right">'
 											+'<button type="button" data-toggle="modal" data-target=".bd-example-modal-lg-4" id="answerBoard" class="btn btn-warning animation-on-hover" onclick="answerBoard('+data.bno+','+data.mno+');">답변하기</button>&nbsp;&nbsp;'		
 											+'</td>'										
@@ -357,6 +383,23 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 											+'<button type="button" class="btn btn-info animation-on-hover" data-dismiss="modal">취소하기</button>'
 											+'</td>'
 											+'</tr>');
+							
+						/* 관리자 답변 작성 시 */
+						}else{
+							$select.append('<tr>'
+											+'<td colspan="2">'
+											+'<textarea id="updateTextareaId" rows="60" cols="5" style="resize: none;" placeholder="문의에 대한 답변을 입력해주세요" class="form-control form-control-success">'+data.replyContext+'</textarea>'											
+											+'</td>'
+											+'</tr>');	
+							$select.append('<tr>'
+											+'<td align="right">'
+											+'<button type="button" data-toggle="modal" data-target=".bd-example-modal-lg-8" id="answerBoard" class="btn btn-warning animation-on-hover" onclick="answerUpdateBoard('+data.replyNo+');">수정하기</button>&nbsp;&nbsp;'		
+											+'</td>'										
+											+'<td align="left">'
+											+'<button type="button" class="btn btn-info animation-on-hover" data-dismiss="modal">취소하기</button>'
+											+'</td>'
+											+'</tr>');						
+						}
 						$select.append('</tbody>');
 					},error:function(status){
 						console.log(status);
@@ -368,6 +411,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 		<!-- 답변 > 예 버튼 클릭 시 memberNo 가져오기 -->
 		<script>
+			/* 답변 등록 (insert) */
 			function answerBoard(bno,mno) {
 				var textareaId = $("#textareaId").val();
 				if(textareaId==""){
@@ -375,6 +419,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 				}else{
 					location.href='insertAnswerBoard.ad?bno='+bno+'&mno='+mno+'&textareaId='+textareaId;									
 				}
+			}
+			
+			/* 답변 수정 (update) */
+			function answerUpdateBoard(replyNo) {
+				var updateTextareaId = $("#updateTextareaId").val();
+				
+				location.href='updateAnswerBoard.ad?updateTextareaId='+updateTextareaId+'&replyNo='+replyNo;		
 			}
 		</script>
 		<!-- 답변 > 예 버튼 클릭 시 memberNo 가져오기 끝 -->
@@ -412,6 +463,40 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 			</div>
 		</div>
 		<!-- 답변 > 예 버튼 끝 -->
+		
+		<!-- 답변 수정 > 예 버튼 -->
+		<div class="modalDetail">
+			<div class="modal fade bd-example-modal-lg-8" tabindex="-1"
+				role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content" style="background: rgb(39, 41, 61);">
+						<div class="modal-body" style="padding-bottom: 0px;">
+							<div class="card ">
+								<div class="card-body" style="padding-bottom: 0px;">
+									<div class="table-responsive"
+										style="overflow: hidden; padding-bottom: 0px;">
+										<table class="table tablesorter" id="modalTable"
+											style="padding-bottom: 0px;">
+											<tbody>
+												<tr>
+													<td align="center" colspan="2"><b>글이 수정되었습니다.</b></td>
+												</tr>
+												<tr>
+													<td align="center"><button type="button"
+															class="btn btn-info animation-on-hover"
+															data-dismiss="modal">닫기</button></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 답변 수정 > 예 버튼 끝 -->
 
 		<!-- 삭제 -->
 		<div class="modal fade bd-example-modal-lg-3" tabindex="-1"

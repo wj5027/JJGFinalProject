@@ -18,6 +18,10 @@
   		<result property="mId" column="MEMBER_ID"/>
   		<result property="cancelYN" column="CANCEL_YN"/>
   		<result property="replyContext" column="REPLY_CONTEXT"/>
+  		<result property="replyNo" column="REPLY_NO"/>
+  		<result property="parkingName" column="PARKING_NAME"/>
+  		<result property="roadAddress" column="ROAD_ADDRESS"/>
+  		<result property="parkingSize" column="PARKING_SIZE"/>
   	</resultMap>
   	  
   	<resultMap type="com.kh.tsp.admin.model.vo.ReplyAdmin" id="ReplyAdminResultSet">
@@ -39,7 +43,7 @@
   	
   	<!-- 문의게시판 전체 리스트 -->
   	<select id="selectBoardQnAList" resultMap="BoardAdminResultSet">
-  		SELECT M.MEMBER_NO, M.MEMBER_ID, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, B.CREATION_DATE, B.MODIFIED_DATE, B.BOARD_TYPE, B.BOARD_TYPE, B.STATUS, R.CANCEL_YN, R.REPLY_CONTEXT
+  		SELECT M.MEMBER_NO, M.MEMBER_ID, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, B.CREATION_DATE, B.MODIFIED_DATE, B.BOARD_TYPE, B.STATUS, R.CANCEL_YN, R.REPLY_CONTEXT
   		FROM BOARD B
   		INNER JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
         LEFT OUTER JOIN REPLY R ON(B.BOARD_NO = R.BOARD_NO)
@@ -66,7 +70,17 @@
   		SELECT COUNT(*) 
   		FROM BOARD B
   		INNER JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
+        LEFT OUTER JOIN REPLY R ON(B.BOARD_NO = R.BOARD_NO)
   		WHERE B.BOARD_TYPE = '관리자문의'
+		<if test="selectStatus!='' and (selectStatus eq 'A'.toString())">
+			AND (R.CANCEL_YN = 'Y' OR R.CANCEL_YN IS NULL)
+		</if>
+		<if test="selectStatus!='' and (selectStatus eq 'Y'.toString())">
+			AND R.CANCEL_YN = 'Y'
+		</if>
+		<if test="selectStatus!='' and (selectStatus eq 'N'.toString())">
+			AND R.CANCEL_YN IS NULL
+		</if>
 		<if test="mId != ''">
 			AND M.MEMBER_ID LIKE '%'||#{mId}||'%'
 		</if>
@@ -87,12 +101,22 @@
 		</if>
   	</select>
   	
-  	<!-- 문의 게시판 리스트 -->
+  	<!-- 문의 게시판 검색 결과 -->
   	<select id="selectSearchBoardQnAList" resultMap="BoardAdminResultSet" parameterType="java.util.Map">		
-  		SELECT M.MEMBER_NO, M.MEMBER_ID, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, B.CREATION_DATE, B.MODIFIED_DATE, B.BOARD_TYPE, B.BOARD_TYPE, B.STATUS
+  		SELECT M.MEMBER_NO, M.MEMBER_ID, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, B.CREATION_DATE, B.MODIFIED_DATE, B.BOARD_TYPE, B.STATUS, R.CANCEL_YN, R.REPLY_CONTEXT
   		FROM BOARD B
   		INNER JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
+        LEFT OUTER JOIN REPLY R ON(B.BOARD_NO = R.BOARD_NO)
   		WHERE B.BOARD_TYPE = '관리자문의'
+		<if test="selectStatus!='' and (selectStatus eq 'A'.toString())">
+			AND (R.CANCEL_YN = 'Y' OR R.CANCEL_YN IS NULL)
+		</if>
+		<if test="selectStatus!='' and (selectStatus eq 'Y'.toString())">
+			AND R.CANCEL_YN = 'Y'
+		</if>
+		<if test="selectStatus!='' and (selectStatus eq 'N'.toString())">
+			AND R.CANCEL_YN IS NULL
+		</if>
 		<if test="mId != ''">
 			AND M.MEMBER_ID LIKE '%'||#{mId}||'%'
 		</if>
@@ -114,11 +138,12 @@
 		ORDER BY B.BOARD_NO DESC
   	</select>
   	  	
-  	<!-- 문의 게시판 답변 -->
+  	<!-- 문의 게시판 답변 ajax -->
   	<select id="answerBoardQnA" resultMap="BoardAdminResultSet" parameterType="_int">
-  		SELECT M.MEMBER_NO, M.MEMBER_ID, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, B.CREATION_DATE, B.MODIFIED_DATE, B.BOARD_TYPE, B.BOARD_TYPE, B.STATUS
+		SELECT M.MEMBER_NO, M.MEMBER_ID, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, B.CREATION_DATE, B.MODIFIED_DATE, B.BOARD_TYPE, B.STATUS, R.CANCEL_YN, R.REPLY_CONTEXT, R.REPLY_NO
   		FROM BOARD B
   		INNER JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
+        LEFT OUTER JOIN REPLY R ON(B.BOARD_NO = R.BOARD_NO)
   		WHERE B.BOARD_TYPE = '관리자문의'
   			AND B.BOARD_NO = #{bno}
   	</select>
@@ -126,5 +151,61 @@
   	<!-- 답변 작성 -->
   	<insert id="insertAnswerBoard" parameterType="java.util.Map">	
   		INSERT INTO REPLY VALUES(REPLY_NO_SEQ.NEXTVAL, #{textareaId}, SYSDATE, 'Y', NULL, #{bno}, #{mno})
-  	</insert>
+  	</insert>  	
+  	
+  	<!-- 답변 작성 -->
+  	<update id="updateAnswerBoard" parameterType="java.util.Map">	
+  		UPDATE REPLY
+  		SET REPLY_CONTEXT = #{updateTextareaId}
+  		WHERE REPLY_NO = #{replyNo}
+  	</update>
+  	
+  	
+  	
+  	
+	<!-- 후기게시판 전체 수 -->
+  	<select id="getReviewListCount" resultType="_int">
+  		SELECT COUNT(*) 
+		FROM BOARD
+		WHERE BOARD_TYPE = '후기'
+  	</select>
+  	
+  	<!-- 후기게시판 전체 리스트 -->
+  	<select id="selectBoardReviewList" resultMap="BoardAdminResultSet">
+  		SELECT M.MEMBER_NO, M.MEMBER_ID, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, B.CREATION_DATE, B.MODIFIED_DATE, B.BOARD_TYPE, B.STATUS, P.PARKING_NAME, P.ROAD_ADDRESS, P.PARKING_SIZE
+  		FROM BOARD B
+  		INNER JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
+        LEFT OUTER JOIN PARKING P ON(P.PARKING_NO = B.PARKING_NO)
+  		WHERE B.BOARD_TYPE = '후기'
+  		ORDER BY BOARD_NO DESC
+  	</select>
+  	
+  	
+  	<!-- 문의 게시판 답변 ajax -->
+  	<select id="detailBoardReview" resultMap="BoardAdminResultSet" parameterType="_int">
+  		SELECT M.MEMBER_NO, M.MEMBER_ID, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, B.CREATION_DATE, B.MODIFIED_DATE, B.BOARD_TYPE, B.STATUS, P.PARKING_NAME, P.ROAD_ADDRESS, P.PARKING_SIZE
+  		FROM BOARD B
+  		INNER JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
+        LEFT OUTER JOIN PARKING P ON(P.PARKING_NO = B.PARKING_NO)
+  		WHERE B.BOARD_TYPE = '후기'
+  			AND B.BOARD_NO = #{bno}
+  	</select>
+  	  	
+  	<!-- 문의게시판 삭제 -->
+  	<update id="deleteBoardReview"  parameterType="_int">
+  		UPDATE BOARD
+  		SET STATUS = 'N'
+  		WHERE STATUS='Y' AND BOARD_NO = #{boardNo}
+  	</update>
+  	
+  	<!-- 문의게시판 복구 -->
+  	<update id="updateRecoverBoardReview"  parameterType="_int">
+  		UPDATE BOARD
+  		SET STATUS = 'Y'
+  		WHERE STATUS='N' AND BOARD_NO = #{boardNo}
+  	</update>
+  	
+  	
+  	
+  	
   </mapper>
