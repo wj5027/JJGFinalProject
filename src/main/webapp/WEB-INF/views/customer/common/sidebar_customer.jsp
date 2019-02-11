@@ -10,7 +10,7 @@
         
         
         
-          <h3 align="center" style="margin-top:10px"><img src="/jjg/resources/common/img/logo.png" onclick="location.href='customer.cu'"></h3>
+          <h3 align="center" style="margin-top:30px"><img src="/jjg/resources/common/img/logo.png" onclick="location.href='customer.cu'"></h3>
           
           
           <!-- <a id="userId" href="javascript:void(0)" class="simple-text logo-mini">
