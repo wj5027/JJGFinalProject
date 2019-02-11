@@ -151,7 +151,7 @@ public class CustomerMain {
 	//4. @ResponseBody를 이용한 ajax
 	@RequestMapping(value="getnearParkings.cu")
 	public @ResponseBody HashMap<String, Object> getnearParkings(HttpServletResponse response) {
-ArrayList<Parking> parkings =null;
+		ArrayList<Parking> parkings =null;
 		
 		parkings =cms.getnearParkings();
 		

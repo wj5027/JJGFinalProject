@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.customer.model.vo.Parking;
+import com.kh.tsp.customer.model.vo.Reservation;
 
 public interface CustomerMainDao {
 
@@ -14,11 +15,14 @@ public interface CustomerMainDao {
 
 	ArrayList<Parking> selectnearParkings(SqlSessionTemplate sqlSession);
 
-	HashMap<Integer, Parking> searchVoiceLocalParking(SqlSessionTemplate sqlSession, String keyword);
+	HashMap<String, Parking> searchVoiceLocalParking(SqlSessionTemplate sqlSession, String keyword);
 
-	HashMap<Integer, Parking> searchVoiceNearParking(SqlSessionTemplate sqlSession, double lat, double lon);
+	HashMap<String, Parking> searchVoiceNearParking(SqlSessionTemplate sqlSession, double lat, double lon);
 
 	HashMap<String, Parking> selectSearchTextParking(SqlSessionTemplate sqlSession, String keyword);
+
+
+	ArrayList<Reservation> selectShowReserv(SqlSessionTemplate sqlSession, Member member);
 
 	Member selectCheckKakao(SqlSessionTemplate sqlSession, String kakao_id);
 

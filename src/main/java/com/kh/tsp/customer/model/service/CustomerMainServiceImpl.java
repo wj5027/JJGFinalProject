@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.tsp.customer.model.dao.CustomerMainDao;
 import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.customer.model.vo.Parking;
+import com.kh.tsp.customer.model.vo.Reservation;
 
 @Service
 public class CustomerMainServiceImpl implements CustomerMainService {
@@ -37,9 +38,9 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 	}
 
 	@Override
-	public HashMap<Integer, Parking> searchVoiceParking(String keyword, String type) {
+	public HashMap<String, Parking> searchVoiceParking(String keyword, String type) {
 		
-		HashMap<Integer, Parking> hmap;
+		HashMap<String, Parking> hmap;
 		
 		if (type.equals("지역")) {
 			hmap = cmd.searchVoiceLocalParking(sqlSession, keyword);
@@ -63,6 +64,10 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 	}
 
 	@Override
+	public ArrayList<Reservation> selectShowReserv(Member member) {
+		return cmd.selectShowReserv(sqlSession, member);
+	}
+
 	public Member selectCheckKakao(String kakao_id) {
 
 		return cmd.selectCheckKakao(sqlSession, kakao_id);
@@ -75,5 +80,6 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 	}
 
 	
+
 	
 }

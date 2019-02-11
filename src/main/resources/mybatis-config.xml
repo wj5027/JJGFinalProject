@@ -13,6 +13,7 @@
 	 <typeAlias type="com.kh.tsp.customer.model.vo.Board" alias="Board"/>
 	 <typeAlias type="com.kh.tsp.customer.model.vo.Board" alias="BoardAdmin"/>
 	 <typeAlias type="com.kh.tsp.customer.model.vo.Parking" alias="Parking"/>
+	 <typeAlias type="com.kh.tsp.customer.model.vo.Reservation" alias="Reservation"/>
 </typeAliases>
 <mappers>
 

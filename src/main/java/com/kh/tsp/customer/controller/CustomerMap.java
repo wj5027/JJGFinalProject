@@ -25,9 +25,9 @@ public class CustomerMap {
 	
 	// 사용자 - 음성 검색
 	@RequestMapping("searchVoiceParking.cu")
-	public @ResponseBody HashMap<Integer, Parking> searchVoiceParking(@RequestParam String keyword, @RequestParam String type, HttpServletResponse response) {
+	public @ResponseBody HashMap<String, Parking> searchVoiceParking(@RequestParam String keyword, @RequestParam String type, HttpServletResponse response) {
 		
-		HashMap<Integer, Parking> hmap = cms.searchVoiceParking(keyword, type);
+		HashMap<String, Parking> hmap = cms.searchVoiceParking(keyword, type);
 				
 		return hmap;
     }
