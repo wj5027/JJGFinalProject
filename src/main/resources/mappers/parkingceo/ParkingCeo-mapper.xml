@@ -28,13 +28,6 @@
 		,null,#{bank_id},#{bank_name},SYSDATE)
 	</insert>
 	
-	<select id="selectInsertParkingListCount" parameterType="Member">
-	SELECT COUNT(*) FROM PARKING
-	WHERE MEMBER_NO = #{member_no};
-	
-	</select>
-	
-	
 	
 
 </mapper>
