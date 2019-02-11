@@ -17,7 +17,13 @@ public interface CustomerMainService {
 
 	HashMap<String, Parking> selectSearchTextParking(String keyword);
 
+
 	ArrayList<Reservation> selectShowReserv(Member member);
+
+	Member selectCheckKakao(String kakao_id);
+
+	int insertKakao(Member m);
+
 	
 
 }

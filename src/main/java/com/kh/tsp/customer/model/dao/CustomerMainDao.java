@@ -21,6 +21,11 @@ public interface CustomerMainDao {
 
 	HashMap<String, Parking> selectSearchTextParking(SqlSessionTemplate sqlSession, String keyword);
 
+
 	ArrayList<Reservation> selectShowReserv(SqlSessionTemplate sqlSession, Member member);
+
+	Member selectCheckKakao(SqlSessionTemplate sqlSession, String kakao_id);
+
+	int insertKakao(SqlSessionTemplate sqlSession, Member m);
 
 }

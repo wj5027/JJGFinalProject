@@ -15,6 +15,7 @@
 <body class="">
   <div class="wrapper">
    <jsp:include page="/WEB-INF/views/customer/common/nav_customer.jsp"></jsp:include>
+   
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=103820f64442cfd4cf984f298b7c8470&libraries=services,clusterer,drawing"></script>
      <!--  <div class="row"> -->
           <div class="card-body" style="padding: 0px;">
@@ -42,11 +43,12 @@
 
 				// 지도의 우측에 확대 축소 컨트롤을 추가한다
 				map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
+				
 				var mypositionMarker;
 				 message = '<div style="padding:5px;">여기에 계신가요?!</div>'; // 인포윈도우에 표시될 내용입니다
 			        
-				 var imageSrc = 'resources/common/img/myPosition1.png', // 마커이미지의 주소입니다    
-				    imageSize = new daum.maps.Size(50, 50), // 마커이미지의 크기입니다
+				 var imageSrc = 'resources/common/img/soro.gif', // 마커이미지의 주소입니다    
+				    imageSize = new daum.maps.Size(70, 70), // 마커이미지의 크기입니다
 				    imageOption = {offset: new daum.maps.Point(50, 50)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 				    var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption);
 				 
@@ -91,7 +93,7 @@
 				        var locPosition = new daum.maps.LatLng(lat, lon); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
 				          
 				        mypositionMarker.setPosition(new daum.maps.LatLng(lat, lon));
-				        map.setLevel(10, {anchor: new daum.maps.LatLng(lat, lon)});
+				        map.setLevel(4, {anchor: new daum.maps.LatLng(lat, lon)});
 				        map.setCenter(locPosition);
 					/* displayMarker(locPosition, message); */
 				            
@@ -143,6 +145,7 @@
 				        minLevel: 10 // 클러스터 할 최소 지도 레벨 
 				    });
 				 
+				
 				$.ajax({
 					url:"getnearParkings.cu",
 					type:"get",
@@ -152,13 +155,108 @@
 					 	for(t in data.parkings){
 							var lat =data.parkings[t].latitude;
 							var lon =data.parkings[t].longitude;
+							var type =data.parkings[t].operate_TYPE;
+							var name =data.parkings[t].parking_NAME;
+							var ntime = Number(data.parkings[t].parking_NTIME);//기본시간
+							var nprice =Number(data.parkings[t].parking_NPRICE);//기본시간요금
+							var atime=Number(data.parkings[t].parking_ATIME);//추가시간
+							var aprice=Number(data.parkings[t].parking_APRICE);//추가시간요금
+							var pinfo=data.parkings[t].price_INFO;//유료or무료
+							var img=null;
+							var allfair=0;
+							console.log(pinfo+","+ntime);
+							if(pinfo=="유료"&&ntime>0){
+								console.log(name+"유료에 기본시간 0이상입니다");
+								
+							if(atime>0){	
+							 if(ntime>30){
+								 var em=Number(ntime/30);
+								 allfair=Number(nprice/em);
+								 console.log("30분이상일떄"+allfair);
+							 }else{
+								 var emptytime=Number(30-ntime);
+								 var afairtime=Number(emptytime/atime);
+								 var afair=Number(afairtime*aprice);
+								 allfair=Number(nprice+afair);
+								 console.log("30분이하일때"+allfair);
+							 }
+							}
+							else{
+								if(ntime>30){
+									 var em=Number(ntime/30);
+									 allfair=Number(nprice/em);
+									 
+									 console.log("30분이상일떄"+allfair);
+								 }else{
+								/* 	 var emptytime=Number(30-ntime);
+									 var afairtime=Number(emptytime/ntime);
+									 var afair=Number(afairtime*nprice);
+									 allfair=Number(nprice+afair); */
+									 var em =Number(30/ntime);
+									 allfair=Number(em*nprice);
+									 
+									 console.log("추가 요금 구분없을때 30분이하일때"+allfair);
+								 }
+								
+							}
+							}else{
+								if(pinfo=="무료"){
+									img='resources/common/img/free.png';
+								}
+								else{
+									img='resources/common/img/muni.png';
+								}
+								
+							}
 							
-							var marker= new daum.maps.Marker({
-						            position:new daum.maps.LatLng(lat, lon)
-						        });
-							markers.push(marker);
-						} 
-					 	clusterer.addMarkers(markers);
+							if((0<=allfair) && (3000>=allfair)){
+								 img='resources/common/img/blueMarker.png';
+								}else if((3000<=allfair) && (5000>=allfair)){
+								  img='resources/common/img/greenMarker.png';
+								}else if((5000<=allfair) && (10000>=allfair)){
+									img='resources/common/img/yellowMarker.png';
+								}else if(allfair>=10000){
+									img='resources/common/img/pinkMarker.png';
+								}
+								else{
+									img='resources/common/img/muni.png';
+								}
+							
+							var parkingImgPath =img, // 마커이미지의 주소입니다    
+						    imageSize = new daum.maps.Size(30, 30), // 마커이미지의 크기입니다
+						    imageOption = {offset: new daum.maps.Point(lat, lon)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+						    var parkingImg = new daum.maps.MarkerImage(parkingImgPath, imageSize, imageOption);
+							//마커객체 생성
+							
+						 	var marker2= new daum.maps.Marker({
+					            position:new daum.maps.LatLng(lat, lon),
+						 		image:parkingImg
+					        }); 
+							// 마커에 표시할 인포윈도우를 생성합니다 
+						  
+							/*   var infowindow2 = new daum.maps.InfoWindow({
+								        content: ntime+"분에 "+nprice+"원",
+								        position:new daum.maps.LatLng(lat, lon)
+								    }); */
+						 	
+					/* 	    //커스텀 오버레이
+						    var customOverlay = new daum.maps.CustomOverlay({
+						        map: map,
+						        content: '<div>'+ntime+'분에'+nprice+'</div>',
+						        position:new daum.maps.LatLng(lat, lon),
+						    });
+						    
+						    customOverlay.setMap(map); */
+						    
+						    
+						    
+						/* 	// 마커에 click 이벤트를 등록합니다
+						    daum.maps.event.addListener(marker2,'click',makeClickListener(map,marker2,infowindow2)); */
+							
+							 markers.push(marker2); 
+						}
+					 	
+					 	 clusterer.addMarkers(markers); 
 /* 							geocoder.addressSearch(parkingadress, function(result, status) {
 
 							    // 정상적으로 검색이 완료됐으면 
@@ -181,13 +279,15 @@
 					}
 				});
 				
+
+				
 				
 				
 				
 				
 			</script>
-			     
 			  <jsp:include page="/WEB-INF/views/customer/common/sidebar_customer.jsp"></jsp:include>
+			     
           </div>
   
  

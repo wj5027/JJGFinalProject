@@ -24,6 +24,8 @@ public class Member implements Serializable {
 	private String bank_name;
 	private Date enroll_date;
 	private String business_no;
+	//사업자 쪽지함 기간 조회용
+	private int btnValue;
 	
 	
 
@@ -35,7 +37,7 @@ public class Member implements Serializable {
 
 	public Member(int member_no, String member_id, String member_pwd, String member_type, String id_type, String oil,
 			String email, String phone, String member_name, String member_carNo, String status, String kakao_id,
-			String bank_id, String bank_name, Date enroll_date, String business_no) {
+			String bank_id, String bank_name, Date enroll_date, String business_no, int btnValue) {
 		super();
 		this.member_no = member_no;
 		this.member_id = member_id;
@@ -53,6 +55,7 @@ public class Member implements Serializable {
 		this.bank_name = bank_name;
 		this.enroll_date = enroll_date;
 		this.business_no = business_no;
+		this.btnValue = btnValue;
 	}
 
 
@@ -63,7 +66,7 @@ public class Member implements Serializable {
 				+ ", member_type=" + member_type + ", id_type=" + id_type + ", oil=" + oil + ", email=" + email
 				+ ", phone=" + phone + ", member_name=" + member_name + ", member_carNo=" + member_carNo + ", status="
 				+ status + ", kakao_id=" + kakao_id + ", bank_id=" + bank_id + ", bank_name=" + bank_name
-				+ ", enroll_date=" + enroll_date + ", business_no=" + business_no + "]";
+				+ ", enroll_date=" + enroll_date + ", business_no=" + business_no + ", btnValue=" + btnValue + "]";
 	}
 
 
@@ -260,11 +263,19 @@ public class Member implements Serializable {
 
 
 
-	
+	public int getBtnValue() {
+		return btnValue;
+	}
 
 
 
-	
+	public void setBtnValue(int btnValue) {
+		this.btnValue = btnValue;
+	}
+
+
+
+
 	
 	
 

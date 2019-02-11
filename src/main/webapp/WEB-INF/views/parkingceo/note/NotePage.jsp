@@ -83,7 +83,7 @@
               <div class="card-body">
                 <div class="table-responsive"  style="overflow: hidden;">
                   <table class="table tablesorter " id="">
-                    <thead class=" text-primary">
+                    <thead class=" text-primary" id="theadId">
                       <tr>
                         <th>	입출차번호</th>
                         <th>회원 ID</th>
@@ -94,7 +94,7 @@
                         <th>구분</th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tbodyId">
                       <tr>
                         <td>1</td>
                         <td>asjk158</td>
@@ -113,7 +113,7 @@
         </div>
       
  
-      
+      <input type="hidden"  value="${loginUser.member_name }" id="hiddenMemberName">
       
       <!-- content -->
       </div>
@@ -189,6 +189,46 @@
 			data : {btnValue:btnValue,selectBox:selectBox,currentPage:currentPage},
 			success: function(data){
 				console.log(data);
+				
+				$theadId = $("#theadId");
+				$theadId.html('');
+				$tbodyId = $("#tbodyId");
+				$tbodyId.html('');
+				$theadTr = $("<tr>");
+				//var memberName = $("#hiddenMemberName").val();
+				
+				if(data.hmap.listType == 'selectParkingList'){
+					$member_nameTh = $("<th>").text("사업자 이름");
+					$parking_nameTh = $("<th>").text("주차장 명");
+					$parking_addressTh = $("<th>").text("주차장 주소");
+					$parking_typeTh = $("<th>").text("주차장 유형");
+					$parking_sizeTh = $("<th>").text("주차장 크기");
+					$price_infoTh = $("<th>").text("요금 정보");
+					$pay_typeTh = $("<th>").text("결제 방법");
+					
+					$theadTr.append($member_nameTh);
+					$theadTr.append($parking_nameTh);
+					$theadTr.append($parking_addressTh);
+					$theadTr.append($parking_typeTh);
+					$theadTr.append($parking_sizeTh);
+					$theadTr.append($price_infoTh);
+					$theadTr.append($pay_typeTh);
+					
+					$theadId.append($theadTr);
+					
+					for(var i in data.hmap.list){
+						
+					}
+					
+					
+				}else if(data.hmap.listType == 'selectExchangeParkingList'){
+					
+				}else if(data.hmap.listType == 'selectCouponList'){
+					
+				}else{
+					//selectExchangeMoneyList 일떄
+					
+				}
 			},
 			error:function(data){
 				console.log("데이터 통신 실패");

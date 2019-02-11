@@ -67,5 +67,19 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 	public ArrayList<Reservation> selectShowReserv(Member member) {
 		return cmd.selectShowReserv(sqlSession, member);
 	}
+
+	public Member selectCheckKakao(String kakao_id) {
+
+		return cmd.selectCheckKakao(sqlSession, kakao_id);
+	}
+	//카카오톡 회원가입
+	@Override
+	public int insertKakao(Member m) {
+
+		return cmd.insertKakao(sqlSession, m);
+	}
+
+	
+
 	
 }

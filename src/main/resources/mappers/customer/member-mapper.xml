@@ -67,6 +67,23 @@
 			<result property="reserveTime" column="RESERVETIME"/>
 	</resultMap>
 
+	<resultMap type="com.kh.tsp.customer.model.vo.Member" id="MemberResultSet2">
+			<id property="member_no" column="MEMBER_NO"/>
+			<result property="member_id" column="MEMBER_ID"/>
+			<result property="member_pwd" column="MEMBER_PASSWORD"/>
+			<result property="member_type" column="MEMBER_TYPE"/>
+			<result property="id_type" column="ID_TYPE"/>
+			<result property="oil" column="OIL"/>
+			<result property="email" column="EMAIL"/>
+			<result property="phone" column="PHONE"/>
+			<result property="member_name" column="MEMBER_NAME"/>
+			<result property="member_carNo" column="MEMBER_CARNO"/>
+			<result property="status" column="STATUS"/>
+			<result property="kakao_id" column="KAKAO_ID"/>
+			<result property="bank_id" column="BANK_ID"/>
+			<result property="bank_name" column="BANK_NAME"/>
+			<result property="enroll_date" column="ENROLL_DATE"/>	
+	</resultMap>
 	
 	<select id="selectCheckMember" resultMap="MemberResultSet" parameterType="Member">
 		SELECT * FROM
@@ -81,7 +98,7 @@
 		SELECT *
 		FROM PARKING
 		WHERE STATUS='Y'
-<!-- 		AND ADDRESS LIKE '%' || '강남' || '%' -->
+ 		AND ADDRESS LIKE '%' || '강남구' || '%'
 	
 	</select>
 	
@@ -111,5 +128,17 @@
 		ORDER BY res_date DESC
 	</select>
 
+	<select id="selectCheckKakao"  resultMap="MemberResultSet2" parameterType="String">
+		SELECT * FROM
+		MEMBER 
+		WHERE STATUS = 'Y'
+		AND KAKAO_ID = #{kakao_id}
+	</select>
+	
+	<insert id="insertKakao" parameterType="Member">
+		INSERT INTO MEMBER
+		VALUES (MNO_SEQ.NEXTVAL, #{member_id}, #{member_pwd}, 'U', 'K', '0', #{email}, #{phone}, #{member_name}, #{member_carNo}
+				'Y', #{member_id}, null, null, SYSDATE)
+	</insert>
 
 </mapper>

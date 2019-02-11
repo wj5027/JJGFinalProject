@@ -163,19 +163,52 @@ public class CustomerMain {
 			return hmap;
 		}
 	
-	//카카오톡
-	@RequestMapping(value="kakao.cu")
-	public String kakao(HttpServletRequest request, HttpServletResponse response, Model model) {
-		String name=request.getParameter("nickname");
-		Member loginUser = new Member();
+	//카카오톡 로그인
+	@RequestMapping(value="kakao.cu", method=RequestMethod.POST)
+	public String kakao(@RequestParam String kakao_id, String member_name, HttpServletResponse response, Model model, Member m) {
+		System.out.println("kakao_id: "+kakao_id+"//member_name: "+member_name);
+		
+		/*Member loginUser = new Member();
 		loginUser.setMember_name(name);
 		
 		model.addAttribute("loginUser", loginUser);
+		*/
 		
 		
 		
-		return "redirect:customer.cu";
+		Member loginUser = cms.selectCheckKakao(kakao_id);
+		if(loginUser == null) {//회원가입
+			System.out.println("kakao_id: "+kakao_id+"member_name: "+member_name);
+			model.addAttribute("kakao_id", kakao_id);
+			model.addAttribute("member_name", member_name);
+			
+			
+			return "customer/main/Customer_kakao_joinInput";
+		}else {
+			System.out.println("loginUser: "+loginUser);
+			model.addAttribute("loginUser", loginUser);
+			
+			return "redirect:customer.cu";
+		}
+		
+		
+		//return "redirect:customer.cu";
+		
 	}
+	//카카오톡 회원가입
+	@RequestMapping(value="insertKakao.cu")
+	public String insertKakao(@ModelAttribute Member m, Model model) {
+		
+		try {
+			cms.insertKakao(m);
+		}catch(Exception e) {
+			model.addAttribute("message", e.getMessage());
+			return "common/errorPage";
+		}
+				
+		return "customer_loginPage.cu";
+	}
+	
 	
 	
 }
