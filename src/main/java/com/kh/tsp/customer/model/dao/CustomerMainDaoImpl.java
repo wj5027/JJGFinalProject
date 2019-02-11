@@ -85,6 +85,7 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 	@Override
 	public ArrayList<Reservation> selectShowReserv(SqlSessionTemplate sqlSession, Member member) {
 		return (ArrayList)sqlSession.selectList("Member.selectReserve", member);
+	}
 
     
 	public Member selectCheckKakao(SqlSessionTemplate sqlSession, String kakao_id) {
