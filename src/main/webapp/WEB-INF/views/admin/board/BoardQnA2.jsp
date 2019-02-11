@@ -147,7 +147,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 						<div class="col-md-12">
 							<div class="card ">
 								<div class="card-header">
-									<h4 class="card-title">문의게시판 리스트</h4>
+									<h4 class="card-title">문의게시판 검색 결과</h4>
 								</div>
 								<div class="card-body">
 									<div class="table-responsive" style="overflow: hidden;">
@@ -159,6 +159,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 													<th>제목</th>
 													<th>내용</th>
 													<th class="text-center">조회수</th>
+													<th class="text-center">등록일</th>
 													<th class="text-center">상태</th>
 												</tr>
 											</thead>
@@ -170,11 +171,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 													<td>${qna.bTitle}</td>
 													<td>${qna.bContext}</td>
 													<td class="text-center">${qna.bViews}</td>
+													<td class="text-center">${qna.createDate}</td>
 													<td class="text-center">
 														<button data-toggle="modal"
 															data-target=".bd-example-modal-lg-2"
-															class="btn btn-default animation-on-hover btn-sm" onclick="selectNo(${varstatus.count - 1});">답변</button>
-														&nbsp;&nbsp;
+															class="btn btn-default animation-on-hover btn-sm" onclick="answer(${varstatus.count - 1});">답변</button>&nbsp;&nbsp;
 														<c:if test="${qna.status == 'Y'}">
 															<button data-toggle="modal"
 																data-target=".bd-example-modal-lg-3"
@@ -287,49 +288,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 								</div>
 								<div class="card-body" style="padding-bottom: 0px;">
 									<div class="table-responsive" style="overflow: hidden; padding-bottom: 0px;">
-										<table class="table tablesorter" id="modalTable" style="padding-bottom: 0px;">
-											<tbody>
-												<tr>
-													<th>번호</th>
-													<td>1</td>
-												</tr>
-												<tr>
-													<th>아이디</th>
-													<td>Niger</td>
-												</tr>
-												<tr>
-													<th>제목</th>
-													<td>주차장 예약 문의 드립니다.</td>
-												</tr>
-												<tr>
-													<th>내용</th>
-													<td>주차장 예약은 어떻게 해야하나요?</td>
-												</tr>
-											</tbody>
-										</table>
-										<table class="table tablesorter" id="modalTable"
-											style="padding-bottom: 0px;">
-											<tbody>
-												<tr>
-													<td>답변 작성</td>
-												</tr>
-												<tr>
-													<td><textarea rows="60" cols="5" style="resize: none;"
-															placeholder="문의에 대한 답변을 입력해주세요"
-															class="form-control form-control-success"></textarea></td>
-												</tr>
-												<tr>
-													<td align="center">
-														<button type="button" data-toggle="modal"
-															data-target=".bd-example-modal-lg-4" id="answerBoard"
-															class="btn btn-warning animation-on-hover">답변하기</button>&nbsp;&nbsp;
-														<button type="button"
-															class="btn btn-info animation-on-hover"
-															data-dismiss="modal">취소하기</button>
-													</td>
-												</tr>
-											</tbody>
-										</table>
+										<div id="answerModal">
+											<table class="table tablesorter" id="ajaxModalTable" style="padding-bottom: 0px; color: white;">
+											</table>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -338,22 +300,75 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 				</div>
 			</div>
 		</div>
+		
+		<!-- 답변 -->
+		<script>
+			var bno = 0;
+			function answer(qna) {
+				bno = $("#listTable td").parent().eq(qna).children().eq(0).text();
+				console.log("게시판번호: "+bno)
+				
+				$.ajax({
+					url:"answerBoardQnA.ad",
+					type:"get",
+					data:{bno:bno},
+					success:function(data){
+						console.log(data.bno)
+						$select = $("#ajaxModalTable");
+						$("#ajaxModalTable").empty(); 
+						
+						$select.append('<tbody>');
+						$select.append('<tr>'
+											+'<td>번호</td>'
+											+'<td style="margin-left:20%">'+data.bno+'</td>'
+											+'</tr>');
+						$select.append('<tr>'
+											+'<td>아이디</td>'
+											+'<td>'+data.mId+'</td>'
+											+'</tr>');
+						$select.append('<tr>'
+											+'<td>제목</td>'
+											+'<td>'+data.bTitle+'</td>'
+											+'</tr>');
+						$select.append('<tr>'
+											+'<td>내용</td>'
+											+'<td>'+data.bContext+'</td>'
+											+'</tr>');
+						$select.append('<tr>'
+											+'<td colspan="2">답변 작성</td>'
+											+'</tr>');
+						$select.append('<tr>'
+											+'<td colspan="2">'
+											+'<textarea id="textareaId" rows="60" cols="5" style="resize: none;" placeholder="문의에 대한 답변을 입력해주세요" class="form-control form-control-success"></textarea>'
+											+'</td>'
+											+'</tr>');
+						$select.append('<tr>'
+											+'<td align="center">'
+											+'<button type="button" data-toggle="modal" data-target=".bd-example-modal-lg-4" id="answerBoard" class="btn btn-warning animation-on-hover" onclick="answerBoard('+data.bno+','+data.mno+');">답변하기</button>&nbsp;&nbsp;'		
+											+'</td>'										
+											+'<td align="center">'
+											+'<button type="button" class="btn btn-info animation-on-hover" data-dismiss="modal">취소하기</button>'
+											+'</td>'
+											+'</tr>');
+						$select.append('</tbody>');
+					},error:function(status){
+						console.log(status);
+					}
+				});
+			}
+		</script>
 		<!-- 답변 끝 -->
 
 		<!-- 답변 > 예 버튼 클릭 시 memberNo 가져오기 -->
 		<script>
-			function selectNo(qna) {
-				console.log(qna)
-				selectedNo = qna;
+			function answerBoard(bno,mno) {
+				var textareaId = $("#textareaId").val();
+				if(textareaId==""){
+					return false;
+				}else{
+					location.href='insertAnswerBoard.ad?bno='+bno+'&mno='+mno+'&textareaId='+textareaId;									
+				}
 			}
-			$(function() {
-				$("#answerBoard").click(function() {
-					var boardNo = $("#listTable td").parent().eq(selectedNo).children().eq(0).text();
-					console.log(boardNo)
-
-					//location.href = 'answerBoard.ad?boardNo='+ boardNo;
-				});
-			});
 		</script>
 		<!-- 답변 > 예 버튼 클릭 시 memberNo 가져오기 끝 -->
 
@@ -372,12 +387,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 											style="padding-bottom: 0px;">
 											<tbody>
 												<tr>
-													<td align="center" colspan="2"><b>정상적으로 답변 되었습니다.</b></td>
+													<td align="center" colspan="2"><b>글을 입력헤주세요.</b></td>
 												</tr>
 												<tr>
 													<td align="center"><button type="button"
 															class="btn btn-info animation-on-hover"
-															data-dismiss="modal" onclick="window.location.reload();">닫기</button></td>
+															data-dismiss="modal">확인</button></td>
 												</tr>
 											</tbody>
 										</table>

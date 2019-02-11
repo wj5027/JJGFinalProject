@@ -65,8 +65,15 @@ public class BoardAdminServiceImpl implements BoardAdminService{
 
 	// 문의 게시판 답변
 	@Override
-	public int answerBoardQnA(Board b) throws SelectBoardListException {
-		int result = bd.answerBoardQnA(sqlSession, b);
+	public Board answerBoardQnA(Board b) throws SelectBoardListException {
+		b = bd.answerBoardQnA(sqlSession, b);
+		return b;
+	}
+
+	// 답변 작성
+	@Override
+	public int insertAnswerBoard(String bno, String mno, String textareaId) throws SelectBoardListException {
+		int result = bd.insertAnswerBoard(sqlSession, bno, mno, textareaId);
 		return result;
 	}
 

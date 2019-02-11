@@ -124,16 +124,34 @@ public class BoardAdminDaoImpl  implements BoardAdminDao{
 
 	// 문의 게시판 답변
 	@Override
-	public int answerBoardQnA(SqlSessionTemplate sqlSession, Board b) throws SelectBoardListException {
+	public Board answerBoardQnA(SqlSessionTemplate sqlSession, Board b) throws SelectBoardListException {
 
-		int boardNo = b.getBno();
-		System.out.println("boardNo : "+boardNo);
+		int bno = b.getBno();
+		System.out.println("bno : "+bno);
 		
-		int result = sqlSession.selectOne("BoardAdmin.answerBoardQnA", boardNo);
-		System.out.println("result(DAO 복구) : "+result);
+		b = sqlSession.selectOne("BoardAdmin.answerBoardQnA", bno);
+		System.out.println("result(DAO 문의 게시판 답변) : "+b);
+		
+		if(b==null) {
+			throw new SelectBoardListException("특정 문의 게시판 불러오가 실패!");
+		}
+		return b;
+	}
+
+	// 답변 작성
+	@Override
+	public int insertAnswerBoard(SqlSessionTemplate sqlSession, String bno, String mno, String textareaId) throws SelectBoardListException {
+
+		Map<String, Object> hmap = new HashMap();
+
+		hmap.put("bno", bno);
+		hmap.put("mno", mno);
+		hmap.put("textareaId", textareaId);
+		
+		int result = sqlSession.insert("BoardAdmin.insertAnswerBoard", hmap);
 		
 		if(result<=0) {
-			throw new SelectBoardListException("특정 문의 게시판 불러오가 실패!");
+			throw new SelectBoardListException("문의 게시판 답변 작성 실패!");
 		}
 		return result;
 	}

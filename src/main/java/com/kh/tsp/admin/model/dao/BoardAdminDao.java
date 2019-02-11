@@ -31,6 +31,9 @@ public interface BoardAdminDao {
 			String today, String startDate, String endDate) throws SelectBoardListException;
 
 	// 문의 게시판 답변
-	int answerBoardQnA(SqlSessionTemplate sqlSession, Board b) throws SelectBoardListException;
+	Board answerBoardQnA(SqlSessionTemplate sqlSession, Board b) throws SelectBoardListException;
+
+	// 답변 작성
+	int insertAnswerBoard(SqlSessionTemplate sqlSession, String bno, String mno, String textareaId) throws SelectBoardListException;
 
 }

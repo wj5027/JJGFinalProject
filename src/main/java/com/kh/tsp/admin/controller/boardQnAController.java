@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.tsp.admin.model.exception.SelectBoardListException;
 import com.kh.tsp.admin.model.service.BoardAdminService;
+import com.kh.tsp.admin.model.vo.ReplyAdmin;
 import com.kh.tsp.common.PageInfo;
 import com.kh.tsp.common.Pagination;
 import com.kh.tsp.customer.model.vo.Board;
@@ -144,21 +145,19 @@ public class boardQnAController {
 		}
 	}
 	
-	// 문의 게시판 답변
+	// 문의 게시판 답변 ajax
 	@RequestMapping("answerBoardQnA.ad")
-	public @ResponseBody Board answerBoardQnA(String boardNo, HttpServletResponse response) {
+	public @ResponseBody Board answerBoardQnA(String bno, HttpServletResponse response) {
 
-		System.out.println("boardNo : "+boardNo);
+		System.out.println("bno : "+bno);
 
 		Board b = new Board();
-		b.setBno(Integer.parseInt(boardNo));
-		
-		int result=0;
+		b.setBno(Integer.parseInt(bno));
 
 		System.out.println("b : "+b);
 		
 		try {
-			result = bs.answerBoardQnA(b);
+			b = bs.answerBoardQnA(b);
 		} catch (SelectBoardListException e) {
 			e.printStackTrace();
 		}
@@ -166,5 +165,23 @@ public class boardQnAController {
 		return b;
 	}
 	
+	// 답변 작성
+	@RequestMapping("insertAnswerBoard.ad")
+	public String insertAnswerBoard(String bno, String mno, String textareaId, Model model) {
+
+		System.out.println("bno : "+bno);
+		System.out.println("mno : "+mno);
+		System.out.println("textareaId : "+textareaId);
+		
+		int result=0;
+		
+		try {
+			result = bs.insertAnswerBoard(bno, mno, textareaId);
+			return "redirect:selectBoardQnA.ad";
+		} catch (SelectBoardListException e) {
+			model.addAttribute("msg", e.getMessage());
+			return "common/errorPage";
+		}
+	}
 	
 }
