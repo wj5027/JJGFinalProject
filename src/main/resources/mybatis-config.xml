@@ -9,6 +9,7 @@
 <typeAliases>
 	 <typeAlias type="com.kh.tsp.customer.model.vo.Member" alias="Member"/>
  	 <typeAlias type="com.kh.tsp.admin.model.vo.MemberAdmin" alias="MemberAdmin"/>
+ 	 <typeAlias type="com.kh.tsp.admin.model.vo.CouponRequestList" alias="CouponAdmin"/>
  	 <typeAlias type="com.kh.tsp.admin.model.vo.MemberAdmin" alias="MemberAdmin2"/>
 	 <typeAlias type="com.kh.tsp.customer.model.vo.Board" alias="Board"/>
 	 <typeAlias type="com.kh.tsp.customer.model.vo.Board" alias="BoardAdmin"/>
@@ -20,6 +21,7 @@
   	<mapper resource="mappers/admin/parkingCEO-mapper.xml"/>
   	<mapper resource="mappers/admin/customer-mapper.xml"/>
 	<mapper resource="mappers/admin/boardAdmin-mapper.xml"/>
+	<mapper resource="mappers/admin/couponAdmin-mapper.xml"/>
 
 	<mapper resource="mappers/customer/member-mapper.xml"/>
 	<mapper resource="mappers/customer/board-mapper.xml"/>

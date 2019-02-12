@@ -1,21 +1,93 @@
 package com.kh.tsp.admin.model.dao;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.tsp.admin.model.exception.CouponListException;
 import com.kh.tsp.admin.model.exception.SelectBoardListException;
+import com.kh.tsp.admin.model.vo.CouponRequestList;
 import com.kh.tsp.common.PageInfo;
-import com.kh.tsp.customer.model.vo.Board;
 
 @Repository
-public class BoardAdminDaoImpl  implements BoardAdminDao{
+public class CouponAdminDaoImpl  implements CouponAdminDao{
 
-	// 문의 게시판 수
+	// 쿠폰 전체 수
+	@Override
+	public int getListCount(SqlSessionTemplate sqlSession) throws CouponListException {
+		int listCount = sqlSession.selectOne("CouponAdmin.getListCount");
+		
+		if(listCount <=0) {
+			throw new CouponListException("쿠폰 수 조회 실패!");
+		}
+		return listCount;
+	}
+
+	// 쿠폰 전체 리스트
+	@Override
+	public ArrayList<CouponRequestList> selectCouponList(SqlSessionTemplate sqlSession, PageInfo pi)
+			throws CouponListException {
+		ArrayList<CouponRequestList> list = null;
+		int offset = (pi.getCurrentPage()-1)* pi.getLimit();	
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		list = (ArrayList)sqlSession.selectList("CouponAdmin.selectCouponList", null, rowBounds);
+		
+		if(list == null) {
+			throw new CouponListException("쿠폰 전체 리스트 조회 실패");
+		}
+		return list;
+	}
+
+	// 쿠폰 발급
+	@Override
+	public int updateCoupon(SqlSessionTemplate sqlSession, CouponRequestList crl) throws CouponListException {
+
+		int reqNo = crl.getReqNo();
+		System.out.println("reqNo : "+reqNo);
+		
+		int result = sqlSession.update("CouponAdmin.updateCoupon", reqNo);
+		System.out.println("result(DAO 발급) : "+result);
+		
+		if(result<=0) {
+			throw new CouponListException("쿠폰 발급 실패!");
+		}
+		return result;
+	}
+
+	// 쿠폰 반송
+	@Override
+	public int deleteCoupon(SqlSessionTemplate sqlSession, CouponRequestList crl) throws CouponListException {
+
+		int result = sqlSession.update("CouponAdmin.deleteCoupon", crl);
+		System.out.println("result(DAO 발급) : "+result);
+		
+		if(result<=0) {
+			throw new CouponListException("쿠폰 반송 실패!");
+		}
+		return result;
+	}
+
+	// 반송 사유 ajax
+ 	@Override
+	public CouponRequestList selectRefuseReason(SqlSessionTemplate sqlSession, CouponRequestList c)
+			throws CouponListException {
+
+ 		int reqNo = c.getReqNo();
+		System.out.println("reqNo : "+reqNo);
+		
+		c = sqlSession.selectOne("CouponAdmin.selectRefuseReason", reqNo);
+		System.out.println("result(DAO 반송 사유 ajax) : "+c);
+		
+		if(c==null) {
+			throw new CouponListException("반송 사유 ajax 불러오가 실패!");
+		}
+		return c;
+	}
+
+	/*// 문의 게시판 수
 	@Override
 	public int getListCount(SqlSessionTemplate sqlSession) throws SelectBoardListException {
 		int listCount = sqlSession.selectOne("BoardAdmin.getListCount");
@@ -312,7 +384,7 @@ public class BoardAdminDaoImpl  implements BoardAdminDao{
 		System.out.println("DAO list : "+list);
 
 		return list;
-	}
+	}*/
 	
 
 

@@ -34,8 +34,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 		<jsp:forward page="../../common/errorPage.jsp"></jsp:forward>
 	</c:if>
 
-	<c:if
-		test="${not empty sessionScope.loginUser and loginUser.member_type=='A'}">
+	<c:if test="${not empty sessionScope.loginUser and loginUser.member_type=='A'}">
 		<div class="wrapper">
 			<div class="sidebar" style="background: rgb(49, 49, 49) !important;">
 				<!-- sidebar_admin -->
@@ -45,18 +44,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 				<div class="content">
 					<div class="row">					
 				
-				<!-- 검색 결과가 없을 때 출력되는 모달. -->
-				<c:if test="${nullCheck=='nullCheck'}">
-					<div style="margin: 5% 20%; position: absolute; z-index: 10;">
-						<div align="center" class="alert alert-default alert-dismissible fade show" role="alert" style="width: 400px; height: 80px; padding-top: 6%; font-size: 20px;">
-				  			<strong>검색결과</strong>가 없습니다.
-				  				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-				      			<i class="tim-icons icon-simple-remove"></i>
-				  			</button>
-						</div>
-					</div>
-				</c:if>
-				<!-- 검색 결과가 없을 때 출력되는 모달 끝 -->
+						<!-- 검색 결과가 없을 때 출력되는 모달. -->
+						<c:if test="${nullCheck=='nullCheck'}">
+							<div style="margin: 5% 20%; position: absolute; z-index: 10;">
+								<div align="center" class="alert alert-default alert-dismissible fade show" role="alert" style="width: 400px; height: 80px; padding-top: 6%; font-size: 20px;">
+						  			<strong>검색결과</strong>가 없습니다.
+						  				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						      			<i class="tim-icons icon-simple-remove"></i>
+						  			</button>
+								</div>
+							</div>
+						</c:if>
+						<!-- 검색 결과가 없을 때 출력되는 모달 끝 -->
 				
 						<div class="col-md-12" height="500px">
 							<div class="card ">
