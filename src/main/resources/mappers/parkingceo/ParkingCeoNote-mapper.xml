@@ -3,6 +3,194 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="ParkingCeoNote">
+<mapper namespace="Note">
+
+<select id="selectParkingListCount" parameterType="com.kh.tsp.customer.model.vo.Member" resultType="_int">
+	SELECT COUNT(*) FROM PARKING
+	WHERE MEMBER_NO = #{member_no}
+	AND STATUS = 'Y'
+	<if test="btnValue == 1">
+	<![CDATA[AND ALLIANCE_DATE <= SYSDATE +1]]>
+	</if>
+	<if test="btnValue == 7">
+	<![CDATA[AND ALLIANCE_DATE <= SYSDATE - 7]]>
+	</if>
+	<if test="btnValue == 30">
+	<![CDATA[AND ALLIANCE_DATE <= SYSDATE - 30]]>
+	</if>
+	<if test="btnValue == 90">
+	<![CDATA[AND ALLIANCE_DATE <= SYSDATE - 90]]>
+	</if>
+	<if test="btnValue == 180">
+	<![CDATA[AND ALLIANCE_DATE <= SYSDATE - 180]]>
+	</if>
+	<if test="btnValue == 365">
+	<![CDATA[AND ALLIANCE_DATE <= SYSDATE - 365]]>
+	</if>
+</select>
+<select id="exchangeParkingListCount" parameterType="com.kh.tsp.customer.model.vo.Member" resultType="_int">
+	SELECT COUNT(*) FROM PARKING_LIST
+	WHERE MEMBER_NO = #{member_no}
+	AND PARKING_LIST_STATUS IN ('변경중','변경완료','반송')
+	<if test="btnValue == 1">
+	<![CDATA[AND MODIFY_DATE <= SYSDATE +1]]>
+	</if>
+	<if test="btnValue == 7">
+	<![CDATA[AND MODIFY_DATE <= SYSDATE - 7]]>
+	</if>
+	<if test="btnValue == 30">
+	<![CDATA[AND MODIFY_DATE <= SYSDATE - 30]]>
+	</if>
+	<if test="btnValue == 90">
+	<![CDATA[AND MODIFY_DATE <= SYSDATE - 90]]>
+	</if>
+	<if test="btnValue == 180">
+	<![CDATA[AND MODIFY_DATE <= SYSDATE - 180]]>
+	</if>
+	<if test="btnValue == 365">
+	<![CDATA[AND MODIFY_DATE <= SYSDATE - 365]]>
+	</if>
+</select>
+<select id="selectCouponListCount" parameterType="com.kh.tsp.customer.model.vo.Member" resultType="_int">
+	SELECT COUNT(*) FROM COUPON_REQUEST_LIST CR
+	JOIN PARKING P ON (CR.MEMBER_NO = P.MEMBER_NO AND CR.PARKING_NO = P.PARKING_NO)
+	WHERE CR.MEMBER_NO = #{member_no}
+	AND COUPON_REQ_STATUS IN ('신청중','발급완료','반송')
+	<if test="btnValue == 1">
+	<![CDATA[AND COUPON_START_DATE <= SYSDATE +1]]>
+	</if>
+	<if test="btnValue == 7">
+	<![CDATA[AND COUPON_START_DATE <= SYSDATE - 7]]>
+	</if>
+	<if test="btnValue == 30">
+	<![CDATA[AND COUPON_START_DATE <= SYSDATE - 30]]>
+	</if>
+	<if test="btnValue == 90">
+	<![CDATA[AND COUPON_START_DATE <= SYSDATE - 90]]>
+	</if>
+	<if test="btnValue == 180">
+	<![CDATA[AND COUPON_START_DATE <= SYSDATE - 180]]>
+	</if>
+	<if test="btnValue == 365">
+	<![CDATA[AND COUPON_START_DATE <= SYSDATE - 365]]>
+	</if>
+</select>
+<select id="selectExchangeMoneyListCount" parameterType="com.kh.tsp.customer.model.vo.Member" resultType="_int">
+	SELECT COUNT(*) FROM EXCHANGE
+	WHERE MEMBER_NO = #{member_no}
+	AND STATUS IN ('진행중','승인','반송')
+	<if test="btnValue == 1">
+	<![CDATA[AND APPLICATION_DATE <= SYSDATE +1]]>
+	</if>
+	<if test="btnValue == 7">
+	<![CDATA[AND APPLICATION_DATE <= SYSDATE - 7]]>
+	</if>
+	<if test="btnValue == 30">
+	<![CDATA[AND APPLICATION_DATE <= SYSDATE - 30]]>
+	</if>
+	<if test="btnValue == 90">
+	<![CDATA[AND APPLICATION_DATE <= SYSDATE - 90]]>
+	</if>
+	<if test="btnValue == 180">
+	<![CDATA[AND APPLICATION_DATE <= SYSDATE - 180]]>
+	</if>
+	<if test="btnValue == 365">
+	<![CDATA[AND APPLICATION_DATE <= SYSDATE - 365]]>
+	</if>
+</select>
+<select id="selectParkingList" parameterType="com.kh.tsp.customer.model.vo.Member" resultType="hashmap">
+	SELECT PARKING_NO,PARKING_NAME,PARKING_TYPE,ADDRESS,PARKING_SIZE,OPEN_DAYS,PRICE_INFO,PAY_TYPE FROM PARKING
+	WHERE MEMBER_NO = #{member_no}
+	AND STATUS = 'Y'
+	<if test="btnValue == 1">
+	<![CDATA[AND ALLIANCE_DATE <= SYSDATE +1]]>
+	</if>
+	<if test="btnValue == 7">
+	<![CDATA[AND ALLIANCE_DATE <= SYSDATE - 7]]>
+	</if>
+	<if test="btnValue == 30">
+	<![CDATA[AND ALLIANCE_DATE <= SYSDATE - 30]]>
+	</if>
+	<if test="btnValue == 90">
+	<![CDATA[AND ALLIANCE_DATE <= SYSDATE - 90]]>
+	</if>
+	<if test="btnValue == 180">
+	<![CDATA[AND ALLIANCE_DATE <= SYSDATE - 180]]>
+	</if>
+	<if test="btnValue == 365">
+	<![CDATA[AND ALLIANCE_DATE <= SYSDATE - 365]]>
+	</if>
+</select>
+<select id="selectExchangeParkingList" parameterType="com.kh.tsp.customer.model.vo.Member" resultType="hashmap">
+	SELECT PARKING_LIST_NO,PARKING_LIST_NAME,PARKING_LIST_OPEN_DAYS,PARKING_LIST_PRICE_INFO,PARKING_LIST_PAY_TYPE,PARKING_LIST_REASON,PARKING_LIST_STATUS FROM PARKING_LIST
+	WHERE MEMBER_NO = #{member_no}
+	AND PARKING_LIST_STATUS IN ('변경중','변경완료','반송')
+	<if test="btnValue == 1">
+	<![CDATA[AND MODIFY_DATE <= SYSDATE +1]]>
+	</if>
+	<if test="btnValue == 7">
+	<![CDATA[AND MODIFY_DATE <= SYSDATE - 7]]>
+	</if>
+	<if test="btnValue == 30">
+	<![CDATA[AND MODIFY_DATE <= SYSDATE - 30]]>
+	</if>
+	<if test="btnValue == 90">
+	<![CDATA[AND MODIFY_DATE <= SYSDATE - 90]]>
+	</if>
+	<if test="btnValue == 180">
+	<![CDATA[AND MODIFY_DATE <= SYSDATE - 180]]>
+	</if>
+	<if test="btnValue == 365">
+	<![CDATA[AND MODIFY_DATE <= SYSDATE - 365]]>
+	</if>
+</select>
+<select id="selectCouponList" parameterType="com.kh.tsp.customer.model.vo.Member" resultType="hashmap">
+	SELECT CR.COUPON_REQ_NO,CR.COUPON_NAME,P.PARKING_NAME,CR.COUPON_TYPE,CR.COUPON_START_DATE,CR.COUPON_END_DATE,CR.AMOUNT,CR.REMARK,CR.REFUSE_REASON,CR.COUPON_REQ_STATUS FROM COUPON_REQUEST_LIST CR
+	JOIN PARKING P ON (CR.MEMBER_NO = P.MEMBER_NO AND CR.PARKING_NO = P.PARKING_NO)
+	WHERE CR.MEMBER_NO = #{member_no}
+	AND COUPON_REQ_STATUS IN ('신청중','발급완료','반송')
+	<if test="btnValue == 1">
+	<![CDATA[AND COUPON_START_DATE <= SYSDATE +1]]>
+	</if>
+	<if test="btnValue == 7">
+	<![CDATA[AND COUPON_START_DATE <= SYSDATE - 7]]>
+	</if>
+	<if test="btnValue == 30">
+	<![CDATA[AND COUPON_START_DATE <= SYSDATE - 30]]>
+	</if>
+	<if test="btnValue == 90">
+	<![CDATA[AND COUPON_START_DATE <= SYSDATE - 90]]>
+	</if>
+	<if test="btnValue == 180">
+	<![CDATA[AND COUPON_START_DATE <= SYSDATE - 180]]>
+	</if>
+	<if test="btnValue == 365">
+	<![CDATA[AND COUPON_START_DATE <= SYSDATE - 365]]>
+	</if>
+</select>
+<select id="selectExchangeMoneyList" parameterType="com.kh.tsp.customer.model.vo.Member" resultType="hashmap">
+	SELECT EXCHANGE_NO,OIL,CASH,APPLICATION_DATE,APPROVAL_DATE,ACCOUNT_HOLDER,APPLICATION_BANK,APPLICATION_ACCOUNT_NUMBER,CANCEL_REASON,STATUS FROM EXCHANGE
+	WHERE MEMBER_NO = #{member_no}
+	AND STATUS IN ('진행중','승인','반송')
+	<if test="btnValue == 1">
+	<![CDATA[AND APPLICATION_DATE <= SYSDATE +1]]>
+	</if>
+	<if test="btnValue == 7">
+	<![CDATA[AND APPLICATION_DATE <= SYSDATE - 7]]>
+	</if>
+	<if test="btnValue == 30">
+	<![CDATA[AND APPLICATION_DATE <= SYSDATE - 30]]>
+	</if>
+	<if test="btnValue == 90">
+	<![CDATA[AND APPLICATION_DATE <= SYSDATE - 90]]>
+	</if>
+	<if test="btnValue == 180">
+	<![CDATA[AND APPLICATION_DATE <= SYSDATE - 180]]>
+	</if>
+	<if test="btnValue == 365">
+	<![CDATA[AND APPLICATION_DATE <= SYSDATE - 365]]>
+	</if>
+</select>
+
 
 </mapper>
