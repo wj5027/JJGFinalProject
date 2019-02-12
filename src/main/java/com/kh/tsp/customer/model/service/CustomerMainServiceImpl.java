@@ -11,6 +11,7 @@ import com.kh.tsp.customer.model.dao.CustomerMainDao;
 import com.kh.tsp.customer.model.vo.CCoupon;
 import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.customer.model.vo.Parking;
+import com.kh.tsp.customer.model.vo.Points;
 import com.kh.tsp.customer.model.vo.Reservation;
 
 @Service
@@ -34,8 +35,8 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 	}
 
 	@Override
-	public ArrayList<Parking> getnearParkings() {
-		return cmd.selectnearParkings(sqlSession);
+	public ArrayList<Parking> getnearParkings(Points p) {
+		return cmd.selectnearParkings(p,sqlSession);
 	}
 
 	@Override
@@ -78,6 +79,18 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 	public int insertKakao(Member m) {
 
 		return cmd.insertKakao(sqlSession, m);
+	}
+	//아이디 중복확인
+	@Override
+	public Member idCheck(String member_id) {
+
+		return cmd.idCheck(sqlSession, member_id);
+	}
+	//일반 회원가입
+	@Override
+	public int insertMember(Member m) {
+
+		return cmd.insertMember(sqlSession, m);
 	}
 
 	@Override

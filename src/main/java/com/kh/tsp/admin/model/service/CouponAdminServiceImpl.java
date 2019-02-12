@@ -6,21 +6,56 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.tsp.admin.model.dao.BoardAdminDao;
-import com.kh.tsp.admin.model.exception.SelectBoardListException;
+import com.kh.tsp.admin.model.dao.CouponAdminDao;
+import com.kh.tsp.admin.model.exception.CouponListException;
+import com.kh.tsp.admin.model.vo.CouponRequestList;
 import com.kh.tsp.common.PageInfo;
-import com.kh.tsp.customer.model.vo.Board;
 
 @Service
-public class BoardAdminServiceImpl implements BoardAdminService{
+public class CouponAdminServiceImpl implements CouponAdminService{
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
 	@Autowired
-	private BoardAdminDao bd;
+	private CouponAdminDao cd;
 
-	// 문의 게시판 수
+	// 쿠폰 전체 수
+	@Override
+	public int getCouponListCount() throws CouponListException {
+		int listCount = cd.getListCount(sqlSession);
+		return listCount;
+	}
+
+	// 쿠폰 전체 리스트
+	@Override
+	public ArrayList<CouponRequestList> selectCouponList(PageInfo pi) throws CouponListException {
+		ArrayList<CouponRequestList> list = cd.selectCouponList(sqlSession,pi);
+		return list;
+	}
+
+	// 쿠폰 발급
+	@Override
+	public int updateCoupon(CouponRequestList crl) throws CouponListException {
+		int result = cd.updateCoupon(sqlSession, crl);
+		return result;
+	}
+
+	// 쿠폰 반송
+	@Override
+	public int deleteCoupon(CouponRequestList crl) throws CouponListException {
+		int result = cd.deleteCoupon(sqlSession, crl);
+		return result;
+	}
+
+	// 반송 사유 ajax
+	@Override
+	public CouponRequestList selectRefuseReason(CouponRequestList c) throws CouponListException {
+		c = cd.selectRefuseReason(sqlSession, c);
+		return c;
+	}
+
+/*	// 문의 게시판 수
 	@Override
 	public int getListCount() throws SelectBoardListException {
 		int listCount = bd.getListCount(sqlSession);
@@ -137,6 +172,6 @@ public class BoardAdminServiceImpl implements BoardAdminService{
 			throws SelectBoardListException {
 		ArrayList<Board> list = bd.selectSearchBoardReviewList(sqlSession, pi, selectStatus, mId, parkingName, bTitle, today, startDate, endDate);
 		return list;
-	}
+	}*/
 
 }

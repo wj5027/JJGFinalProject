@@ -8,13 +8,14 @@ import org.mybatis.spring.SqlSessionTemplate;
 import com.kh.tsp.customer.model.vo.CCoupon;
 import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.customer.model.vo.Parking;
+import com.kh.tsp.customer.model.vo.Points;
 import com.kh.tsp.customer.model.vo.Reservation;
 
 public interface CustomerMainDao {
 
 	Member selectCheckMember(SqlSessionTemplate sqlSession, Member m);
 
-	ArrayList<Parking> selectnearParkings(SqlSessionTemplate sqlSession);
+	ArrayList<Parking> selectnearParkings(Points p, SqlSessionTemplate sqlSession);
 
 	HashMap<String, Parking> searchVoiceLocalParking(SqlSessionTemplate sqlSession, String keyword);
 
@@ -29,6 +30,7 @@ public interface CustomerMainDao {
 
 	int insertKakao(SqlSessionTemplate sqlSession, Member m);
 
+
 	int updateCancelReserve(SqlSessionTemplate sqlSession, Reservation reserv);
 
 	String selectOneCancelAndReserveTime(SqlSessionTemplate sqlSession, int resNo);
@@ -38,5 +40,10 @@ public interface CustomerMainDao {
 	String selectCancelReason(SqlSessionTemplate sqlSession, Reservation reserv);
 
 	ArrayList<CCoupon> selectUserCoupon(SqlSessionTemplate sqlSession, Member member);
+
+	Member idCheck(SqlSessionTemplate sqlSession, String member_id);
+
+	int insertMember(SqlSessionTemplate sqlSession, Member m);
+
 
 }

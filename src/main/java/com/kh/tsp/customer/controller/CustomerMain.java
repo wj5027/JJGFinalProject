@@ -31,6 +31,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.tsp.customer.model.service.CustomerMainService;
 import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.customer.model.vo.Parking;
+import com.kh.tsp.customer.model.vo.Points;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -150,10 +151,23 @@ public class CustomerMain {
 	
 	//4. @ResponseBody를 이용한 ajax
 	@RequestMapping(value="getnearParkings.cu")
-	public @ResponseBody HashMap<String, Object> getnearParkings(HttpServletResponse response) {
+	public @ResponseBody HashMap<String, Object> getnearParkings(@RequestParam String x0,@RequestParam String x1,@RequestParam String y0,@RequestParam String y1,HttpServletResponse response) {
+		
+		
+		double x00=Double.parseDouble(x0);
+		double x01=Double.parseDouble(x1);
+		double y00=Double.parseDouble(y0);
+		double y01=Double.parseDouble(y1);
+		
+		
+		
+		System.out.println(x00+","+x01+","+y00+","+y01);
 		ArrayList<Parking> parkings =null;
 		
-		parkings =cms.getnearParkings();
+		Points p =new Points(x00,x01,y00,y01);
+		
+		
+		parkings =cms.getnearParkings(p);
 		
 		System.out.println(parkings.size());
 		
@@ -196,9 +210,9 @@ public class CustomerMain {
 		
 	}
 	//카카오톡 회원가입
-	@RequestMapping(value="insertKakao.cu")
+	@RequestMapping(value="insertKakao.cu", method=RequestMethod.POST)
 	public String insertKakao(@ModelAttribute Member m, Model model) {
-		
+		System.out.println(m);
 		try {
 			cms.insertKakao(m);
 		}catch(Exception e) {
@@ -206,9 +220,42 @@ public class CustomerMain {
 			return "common/errorPage";
 		}
 				
-		return "customer_loginPage.cu";
+		return "redirect:customer_loginPage.cu";
 	}
 	
+	//아이디 중복확인
+	@ResponseBody
+	@RequestMapping(value = "/idCheck.cu", method = RequestMethod.POST)
+	public int postIdCheck(HttpServletRequest req) throws Exception {
+	 
+	 
+	 String member_id = req.getParameter("member_id");
+	 System.out.println("member_id: "+member_id);
+	 
+	 Member idCheck =  cms.idCheck(member_id);
+	 
+	 int result = 0;
+	 
+	 if(idCheck != null) {
+	  result = 1;
+	 } 
+	 System.out.println("result : "+result);
+	 return result;
+	}
 	
+	@RequestMapping(value="insertMember.cu", method=RequestMethod.POST)
+	public String insertMember(@ModelAttribute Member m, Model model) {
+		
+		System.out.println(m);
+		try {
+			cms.insertMember(m);
+		}catch(Exception e) {
+			model.addAttribute("message", e.getMessage());
+			return "common/errorPage";
+		}
+		
+		return "redirect:customer_loginPage.cu";
+	
+	}
 	
 }

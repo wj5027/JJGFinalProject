@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.tsp.customer.model.vo.CCoupon;
 import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.customer.model.vo.Parking;
+import com.kh.tsp.customer.model.vo.Points;
 import com.kh.tsp.customer.model.vo.Reservation;;
 
 @Repository
@@ -24,8 +25,10 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 	}
 
 	@Override
-	public ArrayList<Parking> selectnearParkings(SqlSessionTemplate sqlSession) {
-		return (ArrayList)sqlSession.selectList("Member.selectnearParkings");
+	public ArrayList<Parking> selectnearParkings(Points p,SqlSessionTemplate sqlSession) {
+		
+		
+		return (ArrayList)sqlSession.selectList("Member.selectnearParkings",p);
 	}
 
 	@Override
@@ -99,6 +102,18 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 
 		return sqlSession.insert("Member.insertKakao",m);
 
+	}
+	//아이디 중복확인
+	@Override
+	public Member idCheck(SqlSessionTemplate sqlSession, String member_id) {
+
+		return sqlSession.selectOne("Member.idCheck", member_id);
+	}
+	//일반 회원가입
+	@Override
+	public int insertMember(SqlSessionTemplate sqlSession, Member m) {
+
+		return sqlSession.insert("Member.insertMember", m);
 	}
 
 	@Override

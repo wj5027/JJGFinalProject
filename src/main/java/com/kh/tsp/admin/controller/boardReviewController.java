@@ -129,5 +129,45 @@ public class boardReviewController {
 		}
 	}
 
+	// 후기 게시판 검색
+	@RequestMapping("selectSearchBoardReviewList.ad")
+	public String searchBoardQnAList2(HttpServletRequest request, HttpServletResponse response,
+												String selectStatus, String mId, String parkingName, String bTitle, String today, String startDate, String endDate) {
+
+		System.out.println("selectStatus : "+selectStatus);
+		System.out.println("mId : "+mId);
+		System.out.println("parkingName : "+parkingName);
+		System.out.println("bTitle : "+bTitle);
+		System.out.println("today : "+today);
+		System.out.println("startDate : "+startDate);
+		System.out.println("endDate : "+endDate);
+		
+		int currentPage =1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		try {
+			int listCount = bs.getSearchReviewListCount(selectStatus, mId, parkingName, bTitle, today, startDate, endDate);
+			System.out.println("listCount : "+listCount);
+			PageInfo pi = Pagination.getPageInfo(currentPage,listCount);
+			ArrayList<Board> list =bs.selectSearchBoardReviewList(pi, selectStatus, mId, parkingName, bTitle, today, startDate, endDate);
+			request.setAttribute("pi", pi);
+			request.setAttribute("list", list);
+
+			System.out.println("list : "+list);
+			if(listCount==0 || list == null) {
+				nullCheck="nullCheck";
+				return "redirect:selectBoardReview.ad";
+			}else {
+				return "admin/board/BoardReview2";
+			}
+			
+		} catch (SelectBoardListException e) {
+			request.setAttribute("msg", e.getMessage());
+			return "common/errorPage";
+		}
+	}
+
 	
 }

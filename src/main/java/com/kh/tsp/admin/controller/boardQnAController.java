@@ -128,7 +128,7 @@ public class boardQnAController {
 			int listCount = bs.getSearchListCount(selectStatus, mId, bTitle, today, startDate, endDate);
 			System.out.println("listCount : "+listCount);
 			PageInfo pi = Pagination.getPageInfo(currentPage,listCount);
-			ArrayList<Board> list =bs.selectSearchParkingCEOList(pi, selectStatus, mId, bTitle, today, startDate, endDate);
+			ArrayList<Board> list =bs.selectSearchBoardQnAList(pi, selectStatus, mId, bTitle, today, startDate, endDate);
 			request.setAttribute("pi", pi);
 			request.setAttribute("list", list);
 

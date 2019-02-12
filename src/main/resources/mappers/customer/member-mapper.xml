@@ -109,11 +109,15 @@
 	</select>
 
 
-	<select id="selectnearParkings" resultMap="parkingResultSet">
+	<select id="selectnearParkings" resultMap="parkingResultSet" parameterType="Points">
 		SELECT *
 		FROM PARKING
 		WHERE STATUS='Y'
- 		AND ADDRESS LIKE '%' || '강남구' || '%'
+ 		 AND ADDRESS LIKE '%' || '서울' || '%' 
+ 		AND #{x01}>TO_NUMBER(LATITUDE)
+ 		AND TO_NUMBER(LATITUDE) >#{x00}
+ 		AND #{y01}>TO_NUMBER(LONGITUDE)
+ 		AND TO_NUMBER(LONGITUDE) >#{y00}
 	
 	</select>
 	
@@ -155,10 +159,11 @@
 	
 	<insert id="insertKakao" parameterType="Member">
 		INSERT INTO MEMBER
-		VALUES (MNO_SEQ.NEXTVAL, #{member_id}, #{member_pwd}, 'U', 'K', '0', #{email}, #{phone}, #{member_name}, #{member_carNo}
+		VALUES (MNO_SEQ.NEXTVAL, #{member_id}, #{member_pwd}, 'U', 'K', '0', #{email}, #{phone}, #{member_name}, #{member_carNo},
 				'Y', #{member_id}, null, null, SYSDATE)
 	</insert>
 	
+
 	<!-- 사용자 - 예약 취소 -->
 	<update id="updateCancelReserve" parameterType="Reservation">
 		UPDATE parking_reservation
@@ -196,4 +201,18 @@
 	    WHERE cu.member_no = #{ member_no }
 	</select>
 	
+
+	<select id="idCheck" resultMap="MemberResultSet2" parameterType="String">
+		SELECT MEMBER_ID FROM
+		MEMBER 
+		WHERE STATUS = 'Y'
+		AND MEMBER_ID = #{member_id}
+	</select>
+	
+	<insert id="insertMember" parameterType="Member">
+	 INSERT INTO MEMBER
+	 VALUES (MNO_SEQ.NEXTVAL, #{member_id}, #{member_pwd}, 'U', 'M', '0', #{email}, #{phone}, #{member_name}, #{member_carNo},
+	 		'Y', null, null, null, SYSDATE)
+	</insert>
+
 </mapper>

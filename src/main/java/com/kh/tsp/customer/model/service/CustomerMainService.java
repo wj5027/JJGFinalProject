@@ -6,13 +6,14 @@ import java.util.HashMap;
 import com.kh.tsp.customer.model.vo.CCoupon;
 import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.customer.model.vo.Parking;
+import com.kh.tsp.customer.model.vo.Points;
 import com.kh.tsp.customer.model.vo.Reservation;
 
 public interface CustomerMainService {
 
 	Member selectCheckMember(Member m);
 
-	ArrayList<Parking> getnearParkings();
+	ArrayList<Parking> getnearParkings(Points p);
 
 	HashMap<String, Parking> searchVoiceParking(String keyword, String type);
 
@@ -25,6 +26,7 @@ public interface CustomerMainService {
 
 	int insertKakao(Member m);
 
+
 	int updateCancelReserve(Reservation reserv);
 
 	String selectOneCancelAndReserveTime(int resNo);
@@ -34,6 +36,10 @@ public interface CustomerMainService {
 	String selectCancelReason(Reservation reserv);
 
 	ArrayList<CCoupon> selectUserCoupon(Member member);
+	Member idCheck(String member_id);
+
+	int insertMember(Member m);
+
 
 	
 

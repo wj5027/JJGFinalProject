@@ -3,69 +3,83 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-  <mapper namespace="BoardAdmin">
-  	<resultMap type="com.kh.tsp.customer.model.vo.Board" id="BoardAdminResultSet">
-  		<id property="bno" column="BOARD_NO"/>
-  		<result property="bTitle" column="BOARD_TITLE"/>
-  		<result property="bContext" column="BOARD_CONTEXT"/>
-  		<result property="bViews" column="BOARD_VIEWS"/>
-  		<result property="createDate" column="CREATION_DATE"/>
-  		<result property="modifyDate" column="MODIFED_DATE"/>
-  		<result property="bType" column="BOARD_TYPE"/>
-  		<result property="status" column="STATUS"/>
-  		<result property="mno" column="MEMBER_NO"/>
-  		<result property="pno" column="PARKING_NO"/>
-  		<result property="mId" column="MEMBER_ID"/>
-  		<result property="cancelYN" column="CANCEL_YN"/>
-  		<result property="replyContext" column="REPLY_CONTEXT"/>
-  		<result property="replyNo" column="REPLY_NO"/>
-  		<result property="parkingName" column="PARKING_NAME"/>
-  		<result property="roadAddress" column="ROAD_ADDRESS"/>
-  		<result property="parkingSize" column="PARKING_SIZE"/>
-  	</resultMap>
-  	  
-  	<resultMap type="com.kh.tsp.admin.model.vo.ReplyAdmin" id="ReplyAdminResultSet">
-  		<id property="replyNo" column="REPLY_NO"/>
-  		<result property="context" column="CONTEXT"/>
-  		<result property="relpyDate" column="REPLY_DATE"/>
-  		<result property="cancelYN" column="CANCEL_YN"/>
-  		<result property="modifyYN" column="MODIFY_YN"/>
-  		<result property="boardNo" column="BOARD_NO"/>
+  <mapper namespace="CouponAdmin">
+  	<resultMap type="com.kh.tsp.admin.model.vo.CouponRequestList" id="CouponAdminResultSet">
+  		<id property="reqNo" column="COUPON_REQ_NO"/>
+  		<result property="couponName" column="COUPON_NAME"/>
+  		<result property="couponType" column="COUPON_TYPE"/>
+  		<result property="couponStartDate" column="COUPON_START_DATE"/>
+  		<result property="couponEndDate" column="COUPON_END_DATE"/>
+  		<result property="amount" column="AMOUNT"/>
+  		<result property="remark" column="REMARK"/>
   		<result property="memberNo" column="MEMBER_NO"/>
+  		<result property="parkingNo" column="PARKING_NO"/>
+  		<result property="refuseReason" column="REFUSE_REASON"/>
+  		<result property="couponOdiscount" column="COUPON_ODISCOUNT"/>
+  		<result property="couponPdiscount" column="COUPON_PDISCOUNT"/>
+  		<result property="couponReqStatus" column="COUPON_REQ_STATUS"/>
+  		<result property="parkingName" column="PARKING_NAME"/>
+  		<result property="memberId" column="MEMBER_ID"/>
   	</resultMap>
   	
-	<!-- 문의게시판 전체 수 -->
+	<!-- 쿠폰 전체 수 -->
   	<select id="getListCount" resultType="_int">
-  		SELECT COUNT(*) 
-		FROM BOARD
-		WHERE BOARD_TYPE = '관리자문의'
+  		SELECT COUNT(*)
+		FROM COUPON_REQUEST_LIST
   	</select>
   	
-  	<!-- 문의게시판 전체 리스트 -->
-  	<select id="selectBoardQnAList" resultMap="BoardAdminResultSet">
-  		SELECT M.MEMBER_NO, M.MEMBER_ID, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, B.CREATION_DATE, B.MODIFIED_DATE, B.BOARD_TYPE, B.STATUS, R.CANCEL_YN, R.REPLY_CONTEXT
-  		FROM BOARD B
-  		INNER JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
-        LEFT OUTER JOIN REPLY R ON(B.BOARD_NO = R.BOARD_NO)
-  		WHERE B.BOARD_TYPE = '관리자문의'
-  		ORDER BY BOARD_NO DESC
+  	<!-- 쿠폰 전체 리스트 -->
+  	<select id="selectCouponList" resultMap="CouponAdminResultSet">
+  		SELECT CRL.COUPON_REQ_NO, CRL.COUPON_NAME, CRL.COUPON_TYPE, CRL.COUPON_START_DATE, 
+		            CRL.COUPON_END_DATE, CRL.AMOUNT, CRL.REMARK, CRL.MEMBER_NO, CRL.PARKING_NO, CRL.REFUSE_REASON, 
+		            CRL.COUPON_ODISCOUNT, CRL.COUPON_PDISCOUNT, CRL.COUPON_REQ_STATUS, M.MEMBER_ID, P.PARKING_NAME
+		FROM COUPON_REQUEST_LIST CRL
+		INNER JOIN MEMBER M ON (CRL.MEMBER_NO = M.MEMBER_NO)
+		INNER JOIN PARKING P ON (CRL.PARKING_NO = P.PARKING_NO)
+  		ORDER BY COUPON_REQ_NO DESC
   	</select>
   	
-  	<!-- 문의게시판 삭제 -->
+  	<!-- 쿠폰 발급 -->
+  	<update id="updateCoupon"  parameterType="_int">
+  		UPDATE COUPON_REQUEST_LIST
+		SET COUPON_REQ_STATUS = '발급완료'
+		WHERE COUPON_REQ_NO =  #{reqNo}
+  	</update>
+  	
+  	<!-- 쿠폰 반송 -->
+  	<update id="deleteCoupon"  parameterType="CouponAdmin">
+  		UPDATE COUPON_REQUEST_LIST
+		SET COUPON_REQ_STATUS = '반송', REFUSE_REASON = #{refuseReason}
+		WHERE COUPON_REQ_NO = #{reqNo}
+  	</update>
+  	
+  	<!-- 반송 사유 ajax -->
+  	<select id="selectRefuseReason" resultMap="CouponAdminResultSet" parameterType="_int">
+  		SELECT CRL.COUPON_REQ_NO, CRL.COUPON_NAME, CRL.COUPON_TYPE, CRL.COUPON_START_DATE, 
+		            CRL.COUPON_END_DATE, CRL.AMOUNT, CRL.REMARK, CRL.MEMBER_NO, CRL.PARKING_NO, CRL.REFUSE_REASON, 
+		            CRL.COUPON_ODISCOUNT, CRL.COUPON_PDISCOUNT, CRL.COUPON_REQ_STATUS, M.MEMBER_ID, P.PARKING_NAME
+		FROM COUPON_REQUEST_LIST CRL
+		INNER JOIN MEMBER M ON (CRL.MEMBER_NO = M.MEMBER_NO)
+		INNER JOIN PARKING P ON (CRL.PARKING_NO = P.PARKING_NO)
+  		WHERE CRL.COUPON_REQ_NO = #{reqNo}
+  	</select>
+  	
+  	<!-- 
+  	문의게시판 삭제
   	<update id="deleteBoardQnA"  parameterType="_int">
   		UPDATE BOARD
   		SET STATUS = 'N'
   		WHERE STATUS='Y' AND BOARD_NO = #{boardNo}
   	</update>
   	
-  	<!-- 문의게시판 복구 -->
+  	문의게시판 복구
   	<update id="updateRecoverBoardQnA"  parameterType="_int">
   		UPDATE BOARD
   		SET STATUS = 'Y'
   		WHERE STATUS='N' AND BOARD_NO = #{boardNo}
   	</update>
   	
-	<!-- 문의게시판 검색 수 -->
+	문의게시판 검색 수
   	<select id="getSearchListCount" resultType="_int" parameterType="java.util.Map">
   		SELECT COUNT(*) 
   		FROM BOARD B
@@ -101,7 +115,7 @@
 		</if>
   	</select>
   	
-  	<!-- 문의 게시판 검색 결과 -->
+  	문의 게시판 검색 결과
   	<select id="selectSearchBoardQnAList" resultMap="BoardAdminResultSet" parameterType="java.util.Map">		
   		SELECT M.MEMBER_NO, M.MEMBER_ID, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, B.CREATION_DATE, B.MODIFIED_DATE, B.BOARD_TYPE, B.STATUS, R.CANCEL_YN, R.REPLY_CONTEXT
   		FROM BOARD B
@@ -138,7 +152,7 @@
 		ORDER BY B.BOARD_NO DESC
   	</select>
   	  	
-  	<!-- 문의 게시판 답변 ajax -->
+  	문의 게시판 답변 ajax
   	<select id="answerBoardQnA" resultMap="BoardAdminResultSet" parameterType="_int">
 		SELECT M.MEMBER_NO, M.MEMBER_ID, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, B.CREATION_DATE, B.MODIFIED_DATE, B.BOARD_TYPE, B.STATUS, R.CANCEL_YN, R.REPLY_CONTEXT, R.REPLY_NO
   		FROM BOARD B
@@ -148,12 +162,12 @@
   			AND B.BOARD_NO = #{bno}
   	</select>
   	
-  	<!-- 답변 작성 -->
+  	답변 작성
   	<insert id="insertAnswerBoard" parameterType="java.util.Map">	
   		INSERT INTO REPLY VALUES(REPLY_NO_SEQ.NEXTVAL, #{textareaId}, SYSDATE, 'Y', NULL, #{bno}, #{mno})
   	</insert>  	
   	
-  	<!-- 답변 작성 -->
+  	답변 작성
   	<update id="updateAnswerBoard" parameterType="java.util.Map">	
   		UPDATE REPLY
   		SET REPLY_CONTEXT = #{updateTextareaId}
@@ -163,14 +177,14 @@
   	
   	
   	
-	<!-- 후기게시판 전체 수 -->
+	후기게시판 전체 수
   	<select id="getReviewListCount" resultType="_int">
   		SELECT COUNT(*) 
 		FROM BOARD
 		WHERE BOARD_TYPE = '후기'
   	</select>
   	
-  	<!-- 후기게시판 전체 리스트 -->
+  	후기게시판 전체 리스트
   	<select id="selectBoardReviewList" resultMap="BoardAdminResultSet">
   		SELECT M.MEMBER_NO, M.MEMBER_ID, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, B.CREATION_DATE, B.MODIFIED_DATE, B.BOARD_TYPE, B.STATUS, P.PARKING_NAME, P.ROAD_ADDRESS, P.PARKING_SIZE
   		FROM BOARD B
@@ -180,7 +194,7 @@
   		ORDER BY BOARD_NO DESC
   	</select>
   	  	
-  	<!-- 문의 게시판 답변 ajax -->
+  	문의 게시판 답변 ajax
   	<select id="detailBoardReview" resultMap="BoardAdminResultSet" parameterType="_int">
   		SELECT M.MEMBER_NO, M.MEMBER_ID, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, B.CREATION_DATE, B.MODIFIED_DATE, B.BOARD_TYPE, B.STATUS, P.PARKING_NAME, P.ROAD_ADDRESS, P.PARKING_SIZE
   		FROM BOARD B
@@ -190,21 +204,21 @@
   			AND B.BOARD_NO = #{bno}
   	</select>
   	  	
-  	<!-- 문의게시판 삭제 -->
+  	문의게시판 삭제
   	<update id="deleteBoardReview"  parameterType="_int">
   		UPDATE BOARD
   		SET STATUS = 'N'
   		WHERE STATUS='Y' AND BOARD_NO = #{boardNo}
   	</update>
   	
-  	<!-- 문의게시판 복구 -->
+  	문의게시판 복구
   	<update id="updateRecoverBoardReview"  parameterType="_int">
   		UPDATE BOARD
   		SET STATUS = 'Y'
   		WHERE STATUS='N' AND BOARD_NO = #{boardNo}
   	</update>
   	
-	<!-- 후기 게시판 검색 수 -->
+	후기 게시판 검색 수
   	<select id="getSearchReviewListCount" resultType="_int" parameterType="java.util.Map">
   		SELECT COUNT(*) 
   		FROM BOARD B
@@ -243,7 +257,7 @@
 		</if>
   	</select>
   	
-  	<!-- 후기 게시판 검색 결과 -->
+  	후기 게시판 검색 결과
   	<select id="selectSearchBoardReviewList" resultMap="BoardAdminResultSet" parameterType="java.util.Map">		
   		SELECT M.MEMBER_NO, M.MEMBER_ID, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, B.CREATION_DATE, B.MODIFIED_DATE, B.BOARD_TYPE, B.STATUS, P.PARKING_NAME, P.ROAD_ADDRESS, P.PARKING_SIZE
   		FROM BOARD B
@@ -282,7 +296,7 @@
 		</if>
 		ORDER BY B.BOARD_NO DESC
   	</select>
-  	
+  	 -->
   	
   	
   	
