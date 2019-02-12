@@ -26,6 +26,8 @@ public interface CustomerMainService {
 
 	Member idCheck(String member_id);
 
+	int insertMember(Member m);
+
 	
 
 }

@@ -115,6 +115,9 @@
 
 	$(function(){
 		$("#insertKakaoBtn").click(function(){
+			
+			
+			
 			$("#kakaoForm").submit();
 			/* location.href="insertKakao.cu"; */
 			

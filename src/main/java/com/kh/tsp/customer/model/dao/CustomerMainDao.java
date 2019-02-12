@@ -30,4 +30,6 @@ public interface CustomerMainDao {
 
 	Member idCheck(SqlSessionTemplate sqlSession, String member_id);
 
+	int insertMember(SqlSessionTemplate sqlSession, Member m);
+
 }

@@ -105,5 +105,11 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 
 		return sqlSession.selectOne("Member.idCheck", member_id);
 	}
+	//일반 회원가입
+	@Override
+	public int insertMember(SqlSessionTemplate sqlSession, Member m) {
+
+		return sqlSession.insert("Member.insertMember", m);
+	}
 
 }

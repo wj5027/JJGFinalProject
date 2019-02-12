@@ -229,5 +229,19 @@ public class CustomerMain {
 	 return result;
 	}
 	
+	@RequestMapping(value="insertMember.cu", method=RequestMethod.POST)
+	public String insertMember(@ModelAttribute Member m, Model model) {
+		
+		System.out.println(m);
+		try {
+			cms.insertMember(m);
+		}catch(Exception e) {
+			model.addAttribute("message", e.getMessage());
+			return "common/errorPage";
+		}
+		
+		return "redirect:customer_loginPage.cu";
+	
+	}
 	
 }

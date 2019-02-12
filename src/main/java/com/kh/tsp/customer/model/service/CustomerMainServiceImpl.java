@@ -84,6 +84,12 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 
 		return cmd.idCheck(sqlSession, member_id);
 	}
+	//일반 회원가입
+	@Override
+	public int insertMember(Member m) {
+
+		return cmd.insertMember(sqlSession, m);
+	}
 
 	
 

@@ -23,9 +23,9 @@
                 <h4 class="card-title"><b>지주갑 회원가입</b></h4>
               </div>
               <div class="card-body">
-              	<form action="" onsubmit="return validate();">
+              	<form action="insertMember.cu" id="insertForm" method="post">
               		이름 <input type="text" class="form-control" name="member_name" id="member_name"><br>
-              		아이디 <input type="text" class="form-control" name="member_id" id="member_id"><button onclick="return duplicationCheck()" class="btn btn-info btn-sm" id="idCk"">중복확인</button><br>
+              		아이디 <input type="text" class="form-control" name="member_id" id="member_id"><button onclick="return duplicationCheck()" type="button" class="btn btn-info btn-sm" id="idCk">중복확인</button><br>
                   	비밀번호 <input type="password" class="form-control" name="member_pwd" id="member_pwd"><br>
                   	비밀번호 확인 <input type="password" class="form-control" name="member_pwd2" id="member_pwd2"><br>
                 
@@ -57,6 +57,10 @@
  
 </body>
 <script type="text/javascript">
+	var idCheckResult = 0;
+	var emailCheckResult = 0;
+	var pwdCheckResult = 0;
+	
 	//랜덤코드 생성
 	var randomCode = {};
 	randomCode.random = function(n1,n2){
@@ -75,6 +79,9 @@
 	
 	//이메일 전송 ajax
 	function mailSender(){
+		
+			
+		
 		window.alert("인증 메일을 보냈습니다. 확인해주세요");
 		var code = randomCode.authNo(5);
 		checkCode = code;
@@ -88,6 +95,9 @@
 			success:function(data){
 				if(data.sendMail == '성공'){
 					$("#checkEmail").attr('disabled', false);
+					
+					emailCheckResult = 1;
+					
 				}else{
 					window.alert("죄송합니다, 이메일 전송에 실패했습니다.");
 				 	window.reload(); 
@@ -97,6 +107,9 @@
 				console.log("통신 실패!");				
 			}
 		});
+		
+		
+	
 	}
 	
 	//인증 코드 확인 메소드
@@ -127,6 +140,8 @@
 					alert("사용불가한 아이디입니다.");
 				}else{
 					alert("사용가능한 아이디입니다.");
+					
+					idCheckResult = 1;
 				}
 			
 			},
@@ -149,11 +164,34 @@
 			
 			if(pass != pass2){ 
 				alert("비밀번호가 일치하지 않습니다.");
+			}else{
+				pwdCheckResult = 1;
+				
+				/* if(idCheckResult = 0){
+					alert("아이디 중복체크를 해주세요");
+				}else if(emailCheckResult = 0){
+					alert("이메일 인증을 해주세요");
+				}else if(idCheckResult = 1 && emailCheckResult = 1 && pwdCheckResult1 = 1){
+					location.href="insertMember.cu";
+					alert("회원가입이 완료되었습니다.");
+					location.href="customer_loginPage.cu";
+				}else{
+					alert("입력 항목을 다시 확인 해 주세요");
+				} */
+				
+				
 			}
-	
+			
+			//location.href="insertMember.cu";
+			 if(idCheckResult = 1 && emailCheckResult = 1 && pwdCheckResult1 = 1){
+				 alert("회원가입이 완료되었습니다");
+				 $("#insertForm").submit();
+			} 
+			
 		});
 	
 	});	
 	
+
 </script>
 </html>
