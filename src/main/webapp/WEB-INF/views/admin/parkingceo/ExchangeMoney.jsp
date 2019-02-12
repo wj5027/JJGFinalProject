@@ -230,18 +230,21 @@
 	<!-- 테이블 행 클릭 시 모달 -->
 	<script>
 		$(function () {
-			$("#listArea td").mouseenter(function () { // hover 되었을 때
-				$(this).parent().css({"background":"rgb(28, 28, 38)", "cursor":"pointer"});
+			$("#listAreaTr").mouseenter(function () { // hover 되었을 때
+				for (var i = 0; i < 9; i++) {
+					$(this).children().eq(i).css({"background":"rgb(28, 28, 38)", "cursor":"pointer"});					
+				}
 			}).mouseout(function () { // 마우스가 위에 없을 때	
-				$(this).parent().css({"background":"rgb(39, 41, 61)"});	
+				for (var i = 0; i < 9; i++) {
+					$(this).children().eq(i).css({"background":"rgb(39, 41, 61)"});	
+				}
 			});
-			
-			$("#listAreaTr").click(function () { // 클릭 했을 때
-					$("#clickModal").click();						
-			});
-// 				var num = $(this).parent().children().eq(0).text(); // 각각의 글 번호를 가져온다. td 첫번째			
-// 				console.log(num);				
-<%-- 				location.href = "<%=request.getContextPath()%>/selectOne.no?num="+num; // 해당 글 번호를 같이 넘긴다.(ex. http://localhost:8001/jsp/selectOne.no?num=1) --%>
+
+			for (var i = 0; i < 8; i++) {
+				$("#listAreaTr").children().eq(i).click(function () { // 클릭 했을 때
+						$("#clickModal").click();						
+				});
+			}
 		});
 	</script>
 

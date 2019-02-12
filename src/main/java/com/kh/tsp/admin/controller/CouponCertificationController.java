@@ -127,28 +127,42 @@ public class CouponCertificationController {
 		return c;
 	}
 	
-	// 쿠폰 반송
-	/*@RequestMapping("deleteParkingCEO.ad")
-	public String deleteParkingCEO(String memberNo, Model model){
-		System.out.println("memberNo : "+memberNo);
+	// 쿠폰 검색
+	@RequestMapping("selectSearchCouponList.ad")
+	public String searchBoardQnAList2(HttpServletRequest request, HttpServletResponse response,
+												String selectStatus, String selectCoupon, String memberId, String parkingName) {
 
-		MemberAdmin md = new MemberAdmin();
-		md.setMemberNo(Integer.parseInt(memberNo));
+		System.out.println("selectStatus : "+selectStatus);
+		System.out.println("selectCoupon : "+selectCoupon);
+		System.out.println("memberId : "+memberId);
+		System.out.println("parkingName : "+parkingName);
 		
-		int result=0;
-
-		System.out.println("md : "+md);
+		int currentPage =1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
 		
 		try {
-			result = pcs.deleteParkingCEO(md);
-			System.out.println("result(controller) try문 : "+result);
-			return "redirect:selectCEOList.ad";
-		} catch (ParkingCEOSelectListException e) {
-			model.addAttribute("msg", e.getMessage());
-			System.out.println("result(controller) catch문 : "+result);
+			int listCount = cs.getSearchListCount(selectStatus, selectCoupon, memberId, parkingName);
+			System.out.println("listCount : "+listCount);
+			PageInfo pi = Pagination.getPageInfo(currentPage,listCount);
+			ArrayList<CouponRequestList> list =cs.selectSearchCouponList(pi, selectStatus, selectCoupon, memberId, parkingName);
+			request.setAttribute("pi", pi);
+			request.setAttribute("list", list);
+
+			System.out.println("list : "+list);
+			if(listCount==0 || list == null) {
+				nullCheck="nullCheck";
+				return "redirect:selectCouponCertification.ad";
+			}else {
+				return "admin/parkingceo/CouponCertification2";	
+			}
+			
+		} catch (CouponListException e) {
+			request.setAttribute("msg", e.getMessage());
 			return "common/errorPage";
 		}
-	}*/
+	}
 
 	
 	
