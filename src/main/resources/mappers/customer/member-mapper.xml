@@ -85,6 +85,21 @@
 			<result property="enroll_date" column="ENROLL_DATE"/>	
 	</resultMap>
 	
+	<resultMap type="com.kh.tsp.customer.model.vo.CCoupon" id="CustomerCoupon">
+			<id property="couponReqNo" column="COUPON_REQ_NO"/>
+			<id property="couponNo" column="COUPON_NO"/>
+			<id property="couponCRNo" column="COUPON_CR_NO"/>
+			<result property="couponName" column="COUPON_NAME"/>
+			<result property="couponStartDate" column="COUPON_START_DATE"/>
+			<result property="couponEndDate" column="COUPON_END_DATE"/>
+			<result property="parkingNo" column="PARKIN_NO"/>
+			<result property="couponOdiscount" column="COUPON_ODISCOUNT"/>
+			<result property="couponPdiscount" column="COUPON_PDISCOUNT"/>
+			<result property="userMemberNo" column="MEMBER_NO"/>
+			<result property="userDate" column="USER_DATE"/>
+			<result property="userYN" column="USER_YN"/>	
+	</resultMap>
+	
 	<select id="selectCheckMember" resultMap="MemberResultSet" parameterType="Member">
 		SELECT * FROM
 		MEMBER WHERE 
@@ -108,6 +123,7 @@
 		AND address LIKE '%' || #{keyword} || '%'
 	</select>
 	
+	<!-- 사용자 - 주차장 이름 기준 검색 -->
 	<select id="selectSearchTitleParking" resultMap="parkingResultSet" parameterType="string">
 		SELECT *
 		FROM PARKING
@@ -115,12 +131,14 @@
 		AND parking_name LIKE '%' || #{keyword} || '%'
 	</select>
 	
+	<!-- 사용자 - 주차장 주소 기준 검색 -->
 	<select id="searchAddrParking" resultMap="parkingResultSet" parameterType="String">
 		SELECT * FROM parking
 		WHERE status = 'Y'
 		AND address LIKE '%' || #{keyword} || '%'
 	</select>
 	
+	<!-- 사용자 - 예약 조회 -->
 	<select id="selectReserve" resultMap="reserveResultSet" parameterType="Member">
 		SELECT r.res_no, r.res_apply_date, r.res_date, r.status, r.member_no, r.parking_no, p.parking_name, r.cancel_reason, r.car_no, TO_CHAR(r.res_date, 'RRRRMMDDHH24MI') AS RESERVETIME FROM parking_reservation r
 		JOIN parking p ON(r.parking_no = p.parking_no)
@@ -140,5 +158,42 @@
 		VALUES (MNO_SEQ.NEXTVAL, #{member_id}, #{member_pwd}, 'U', 'K', '0', #{email}, #{phone}, #{member_name}, #{member_carNo}
 				'Y', #{member_id}, null, null, SYSDATE)
 	</insert>
-
+	
+	<!-- 사용자 - 예약 취소 -->
+	<update id="updateCancelReserve" parameterType="Reservation">
+		UPDATE parking_reservation
+		SET status = '취소', cancel_reason = TO_CHAR(SYSDATE, 'RRRR.MM.DD HH24:MI') || ' - 사용자 요청으로 취소되었습니다.'
+		WHERE res_no = #{ resNo } AND member_no = #{ memberNo }
+	</update>
+	
+	<!-- 사용자 - 예약시간 확인(1시간 이상인지) -->
+	<select id="selectOneCancelAndReserveTime" resultType="String" parameterType="int">
+		SELECT TRUNC((SYSDATE - res_date) * 24 * 60)
+		FROM parking_reservation
+		WHERE res_no = #{ resNo }
+	</select>
+	
+	<!-- 사용자 - 예약 취소하여 조건이 맞으면 오일도 환불 -->
+	<select id="updateCancelReserveOil" parameterType="Reservation">
+		UPDATE member
+	    SET oil = (SELECT oil FROM member WHERE member_no = #{ memberNo })
+	        + 3 * (SELECT parking_nprice FROM parking WHERE parking_no = 
+	        				(SELECT parking_no FROM parking_reservation WHERE res_no = #{resNo}))
+	    WHERE member_no = #{ memberNo }
+	</select>
+	
+	<!-- 사용자 - 예약 거절 사유 조회 -->
+	<select id="selectCancelReason" resultType="String" parameterType="Reservation">
+		SELECT cancel_reason FROM parking_reservation
+		WHERE res_no = #{ resNo } AND member_no = #{ memberNo }
+	</select>
+	
+	<!-- 사용자 - 쿠폰 조회 -->
+	<select id="selectUserCoupon" resultMap="CustomerCoupon" parameterType="Member">
+		SELECT * FROM coupon_create cu 
+	    JOIN (SELECT * FROM coupon c JOIN coupon_request_list cr ON (c.coupon_req_no = cr.coupon_req_no)) cl
+	    ON (cu.coupon_no = cl.coupon_no)
+	    WHERE cu.member_no = #{ member_no }
+	</select>
+	
 </mapper>
