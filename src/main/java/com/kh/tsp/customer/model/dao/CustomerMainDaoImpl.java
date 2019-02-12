@@ -99,5 +99,17 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 		return sqlSession.insert("Member.insertKakao",m);
 
 	}
+	//아이디 중복확인
+	@Override
+	public Member idCheck(SqlSessionTemplate sqlSession, String member_id) {
+
+		return sqlSession.selectOne("Member.idCheck", member_id);
+	}
+	//일반 회원가입
+	@Override
+	public int insertMember(SqlSessionTemplate sqlSession, Member m) {
+
+		return sqlSession.insert("Member.insertMember", m);
+	}
 
 }

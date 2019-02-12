@@ -28,4 +28,8 @@ public interface CustomerMainDao {
 
 	int insertKakao(SqlSessionTemplate sqlSession, Member m);
 
+	Member idCheck(SqlSessionTemplate sqlSession, String member_id);
+
+	int insertMember(SqlSessionTemplate sqlSession, Member m);
+
 }

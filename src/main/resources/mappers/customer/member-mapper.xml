@@ -137,8 +137,20 @@
 	
 	<insert id="insertKakao" parameterType="Member">
 		INSERT INTO MEMBER
-		VALUES (MNO_SEQ.NEXTVAL, #{member_id}, #{member_pwd}, 'U', 'K', '0', #{email}, #{phone}, #{member_name}, #{member_carNo}
+		VALUES (MNO_SEQ.NEXTVAL, #{member_id}, #{member_pwd}, 'U', 'K', '0', #{email}, #{phone}, #{member_name}, #{member_carNo},
 				'Y', #{member_id}, null, null, SYSDATE)
 	</insert>
-
+	
+	<select id="idCheck" resultMap="MemberResultSet2" parameterType="String">
+		SELECT MEMBER_ID FROM
+		MEMBER 
+		WHERE STATUS = 'Y'
+		AND MEMBER_ID = #{member_id}
+	</select>
+	
+	<insert id="insertMember" parameterType="Member">
+	 INSERT INTO MEMBER
+	 VALUES (MNO_SEQ.NEXTVAL, #{member_id}, #{member_pwd}, 'U', 'M', '0', #{email}, #{phone}, #{member_name}, #{member_carNo},
+	 		'Y', null, null, null, SYSDATE)
+	</insert>
 </mapper>

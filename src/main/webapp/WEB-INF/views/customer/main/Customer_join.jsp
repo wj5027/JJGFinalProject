@@ -49,7 +49,7 @@
                     
                 <div align="center" style="width: 100%">
                     <button class="btn btn-info btn-sm" onclick="location.href='customer_loginPage.cu'">취소</button>&nbsp;&nbsp;&nbsp;
-                    <button class="btn btn-info btn-sm" onclick="location.href='customer_joinInput.cu'">확인</button>
+                    <button class="btn btn-info btn-sm" id="nextBtn" >확인</button>
 				</div>
               </div>
             </div>
@@ -60,5 +60,19 @@
   </div>
  
 </body>
-
+<script>
+	$(function(){
+		$("#nextBtn").click(function(){
+		
+			if($("#inlineCheckbox1").is(":checked") && $("#inlineCheckbox2").is(":checked")){
+				
+				location.href="customer_joinInput.cu";
+			}else{
+				alert("모든 약관에 동의해주세요");
+			}
+		
+		});		
+		
+	});
+</script>
 </html>
