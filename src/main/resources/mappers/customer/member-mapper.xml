@@ -94,11 +94,15 @@
 	</select>
 
 
-	<select id="selectnearParkings" resultMap="parkingResultSet">
+	<select id="selectnearParkings" resultMap="parkingResultSet" parameterType="Points">
 		SELECT *
 		FROM PARKING
 		WHERE STATUS='Y'
- 		AND ADDRESS LIKE '%' || '강남구' || '%'
+ 		 AND ADDRESS LIKE '%' || '서울' || '%' 
+ 		AND #{x01}>TO_NUMBER(LATITUDE)
+ 		AND TO_NUMBER(LATITUDE) >#{x00}
+ 		AND #{y01}>TO_NUMBER(LONGITUDE)
+ 		AND TO_NUMBER(LONGITUDE) >#{y00}
 	
 	</select>
 	
