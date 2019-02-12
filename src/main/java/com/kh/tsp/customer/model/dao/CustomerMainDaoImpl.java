@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.customer.model.vo.Parking;
+import com.kh.tsp.customer.model.vo.Points;
 import com.kh.tsp.customer.model.vo.Reservation;;
 
 @Repository
@@ -23,8 +24,10 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 	}
 
 	@Override
-	public ArrayList<Parking> selectnearParkings(SqlSessionTemplate sqlSession) {
-		return (ArrayList)sqlSession.selectList("Member.selectnearParkings");
+	public ArrayList<Parking> selectnearParkings(Points p,SqlSessionTemplate sqlSession) {
+		
+		
+		return (ArrayList)sqlSession.selectList("Member.selectnearParkings",p);
 	}
 
 	@Override
