@@ -78,6 +78,12 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 
 		return cmd.insertKakao(sqlSession, m);
 	}
+	//아이디 중복확인
+	@Override
+	public Member idCheck(String member_id) {
+
+		return cmd.idCheck(sqlSession, member_id);
+	}
 
 	
 

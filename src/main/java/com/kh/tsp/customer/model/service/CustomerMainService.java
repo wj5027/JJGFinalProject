@@ -24,6 +24,8 @@ public interface CustomerMainService {
 
 	int insertKakao(Member m);
 
+	Member idCheck(String member_id);
+
 	
 
 }

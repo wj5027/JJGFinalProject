@@ -23,12 +23,13 @@
                 <h4 class="card-title"><b>지주갑 회원가입</b></h4>
               </div>
               <div class="card-body">
-              	<form action="">
-              		이름 <input type="text" class="form-control" name="nickname"><br>
-              		아이디 <input type="text" class="form-control" name="userId"><br>
-                  	비밀번호 <input type="password" class="form-control" name="userPw"><br>
-                  	비밀번호 확인 <input type="password" class="form-control" name="userPw2"><br>
-                  	차번호 <input type="text" class="form-control" name="carNo"><br>
+              	<form action="" onsubmit="return validate();">
+              		이름 <input type="text" class="form-control" name="member_name" id="member_name"><br>
+              		아이디 <input type="text" class="form-control" name="member_id" id="member_id"><button onclick="return duplicationCheck()" class="btn btn-info btn-sm" id="idCk"">중복확인</button><br>
+                  	비밀번호 <input type="password" class="form-control" name="member_pwd" id="member_pwd"><br>
+                  	비밀번호 확인 <input type="password" class="form-control" name="member_pwd2" id="member_pwd2"><br>
+                
+                  	차번호 <input type="text" class="form-control" name="member_carNo"><br>
                   	휴대폰 번호 <input type="text" class="form-control" name="phone"><br>                  	
                   	이메일 <input type="email" class="form-control" name="email" id="userEmail"><br>
                   	<div align="right" style="width: 100%">
@@ -44,7 +45,7 @@
                     
                 <div align="center" style="width: 100%">
                     <button class="btn btn-info btn-sm" onclick="location.href='customer_join.cu'">취소</button>&nbsp;&nbsp;&nbsp;
-                    <button class="btn btn-info btn-sm" type="submit" onclick="location.href='customer_loginPage.cu'" id="insertMember" disabled="disabled">확인</button>
+                    <button class="btn btn-info btn-sm" type="submit" id="insertMember" >확인</button>
 				</div>
               </div>
             </div>
@@ -109,5 +110,50 @@
 			$("#insertMember").attr('disabled', true);
 		}
 	}
+	
+	//아이디 중복체크    
+    function duplicationCheck(){
+		var member_id = $("#member_id").val();
+		console.log(member_id);
+		
+		$.ajax({
+			url:"idCheck.cu",
+			type:"post",
+			data:{member_id:member_id},
+			success:function(data){
+				//alert(data);
+			
+				if(data == 1){
+					alert("사용불가한 아이디입니다.");
+				}else{
+					alert("사용가능한 아이디입니다.");
+				}
+			
+			},
+			error:function(status){
+				console.log(status);
+			}
+		});
+		
+		
+		return false;
+	}
+	
+	$(function(){
+		$("#insertMember").click(function(){
+			var pass=$("#member_pwd").val();
+			var pass2=$("#member_pwd2").val();
+			
+			console.log(pass);
+			console.log(pass2);
+			
+			if(pass != pass2){ 
+				alert("비밀번호가 일치하지 않습니다.");
+			}
+	
+		});
+	
+	});	
+	
 </script>
 </html>

@@ -196,9 +196,9 @@ public class CustomerMain {
 		
 	}
 	//카카오톡 회원가입
-	@RequestMapping(value="insertKakao.cu")
+	@RequestMapping(value="insertKakao.cu", method=RequestMethod.POST)
 	public String insertKakao(@ModelAttribute Member m, Model model) {
-		
+		System.out.println(m);
 		try {
 			cms.insertKakao(m);
 		}catch(Exception e) {
@@ -206,9 +206,28 @@ public class CustomerMain {
 			return "common/errorPage";
 		}
 				
-		return "customer_loginPage.cu";
+		return "redirect:customer_loginPage.cu";
 	}
 	
+	//아이디 중복확인
+	@ResponseBody
+	@RequestMapping(value = "/idCheck.cu", method = RequestMethod.POST)
+	public int postIdCheck(HttpServletRequest req) throws Exception {
+	 
+	 
+	 String member_id = req.getParameter("member_id");
+	 System.out.println("member_id: "+member_id);
+	 
+	 Member idCheck =  cms.idCheck(member_id);
+	 
+	 int result = 0;
+	 
+	 if(idCheck != null) {
+	  result = 1;
+	 } 
+	 System.out.println("result : "+result);
+	 return result;
+	}
 	
 	
 }
