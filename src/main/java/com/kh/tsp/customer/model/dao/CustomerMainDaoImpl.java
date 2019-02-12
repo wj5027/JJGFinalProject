@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.tsp.customer.model.vo.CCoupon;
 import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.customer.model.vo.Parking;
 import com.kh.tsp.customer.model.vo.Points;
@@ -113,6 +114,32 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 	public int insertMember(SqlSessionTemplate sqlSession, Member m) {
 
 		return sqlSession.insert("Member.insertMember", m);
+	}
+
+	@Override
+	public int updateCancelReserve(SqlSessionTemplate sqlSession, Reservation reserv) {
+		System.out.println(reserv);
+		return sqlSession.update("Member.updateCancelReserve", reserv);
+	}
+
+	@Override
+	public String selectOneCancelAndReserveTime(SqlSessionTemplate sqlSession, int resNo) {
+		return sqlSession.selectOne("Member.selectOneCancelAndReserveTime", resNo);
+	}
+
+	@Override
+	public int updateCancelReserveOil(SqlSessionTemplate sqlSession, Reservation reserv) {
+		return sqlSession.update("Member.updateCancelReserveOil", reserv);
+	}
+
+	@Override
+	public String selectCancelReason(SqlSessionTemplate sqlSession, Reservation reserv) {
+		return sqlSession.selectOne("Member.selectCancelReason", reserv);
+	}
+
+	@Override
+	public ArrayList<CCoupon> selectUserCoupon(SqlSessionTemplate sqlSession, Member member) {
+		return (ArrayList)sqlSession.selectList("Member.selectUserCoupon", member);
 	}
 
 }

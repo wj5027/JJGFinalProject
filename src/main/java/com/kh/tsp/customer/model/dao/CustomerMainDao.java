@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.tsp.customer.model.vo.CCoupon;
 import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.customer.model.vo.Parking;
 import com.kh.tsp.customer.model.vo.Points;
@@ -29,8 +30,20 @@ public interface CustomerMainDao {
 
 	int insertKakao(SqlSessionTemplate sqlSession, Member m);
 
+
+	int updateCancelReserve(SqlSessionTemplate sqlSession, Reservation reserv);
+
+	String selectOneCancelAndReserveTime(SqlSessionTemplate sqlSession, int resNo);
+
+	int updateCancelReserveOil(SqlSessionTemplate sqlSession, Reservation reserv);
+
+	String selectCancelReason(SqlSessionTemplate sqlSession, Reservation reserv);
+
+	ArrayList<CCoupon> selectUserCoupon(SqlSessionTemplate sqlSession, Member member);
+
 	Member idCheck(SqlSessionTemplate sqlSession, String member_id);
 
 	int insertMember(SqlSessionTemplate sqlSession, Member m);
+
 
 }

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -55,10 +56,55 @@ public class CustomerPayment {
 	}
 	
 	@RequestMapping("updateCancelReserve.cu")
-	public void searchVoiceParking(@RequestParam String keyword, @RequestParam String type, HttpServletResponse response) {
-		int result = 0;
+	public @ResponseBody String updateCancelReserve(@RequestParam String resNo, HttpSession session) {
 		
-		/*result = cms.searchVoiceParking(keyword, type);*/
+		Member member = (Member) session.getAttribute("loginUser");
+		
+		Reservation reserv = new Reservation();
+		
+		reserv.setResNo(Integer.parseInt(resNo));
+		reserv.setMemberNo(member.getMember_no());
+		
+		int result = cms.updateCancelReserve(reserv);
+		
+		if (result > 0) { // 취소 성공 시 시간을 체크하여 오일을 환불
+			result = 0;
+			
+			result = Integer.parseInt(cms.selectOneCancelAndReserveTime(Integer.parseInt(resNo)));
+			System.out.println(result);
+			if (result > 60) { // 시간이 한시간 전이여서 오일 환불 - 주차장의 nprice의 3배
+				result = 0;
+				
+				result = cms.updateCancelReserveOil(reserv);
+				
+				if (result > 0) {
+					return "취소 및 환불 성공";
+				} else {
+					return "취소 성공";
+				}
+			} else {
+				
+				return "취소 성공";
+			}
+			
+		}else {
+			return "실패";
+		}
+		
     }
 	
+	@RequestMapping("selectCancelReason.cu")
+	public @ResponseBody String selectCancelReason(@RequestParam String resNo, HttpSession session) {
+		
+		Member member = (Member) session.getAttribute("loginUser");
+		
+		Reservation reserv = new Reservation();
+		
+		reserv.setResNo(Integer.parseInt(resNo));
+		reserv.setMemberNo(member.getMember_no());
+		
+		String result = cms.selectCancelReason(reserv);
+		
+		return result;
+    }
 }

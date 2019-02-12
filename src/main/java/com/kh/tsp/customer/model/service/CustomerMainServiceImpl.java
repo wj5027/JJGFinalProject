@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.tsp.customer.model.dao.CustomerMainDao;
+import com.kh.tsp.customer.model.vo.CCoupon;
 import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.customer.model.vo.Parking;
 import com.kh.tsp.customer.model.vo.Points;
@@ -92,7 +93,30 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 		return cmd.insertMember(sqlSession, m);
 	}
 
-	
+	@Override
+	public int updateCancelReserve(Reservation reserv) {
+		return cmd.updateCancelReserve(sqlSession, reserv);
+	}
 
+	@Override
+	public String selectOneCancelAndReserveTime(int resNo) {
+		return cmd.selectOneCancelAndReserveTime(sqlSession, resNo);
+	}
+
+	@Override
+	public int updateCancelReserveOil(Reservation reserv) {
+		return cmd.updateCancelReserveOil(sqlSession, reserv);
+	}
+
+	@Override
+	public String selectCancelReason(Reservation reserv) {
+		return cmd.selectCancelReason(sqlSession, reserv);
+	}
+
+	@Override
+	public ArrayList<CCoupon> selectUserCoupon(Member member) {
+		return cmd.selectUserCoupon(sqlSession, member);
+	}
+	
 	
 }

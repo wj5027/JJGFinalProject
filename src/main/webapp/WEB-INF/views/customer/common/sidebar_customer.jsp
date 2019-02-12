@@ -26,11 +26,11 @@
 		      <span id="userId" >
 		           ${ loginUser.member_name }
 	          </span>
-	          <span >님 환영합니다.</span>
+	          <span>님 환영합니다.</span>
 	          </div>
 	          <div style="font-size: 1em;color: wheat;">
 	           <span>현재 보유오일 :</span>
-	          <span id="oilmount">500000</span>
+	          <span id="oilmount">${ loginUser.oil }</span>
 	          </div>
           </c:if>
           

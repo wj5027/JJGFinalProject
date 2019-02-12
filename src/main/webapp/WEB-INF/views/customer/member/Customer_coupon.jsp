@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 
 <html>
@@ -19,28 +20,36 @@
           <div class="card-body">
             <table class="table tablesorter " id="">
 				<tbody align="center">
-					<tr>
-						<td colspan="2"><b>기간</b></td>
-						<td colspan="2"><b>지역</b></td>
-						<td colspan="2"><b>주차장명</b></td>
-						<td colspan="2"></td>
-					</tr>
-					<tr>
-						<td colspan="2">19/01/02~<br>19/01/10</td>
-						<td colspan="2">서울</td>
-						<td colspan="2">어반 플레이스</td>
-						<td colspan="2">
-							<button class="btn btn-info btn-sm" onclick="#">위치</button>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">19/02/01~<br>19/02/11</td>
-						<td colspan="2">서울</td>
-						<td colspan="2">동해 빌딩 주차장</td>
-						<td colspan="2">
-							<button class="btn btn-info btn-sm" onclick="#">위치</button>
-						</td>
-					</tr>
+					<c:if test="${ empty requestScope.CouponList }">
+						<tr>
+							<th colspan="3">로그인을 해주세요!</th>
+						</tr>
+					</c:if>
+					<c:if test="${ !empty requestScope.CouponList }">
+						<tr>
+							<th>기간</th>
+							<th>주차장명</th>
+							<th></th>
+							<th>할인</th>
+						</tr>
+						<c:forEach var="coupon" items="${ requestScope.CouponList }" varStatus="st">
+						<tr>
+							<td>${ coupon.startDay }~<br>${ coupon.endDay }</td>
+							<td>어반 플레이스</td>
+							<td>
+								<button class="btn btn-info btn-sm" onclick="#">위치</button>
+							</td>
+							<td>
+								<c:if test="${ coupon.couponOdiscount ne 0 }">
+								${ coupon.couponOdiscount }오일
+								</c:if>
+								<c:if test="${ coupon.couponPdiscount ne 0 }">
+								${ coupon.couponPdiscount.toString().substring(2) }%
+								</c:if>
+							</td>
+						</tr>
+						</c:forEach>
+					</c:if>
 				</tbody>
 			</table>
 		  </div>
