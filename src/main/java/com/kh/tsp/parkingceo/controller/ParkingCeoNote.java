@@ -38,8 +38,10 @@ public class ParkingCeoNote {
 	@RequestMapping(value="/selectNoteList.pc",method=RequestMethod.POST)
 	public ModelAndView selectNoteList(@RequestParam String btnValue, @RequestParam String selectBox,@RequestParam String currentPage,ModelAndView mv,HttpSession session) {
 		
+
 		Member m = (Member)session.getAttribute("loginUser");
 		m.setBtnValue(Integer.parseInt(btnValue));
+		
 		//현재 페이지 변수
 		int ResultcurrentPage = 1;
 		//현재 페이지가 ajax 통신으로 넘어 왔을시
