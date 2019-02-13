@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.tsp.customer.model.dao.CustomerMainDao;
 import com.kh.tsp.customer.model.vo.CCoupon;
+import com.kh.tsp.customer.model.vo.ChargeOil;
 import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.customer.model.vo.Parking;
 import com.kh.tsp.customer.model.vo.Points;
@@ -116,6 +117,16 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 	@Override
 	public ArrayList<CCoupon> selectUserCoupon(Member member) {
 		return cmd.selectUserCoupon(sqlSession, member);
+	}
+
+	@Override
+	public int insertCustomerOilCharge(ChargeOil chargeOil) {
+		return cmd.insertCustomerOilCharge(sqlSession, chargeOil);
+	}
+
+	@Override
+	public void updateCustomerOilCharge(ChargeOil chargeOil) {
+		cmd.updateCustomerOilCharge(sqlSession, chargeOil);
 	}
 	
 	

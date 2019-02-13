@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.tsp.customer.model.vo.CCoupon;
+import com.kh.tsp.customer.model.vo.ChargeOil;
 import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.customer.model.vo.Parking;
 import com.kh.tsp.customer.model.vo.Points;
@@ -39,6 +40,10 @@ public interface CustomerMainService {
 	Member idCheck(String member_id);
 
 	int insertMember(Member m);
+
+	int insertCustomerOilCharge(ChargeOil chargeOil);
+
+	void updateCustomerOilCharge(ChargeOil chargeOil);
 
 
 	

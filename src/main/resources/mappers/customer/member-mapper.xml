@@ -214,5 +214,16 @@
 	 VALUES (MNO_SEQ.NEXTVAL, #{member_id}, #{member_pwd}, 'U', 'M', '0', #{email}, #{phone}, #{member_name}, #{member_carNo},
 	 		'Y', null, null, null, SYSDATE)
 	</insert>
+	
+	<insert id="insertCustomerOilCharge" parameterType="com.kh.tsp.customer.model.vo.ChargeOil">
+		INSERT INTO oil_list (oil_list_no, oil_list_type, oil_list_date, oil, member_no, payment_no, trans_no)
+		VALUES (OIL_LIST_SEQ.NEXTVAL, '충전', SYSDATE, #{ oil }, #{ memberNo }, #{ imp_uid }, #{ merchant_uid })
+	</insert>
+	
+	<update id="updateCustomerOilCharge" parameterType="com.kh.tsp.customer.model.vo.ChargeOil">
+		UPDATE member
+		SET oil = #{oil} + (SELECT oil FROM member WHERE member_no = #{ memberNo })
+		WHERE member_no = #{ memberNo }
+	</update>
 
 </mapper>
