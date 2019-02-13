@@ -34,8 +34,9 @@
                     <div align="center" style="width: 100%">
                     <br>
                     <button class="btn btn-info btn-sm" type="button" onclick="parkingceoLogin();" style="width: 120px;">제휴 페이지</button>
-                    <button class="btn btn-info btn-sm" type="button" onclick="" style="width: 120px;">비밀번호 찾기</button>
-                    <br><br>                  
+                    <button class="btn btn-info btn-sm" type="button" onclick="findIdPwd();" style="width: 120px;">ID/PW 찾기</button>
+                    <br><br>
+                                   
                    <!--  <a href="http://developers.kakao.com/logout"></a>-->                    
                     
                     <br>
@@ -84,6 +85,9 @@
 		location.href = "test.pc";
 	}
 	
+	function findIdPwd(){
+		location.href="findIdPwd.cu";
+	}
 	// 사용할 앱의 JavaScript 키를 설정해 주세요.
     Kakao.init('7b1dba10e7202c6538408b93f85572ab');
     // 카카오 로그인 버튼을 생성합니다.

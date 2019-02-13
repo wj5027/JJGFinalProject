@@ -45,5 +45,11 @@ public interface CustomerMainDao {
 
 	int insertMember(SqlSessionTemplate sqlSession, Member m);
 
+	Member findId(SqlSessionTemplate sqlSession, String email);
+
+	Member emailCheck(SqlSessionTemplate sqlSession, String email);
+
+	String selectEncPassword(SqlSessionTemplate sqlSession, Member m);
+
 
 }

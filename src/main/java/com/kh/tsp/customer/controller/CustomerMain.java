@@ -58,8 +58,13 @@ public class CustomerMain {
 	//로그인 메소드
 	@RequestMapping(value="allLogin.cu",method=RequestMethod.POST)
 	public String allLogin(@ModelAttribute Member m,Model model) {
+		System.out.println("컨트롤러: "+m);
+		
 		try {
 			Member loginUser = cms.selectCheckMember(m);
+			
+			System.out.println("컨트롤러: "+loginUser);
+			
 			model.addAttribute("loginUser", loginUser);
 			
 			if(loginUser.getMember_type().equals("U") || loginUser.getMember_type().equals("u")) {
@@ -70,7 +75,8 @@ public class CustomerMain {
 				return "redirect:parkingceoMain.pc";	
 			}
 		}catch(Exception e) {
-			model.addAttribute("message", "로그인 실패!");
+			model.addAttribute("message", "로그인실패");
+			
 			return "common/errorPage";
 		}
 		
@@ -243,10 +249,18 @@ public class CustomerMain {
 	 return result;
 	}
 	
+	//일반 회원가입
 	@RequestMapping(value="insertMember.cu", method=RequestMethod.POST)
 	public String insertMember(@ModelAttribute Member m, Model model) {
 		
 		System.out.println(m);
+		
+		String encPassword = passwordEncoder.encode(m.getMember_pwd());
+		
+		System.out.println("암호화 후: "+encPassword);
+		
+		m.setMember_pwd(encPassword);
+		
 		try {
 			cms.insertMember(m);
 		}catch(Exception e) {
@@ -257,5 +271,63 @@ public class CustomerMain {
 		return "redirect:customer_loginPage.cu";
 	
 	}
+	
+	//아이디/비밀번호 찾기 폼으로 이동
+	@RequestMapping(value="findIdPwd.cu")
+	public String findPwdForm() {
+		return "customer/main/find_IdPwd_form";
+	}
+	
+	
+
+	//아이디찾기
+	@ResponseBody
+	@RequestMapping(value = "/findId.cu", method = RequestMethod.POST)
+	public String findId(HttpServletRequest req) throws Exception {
+	 
+	 
+	 String email = req.getParameter("email");
+	 System.out.println("아이디 찾기 email: "+email);
+	 
+	 Member findId =  cms.findId(email);
+	 
+	 String result = "";
+	 
+	 if(findId != null) {
+		
+		 result = findId.getMember_id();
+		 
+		 return result;
+	
+	 }else {
+		
+		 return result;
+	 }
+	 
+	 
+	}
+	
+	//이메일 중복 확인
+		@ResponseBody
+		@RequestMapping(value="emailCheck.cu", method = RequestMethod.POST)
+		public int emailCheck(HttpServletRequest req) throws Exception{
+
+			 String email = req.getParameter("email");
+			 System.out.println("email: "+email);
+			 
+			 Member emailCheck =  cms.emailCheck(email);
+			 
+			 System.out.println(emailCheck);
+			 
+			 int result = 0;
+			 
+			 if(emailCheck != null) {
+				 result = 1;
+			 } 
+			 System.out.println("이메일 중복 result : "+result);
+			 
+			 return result;
+		}
+	
 	
 }
