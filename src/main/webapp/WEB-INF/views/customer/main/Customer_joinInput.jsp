@@ -25,7 +25,7 @@
               <div class="card-body">
               	<form action="insertMember.cu" id="insertForm" method="post">
               		이름 <input type="text" class="form-control" name="member_name" id="member_name"><br>
-              		아이디 <input type="text" class="form-control" name="member_id" id="member_id"><button onclick="return duplicationCheck()" type="button" class="btn btn-info btn-sm" id="idCk">중복확인</button><br>
+              		아이디 <input type="text" class="form-control" name="member_id" id="member_id"><button onclick="return duplicationCheck()" class="btn btn-info btn-sm" id="idCk">중복확인</button><br>
                   	비밀번호 <input type="password" class="form-control" name="member_pwd" id="member_pwd"><br>
                   	비밀번호 확인 <input type="password" class="form-control" name="member_pwd2" id="member_pwd2"><br>
                 
@@ -79,9 +79,7 @@
 	
 	//이메일 전송 ajax
 	function mailSender(){
-		
-			
-		
+
 		window.alert("인증 메일을 보냈습니다. 확인해주세요");
 		var code = randomCode.authNo(5);
 		checkCode = code;
@@ -183,14 +181,15 @@
 			}
 			
 			//location.href="insertMember.cu";
-			 if(idCheckResult = 1 && emailCheckResult = 1 && pwdCheckResult1 = 1){
+			 if(idCheckResult == 1 && emailCheckResult == 1 && pwdCheckResult1 == 1){
 				 alert("회원가입이 완료되었습니다");
 				 $("#insertForm").submit();
 			} 
 			
 		});
+	});
 	
-	});	
+
 	
 
 </script>
