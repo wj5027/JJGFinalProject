@@ -36,22 +36,22 @@
                       <tr>
                         <td align="center"><div style="color: white;">우측의 박스를 클릭해주세요</div></td>
                         <td>
-						<select class="custom-select nav-link dropdown-toggle" id="inputGroupSelect02">
-    						<option selected style="color: black;">박스를 클릭해주세요</option>
-    						<option value="1" style="color: black;">입차만</option>
-    						<option value="2" style="color: black;">출차만</option>
-    						<option value="3" style="color: black;">입/출차</option>
+						<select class="custom-select nav-link dropdown-toggle" id="inputGroupSelect01" name="selectParkingDetail">
+    						<option selected style="color: black;"  value="inputCar">박스를 클릭해주세요</option>
+    						<option value="inputCar" style="color: black;">입차만</option>
+    						<option value="outputCar" style="color: black;">출차만</option>
+    						<option value="inOutputCar" style="color: black;">입/출차</option>
   						</select>
 						</td>
                       </tr>
                       <tr>
                       	<td align="center"><div style="color: white;">기간을 선택해주세요(기본 3개월)</div></td>
-                      	<td><button class="btn btn-info btn-round btn-sm">오늘</button>
-                      			<button class="btn btn-info btn-round btn-sm">1주일</button>
-                      			<button class="btn btn-info btn-round btn-sm">1개월</button>
-                      			<button class="btn btn-info btn-round btn-sm">3개월</button>
-                      			<button class="btn btn-info btn-round btn-sm">6개월</button>
-                      			<button class="btn btn-info btn-round btn-sm">1년</button>
+                      	<td><button class="btn btn-info btn-round btn-sm" onclick="chkBtnValue(1);">오늘</button>
+                      			<button class="btn btn-info btn-round btn-sm" onclick="chkBtnValue(7);">1주일</button>
+                      			<button class="btn btn-info btn-round btn-sm" onclick="chkBtnValue(30);">1개월</button>
+                      			<button class="btn btn-info btn-round btn-sm" onclick="chkBtnValue(90);">3개월</button>
+                      			<button class="btn btn-info btn-round btn-sm" onclick="chkBtnValue(180);">6개월</button>
+                      			<button class="btn btn-info btn-round btn-sm" onclick="chkBtnValue(365);">1년</button>
                       	</td>
                       </tr>
                                            <tr>
@@ -63,7 +63,7 @@
                       </td>
                       </tr>      
                       <tr>
-                      	<td colspan="2" align="center"><button class="btn btn-info animation-on-hover" type="button">검색</button></td>
+                      	<td colspan="2" align="center"><button class="btn btn-info animation-on-hover" type="button" onclick="selectNoteBtn(1);">검색</button></td>
                       </tr>                    
                     </tbody>
                   </table>
@@ -168,6 +168,40 @@
 	function goNotePage(){
 		location.href = "goNotePage.pc";
 	}
+	
+	//페이징 처리할 변수
+	var currentPage = 1;
+	//기본 버튼값 초기화
+	var vtnValue = 90;
+	
+	//기간 버튼을 눌렀을때 값 변경 메소드
+	function chkBtnValue(data){
+		vtnValue = data;
+		
+	}
+	
+	//검색 버튼 메소드
+	function selectNoteBtn(data){
+		currentPage = data;
+		var selectBox = $("#inputGroupSelect01 option:selected").val();
+		$.ajax({
+			url:"searchParkingDetail.pc",
+			type:"post",
+			data:{currentPage:currentPage,
+				vtnValue:vtnValue,
+				selectBox:selectBox},
+			success : function(data){
+				console.log(data);
+			},
+			error : function(data){
+				console.log("데이터 통신 실패");
+			}
+		});
+		
+		
+		
+	}
+	
 
 </script>
 
