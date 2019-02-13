@@ -64,240 +64,81 @@
   		WHERE CRL.COUPON_REQ_NO = #{reqNo}
   	</select>
   	
-  	<!-- 
-  	문의게시판 삭제
-  	<update id="deleteBoardQnA"  parameterType="_int">
-  		UPDATE BOARD
-  		SET STATUS = 'N'
-  		WHERE STATUS='Y' AND BOARD_NO = #{boardNo}
-  	</update>
-  	
-  	문의게시판 복구
-  	<update id="updateRecoverBoardQnA"  parameterType="_int">
-  		UPDATE BOARD
-  		SET STATUS = 'Y'
-  		WHERE STATUS='N' AND BOARD_NO = #{boardNo}
-  	</update>
-  	
-	문의게시판 검색 수
+  	<!-- 쿠폰 검색 수 -->
   	<select id="getSearchListCount" resultType="_int" parameterType="java.util.Map">
-  		SELECT COUNT(*) 
-  		FROM BOARD B
-  		INNER JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
-        LEFT OUTER JOIN REPLY R ON(B.BOARD_NO = R.BOARD_NO)
-  		WHERE B.BOARD_TYPE = '관리자문의'
+	  	SELECT COUNT(*)
+		FROM COUPON_REQUEST_LIST CRL
+		INNER JOIN MEMBER M ON (CRL.MEMBER_NO = M.MEMBER_NO)
+		INNER JOIN PARKING P ON (CRL.PARKING_NO = P.PARKING_NO)
 		<if test="selectStatus!='' and (selectStatus eq 'A'.toString())">
-			AND (R.CANCEL_YN = 'Y' OR R.CANCEL_YN IS NULL)
+			AND (CRL.COUPON_REQ_STATUS = '신청중' 
+					OR CRL.COUPON_REQ_STATUS = '발급완료' 
+					OR CRL.COUPON_REQ_STATUS = '반송')
+		</if>
+		<if test="selectStatus!='' and (selectStatus eq 'I'.toString())">
+			AND CRL.COUPON_REQ_STATUS = '신청중' 
 		</if>
 		<if test="selectStatus!='' and (selectStatus eq 'Y'.toString())">
-			AND R.CANCEL_YN = 'Y'
+			AND CRL.COUPON_REQ_STATUS = '발급완료'
 		</if>
 		<if test="selectStatus!='' and (selectStatus eq 'N'.toString())">
-			AND R.CANCEL_YN IS NULL
+			AND CRL.COUPON_REQ_STATUS = '반송'
 		</if>
-		<if test="mId != ''">
-			AND M.MEMBER_ID LIKE '%'||#{mId}||'%'
+		<if test="selectCoupon!='' and (selectCoupon eq 'A'.toString())">
+			AND (CRL.COUPON_ODISCOUNT IS NOT NULL OR CRL.COUPON_PDISCOUNT IS NOT NULL)
 		</if>
-		<if test="bTitle != ''">
-			AND B.BOARD_TITLE LIKE '%'||#{bTitle}||'%'
+		<if test="selectCoupon!='' and (selectCoupon eq 'O'.toString())">
+			AND CRL.COUPON_ODISCOUNT IS NOT NULL
 		</if>
-		<if test="today != ''">
-		<![CDATA[
-			AND (TO_CHAR(TO_DATE(B.CREATION_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') >= TO_CHAR(TO_DATE(#{today},'yyyy/mm/dd'), 'yyyy/mm/dd') 
-					AND TO_CHAR(TO_DATE(B.CREATION_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') <= TO_CHAR(TO_DATE(SYSDATE,'rrrr/mm/dd'), 'yyyy/mm/dd'))
-		]]>		
+		<if test="selectCoupon!='' and (selectCoupon eq 'P'.toString())">
+			AND CRL.COUPON_PDISCOUNT IS NOT NULL
 		</if>
-		<if test="startDate != ''">
-		<![CDATA[
-			AND (TO_CHAR(TO_DATE(B.CREATION_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') >= TO_CHAR(TO_DATE(#{startDate},'yyyy-mm-dd'),'yyyy-mm-dd') 
-					AND TO_CHAR(TO_DATE(B.CREATION_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') <= TO_CHAR(TO_DATE(#{endDate},'yyyy-mm-dd'),'yyyy-mm-dd'))
-		]]>		
-		</if>
-  	</select>
-  	
-  	문의 게시판 검색 결과
-  	<select id="selectSearchBoardQnAList" resultMap="BoardAdminResultSet" parameterType="java.util.Map">		
-  		SELECT M.MEMBER_NO, M.MEMBER_ID, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, B.CREATION_DATE, B.MODIFIED_DATE, B.BOARD_TYPE, B.STATUS, R.CANCEL_YN, R.REPLY_CONTEXT
-  		FROM BOARD B
-  		INNER JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
-        LEFT OUTER JOIN REPLY R ON(B.BOARD_NO = R.BOARD_NO)
-  		WHERE B.BOARD_TYPE = '관리자문의'
-		<if test="selectStatus!='' and (selectStatus eq 'A'.toString())">
-			AND (R.CANCEL_YN = 'Y' OR R.CANCEL_YN IS NULL)
-		</if>
-		<if test="selectStatus!='' and (selectStatus eq 'Y'.toString())">
-			AND R.CANCEL_YN = 'Y'
-		</if>
-		<if test="selectStatus!='' and (selectStatus eq 'N'.toString())">
-			AND R.CANCEL_YN IS NULL
-		</if>
-		<if test="mId != ''">
-			AND M.MEMBER_ID LIKE '%'||#{mId}||'%'
-		</if>
-		<if test="bTitle != ''">
-			AND B.BOARD_TITLE LIKE '%'||#{bTitle}||'%'
-		</if>
-		<if test="today != ''">
-		<![CDATA[
-			AND (TO_CHAR(TO_DATE(B.CREATION_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') >= TO_CHAR(TO_DATE(#{today},'yyyy/mm/dd'), 'yyyy/mm/dd') 
-					AND TO_CHAR(TO_DATE(B.CREATION_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') <= TO_CHAR(TO_DATE(SYSDATE,'rrrr/mm/dd'), 'yyyy/mm/dd'))
-		]]>		
-		</if>
-		<if test="startDate != ''">
-		<![CDATA[
-			AND (TO_CHAR(TO_DATE(B.CREATION_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') >= TO_CHAR(TO_DATE(#{startDate},'yyyy-mm-dd'),'yyyy-mm-dd') 
-					AND TO_CHAR(TO_DATE(B.CREATION_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') <= TO_CHAR(TO_DATE(#{endDate},'yyyy-mm-dd'),'yyyy-mm-dd'))
-		]]>		
-		</if>
-		ORDER BY B.BOARD_NO DESC
-  	</select>
-  	  	
-  	문의 게시판 답변 ajax
-  	<select id="answerBoardQnA" resultMap="BoardAdminResultSet" parameterType="_int">
-		SELECT M.MEMBER_NO, M.MEMBER_ID, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, B.CREATION_DATE, B.MODIFIED_DATE, B.BOARD_TYPE, B.STATUS, R.CANCEL_YN, R.REPLY_CONTEXT, R.REPLY_NO
-  		FROM BOARD B
-  		INNER JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
-        LEFT OUTER JOIN REPLY R ON(B.BOARD_NO = R.BOARD_NO)
-  		WHERE B.BOARD_TYPE = '관리자문의'
-  			AND B.BOARD_NO = #{bno}
-  	</select>
-  	
-  	답변 작성
-  	<insert id="insertAnswerBoard" parameterType="java.util.Map">	
-  		INSERT INTO REPLY VALUES(REPLY_NO_SEQ.NEXTVAL, #{textareaId}, SYSDATE, 'Y', NULL, #{bno}, #{mno})
-  	</insert>  	
-  	
-  	답변 작성
-  	<update id="updateAnswerBoard" parameterType="java.util.Map">	
-  		UPDATE REPLY
-  		SET REPLY_CONTEXT = #{updateTextareaId}
-  		WHERE REPLY_NO = #{replyNo}
-  	</update>
-  	
-  	
-  	
-  	
-	후기게시판 전체 수
-  	<select id="getReviewListCount" resultType="_int">
-  		SELECT COUNT(*) 
-		FROM BOARD
-		WHERE BOARD_TYPE = '후기'
-  	</select>
-  	
-  	후기게시판 전체 리스트
-  	<select id="selectBoardReviewList" resultMap="BoardAdminResultSet">
-  		SELECT M.MEMBER_NO, M.MEMBER_ID, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, B.CREATION_DATE, B.MODIFIED_DATE, B.BOARD_TYPE, B.STATUS, P.PARKING_NAME, P.ROAD_ADDRESS, P.PARKING_SIZE
-  		FROM BOARD B
-  		INNER JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
-        LEFT OUTER JOIN PARKING P ON(P.PARKING_NO = B.PARKING_NO)
-  		WHERE B.BOARD_TYPE = '후기'
-  		ORDER BY BOARD_NO DESC
-  	</select>
-  	  	
-  	문의 게시판 답변 ajax
-  	<select id="detailBoardReview" resultMap="BoardAdminResultSet" parameterType="_int">
-  		SELECT M.MEMBER_NO, M.MEMBER_ID, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, B.CREATION_DATE, B.MODIFIED_DATE, B.BOARD_TYPE, B.STATUS, P.PARKING_NAME, P.ROAD_ADDRESS, P.PARKING_SIZE
-  		FROM BOARD B
-  		INNER JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
-        LEFT OUTER JOIN PARKING P ON(P.PARKING_NO = B.PARKING_NO)
-  		WHERE B.BOARD_TYPE = '후기'
-  			AND B.BOARD_NO = #{bno}
-  	</select>
-  	  	
-  	문의게시판 삭제
-  	<update id="deleteBoardReview"  parameterType="_int">
-  		UPDATE BOARD
-  		SET STATUS = 'N'
-  		WHERE STATUS='Y' AND BOARD_NO = #{boardNo}
-  	</update>
-  	
-  	문의게시판 복구
-  	<update id="updateRecoverBoardReview"  parameterType="_int">
-  		UPDATE BOARD
-  		SET STATUS = 'Y'
-  		WHERE STATUS='N' AND BOARD_NO = #{boardNo}
-  	</update>
-  	
-	후기 게시판 검색 수
-  	<select id="getSearchReviewListCount" resultType="_int" parameterType="java.util.Map">
-  		SELECT COUNT(*) 
-  		FROM BOARD B
-  		INNER JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
-        LEFT OUTER JOIN PARKING P ON(P.PARKING_NO = B.PARKING_NO)
-  		WHERE B.BOARD_TYPE = '후기'
-		<if test="selectStatus!='' and (selectStatus eq 'A'.toString())">
-			AND B.STATUS IN('Y','N')
-		</if>
-		<if test="selectStatus!='' and (selectStatus eq 'Y'.toString())">
-			AND B.STATUS = 'Y'
-		</if>
-		<if test="selectStatus!='' and (selectStatus eq 'N'.toString())">
-			AND B.STATUS = 'N'
-		</if>
-		<if test="mId != ''">
-			AND M.MEMBER_ID LIKE '%'||#{mId}||'%'
+		<if test="memberId != ''">
+			AND M.MEMBER_ID LIKE '%'||#{memberId}||'%'
 		</if>
 		<if test="parkingName != ''">
 			AND P.PARKING_NAME LIKE '%'||#{parkingName}||'%'
 		</if>
-		<if test="bTitle != ''">
-			AND B.BOARD_TITLE LIKE '%'||#{bTitle}||'%'
-		</if>
-		<if test="today != ''">
-		<![CDATA[
-			AND (TO_CHAR(TO_DATE(B.CREATION_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') >= TO_CHAR(TO_DATE(#{today},'yyyy/mm/dd'), 'yyyy/mm/dd') 
-					AND TO_CHAR(TO_DATE(B.CREATION_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') <= TO_CHAR(TO_DATE(SYSDATE,'rrrr/mm/dd'), 'yyyy/mm/dd'))
-		]]>		
-		</if>
-		<if test="startDate != ''">
-		<![CDATA[
-			AND (TO_CHAR(TO_DATE(B.CREATION_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') >= TO_CHAR(TO_DATE(#{startDate},'yyyy-mm-dd'),'yyyy-mm-dd') 
-					AND TO_CHAR(TO_DATE(B.CREATION_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') <= TO_CHAR(TO_DATE(#{endDate},'yyyy-mm-dd'),'yyyy-mm-dd'))
-		]]>		
-		</if>
   	</select>
   	
-  	후기 게시판 검색 결과
-  	<select id="selectSearchBoardReviewList" resultMap="BoardAdminResultSet" parameterType="java.util.Map">		
-  		SELECT M.MEMBER_NO, M.MEMBER_ID, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, B.CREATION_DATE, B.MODIFIED_DATE, B.BOARD_TYPE, B.STATUS, P.PARKING_NAME, P.ROAD_ADDRESS, P.PARKING_SIZE
-  		FROM BOARD B
-  		INNER JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
-        LEFT OUTER JOIN PARKING P ON(P.PARKING_NO = B.PARKING_NO)
-  		WHERE B.BOARD_TYPE = '후기'
+  	<!-- 쿠폰 검색 결과 -->
+  	<select id="selectSearchCouponList" resultMap="CouponAdminResultSet" parameterType="java.util.Map">		
+  		SELECT CRL.COUPON_REQ_NO, CRL.COUPON_NAME, CRL.COUPON_TYPE, CRL.COUPON_START_DATE, 
+		            CRL.COUPON_END_DATE, CRL.AMOUNT, CRL.REMARK, CRL.MEMBER_NO, CRL.PARKING_NO, CRL.REFUSE_REASON, 
+		            CRL.COUPON_ODISCOUNT, CRL.COUPON_PDISCOUNT, CRL.COUPON_REQ_STATUS, M.MEMBER_ID, P.PARKING_NAME
+		FROM COUPON_REQUEST_LIST CRL
+		INNER JOIN MEMBER M ON (CRL.MEMBER_NO = M.MEMBER_NO)
+		INNER JOIN PARKING P ON (CRL.PARKING_NO = P.PARKING_NO)
 		<if test="selectStatus!='' and (selectStatus eq 'A'.toString())">
-			AND B.STATUS IN('Y','N')
+			AND (CRL.COUPON_REQ_STATUS = '신청중' 
+					OR CRL.COUPON_REQ_STATUS = '발급완료' 
+					OR CRL.COUPON_REQ_STATUS = '반송')
+		</if>
+		<if test="selectStatus!='' and (selectStatus eq 'I'.toString())">
+			AND CRL.COUPON_REQ_STATUS = '신청중' 
 		</if>
 		<if test="selectStatus!='' and (selectStatus eq 'Y'.toString())">
-			AND B.STATUS = 'Y'
+			AND CRL.COUPON_REQ_STATUS = '발급완료'
 		</if>
 		<if test="selectStatus!='' and (selectStatus eq 'N'.toString())">
-			AND B.STATUS = 'N'
+			AND CRL.COUPON_REQ_STATUS = '반송'
 		</if>
-		<if test="mId != ''">
-			AND M.MEMBER_ID LIKE '%'||#{mId}||'%'
+		<if test="selectCoupon!='' and (selectCoupon eq 'A'.toString())">
+			AND (CRL.COUPON_ODISCOUNT IS NOT NULL OR CRL.COUPON_PDISCOUNT IS NOT NULL)
+		</if>
+		<if test="selectCoupon!='' and (selectCoupon eq 'O'.toString())">
+			AND CRL.COUPON_ODISCOUNT IS NOT NULL
+		</if>
+		<if test="selectCoupon!='' and (selectCoupon eq 'P'.toString())">
+			AND CRL.COUPON_PDISCOUNT IS NOT NULL
+		</if>
+		<if test="memberId != ''">
+			AND M.MEMBER_ID LIKE '%'||#{memberId}||'%'
 		</if>
 		<if test="parkingName != ''">
 			AND P.PARKING_NAME LIKE '%'||#{parkingName}||'%'
 		</if>
-		<if test="bTitle != ''">
-			AND B.BOARD_TITLE LIKE '%'||#{bTitle}||'%'
-		</if>
-		<if test="today != ''">
-		<![CDATA[
-			AND (TO_CHAR(TO_DATE(B.CREATION_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') >= TO_CHAR(TO_DATE(#{today},'yyyy/mm/dd'), 'yyyy/mm/dd') 
-					AND TO_CHAR(TO_DATE(B.CREATION_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') <= TO_CHAR(TO_DATE(SYSDATE,'rrrr/mm/dd'), 'yyyy/mm/dd'))
-		]]>		
-		</if>
-		<if test="startDate != ''">
-		<![CDATA[
-			AND (TO_CHAR(TO_DATE(B.CREATION_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') >= TO_CHAR(TO_DATE(#{startDate},'yyyy-mm-dd'),'yyyy-mm-dd') 
-					AND TO_CHAR(TO_DATE(B.CREATION_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') <= TO_CHAR(TO_DATE(#{endDate},'yyyy-mm-dd'),'yyyy-mm-dd'))
-		]]>		
-		</if>
-		ORDER BY B.BOARD_NO DESC
+  		ORDER BY COUPON_REQ_NO DESC
   	</select>
-  	 -->
-  	
-  	
   	
   </mapper>
