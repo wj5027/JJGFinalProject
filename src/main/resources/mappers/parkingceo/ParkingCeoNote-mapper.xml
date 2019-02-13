@@ -78,7 +78,7 @@
 <select id="selectExchangeMoneyListCount" parameterType="com.kh.tsp.customer.model.vo.Member" resultType="_int">
 	SELECT COUNT(*) FROM EXCHANGE
 	WHERE MEMBER_NO = #{member_no}
-	AND STATUS IN ('진행중','승인','반송')
+	AND STATUS IN ('환전진행중','승인','반송')
 	<if test="btnValue == 1">
 	<![CDATA[AND APPLICATION_DATE <= SYSDATE +1]]>
 	</if>
@@ -171,7 +171,7 @@
 <select id="selectExchangeMoneyList" parameterType="com.kh.tsp.customer.model.vo.Member" resultType="hashmap">
 	SELECT EXCHANGE_NO,OIL,CASH,APPLICATION_DATE,APPROVAL_DATE,ACCOUNT_HOLDER,APPLICATION_BANK,APPLICATION_ACCOUNT_NUMBER,CANCEL_REASON,STATUS FROM EXCHANGE
 	WHERE MEMBER_NO = #{member_no}
-	AND STATUS IN ('진행중','승인','반송')
+	AND STATUS IN ('환전진행중','승인','반송')
 	<if test="btnValue == 1">
 	<![CDATA[AND APPLICATION_DATE <= SYSDATE +1]]>
 	</if>

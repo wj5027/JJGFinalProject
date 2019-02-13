@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -33,6 +34,23 @@
                 <div class="table-responsive"  style="overflow: hidden;">
                   <table class="table tablesorter " id="">
                     <tbody>
+                     <tr>
+                        <td align="center"><div style="color: white;">주차장 명</div></td>
+                        <td>
+						<select class="custom-select nav-link dropdown-toggle" id="inputGroupSelect01" style="width: 500px;" name="parking_no">
+    						<c:if test="${not empty  CurrentParkinglist}">
+    						<option selected style="color: black;" value=${CurrentParkinglist[0].parking_no } id="pakringOption1">주차장을 선택해주세요</option>
+    						<c:set var="number" value="1"/>
+    						<c:forEach var="list" items="${CurrentParkinglist }" varStatus="status">
+    							<option value=${list.parking_no } style="color: black;">${list.parking_name }</option>
+    						</c:forEach>
+    						</c:if>
+    						<c:if test="${empty CurrentParkinglist }">
+    							<option selected style="color: black;" value="none">등록하신 주차장이 없습니다.</option>
+    						</c:if>
+  						</select>
+						</td>
+                      </tr>
                       <tr>
                         <td align="center"><div style="color: white;">우측의 박스를 클릭해주세요</div></td>
                         <td>
@@ -168,6 +186,11 @@
 	function goNotePage(){
 		location.href = "goNotePage.pc";
 	}
+	
+	function parkingceoLogin(){
+		location.href="parkingceoLogin.pc";	
+	}
+	
 	
 	//페이징 처리할 변수
 	var currentPage = 1;

@@ -89,6 +89,47 @@ public class ParkingDaoImpl implements ParkingDao{
 		return list;
 	}
 
+	
+	//주차장 내역 리스트 카운트
+	@Override
+	public int selectInputCarListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("ParkingDetail.inputCarListCount");
+	}
+
+	@Override
+	public int selectOutputCarListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("ParkingDetail.outputCarListCount");
+	}
+
+	@Override
+	public int selectInputOutputCarListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("ParkingDetail.inputOutputCarListCount");
+	}
+
+	@Override
+	public ArrayList<HashMap<String, Object>> selectSearchParkingInputDetailList(SqlSessionTemplate sqlSession,
+			ParkingCeoPageInfo pi) {
+		int offset = (pi.getCurrentPage()-1)*pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		return (ArrayList)sqlSession.selectList("ParkingDetail.inputCarList", null, rowBounds);
+	}
+
+	@Override
+	public ArrayList<HashMap<String, Object>> selectSearchParkingOutputDetailList(SqlSessionTemplate sqlSession,
+			ParkingCeoPageInfo pi) {
+		int offset = (pi.getCurrentPage()-1)*pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		return (ArrayList)sqlSession.selectList("ParkingDetail.outputCarList", null, rowBounds);
+	}
+
+	@Override
+	public ArrayList<HashMap<String, Object>> selectSearchParkingInputOutputDetailList(SqlSessionTemplate sqlSession,
+			ParkingCeoPageInfo pi) {
+		int offset = (pi.getCurrentPage()-1)*pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		return (ArrayList)sqlSession.selectList("ParkingDetail.inputOutputCarList", null, rowBounds);
+	}
+
 
 
 

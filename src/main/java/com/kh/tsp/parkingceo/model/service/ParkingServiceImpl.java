@@ -76,6 +76,40 @@ public class ParkingServiceImpl implements ParkingService{
 		return hmap;
 	}
 
+	@Override
+	public int selectSearchParkingDetailListCount(String selectBox) {
+		int listCount = 0;
+		if(selectBox.equals("inputCar")) {
+			listCount = pd.selectInputCarListCount(sqlSession);
+		} else if (selectBox.equals("outputCar")) {
+			listCount = pd.selectOutputCarListCount(sqlSession);
+		}else {
+			listCount = pd.selectInputOutputCarListCount(sqlSession);
+		}
+		return listCount;
+	}
 
-
+	@Override
+	public HashMap<String, Object> selectSearchParkingDetailList(String selectBox, ParkingCeoPageInfo pi) {
+		HashMap<String, Object>hmap = new HashMap<String, Object>();
+		ArrayList<HashMap<String, Object>> list = null;
+		String listType = "";
+		if(selectBox.equals("inputCar")) {
+			listType = "inputCar";
+			list = pd.selectSearchParkingInputDetailList(sqlSession,pi);
+			hmap.put("listType", listType);
+			hmap.put("list", list);
+		}else if (selectBox.equals("outputCar")) {
+			listType = "outputCar";
+			list = pd.selectSearchParkingOutputDetailList(sqlSession,pi);
+			hmap.put("listType", listType);
+			hmap.put("list", list);
+		}else {
+			listType = "inputOutputCar";
+			list = pd.selectSearchParkingInputOutputDetailList(sqlSession,pi);
+			hmap.put("listType", listType);
+			hmap.put("list", list);
+		}
+		return hmap;
+	}
 }

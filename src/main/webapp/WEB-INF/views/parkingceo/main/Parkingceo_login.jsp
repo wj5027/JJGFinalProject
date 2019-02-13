@@ -103,6 +103,9 @@
 	function goNotePage(){
 		location.href = "goNotePage.pc";
 	}
+	function parkingceoLogin(){
+		location.href="parkingceoLogin.pc";	
+	}
 
 </script>
 

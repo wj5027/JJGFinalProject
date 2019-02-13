@@ -31,6 +31,21 @@ public interface ParkingDao {
 	ArrayList<HashMap<String, Object>> selectExchangeMoneyList(SqlSessionTemplate sqlSession, ParkingCeoPageInfo pi,
 			Member m);
 
+	int selectInputCarListCount(SqlSessionTemplate sqlSession);
+
+	int selectOutputCarListCount(SqlSessionTemplate sqlSession);
+
+	int selectInputOutputCarListCount(SqlSessionTemplate sqlSession);
+
+	ArrayList<HashMap<String, Object>> selectSearchParkingInputDetailList(SqlSessionTemplate sqlSession,
+			ParkingCeoPageInfo pi);
+
+	ArrayList<HashMap<String, Object>> selectSearchParkingOutputDetailList(SqlSessionTemplate sqlSession,
+			ParkingCeoPageInfo pi);
+
+	ArrayList<HashMap<String, Object>> selectSearchParkingInputOutputDetailList(SqlSessionTemplate sqlSession,
+			ParkingCeoPageInfo pi);
+
 
 
 
