@@ -1,11 +1,13 @@
 package com.kh.tsp.parkingceo.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,20 +17,31 @@ import com.kh.tsp.common.ParkingCeoPageInfo;
 import com.kh.tsp.common.ParkingCeoPagination;
 import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.parkingceo.model.service.ParkingService;
+import com.kh.tsp.parkingceo.model.service.PromotionService;
 
 @Controller
 public class ParkingDetailList {
 	
 	@Autowired
 	private ParkingService ps;
+	@Autowired
+	private PromotionService promotion;
 
 	public ParkingDetailList() {
 		// TODO Auto-generated constructor stub
 	}
 	
 	@RequestMapping(value="/goParkingDetailListPage.pc", method=RequestMethod.GET)
-	public String parkingDetailListPage() {
-		
+	public String parkingDetailListPage(HttpSession session,Model model) {
+		Member m = (Member)session.getAttribute("loginUser");		
+		try {
+			//현재 보유중인 주차장 검색
+			ArrayList<HashMap<String, Object>> list = promotion.selectCurrentParkingList(m);
+			model.addAttribute("CurrentParkinglist", list);
+		}catch(Exception e) {
+			model.addAttribute("message", "주차장 조회 실패!");
+			return "common/errorPage";
+		}
 		return "parkingceo/parking/ParkingDetailPage";
 	}
 	
