@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="ExchangeMoneyAdmin">
+  	<resultMap type="com.kh.tsp.admin.model.vo.ExchangeMoneyAdmin" id="ExchangeMoneyAdminResultSet">
+  		<id property="exchangeNo" column="EXCHANGE_NO"/>
+  		<result property="status" column="STATUS"/>
+  		<result property="oil" column="OIL"/>
+  		<result property="cash" column="CASH"/>
+  		<result property="applicationDate" column="APPLICATION_DATE"/>
+  		<result property="approvalDate" column="APPROVAL_DATE"/>
+  		<result property="memberNo" column="MEMBER_NO"/>
+  		<result property="cancelReason" column="CANCEL_REASON"/>
+  		<result property="accountHolder" column="ACCOUNT_HOLDER"/>
+  		<result property="applicationBank" column="APPLICATION_BANK"/>
+  		<result property="applicationAccountNumber" column="APPLICATION_ACCOUNT_NUMBER"/>
+  		
+  		<result property="memberType" column="MEMBER_TYPE"/>
+  		<result property="memberId" column="MEMBER_ID"/>
+  	</resultMap>
+  	
+  	<!-- 환전/환불 전체 리스트 수 -->
+  	<select id="getListCount" resultType="_int">
+  		SELECT COUNT(*)
+		FROM EXCHANGE
+  	</select>
+  	
+  	<!-- 환전/환불 전체 리스트 -->
+  	<select id="selectExchangeMoneyList" resultMap="ExchangeMoneyAdminResultSet">  		
+  		SELECT E.EXCHANGE_NO, E.STATUS, E.OIL, E.CASH, E.APPROVAL_DATE, E.APPLICATION_DATE, 
+  					E.MEMBER_NO, E.CANCEL_REASON, E.ACCOUNT_HOLDER, E.APPLICATION_BANK, 
+  					E.APPLICATION_ACCOUNT_NUMBER, M.MEMBER_TYPE, M.MEMBER_ID
+		FROM EXCHANGE E
+		INNER JOIN MEMBER M ON (M.MEMBER_NO = E.MEMBER_NO)
+		ORDER BY EXCHANGE_NO DESC
+  	</select>
+  		  	
+  	<!-- 환전/환불 특정 리스트 ajax -->
+  	<select id="detailExchangeMoneym" resultMap="ExchangeMoneyAdminResultSet" parameterType="_int">
+  		SELECT E.EXCHANGE_NO, E.STATUS, E.OIL, E.CASH, E.APPROVAL_DATE, E.APPLICATION_DATE, 
+  					E.MEMBER_NO, E.CANCEL_REASON, E.ACCOUNT_HOLDER, E.APPLICATION_BANK, 
+  					E.APPLICATION_ACCOUNT_NUMBER, M.MEMBER_TYPE, M.MEMBER_ID
+		FROM EXCHANGE E
+		INNER JOIN MEMBER M ON (M.MEMBER_NO = E.MEMBER_NO)
+		WHERE EXCHANGE_NO = #{exchangeNo}
+  	</select>
+  	
+  	<!-- 환전/환불 승인 -->
+  	<update id="updateRefundExchangeMoney"  parameterType="_int">
+  		UPDATE EXCHANGE
+		SET STATUS = '승인'
+		WHERE EXCHANGE_NO = #{exchangeNo}
+  	</update>
+  	
+  	<!-- 환전/환불 반송 -->
+  	<update id="deleteExchangeMoney"  parameterType="ExchangeMoneyAdmin">
+  		UPDATE EXCHANGE
+		SET STATUS = '반송', CANCEL_REASON = #{cancelReason}
+		WHERE EXCHANGE_NO = #{exchangeNo}
+  	</update>
+  	
+  	<!-- 반송 사유 ajax -->
+  	<select id="cancelReasonDetail" resultMap="ExchangeMoneyAdminResultSet" parameterType="_int">
+   		SELECT E.EXCHANGE_NO, E.STATUS, E.OIL, E.CASH, E.APPROVAL_DATE, E.APPLICATION_DATE, 
+  					E.MEMBER_NO, E.CANCEL_REASON, E.ACCOUNT_HOLDER, E.APPLICATION_BANK, 
+  					E.APPLICATION_ACCOUNT_NUMBER, M.MEMBER_TYPE, M.MEMBER_ID
+		FROM EXCHANGE E
+		INNER JOIN MEMBER M ON (M.MEMBER_NO = E.MEMBER_NO)
+		WHERE EXCHANGE_NO = #{exchangeNo}
+  	</select>
+  	 	
+  	<!-- 환전 환불 검색 수 -->
+  	<select id="getSearchListCount" resultType="_int" parameterType="java.util.Map">
+  		SELECT COUNT(*)
+		FROM EXCHANGE E
+		INNER JOIN MEMBER M ON (M.MEMBER_NO = E.MEMBER_NO)
+		<if test="status!='' and (status eq 'A'.toString())">
+			AND (E.STATUS = '환전진행중' 
+					OR E.STATUS = '환불진행중' 
+					OR E.STATUS = '승인' 
+					OR E.STATUS = '반송')
+		</if>
+		<if test="status!='' and (status eq 'E'.toString())">
+			AND E.STATUS = '환전진행중' 
+		</if>
+		<if test="status!='' and (status eq 'R'.toString())">
+			AND E.STATUS = '환불진행중' 
+		</if>
+		<if test="status!='' and (status eq 'Y'.toString())">
+			AND E.STATUS = '승인' 
+		</if>
+		<if test="status!='' and (status eq 'N'.toString())">
+			AND E.STATUS = '반송' 
+		</if>
+		<if test="memberType!='' and (memberType eq 'A'.toString())">
+			AND (M.MEMBER_TYPE = 'B' OR M.MEMBER_TYPE = 'U' )
+		</if>
+		<if test="memberType!='' and (memberType eq 'B'.toString())">
+			AND M.MEMBER_TYPE = 'B' 
+		</if>
+		<if test="memberType!='' and (memberType eq 'U'.toString())">
+			AND M.MEMBER_TYPE = 'U' 
+		</if>
+		<if test="memberId != ''">
+			AND M.MEMBER_ID LIKE '%'||#{memberId}||'%'
+		</if>
+		<if test="today != ''">
+		<![CDATA[
+			AND (TO_CHAR(TO_DATE(E.APPLICATION_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') >= TO_CHAR(TO_DATE(#{today},'yyyy/mm/dd'), 'yyyy/mm/dd') 
+					AND TO_CHAR(TO_DATE(E.APPLICATION_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') <= TO_CHAR(TO_DATE(SYSDATE,'rrrr/mm/dd'), 'yyyy/mm/dd'))
+		]]>		
+		</if>
+		<if test="startDate != ''">
+		<![CDATA[
+			AND (TO_CHAR(TO_DATE(E.APPLICATION_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') >= TO_CHAR(TO_DATE(#{startDate},'yyyy-mm-dd'),'yyyy-mm-dd') 
+					AND TO_CHAR(TO_DATE(E.APPLICATION_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') <= TO_CHAR(TO_DATE(#{endDate},'yyyy-mm-dd'),'yyyy-mm-dd'))
+		]]>		
+		</if>
+  	</select>
+  	
+  	<!-- 환전 환불 검색 결과 -->
+  	<select id="selectSearchExchangeMoneyAdminList" resultMap="ExchangeMoneyAdminResultSet" parameterType="java.util.Map">		
+  		SELECT E.EXCHANGE_NO, E.STATUS, E.OIL, E.CASH, E.APPROVAL_DATE, E.APPLICATION_DATE, 
+  					E.MEMBER_NO, E.CANCEL_REASON, E.ACCOUNT_HOLDER, E.APPLICATION_BANK, 
+  					E.APPLICATION_ACCOUNT_NUMBER, M.MEMBER_TYPE, M.MEMBER_ID
+		FROM EXCHANGE E
+		INNER JOIN MEMBER M ON (M.MEMBER_NO = E.MEMBER_NO)
+		<if test="status!='' and (status eq 'A'.toString())">
+			AND (E.STATUS = '환전진행중' 
+					OR E.STATUS = '환불진행중' 
+					OR E.STATUS = '승인' 
+					OR E.STATUS = '반송')
+		</if>
+		<if test="status!='' and (status eq 'E'.toString())">
+			AND E.STATUS = '환전진행중' 
+		</if>
+		<if test="status!='' and (status eq 'R'.toString())">
+			AND E.STATUS = '환불진행중' 
+		</if>
+		<if test="status!='' and (status eq 'Y'.toString())">
+			AND E.STATUS = '승인' 
+		</if>
+		<if test="status!='' and (status eq 'N'.toString())">
+			AND E.STATUS = '반송' 
+		</if>
+		<if test="memberType!='' and (memberType eq 'A'.toString())">
+			AND (M.MEMBER_TYPE = 'B' OR M.MEMBER_TYPE = 'U' )
+		</if>
+		<if test="memberType!='' and (memberType eq 'B'.toString())">
+			AND M.MEMBER_TYPE = 'B' 
+		</if>
+		<if test="memberType!='' and (memberType eq 'U'.toString())">
+			AND M.MEMBER_TYPE = 'U' 
+		</if>
+		<if test="memberId != ''">
+			AND M.MEMBER_ID LIKE '%'||#{memberId}||'%'
+		</if>
+		<if test="today != ''">
+		<![CDATA[
+			AND (TO_CHAR(TO_DATE(E.APPLICATION_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') >= TO_CHAR(TO_DATE(#{today},'yyyy/mm/dd'), 'yyyy/mm/dd') 
+					AND TO_CHAR(TO_DATE(E.APPLICATION_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') <= TO_CHAR(TO_DATE(SYSDATE,'rrrr/mm/dd'), 'yyyy/mm/dd'))
+		]]>		
+		</if>
+		<if test="startDate != ''">
+		<![CDATA[
+			AND (TO_CHAR(TO_DATE(E.APPLICATION_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') >= TO_CHAR(TO_DATE(#{startDate},'yyyy-mm-dd'),'yyyy-mm-dd') 
+					AND TO_CHAR(TO_DATE(E.APPLICATION_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') <= TO_CHAR(TO_DATE(#{endDate},'yyyy-mm-dd'),'yyyy-mm-dd'))
+		]]>		
+		</if>
+		ORDER BY EXCHANGE_NO DESC
+  	</select>
+  	
+  </mapper>
