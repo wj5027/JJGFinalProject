@@ -15,9 +15,11 @@
 <body class="">
   <div class="wrapper">
    <jsp:include page="/WEB-INF/views/customer/common/nav_customer.jsp"></jsp:include>
+   <jsp:include page="/WEB-INF/views/customer/common/sidebar_customer.jsp"></jsp:include>
    
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=85185db0fc452125ec8070a4279f67bb&libraries=services,clusterer,drawing"></script>
     <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+    
      <!--  <div class="row"> -->
           <div class="card-body" style="padding: 0px;">
             <div class="map" style="position: relative; overflow: hidden;">
@@ -60,11 +62,16 @@
 	           
 	           
            <!--@@@@@@@@@@@@@@@@@@@@@2모달과 버튼  -->
-            <script>
+           <script type='text/javascript'>
+           
+          
+		 	
+            
+            
              /*@@@@@@@@@@@@@@@@@지도 초기 셋팅 @@@@@@@@@@@@@@@@@@@@@@@@@  */
 				var mapContainer = document.getElementById('daumMap'), // 지도를 표시할 div 
 				mapOption = { 
-				    center: new daum.maps.LatLng(39.0318, 125.7526),
+				    center: new daum.maps.LatLng(37.4989756, 127.03291420000001),
 				    draggable:true,
 				    scrollwheel:true,// 지도의 중심좌표
 				    level: 3 // 지도의 확대 레벨
@@ -84,7 +91,6 @@
 				map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
 				
 				var mypositionMarker;
-				 message = '<div style="padding:5px;">초기위치</div>'; // 인포윈도우에 표시될 내용입니다
 			        
 				 var imageSrc = 'resources/common/img/soro.gif', // 마커이미지의 주소입니다    
 				    imageSize = new daum.maps.Size(70, 70), // 마커이미지의 크기입니다
@@ -96,28 +102,15 @@
 			        // 마커를 생성합니다
 			    mypositionMarker = new daum.maps.Marker({  
 			        map: map, 
-			        position:new daum.maps.LatLng(39.0318, 125.7526),
+			        position:new daum.maps.LatLng(37.4989756, 127.03291420000001),
 			   		image: markerImage
 			    }); 
 			    
-			    var iwContent = message, // 인포윈도우에 표시할 내용
-			        iwRemoveable = true;
-
-			    // 인포윈도우를 생성합니다
-			    var infowindow = new daum.maps.InfoWindow({
-			        content : iwContent,
-			        removable : iwRemoveable
 			        
-			    });
 			    
-			    // 인포윈도우를 마커위에 표시합니다 
-			    infowindow.open(map, mypositionMarker);
-			    // 지도 중심좌표를 접속위치로 변경합니다
-			    map.setCenter(new daum.maps.LatLng(39.0318, 125.7526));
 				
 				var zoomlevel=3;
 				 daum.maps.event.addListener(map, 'zoom_changed', function() {
-					 	console.log("이벤트시작");
 					   	zoomlevel=map.getLevel();
 					}); 
 		 
@@ -133,7 +126,7 @@
 				        console.log("움직였당"+count);
 				        var lat = position.coords.latitude, // 위도
 				            lon = position.coords.longitude; // 경도
-				        
+				        console.log(lat+","+lon);
 				        var locPosition = new daum.maps.LatLng(lat, lon); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
 				          
 				        mypositionMarker.setPosition(new daum.maps.LatLng(lat, lon));
@@ -147,6 +140,28 @@
 				            
 				      });
 				}
+				
+				
+				 Kakao.init('df9b4b2c505f7b6860e9e73d0c22e278');
+		           var ppname=null;
+		           var latt=null;
+		           var loo=null;
+		           var addr =null;
+		           
+				 	 function navi(){
+				 		    console.log(ppname);
+				 		    console.log(addr);
+				 		 	console.log(Number(latt));
+				 		 	console.log(Number(loo));
+				 		 	
+					         Kakao.Navi.start({
+					        	 name: ppname,
+					             x: Number(loo),
+					             y: Number(latt),
+					             coordType: 'wgs84'
+					        }); 
+					    }
+				
 		/*@@@@@@@@@@@@@@@@@움직 일때 마다 내위치 마커 이동 @@@@@@@@@@@@@@@@@@@@@@@@@  */
 		 /* else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
 				    
@@ -202,7 +217,6 @@
 			
 					 function selectnearParking() {
 						
-						 console.log("주차장잦기 시작");
 						 /* 	현재 지도 영역 구하기. */
 						 	var bounds = map.getBounds();
 						 	  // 영역정보의 남서쪽 정보를 얻어옵니다 
@@ -241,7 +255,6 @@
 										var Platlng =new daum.maps.LatLng(lat, lon);
 										
 										if(pinfo=="유료"&&ntime>0){
-											 console.log(name+"유료에 기본시간 0이상입니다"); 
 											
 										if(atime>0){	
 										 if(ntime>30){
@@ -291,6 +304,8 @@
 											
 										}
 										
+										
+										
 										if((0<allfair) && (2000>=allfair)){
 											 img='resources/common/img/greenMarker.png';
 											}else if((2000<=allfair) && (4000>=allfair)){
@@ -303,6 +318,10 @@
 											else{
 												/*  img='resources/common/img/muni.png';  */
 											}
+										
+										if(img==null){
+											img='resources/common/img/muni.png';
+										}
 										
 										var parkingImgPath =img, // 마커이미지의 주소입니다    
 									    imageSize = new daum.maps.Size(30, 30), // 마커이미지의 크기입니다
@@ -335,8 +354,12 @@
 								 	    	$("#extraseat").text(parking.left_SIZE);
 								 	    	console.log(price);
 								 	    	$("#price").text(Number(price));
-								 	    	$("#time").text(parking.weekday_STIME+"~ 익일:"+parking.weekday_ETIME)
+								 	    	$("#time").text(parking.weekday_STIME+"~ 익일:"+parking.weekday_ETIME);
 								 	    	
+								 	    	ppname=parking.parking_NAME;
+								 	    	addr =parking.road_ADDRESS;
+								 	    	 latt=parking.latitude;
+								 	    	loo=parking.  longitude;
 								 	    	
 								 	    	
 								 	    	
@@ -346,16 +369,7 @@
 								 	    	
 								 	    };
 								 	}
-								 	/*  Kakao.init('103820f64442cfd4cf984f298b7c8470'); */
-								 	 function navi(name,latt,loo){
-									        Kakao.Navi.start({
-									            name: name,
-									            x: latt,
-									            y: loo,
-									            coordType: 'wgs84'
-									        });
-									    }
-								 	
+								
 								   
 								 		 
 								 	
@@ -418,7 +432,7 @@
 				
 			</script>
 		
-			  <jsp:include page="/WEB-INF/views/customer/common/sidebar_customer.jsp"></jsp:include>
+			  
 			     
           </div>
   
