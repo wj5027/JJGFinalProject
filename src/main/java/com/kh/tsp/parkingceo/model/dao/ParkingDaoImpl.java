@@ -89,6 +89,47 @@ public class ParkingDaoImpl implements ParkingDao{
 		return list;
 	}
 
+	
+	//주차장 내역 리스트 카운트
+	@Override
+	public int selectInputCarListCount(SqlSessionTemplate sqlSession ,HashMap<String, Object> parkingSelectBox) {
+		return sqlSession.selectOne("ParkingDetail.inputCarListCount",parkingSelectBox);
+	}
+
+	@Override
+	public int selectOutputCarListCount(SqlSessionTemplate sqlSession, HashMap<String, Object> parkingSelectBox) {
+		return sqlSession.selectOne("ParkingDetail.outputCarListCount",parkingSelectBox);
+	}
+
+	@Override
+	public int selectInputOutputCarListCount(SqlSessionTemplate sqlSession, HashMap<String, Object> parkingSelectBox) {
+		return sqlSession.selectOne("ParkingDetail.inputOutputCarListCount",parkingSelectBox);
+	}
+
+	@Override
+	public ArrayList<HashMap<String, Object>> selectSearchParkingInputDetailList(SqlSessionTemplate sqlSession,
+			ParkingCeoPageInfo pi,HashMap<String, Object> daoHmap) {
+		int offset = (pi.getCurrentPage()-1)*pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		return (ArrayList)sqlSession.selectList("ParkingDetail.inputCarList", daoHmap, rowBounds);
+	}
+
+	@Override
+	public ArrayList<HashMap<String, Object>> selectSearchParkingOutputDetailList(SqlSessionTemplate sqlSession,
+			ParkingCeoPageInfo pi,HashMap<String, Object> daoHmap) {
+		int offset = (pi.getCurrentPage()-1)*pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		return (ArrayList)sqlSession.selectList("ParkingDetail.outputCarList", daoHmap, rowBounds);
+	}
+
+	@Override
+	public ArrayList<HashMap<String, Object>> selectSearchParkingInputOutputDetailList(SqlSessionTemplate sqlSession,
+			ParkingCeoPageInfo pi,HashMap<String, Object> daoHmap) {
+		int offset = (pi.getCurrentPage()-1)*pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		return (ArrayList)sqlSession.selectList("ParkingDetail.inputOutputCarList", daoHmap, rowBounds);
+	}
+
 
 
 

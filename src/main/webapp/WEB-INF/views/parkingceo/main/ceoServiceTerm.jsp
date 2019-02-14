@@ -333,6 +333,10 @@
 	function goNotePage(){
 		location.href = "goNotePage.pc";
 	}
+	function parkingceoLogin(){
+		location.href="parkingceoLogin.pc";	
+	}
+	
 	
 	function insertParkingCeoPage(){
 		if($("#inlineCheckbox1").is(":checked")==false){
