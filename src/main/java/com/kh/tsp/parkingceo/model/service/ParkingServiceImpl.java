@@ -77,36 +77,50 @@ public class ParkingServiceImpl implements ParkingService{
 	}
 
 	@Override
-	public int selectSearchParkingDetailListCount(String selectBox) {
+	public int selectSearchParkingDetailListCount(String inOutputSelectBox,String parkingSelectBox) {
 		int listCount = 0;
-		if(selectBox.equals("inputCar")) {
-			listCount = pd.selectInputCarListCount(sqlSession);
-		} else if (selectBox.equals("outputCar")) {
-			listCount = pd.selectOutputCarListCount(sqlSession);
+		HashMap<String, Object> hmap = null;
+		if(inOutputSelectBox.equals("inputCar")) {
+			hmap = new HashMap<String, Object>();
+			hmap.put("parking_no", parkingSelectBox);
+			listCount = pd.selectInputCarListCount(sqlSession,hmap);
+		} else if (inOutputSelectBox.equals("outputCar")) {
+			hmap = new HashMap<String, Object>();
+			hmap.put("parking_no", parkingSelectBox);
+			listCount = pd.selectOutputCarListCount(sqlSession,hmap);
 		}else {
-			listCount = pd.selectInputOutputCarListCount(sqlSession);
+			hmap = new HashMap<String, Object>();
+			hmap.put("parking_no", parkingSelectBox);
+			listCount = pd.selectInputOutputCarListCount(sqlSession,hmap);
 		}
 		return listCount;
 	}
 
 	@Override
-	public HashMap<String, Object> selectSearchParkingDetailList(String selectBox, ParkingCeoPageInfo pi) {
+	public HashMap<String, Object> selectSearchParkingDetailList(String selectBox, ParkingCeoPageInfo pi,String parkingSelectBox) {
+		HashMap<String, Object> daoHmap = null;
 		HashMap<String, Object>hmap = new HashMap<String, Object>();
 		ArrayList<HashMap<String, Object>> list = null;
 		String listType = "";
 		if(selectBox.equals("inputCar")) {
+			daoHmap = new HashMap<String, Object>();
+			daoHmap.put("parking_no", parkingSelectBox);
 			listType = "inputCar";
-			list = pd.selectSearchParkingInputDetailList(sqlSession,pi);
+			list = pd.selectSearchParkingInputDetailList(sqlSession,pi,daoHmap);
 			hmap.put("listType", listType);
 			hmap.put("list", list);
 		}else if (selectBox.equals("outputCar")) {
+			daoHmap = new HashMap<String, Object>();
+			daoHmap.put("parking_no", parkingSelectBox);
 			listType = "outputCar";
-			list = pd.selectSearchParkingOutputDetailList(sqlSession,pi);
+			list = pd.selectSearchParkingOutputDetailList(sqlSession,pi,daoHmap);
 			hmap.put("listType", listType);
 			hmap.put("list", list);
 		}else {
+			daoHmap = new HashMap<String, Object>();
+			daoHmap.put("parking_no", parkingSelectBox);
 			listType = "inputOutputCar";
-			list = pd.selectSearchParkingInputOutputDetailList(sqlSession,pi);
+			list = pd.selectSearchParkingInputOutputDetailList(sqlSession,pi,daoHmap);
 			hmap.put("listType", listType);
 			hmap.put("list", list);
 		}

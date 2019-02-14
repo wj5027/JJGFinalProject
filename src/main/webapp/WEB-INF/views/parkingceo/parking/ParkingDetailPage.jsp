@@ -54,7 +54,7 @@
                       <tr>
                         <td align="center"><div style="color: white;">우측의 박스를 클릭해주세요</div></td>
                         <td>
-						<select class="custom-select nav-link dropdown-toggle" id="inputGroupSelect01" name="selectParkingDetail">
+						<select class="custom-select nav-link dropdown-toggle" id="inputGroupSelect02" name="selectParkingDetail">
     						<option selected style="color: black;"  value="inputCar">박스를 클릭해주세요</option>
     						<option value="inputCar" style="color: black;">입차만</option>
     						<option value="outputCar" style="color: black;">출차만</option>
@@ -100,7 +100,7 @@
               <div class="card-body">
                 <div class="table-responsive"  style="overflow: hidden;">
                   <table class="table tablesorter " id="">
-                    <thead class=" text-primary">
+                    <thead class=" text-primary" id="theadId">
                       <tr>
                         <th>	입출차번호</th>
                         <th>회원 ID</th>
@@ -111,7 +111,7 @@
                         <th>구분</th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tbodyId">
                       <tr>
                         <td>1</td>
                         <td>asjk158</td>
@@ -122,6 +122,9 @@
                         <td>예약/일반</td>
                        </tr>
                     </tbody>
+                    <tfoot id="tfootId">
+                    
+                    </tfoot>
                   </table>
                 </div>
               </div>
@@ -130,7 +133,7 @@
         </div>
       
  
-      
+      <input type="hidden"  value="${loginUser.member_name }" id="hiddenMemberName">
       
       <!-- content -->
       </div>
@@ -206,15 +209,40 @@
 	//검색 버튼 메소드
 	function selectNoteBtn(data){
 		currentPage = data;
-		var selectBox = $("#inputGroupSelect01 option:selected").val();
+		var parkingSelectBox = $("#inputGroupSelect01 option:selected").val();
+		var inOutputSelectBox = $("#inputGroupSelect02 option:selected").val();
 		$.ajax({
 			url:"searchParkingDetail.pc",
 			type:"post",
 			data:{currentPage:currentPage,
 				vtnValue:vtnValue,
-				selectBox:selectBox},
+				parkingSelectBox:parkingSelectBox,
+				inOutputSelectBox:inOutputSelectBox},
 			success : function(data){
 				console.log(data);
+				
+				$theadId = $("#theadId");
+				$theadId.html('');
+				$tbodyId = $("#tbodyId");
+				$tbodyId.html('');
+				$tfootId = $("#tfootId");
+				$tfootId.html('');
+				$theadTr = $("<tr>");
+				
+				var memberName = $("#hiddenMemberName").val();
+				
+				if(data.hmap.listType == 'inputCar'){
+					
+					
+					
+					
+				}else if(data.hmap.listType == 'outputCar'){
+					
+				}else{
+					
+				}
+				
+				
 			},
 			error : function(data){
 				console.log("데이터 통신 실패");

@@ -5,10 +5,12 @@
   
   <mapper namespace="ParkingDetail">
   
-  <select id="inputCarListCount" resultType="_int">
+  <select id="inputCarListCount" parameterType="hashmap" resultType="_int">
   	SELECT COUNT(*) FROM ENTRY_EXIT_LIST EEL
 	LEFT JOIN MEMBER M ON (EEL.MEMBER_NO = M.MEMBER_NO)
+	LEFT JOIN PARKING P ON(EEL.PARKING_NO = P.PARKING_NO)
 	WHERE EEL.STATUS = '입차'
+	AND P.PARKING_NO = #{parking_no}
 	<if test="btnValue == 1">
 	<![CDATA[AND START_TIME <= SYSDATE +1]]>
 	</if>
@@ -28,10 +30,12 @@
 	<![CDATA[AND START_TIME <= SYSDATE - 365]]>
 	</if>
   </select>
-  <select id="outputCarListCount" resultType="_int">
+  <select id="outputCarListCount" parameterType="hashmap" resultType="_int" >
     SELECT COUNT(*) FROM ENTRY_EXIT_LIST EEL
 	LEFT JOIN MEMBER M ON (EEL.MEMBER_NO = M.MEMBER_NO)
+	LEFT JOIN PARKING P ON(EEL.PARKING_NO = P.PARKING_NO)
 	WHERE EEL.STATUS = '출차'
+	AND P.PARKING_NO = #{parking_no}
 		<if test="btnValue == 1">
 	<![CDATA[AND END_TIME <= SYSDATE +1]]>
 	</if>
@@ -51,9 +55,12 @@
 	<![CDATA[AND END_TIME <= SYSDATE - 365]]>
 	</if>
   </select>
-  <select id="inputOutputCarListCount" resultType="_int">
+  <select id="inputOutputCarListCount" parameterType="hashmap" resultType="_int" >
  	 SELECT COUNT(*) FROM ENTRY_EXIT_LIST EEL
  	 LEFT JOIN MEMBER M ON (EEL.MEMBER_NO = M.MEMBER_NO)
+ 	 LEFT JOIN PARKING P ON(EEL.PARKING_NO = P.PARKING_NO)
+ 	 WHERE EEL.STATUS IN ('출차','입차')
+ 	 AND P.PARKING_NO = #{parking_no}
   	<if test="btnValue == 1">
 	<![CDATA[AND START_TIME <= SYSDATE +1]]>
 	</if>
@@ -73,15 +80,80 @@
 	<![CDATA[AND START_TIME <= SYSDATE - 365]]>
 	</if>
   </select>
-  <select id="inputCarList" resultType="hashmap">
-  
+  <select id="inputCarList" parameterType="hashmap" resultType="hashmap">
+    SELECT M.MEMBER_ID,M.MEMBER_NAME,M.PHONE,EEL.CAR_NO,EEL.START_TIME,EEL.HOURS,EEL.END_TIME,EEL.STATUS,FEE,EEL.EE_TYPE,EEL.RES_NO FROM ENTRY_EXIT_LIST EEL
+	LEFT JOIN MEMBER M ON (EEL.MEMBER_NO = M.MEMBER_NO)
+	LEFT JOIN PARKING P ON(EEL.PARKING_NO = P.PARKING_NO)
+	WHERE EEL.STATUS = '입차'
+	AND P.PARKING_NO = #{parking_no}
+	<if test="btnValue == 1">
+	<![CDATA[AND START_TIME <= SYSDATE +1]]>
+	</if>
+	<if test="btnValue == 7">
+	<![CDATA[AND START_TIME <= SYSDATE - 7]]>
+	</if>
+	<if test="btnValue == 30">
+	<![CDATA[AND START_TIME <= SYSDATE - 30]]>
+	</if>
+	<if test="btnValue == 90">
+	<![CDATA[AND START_TIME <= SYSDATE - 90]]>
+	</if>
+	<if test="btnValue == 180">
+	<![CDATA[AND START_TIME <= SYSDATE - 180]]>
+	</if>
+	<if test="btnValue == 365">
+	<![CDATA[AND START_TIME <= SYSDATE - 365]]>
+	</if>
   </select>
-  <select id="outputCarList" resultType="hashmap">
-  
+  <select id="outputCarList" parameterType="hashmap" resultType="hashmap">
+    SELECT M.MEMBER_ID,M.MEMBER_NAME,M.PHONE,EEL.CAR_NO,EEL.START_TIME,EEL.HOURS,EEL.END_TIME,EEL.STATUS,FEE,EEL.EE_TYPE,EEL.RES_NO FROM ENTRY_EXIT_LIST EEL
+	LEFT JOIN MEMBER M ON (EEL.MEMBER_NO = M.MEMBER_NO)
+	LEFT JOIN PARKING P ON(EEL.PARKING_NO = P.PARKING_NO)
+	WHERE EEL.STATUS = '출차'
+	AND P.PARKING_NO = #{parking_no}
+	<if test="btnValue == 1">
+	<![CDATA[AND END_TIME <= SYSDATE +1]]>
+	</if>
+	<if test="btnValue == 7">
+	<![CDATA[AND END_TIME <= SYSDATE - 7]]>
+	</if>
+	<if test="btnValue == 30">
+	<![CDATA[AND END_TIME <= SYSDATE - 30]]>
+	</if>
+	<if test="btnValue == 90">
+	<![CDATA[AND END_TIME <= SYSDATE - 90]]>
+	</if>
+	<if test="btnValue == 180">
+	<![CDATA[AND END_TIME <= SYSDATE - 180]]>
+	</if>
+	<if test="btnValue == 365">
+	<![CDATA[AND END_TIME <= SYSDATE - 365]]>
+	</if>
   </select>
-  <select id="inputOutputCarList" resultType="hashmap">
-  
+  <select id="inputOutputCarList" parameterType="hashmap" resultType="hashmap">
+        SELECT M.MEMBER_ID,M.MEMBER_NAME,M.PHONE,EEL.CAR_NO,EEL.START_TIME,EEL.HOURS,EEL.END_TIME,EEL.STATUS,FEE,EEL.EE_TYPE,EEL.RES_NO FROM ENTRY_EXIT_LIST EEL
+		LEFT JOIN MEMBER M ON (EEL.MEMBER_NO = M.MEMBER_NO)
+		LEFT JOIN PARKING P ON(EEL.PARKING_NO = P.PARKING_NO)
+		WHERE EEL.STATUS IN ('입차','출차')
+		AND P.PARKING_NO = #{parking_no}
+		<if test="btnValue == 1">
+		<![CDATA[AND START_TIME <= SYSDATE +1]]>
+		</if>
+		<if test="btnValue == 7">
+		<![CDATA[AND START_TIME <= SYSDATE - 7]]>
+		</if>
+		<if test="btnValue == 30">
+		<![CDATA[AND START_TIME <= SYSDATE - 30]]>
+		</if>
+		<if test="btnValue == 90">
+		<![CDATA[AND START_TIME <= SYSDATE - 90]]>
+		</if>
+		<if test="btnValue == 180">
+		<![CDATA[AND START_TIME <= SYSDATE - 180]]>
+		</if>
+		<if test="btnValue == 365">
+		<![CDATA[AND START_TIME <= SYSDATE - 365]]>
+		</if>
   </select>
-  
   
   </mapper>
