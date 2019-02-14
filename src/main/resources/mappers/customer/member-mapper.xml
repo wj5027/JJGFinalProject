@@ -221,6 +221,7 @@
 		AND MEMBER_ID = #{member_id}
 	</select>
 	
+	
 	<insert id="insertMember" parameterType="Member">
 	 INSERT INTO MEMBER
 	 VALUES (MNO_SEQ.NEXTVAL, #{member_id}, #{member_pwd}, 'U', 'M', '0', #{email}, #{phone}, #{member_name}, #{member_carNo},
@@ -263,6 +264,7 @@
 		AND STATUS = 'Y'
 	</select>
 	
+
 	<!-- 해당하는 오일 조회 -->
 	<select id="searchOilList" resultMap="OilListView" parameterType="com.kh.tsp.customer.model.vo.OilList">
 		<choose>
@@ -372,5 +374,46 @@
 			</when>
 		</choose>
 	</select>
+
+	<!-- 이메일, 아이디랑 일치하는 유저 정보 찾기 -->
+	<select id="chkForPwd" resultMap="MemberResultSet" parameterType="Member">
+		SELECT * 
+		FROM MEMBER
+		WHERE MEMBER_ID = #{member_id}
+		AND EMAIL = #{email}
+		AND STATUS = 'Y'
+	</select>
+	
+	<!-- 암호화된 임시비밀번호 등록 -->
+	<update id="insertTempPwd" parameterType="Member" >
+		UPDATE MEMBER
+		SET MEMBER_PASSWORD = #{member_pwd}
+		WHERE MEMBER_ID = #{member_id}
+	</update>
+	
+	<!-- 내 정보 리스트 -->
+	<select id="selectMyInfo" resultMap="MemberResultSet" parameterType="Member">
+		SELECT * 
+		FROM MEMBER
+		WHERE MEMBER_ID= #{member_id}
+		
+	</select>
+	
+	<!-- 비밀번호 제외한 내 정보 수정 -->
+	<update id="changeInfo" parameterType="Member">
+		UPDATE MEMBER
+		SET MEMBER_CARNO = #{member_carNo}, PHONE = #{phone}, EMAIL = #{email}
+		WHERE MEMBER_ID = #{member_id}
+		
+	</update> 
+	
+	<!-- 비밀번호 포함한 내 정보 수정 -->
+	<update id="changePwd" parameterType="Member">
+		UPDATE MEMBER
+		SET MEMBER_PASSWORD = #{member_pwd}, MEMBER_CARNO=#{member_carNo,jdbcType=VARCHAR}, PHONE = #{phone}, EMAIL = #{email}
+		WHERE MEMBER_ID = #{member_id}
+		
+	</update>
+
 	
 </mapper>

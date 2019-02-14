@@ -43,14 +43,14 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 		
 		String encPassword = cmd.selectEncPassword(sqlSession, m);
 		
-		System.out.println("로그인 요청 메소드 실행됨: "+encPassword);
+		//System.out.println("로그인 요청 메소드 실행됨: "+encPassword);
 		
 		if(!passwordEncoder.matches(m.getMember_pwd(), encPassword)) {
 			throw new LoginException("로그인 실패실패");
 			
 		}else {
 			loginUser = cmd.selectCheckMember(sqlSession,m);
-			System.out.println("loginUser: "+loginUser);
+			//System.out.println("loginUser: "+loginUser);
 		}
 		
 		return loginUser;
@@ -165,6 +165,7 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 
 	}
 
+
 	@Override
 	public ArrayList<OilList> searchOilList(OilList searchInfo, PageInfo pi) {
 		return cmd.searchOilList(sqlSession, searchInfo, pi);
@@ -173,6 +174,19 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 	@Override
 	public int getOilListCount(OilList searchInfo) {
 		return cmd.getOilListCount(sqlSession, searchInfo);
+
+	//비밀번호 찾기
+	@Override
+	public Member chkForPwd(Member m) {
+
+		return cmd.chkForPwd(sqlSession, m);
+	}
+	//임시비밀번호 등록
+	@Override
+	public int insertTempPwd(Member m) {
+
+		return cmd.insertTempPwd(sqlSession, m);
+
 	}
 	
 	

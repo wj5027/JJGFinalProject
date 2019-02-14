@@ -59,9 +59,15 @@ public interface CustomerMainDao {
 
 	String selectEncPassword(SqlSessionTemplate sqlSession, Member m);
 
+
 	ArrayList<OilList> searchOilList(SqlSessionTemplate sqlSession, OilList searchInfo, PageInfo pi);
 
 	int getOilListCount(SqlSessionTemplate sqlSession, OilList searchInfo);
+
+	Member chkForPwd(SqlSessionTemplate sqlSession, Member m);
+
+	int insertTempPwd(SqlSessionTemplate sqlSession, Member m);
+
 
 
 

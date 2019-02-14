@@ -54,7 +54,14 @@ public interface CustomerMainService {
 
 	Member emailCheck(String email);
 
+
 	ArrayList<OilList> searchOilList(OilList searchInfo, PageInfo pi);
+
+	Member chkForPwd(Member m);
+
+	int insertTempPwd(Member m);
+
+
 
 	int getOilListCount(OilList searchInfo);
 	

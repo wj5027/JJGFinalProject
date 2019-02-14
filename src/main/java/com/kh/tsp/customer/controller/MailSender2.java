@@ -47,5 +47,22 @@ public class MailSender2 {
 		return hmap;
 	}
 	
+	//임시 비밀번호 발송
+	@RequestMapping(value="sendTempPwd.cu", method=RequestMethod.POST)
+	public @ResponseBody HashMap<String, Object> TempPwdSender(@RequestParam String tempPwd,@RequestParam String email,HttpServletResponse response) throws MessagingException, UnsupportedEncodingException{
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		//임시 5자리 번호
+		System.out.println("임시 비밀번호 : "+tempPwd);
+		//유저 이메일
+		System.out.println("사용자 이메일 : "+email);
+		MailUtil sendMail = new MailUtil(SendingMail);
+		sendMail.setSubject("지주갑 임시 비밀번호 발급용 메일입니다.");
+		sendMail.setText(new StringBuffer().append("<h1>임시비밀 번호입니다.</h1>").append("회원님의 임시 비밀번호는 : "+tempPwd + "입니다.").toString());
+		sendMail.setFrom("matthaeus5370@gmail.com", "지주갑 관리자");
+		sendMail.setTo(email);
+		sendMail.send();
+		hmap.put("sendMail", "성공");
+		return hmap;
+	}
 	
 }
