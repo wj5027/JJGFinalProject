@@ -52,6 +52,10 @@ public interface CustomerMainService {
 
 	Member emailCheck(String email);
 
+	Member chkForPwd(Member m);
+
+	int insertTempPwd(Member m);
+
 
 
 	

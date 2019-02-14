@@ -23,8 +23,8 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 	@Override
 	public Member selectCheckMember(SqlSessionTemplate sqlSession, Member m) {
 		
-		System.out.println("로그인 체크하는 메소드 dao: "+sqlSession.selectOne("Member.selectCheckMember",m));
-		System.out.println("dao 비밀번호 : "+m.getMember_pwd());
+		//System.out.println("로그인 체크하는 메소드 dao: "+sqlSession.selectOne("Member.selectCheckMember",m));
+		//System.out.println("dao 비밀번호 : "+m.getMember_pwd());
 		
 		return sqlSession.selectOne("Member.selectCheckMember",m);
 	}
@@ -161,7 +161,7 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 	//암호화된 비밀번호 조회용 메소드
 	@Override
 	public String selectEncPassword(SqlSessionTemplate sqlSession, Member m) {
-		System.out.println("비밀번호 조회 메소드 dao"+m);
+		//System.out.println("비밀번호 조회 메소드 dao"+m);
 		return sqlSession.selectOne("Member.selectPwd", m.getMember_id());
 	}
 
@@ -175,5 +175,21 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 		System.out.println(sqlSession);
 		sqlSession.update("Member.updateCustomerOilCharge", chargeOil);
 	}
+	//비밀번호 찾기
+	@Override
+	public Member chkForPwd(SqlSessionTemplate sqlSession, Member m) {
+
+		return sqlSession.selectOne("Member.chkForPwd", m);
+	}
+	
+	//임시비밀번호 등록
+	@Override
+	public int insertTempPwd(SqlSessionTemplate sqlSession, Member m) {
+
+		return sqlSession.update("Member.insertTempPwd", m);
+	}
+	
+	
+	
 
 }

@@ -22,10 +22,12 @@
 		  <div class="col-md-12" height="500px">
             <div class="card ">
               <div class="card-header">
-                <h4 class="card-title" align="center">내정보수정</h4>
+                <h4 class="card-title" align="center">내 정보</h4>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
+                  <form id="infoForm" action="changeMyInfo.cu" method="post">
+                
                   <table class="table tablesorter " id="">
                     <tbody>
                       <tr>
@@ -33,7 +35,7 @@
                         <td>
                   			<div class="row">
 		                    	<div class="form-group">
-                        			<input type="text" class="form-control" name="name" value="홍길동" disabled>
+                        			<input type="text" class="form-control" name="member_name" value="${ list.member_name }" readOnly>
                         		</div>
                         	</div>
                         </td>
@@ -43,7 +45,7 @@
                         <td>
                   			<div class="row">
 		                    	<div class="form-group">
-                        			<input type="text" class="form-control" name="userId" value="user01" disabled>
+                        			<input type="text" class="form-control" name="member_id" value="${ list.member_id }" readOnly>
                         		</div>
                         	</div>
                         </td>
@@ -53,7 +55,7 @@
                         <td>
                   			<div class="row">
 		                    	<div class="form-group">
-                        			<input type="password" class="form-control" name="password">
+                        			<input type="password" class="form-control" id="password" name="member_pwd">
                         		</div>
                         	</div>
                         </td>
@@ -63,7 +65,7 @@
                         <td>
                   			<div class="row">
 		                    	<div class="form-group">
-                        			<input type="password" class="form-control" name="password2">
+                        			<input type="password" class="form-control" id="password2" name="password2">
                         		</div>
                         	</div>
                         </td>
@@ -73,7 +75,7 @@
                         <td>
                   			<div class="row">
 		                    	<div class="form-group">
-                        			<input type="text" class="form-control" id="carNo">
+                        			<input type="text" class="form-control" id="carNo" name="member_carNo" value="${ list.member_carNo }">
                         		</div>
                         	</div>
                         </td>
@@ -83,7 +85,7 @@
                         <td>
                   			<div class="row">
 		                    	<div class="form-group">
-                        			<input type="text" class="form-control" name="phone">
+                        			<input type="text" class="form-control" name="phone" value="${ list.phone }">
                         		</div>
                         	</div>
                         </td>
@@ -93,16 +95,17 @@
                         <td>
                   			<div class="row">
 		                    	<div class="form-group">
-                        			<input type="email" class="form-control" name="email">
+                        			<input type="email" class="form-control" name="email" value="${ list.email }">
                         		</div>
                         	</div>
                         </td>
                       </tr>  
                        </tbody>
+                      
                   </table>
-                     
+                      </form>
                       	<div align="center">
-                      		<button class="btn btn-info btn-sm">수정</button>
+                      		<button class="btn btn-info btn-sm" onclick="edit();">수정</button>
                       	</div>                  
                    
                 </div>
@@ -145,4 +148,20 @@
  
 </body>
 
+<script>
+	function edit(){
+		var pass1 = $("#password").val();
+		var pass2 = $("#password2").val();
+		
+		console.log(pass1);
+		console.log(pass2);
+		
+		if(pass1 != pass2){
+			alert("비밀번호가 일치하지 않습니다");
+		}else{
+			//alert("회원정보가 수정되었습니다");
+			$("#infoForm").submit();
+		}
+	}
+</script>
 </html>
