@@ -72,7 +72,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 													<tr>
 														<td align="right">상태구분</td>
 														<td style="padding-left: 10%;">
-															<div style="width: 45%;">
+															<div style="width: 60%;">
 																<select class="custom-select nav-link dropdown-toggle"
 																	id="selectStatus" name="selectStatus"
 																	style="background-color: rgb(34, 42, 65);">
@@ -87,7 +87,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 													<tr>
 														<td align="right">쿠폰구분</td>
 														<td style="padding-left: 10%;">
-															<div style="width: 45%;">
+															<div style="width: 60%;">
 																<select class="custom-select nav-link dropdown-toggle"
 																	id="selectCoupon" name="selectCoupon"
 																	style="background-color: rgb(34, 42, 65);">
@@ -104,7 +104,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 															<div class="row">
 																<div class="form-group" style="margin-left: 4%; margin-top: 3%;">
 																	<input type="text" class="form-control" id="memberId"
-																		name="memberId" placeholder="아이디를 입력해주세요">
+																		name="memberId" placeholder="아이디를 입력해주세요" value="${memberId}">
 																</div>
 															</div>
 														</td>
@@ -115,7 +115,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 															<div class="row">
 																<div class="form-group" style="margin-left: 4%; margin-top: 3%;">
 																	<input type="text" class="form-control" id="parkingName"
-																		name="parkingName" placeholder="주차장을 입력해주세요">
+																		name="parkingName" placeholder="주차장을 입력해주세요" value="${parkingName}">
 																</div>
 															</div>
 														</td>
@@ -199,8 +199,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 										<div id="pagingArea" align="center">
 											<!-- 첫번째 페이지 -->
 											<c:if test="${pi.currentPage != 1}">
-												<c:url var="blistFirst" value="selectCouponCertification.ad">
+												<c:url var="blistFirst" value="selectSearchCouponList.ad">
 													<c:param name="currentPage" value="1" />
+													<c:param name="selectStatus" value="${selectStatus}" />
+													<c:param name="selectCoupon" value="${selectCoupon}" />
+													<c:param name="memberId" value="${memberId}" />
+													<c:param name="parkingName" value="${parkingName}" />
 												</c:url>
 												<a href="${blistFirst}"><button
 														class="btn btn-info animation-on-hover btn-sm"><<</button></a>
@@ -215,8 +219,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 													class="btn btn-info animation-on-hover btn-sm"><</button>
 											</c:if>
 											<c:if test="${pi.currentPage > 1}">
-												<c:url var="blistBack" value="/selectCouponCertification.ad">
+												<c:url var="blistBack" value="/selectSearchCouponList.ad">
 													<c:param name="currentPage" value="${pi.currentPage-1}" />
+													<c:param name="selectStatus" value="${selectStatus}" />
+													<c:param name="selectCoupon" value="${selectCoupon}" />
+													<c:param name="memberId" value="${memberId}" />
+													<c:param name="parkingName" value="${parkingName}" />
 												</c:url>
 												<a href="${blistBack}"><button
 														class="btn btn-info animation-on-hover btn-sm"><</button></a>
@@ -230,8 +238,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 														class="btn btn-info animation-on-hover btn-sm">${p}</button>
 												</c:if>
 												<c:if test="${p ne pi.currentPage}">
-													<c:url var="blistCheck" value="selectCouponCertification.ad">
+													<c:url var="blistCheck" value="selectSearchCouponList.ad">
 														<c:param name="currentPage" value="${p}" />
+														<c:param name="selectStatus" value="${selectStatus}" />
+														<c:param name="selectCoupon" value="${selectCoupon}" />
+														<c:param name="memberId" value="${memberId}" />
+														<c:param name="parkingName" value="${parkingName}" />
 													</c:url>
 													<a href="${blistCheck}"><button
 															class="btn btn-info animation-on-hover btn-sm">${p}</button></a>
@@ -243,8 +255,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 													class="btn btn-info animation-on-hover btn-sm">></button>
 											</c:if>
 											<c:if test="${pi.currentPage < pi.maxPage}">
-												<c:url var="blistEnd" value="selectCouponCertification.ad">
+												<c:url var="blistEnd" value="selectSearchCouponList.ad">
 													<c:param name="currentPage" value="${pi.currentPage+1}" />
+													<c:param name="selectStatus" value="${selectStatus}" />
+													<c:param name="selectCoupon" value="${selectCoupon}" />
+													<c:param name="memberId" value="${memberId}" />
+													<c:param name="parkingName" value="${parkingName}" />
 												</c:url>
 												<a href="${blistEnd}"><button
 														class="btn btn-info animation-on-hover btn-sm">></button></a>
@@ -252,8 +268,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 											<!-- 끝 페이지 -->
 											<c:if test="${pi.currentPage != pi.maxPage}">
-												<c:url var="blistEnd2" value="selectCouponCertification.ad">
+												<c:url var="blistEnd2" value="selectSearchCouponList.ad">
 													<c:param name="currentPage" value="${pi.maxPage}" />
+													<c:param name="selectStatus" value="${selectStatus}" />
+													<c:param name="selectCoupon" value="${selectCoupon}" />
+													<c:param name="memberId" value="${memberId}" />
+													<c:param name="parkingName" value="${parkingName}" />
 												</c:url>
 												<a href="${blistEnd2}"><button
 														class="btn btn-info animation-on-hover btn-sm">>></button></a>
@@ -450,7 +470,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 		</div>
 		<!-- 반송 완료 상세 보기 모달 끝 -->
 		
-		<!-- 반송 사유 ajax --><script>
+		<!-- 반송 사유 ajax -->
+		<script>
 			var reqNo = 0;
 			function selectRefuseReason(no) {
 				reqNo = $("#listTable td").parent().eq(no).children().eq(0).text();
@@ -483,6 +504,26 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 		<!-- 반송 사유 ajax 끝 -->
 	<!-- /////////////////////////////////// 모달 끝 /////////////////////////////////////////// -->
 	</c:if>
+	
+	<!-- 검색 후 값 유지 -->
+	<input type="hidden" value="${selectStatus}" id="inputSelectStatus">
+	<input type="hidden" value="${selectCoupon}" id="inputSelectCoupon">
+	<script>
+		$(function () {
+			/* 자동 선택 - 상태구분 */
+			for(var i=0; i<$("#selectStatus option").length; i++){
+				if($("#inputSelectStatus").val() == $("#selectStatus option").eq(i).val()){
+					$("#selectStatus").val($('#inputSelectStatus').val()).prop("selected", true);
+				}							
+			}
+			/* 자동 선택 - 쿠폰구분 */
+			for(var i=0; i<$("#selectCoupon option").length; i++){
+				if($("#inputSelectCoupon").val() == $("#selectCoupon option").eq(i).val()){
+					$("#selectCoupon").val($('#inputSelectCoupon').val()).prop("selected", true);
+				}							
+			}
+		});
+	</script>
 
 </body>
 </html>

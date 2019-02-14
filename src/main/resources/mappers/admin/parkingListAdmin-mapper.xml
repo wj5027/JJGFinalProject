@@ -3,32 +3,71 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-  <mapper namespace="CouponAdmin">
-  	<resultMap type="com.kh.tsp.admin.model.vo.CouponRequestList" id="CouponAdminResultSet">
-  		<id property="reqNo" column="COUPON_REQ_NO"/>
-  		<result property="couponName" column="COUPON_NAME"/>
-  		<result property="couponType" column="COUPON_TYPE"/>
-  		<result property="couponStartDate" column="COUPON_START_DATE"/>
-  		<result property="couponEndDate" column="COUPON_END_DATE"/>
-  		<result property="amount" column="AMOUNT"/>
-  		<result property="remark" column="REMARK"/>
-  		<result property="memberNo" column="MEMBER_NO"/>
-  		<result property="parkingNo" column="PARKING_NO"/>
-  		<result property="refuseReason" column="REFUSE_REASON"/>
-  		<result property="couponOdiscount" column="COUPON_ODISCOUNT"/>
-  		<result property="couponPdiscount" column="COUPON_PDISCOUNT"/>
-  		<result property="couponReqStatus" column="COUPON_REQ_STATUS"/>
-  		<result property="parkingName" column="PARKING_NAME"/>
-  		<result property="memberId" column="MEMBER_ID"/>
+  <mapper namespace="ParkingListAdmin">
+  	<resultMap type="com.kh.tsp.admin.model.vo.ParkingListAdmin" id="ParkingListAdminResultSet">
+			<id property="parkingListNo" column="PARKING_LIST_NO"/>
+			<result property="parkingListName" column="PARKING_LIST_NAME"/>
+			<result property="parkingListOperateType" column="PARKING_LIST_OPERATE_TYPE"/>
+			<result property="parkingListParkingSize" column="PARKING_LIST_PARKING_SIZE"/>
+			<result property="parkingListOpenDays" column="PARKING_LIST_OPEN_DAYS"/>
+			<result property="parkingListWeekdayStime" column="PARKING_LIST_WEEKDAY_STIME"/>
+			<result property="parkingListWeekdayEtime" column="PARKING_LIST_WEEKDAY_ETIME"/>
+			<result property="parkingListSatStime" column="PARKING_LIST_SAT_STIME"/>
+			<result property="parkingListSatEtime" column="PARKING_LIST_SAT_ETIME"/>
+			<result property="parkingListHollydayStime" column="PARKING_LIST_HOLIDAY_STIME"/>
+			<result property="parkingListHollydayEtime" column="PARKING_LIST_HOLIDAY_ETIME"/>
+			<result property="parkingListPriceInfo" column="PARKING_LIST_PRICE_INFO"/>
+			<result property="parkingListNtime" column="PARKING_LIST_NTIME"/>	
+			<result property="parkingListNprice" column="PARKING_LIST_NPRICE"/>
+			<result property="parkingListAtime" column="PARKING_LIST_ATIME"/>
+			<result property="parkingListAprice" column="PARKING_LIST_APRICE"/>
+			<result property="parkingListPayType" column="PARKING_LIST_PAY_TYPE"/>
+			<result property="parkingListStatus" column="PARKING_LIST_STATUS"/>
+			
+			<result property="memberNo" column="MEMBER_NO"/>
+			<result property="parkingNo" column="PARKING_NO"/>			
+			<result property="parkingListReason" column="PARKING_LIST_REASON"/>
+			<result property="modifyDate" column="MODIFY_DATE"/>
+			
+			<!-- 주차장 테이블 -->
+			<result property="parkingType" column="PARKING_TYPE"/>			
+			<result property="parkingAddress" column="ADDRESS"/>
+			<result property="parkingRoadAddress" column="ROAD_ADDRESS"/>			
+			<result property="remarks" column="REMARKS"/>
+			<result property="parkingManagement" column="PARKING_MANGEMENT"/>
+			<result property="allianceDate" column="ALLIANCE_DATE"/>
+
+			<!-- 사업자 -->
+			<result property="phone" column="PHONE"/>		
+			<result property="memberId" column="MEMBER_ID"/>			
   	</resultMap>
+
+	<!-- 주차장 전체 수 -->
+	<select id="getListCount" resultType="_int">
+  		SELECT COUNT(*)
+		FROM PARKING_LIST
+  	</select>
   	
+  	<select id="selectParkingList" resultMap="ParkingListAdminResultSet">
+		SELECT PL.PARKING_LIST_NO ,PL.PARKING_LIST_NAME ,PL.PARKING_LIST_OPERATE_TYPE ,PL.PARKING_LIST_PARKING_SIZE 
+		            ,PL.PARKING_LIST_OPEN_DAYS ,PL.PARKING_LIST_WEEKDAY_STIME ,PL.PARKING_LIST_WEEKDAY_ETIME ,PL.PARKING_LIST_SAT_STIME 
+		            ,PL.PARKING_LIST_SAT_ETIME ,PL.PARKING_LIST_HOLIDAY_STIME ,PL.PARKING_LIST_HOLIDAY_ETIME ,PL.PARKING_LIST_PRICE_INFO 
+		            ,PL.PARKING_LIST_NTIME ,PL.PARKING_LIST_NPRICE ,PL.PARKING_LIST_ATIME ,PL.PARKING_LIST_APRICE ,PL.PARKING_LIST_PAY_TYPE 
+		            ,PL.PARKING_LIST_STATUS ,PL.MEMBER_NO ,PL.PARKING_NO ,PL.PARKING_LIST_REASON ,PL.MODIFY_DATE, P.ALLIANCE_DATE
+		            ,P.PARKING_TYPE ,P.ADDRESS ,P.ROAD_ADDRESS ,P.REMARKS ,P.PARKING_MANGEMENT ,M.MEMBER_ID ,M.PHONE
+		FROM PARKING_LIST PL
+		INNER JOIN PARKING P ON(P.PARKING_NO=PL.PARKING_NO)
+		INNER JOIN MEMBER M ON(M.MEMBER_NO=PL.MEMBER_NO)
+		ORDER BY PARKING_LIST_NO DESC
+  	</select>
+
 	<!-- 쿠폰 전체 수 -->
-  	<select id="getListCount" resultType="_int">
+  	<!-- <select id="getListCount" resultType="_int">
   		SELECT COUNT(*)
 		FROM COUPON_REQUEST_LIST
   	</select>
   	
-  	<!-- 쿠폰 전체 리스트 -->
+  	쿠폰 전체 리스트
   	<select id="selectCouponList" resultMap="CouponAdminResultSet">
   		SELECT CRL.COUPON_REQ_NO, CRL.COUPON_NAME, CRL.COUPON_TYPE, CRL.COUPON_START_DATE, 
 		            CRL.COUPON_END_DATE, CRL.AMOUNT, CRL.REMARK, CRL.MEMBER_NO, CRL.PARKING_NO, CRL.REFUSE_REASON, 
@@ -39,21 +78,21 @@
   		ORDER BY COUPON_REQ_NO DESC
   	</select>
   	
-  	<!-- 쿠폰 발급 -->
+  	쿠폰 발급
   	<update id="updateCoupon"  parameterType="_int">
   		UPDATE COUPON_REQUEST_LIST
 		SET COUPON_REQ_STATUS = '발급완료'
 		WHERE COUPON_REQ_NO =  #{reqNo}
   	</update>
   	
-  	<!-- 쿠폰 반송 -->
+  	쿠폰 반송
   	<update id="deleteCoupon"  parameterType="CouponAdmin">
   		UPDATE COUPON_REQUEST_LIST
 		SET COUPON_REQ_STATUS = '반송', REFUSE_REASON = #{refuseReason}
 		WHERE COUPON_REQ_NO = #{reqNo}
   	</update>
   	
-  	<!-- 반송 사유 ajax -->
+  	반송 사유 ajax
   	<select id="selectRefuseReason" resultMap="CouponAdminResultSet" parameterType="_int">
   		SELECT CRL.COUPON_REQ_NO, CRL.COUPON_NAME, CRL.COUPON_TYPE, CRL.COUPON_START_DATE, 
 		            CRL.COUPON_END_DATE, CRL.AMOUNT, CRL.REMARK, CRL.MEMBER_NO, CRL.PARKING_NO, CRL.REFUSE_REASON, 
@@ -64,13 +103,12 @@
   		WHERE CRL.COUPON_REQ_NO = #{reqNo}
   	</select>
   	
-  	<!-- 쿠폰 검색 수 -->
+  	쿠폰 검색 수
   	<select id="getSearchListCount" resultType="_int" parameterType="java.util.Map">
 	  	SELECT COUNT(*)
 		FROM COUPON_REQUEST_LIST CRL
 		INNER JOIN MEMBER M ON (CRL.MEMBER_NO = M.MEMBER_NO)
 		INNER JOIN PARKING P ON (CRL.PARKING_NO = P.PARKING_NO)
-		WHERE 0=0
 		<if test="selectStatus!='' and (selectStatus eq 'A'.toString())">
 			AND (CRL.COUPON_REQ_STATUS = '신청중' 
 					OR CRL.COUPON_REQ_STATUS = '발급완료' 
@@ -102,7 +140,7 @@
 		</if>
   	</select>
   	
-  	<!-- 쿠폰 검색 결과 -->
+  	쿠폰 검색 결과
   	<select id="selectSearchCouponList" resultMap="CouponAdminResultSet" parameterType="java.util.Map">		
   		SELECT CRL.COUPON_REQ_NO, CRL.COUPON_NAME, CRL.COUPON_TYPE, CRL.COUPON_START_DATE, 
 		            CRL.COUPON_END_DATE, CRL.AMOUNT, CRL.REMARK, CRL.MEMBER_NO, CRL.PARKING_NO, CRL.REFUSE_REASON, 
@@ -110,7 +148,6 @@
 		FROM COUPON_REQUEST_LIST CRL
 		INNER JOIN MEMBER M ON (CRL.MEMBER_NO = M.MEMBER_NO)
 		INNER JOIN PARKING P ON (CRL.PARKING_NO = P.PARKING_NO)
-		WHERE 0=0
 		<if test="selectStatus!='' and (selectStatus eq 'A'.toString())">
 			AND (CRL.COUPON_REQ_STATUS = '신청중' 
 					OR CRL.COUPON_REQ_STATUS = '발급완료' 
@@ -142,5 +179,5 @@
 		</if>
   		ORDER BY COUPON_REQ_NO DESC
   	</select>
-  	
+  	 -->
   </mapper>

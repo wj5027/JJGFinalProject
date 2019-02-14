@@ -108,16 +108,9 @@ public class boardQnAController {
 	}
 
 	// 문의 게시판 검색
-	@RequestMapping("selectSearchBoardQnAList.ad")
+	@RequestMapping(value = "/selectSearchBoardQnAList.ad", method = {RequestMethod.GET, RequestMethod.POST})
 	public String searchBoardQnAList2(HttpServletRequest request, HttpServletResponse response,
 												String selectStatus, String mId, String bTitle, String today, String startDate, String endDate) {
-
-		System.out.println("selectStatus : "+selectStatus);
-		System.out.println("mId : "+mId);
-		System.out.println("bTitle : "+bTitle);
-		System.out.println("today : "+today);
-		System.out.println("startDate : "+startDate);
-		System.out.println("endDate : "+endDate);
 		
 		int currentPage =1;
 		if(request.getParameter("currentPage") != null) {
@@ -131,6 +124,13 @@ public class boardQnAController {
 			ArrayList<Board> list =bs.selectSearchBoardQnAList(pi, selectStatus, mId, bTitle, today, startDate, endDate);
 			request.setAttribute("pi", pi);
 			request.setAttribute("list", list);
+
+			request.setAttribute("selectStatus", selectStatus);
+			request.setAttribute("mId", mId);
+			request.setAttribute("bTitle", bTitle);
+			request.setAttribute("today", today);
+			request.setAttribute("startDate", startDate);
+			request.setAttribute("endDate", endDate);
 
 			System.out.println("list : "+list);
 			if(listCount==0 || list == null) {

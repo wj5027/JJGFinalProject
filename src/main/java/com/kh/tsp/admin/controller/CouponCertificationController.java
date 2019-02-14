@@ -131,11 +131,6 @@ public class CouponCertificationController {
 	@RequestMapping("selectSearchCouponList.ad")
 	public String searchBoardQnAList2(HttpServletRequest request, HttpServletResponse response,
 												String selectStatus, String selectCoupon, String memberId, String parkingName) {
-
-		System.out.println("selectStatus : "+selectStatus);
-		System.out.println("selectCoupon : "+selectCoupon);
-		System.out.println("memberId : "+memberId);
-		System.out.println("parkingName : "+parkingName);
 		
 		int currentPage =1;
 		if(request.getParameter("currentPage") != null) {
@@ -149,6 +144,11 @@ public class CouponCertificationController {
 			ArrayList<CouponRequestList> list =cs.selectSearchCouponList(pi, selectStatus, selectCoupon, memberId, parkingName);
 			request.setAttribute("pi", pi);
 			request.setAttribute("list", list);
+
+			request.setAttribute("selectStatus", selectStatus);
+			request.setAttribute("selectCoupon", selectCoupon);
+			request.setAttribute("memberId", memberId);
+			request.setAttribute("parkingName", parkingName);
 
 			System.out.println("list : "+list);
 			if(listCount==0 || list == null) {

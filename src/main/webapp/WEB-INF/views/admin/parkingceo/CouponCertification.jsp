@@ -71,7 +71,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 													<tr>
 														<td align="right">상태구분</td>
 														<td style="padding-left: 10%;">
-															<div style="width: 45%;">
+															<div style="width: 60%;">
 																<select class="custom-select nav-link dropdown-toggle"
 																	id="selectStatus" name="selectStatus"
 																	style="background-color: rgb(34, 42, 65);">
@@ -86,7 +86,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 													<tr>
 														<td align="right">쿠폰구분</td>
 														<td style="padding-left: 10%;">
-															<div style="width: 45%;">
+															<div style="width: 60%;">
 																<select class="custom-select nav-link dropdown-toggle"
 																	id="selectCoupon" name="selectCoupon"
 																	style="background-color: rgb(34, 42, 65);">
