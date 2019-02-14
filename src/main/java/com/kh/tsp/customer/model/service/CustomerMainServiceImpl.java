@@ -174,6 +174,7 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 	@Override
 	public int getOilListCount(OilList searchInfo) {
 		return cmd.getOilListCount(sqlSession, searchInfo);
+	}
 
 	//비밀번호 찾기
 	@Override
