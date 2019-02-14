@@ -100,6 +100,19 @@
 			<result property="userYN" column="USER_YN"/>	
 	</resultMap>
 	
+	<resultMap type="com.kh.tsp.customer.model.vo.OilList" id="OilListView">
+			<id property="oilListNo" column="OIL_LIST_NO"/>
+			<result property="oilListType" column="OIL_LIST_TYPE"/>
+			<result property="oilListDate" column="OIL_LIST_DATE"/>
+			<result property="oil" column="OIL"/>
+			<result property="memberNo" column="MEMBER_NO"/>
+			<result property="parkingNo" column="PARKING_NO"/>
+			<result property="resNo" column="RES_NO"/>
+			<result property="paymentNo" column="PAYMENT_NO"/>
+			<result property="transNo" column="TRANS_NO"/>
+			<result property="parkingName" column="PARKING_NAME"/>
+	</resultMap>
+	
 	<select id="selectCheckMember" resultMap="MemberResultSet" parameterType="Member">
 		SELECT * 
 		FROM MEMBER
@@ -251,6 +264,117 @@
 		AND STATUS = 'Y'
 	</select>
 	
+
+	<!-- 해당하는 오일 조회 -->
+	<select id="searchOilList" resultMap="OilListView" parameterType="com.kh.tsp.customer.model.vo.OilList">
+		<choose>
+			<when test="selectedListInfo == '충전'">
+				SELECT * FROM oil_list
+				<where>
+					(oil_list_type = '충전' OR oil_list_type = '결제취소') AND member_no = 2
+					<choose>
+						<when test="startDate != null and endDate == null">
+							<![CDATA[
+							AND oil_list_date >= #{ startDate }
+							]]>
+						</when>
+						<when test="startDate == null and endDate != null">
+							<![CDATA[
+							AND oil_list_date <= #{ endDate }
+							]]>
+						</when>
+						<when test="startDate != null and endDate != null">
+							AND oil_list_date BETWEEN #{ startDate } AND #{ endDate }
+						</when>
+						<when test="startDate == null and endDate == null">
+						
+						</when>
+					</choose>
+				</where>
+				ORDER BY oil_list_no DESC
+			</when>
+			<when test="selectedListInfo == '사용'">
+				SELECT * FROM oil_list o JOIN parking p ON (o.parking_no = p.parking_no)
+				<where>
+					(o.oil_list_type = '사용' OR o.oil_list_type = '예약' OR o.oil_list_type = '예약취소') AND o.member_no = 2
+					<choose>
+						<when test="startDate != null and endDate == null">
+							<![CDATA[
+							AND oil_list_date >= #{ startDate }
+							]]>
+						</when>
+						<when test="startDate == null and endDate != null">
+							<![CDATA[
+							AND oil_list_date <= #{ endDate }
+							]]>
+						</when>
+						<when test="startDate != null and endDate != null">
+							AND oil_list_date BETWEEN #{ startDate } AND #{ endDate }
+						</when>
+						<when test="startDate == null and endDate == null">
+						
+						</when>
+					</choose>
+				</where>
+				ORDER BY oil_list_no DESC
+			</when>
+		</choose>	    
+	</select>
+	
+	<!-- 해당 오일 페이징 처리용 쿼리 -->
+	<select id="getOilListCount" resultType="_int" parameterType="com.kh.tsp.customer.model.vo.OilList">
+		<choose>
+			<when test="selectedListInfo == '충전'">
+				SELECT COUNT(*) FROM oil_list
+				<where>
+					(oil_list_type = '충전' OR oil_list_type = '결제취소') AND member_no = 2
+					<choose>
+						<when test="startDate != null and endDate == null">
+							<![CDATA[
+							AND oil_list_date >= #{ startDate }
+							]]>
+						</when>
+						<when test="startDate == null and endDate != null">
+							<![CDATA[
+							AND oil_list_date <= #{ endDate }
+							]]>
+						</when>
+						<when test="startDate != null and endDate != null">
+							AND oil_list_date BETWEEN #{ startDate } AND #{ endDate }
+						</when>
+						<when test="startDate == null and endDate == null">
+						
+						</when>
+					</choose>
+				</where>
+			</when>
+			<when test="selectedListInfo == '사용'">
+				SELECT COUNT(*) FROM oil_list o JOIN parking p ON (o.parking_no = p.parking_no)
+				<where>
+					(o.oil_list_type = '사용' OR o.oil_list_type = '예약' OR o.oil_list_type = '예약취소') AND o.member_no = 2
+					<choose>
+						<when test="startDate != null and endDate == null">
+							<![CDATA[
+							AND oil_list_date >= #{ startDate }
+							]]>
+						</when>
+						<when test="startDate == null and endDate != null">
+							<![CDATA[
+							AND oil_list_date <= #{ endDate }
+							]]>
+						</when>
+						<when test="startDate != null and endDate != null">
+							AND oil_list_date BETWEEN #{ startDate } AND #{ endDate }
+						</when>
+						<when test="startDate == null and endDate == null">
+						
+						</when>
+					</choose>
+				</where>
+			</when>
+		</choose>
+	</select>
+
 	<!-- 이메일, 아이디랑 일치하는 유저 정보 찾기 -->
 	<select id="chkForPwd" resultMap="MemberResultSet" parameterType="Member">
 		SELECT * 
@@ -290,5 +414,6 @@
 		WHERE MEMBER_ID = #{member_id}
 		
 	</update>
+
 	
 </mapper>

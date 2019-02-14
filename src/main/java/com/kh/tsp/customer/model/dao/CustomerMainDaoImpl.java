@@ -3,12 +3,15 @@ package com.kh.tsp.customer.model.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.tsp.common.PageInfo;
 import com.kh.tsp.customer.model.vo.CCoupon;
 import com.kh.tsp.customer.model.vo.ChargeOil;
 import com.kh.tsp.customer.model.vo.Member;
+import com.kh.tsp.customer.model.vo.OilList;
 import com.kh.tsp.customer.model.vo.Parking;
 import com.kh.tsp.customer.model.vo.Points;
 import com.kh.tsp.customer.model.vo.Reservation;;
@@ -190,6 +193,24 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 	}
 	
 	
+	
+
+	@Override
+	public ArrayList<OilList> searchOilList(SqlSessionTemplate sqlSession, OilList searchInfo, PageInfo pi) {
+
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		ArrayList<OilList> list = (ArrayList)sqlSession.selectList("Member.searchOilList", searchInfo, rowBounds);
+		
+		return list;
+	}
+
+	@Override
+	public int getOilListCount(SqlSessionTemplate sqlSession, OilList searchInfo) {
+		return sqlSession.selectOne("Member.getOilListCount", searchInfo);
+	}
 	
 
 }

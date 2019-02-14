@@ -10,10 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.kh.tsp.common.PageInfo;
 import com.kh.tsp.customer.model.dao.CustomerMainDao;
 import com.kh.tsp.customer.model.vo.CCoupon;
 import com.kh.tsp.customer.model.vo.ChargeOil;
 import com.kh.tsp.customer.model.vo.Member;
+import com.kh.tsp.customer.model.vo.OilList;
 import com.kh.tsp.customer.model.vo.Parking;
 import com.kh.tsp.customer.model.vo.Points;
 import com.kh.tsp.customer.model.vo.Reservation;
@@ -162,6 +164,17 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 		return cmd.emailCheck(sqlSession, email);
 
 	}
+
+
+	@Override
+	public ArrayList<OilList> searchOilList(OilList searchInfo, PageInfo pi) {
+		return cmd.searchOilList(sqlSession, searchInfo, pi);
+	}
+
+	@Override
+	public int getOilListCount(OilList searchInfo) {
+		return cmd.getOilListCount(sqlSession, searchInfo);
+
 	//비밀번호 찾기
 	@Override
 	public Member chkForPwd(Member m) {
@@ -173,6 +186,7 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 	public int insertTempPwd(Member m) {
 
 		return cmd.insertTempPwd(sqlSession, m);
+
 	}
 	
 	
