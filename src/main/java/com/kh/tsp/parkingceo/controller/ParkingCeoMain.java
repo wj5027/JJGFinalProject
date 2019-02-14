@@ -1,9 +1,9 @@
 package com.kh.tsp.parkingceo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +16,9 @@ public class ParkingCeoMain {
 	
 	
 	@Autowired
-	ParkingService ps;
+	private ParkingService ps;
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	
 	public ParkingCeoMain() {
@@ -60,7 +62,11 @@ public class ParkingCeoMain {
 	//사업자 회원가입 기능
 	@RequestMapping(value="/insertParkinCeo.pc")
 	public String inserParkingCeo(@ModelAttribute Member m, Model model ) {
+		
+		
 	try{
+			String encPassword = passwordEncoder.encode(m.getMember_pwd());
+			m.setMember_pwd(encPassword);
 			ps.insertParkingCeo(m);
 		}catch(Exception e) {
 			model.addAttribute("message", e.getMessage());
