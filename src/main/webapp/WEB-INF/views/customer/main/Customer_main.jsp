@@ -42,7 +42,7 @@
 			                  <td><b>주차요금 </b>: 30분 ,<span id="price"></span>원<br><b>운영시간</b> : <span id="time"></span></td>
 			                  </tr>
 			                  <tr >
-			                  <td align="left"><button type="button" class="btn btn-default " data-dismiss="modal">네비게이션</button></td>
+			                  <td align="left"><button type="button" class="btn btn-default " data-dismiss="modal" onclick="navi()">네비게이션</button></td>
 			                  <td align="left"><button type="button" class="btn btn-default " data-dismiss="modal">닫기</button></td>
 			                  <td></td>
 			                  <td></td>
