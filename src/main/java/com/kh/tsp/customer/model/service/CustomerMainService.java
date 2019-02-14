@@ -5,9 +5,11 @@ import java.util.HashMap;
 
 import javax.security.auth.login.LoginException;
 
+import com.kh.tsp.common.PageInfo;
 import com.kh.tsp.customer.model.vo.CCoupon;
 import com.kh.tsp.customer.model.vo.ChargeOil;
 import com.kh.tsp.customer.model.vo.Member;
+import com.kh.tsp.customer.model.vo.OilList;
 import com.kh.tsp.customer.model.vo.Parking;
 import com.kh.tsp.customer.model.vo.Points;
 import com.kh.tsp.customer.model.vo.Reservation;
@@ -52,8 +54,9 @@ public interface CustomerMainService {
 
 	Member emailCheck(String email);
 
+	ArrayList<OilList> searchOilList(OilList searchInfo, PageInfo pi);
 
-
+	int getOilListCount(OilList searchInfo);
 	
-
+	
 }

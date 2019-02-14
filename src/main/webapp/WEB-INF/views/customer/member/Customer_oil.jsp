@@ -20,9 +20,6 @@
         <div class="row">
        	  <div class="col-md-12" height="500px" id="listTable">
           <div class="card ">
-          <div class="card-header">
-          	<h4 class="card-title">오일 내역</h4>
-          </div>
           <div class="card-body" style="padding-bottom: 0px;">
             <table class="table tablesorter ">
 				<tbody align="center">
@@ -30,10 +27,10 @@
 					<tr>
 						<td colspan="2" style="text-align: left;"><b>내 오일</b></td>
 						<td colspan="2"><b></b></td>
-						<td colspan="2"style="text-align: right;"><b><fmt:formatNumber value="${ loginUser.oil }" groupingUsed="true"></fmt:formatNumber>L</b></td>
+						<td colspan="3"style="text-align: right;"><b><fmt:formatNumber value="${ loginUser.oil }" groupingUsed="true"></fmt:formatNumber>L</b></td>
 					</tr>
 					<tr>
-						<td colspan="6">
+						<td colspan="7">
 							<div class="btn-group">
 							  <div style="margin-top: auto; margin-bottom: auto;" id="selectedOilView">오일 충전 내역</div>
 							  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -50,21 +47,44 @@
 							</div>
 						</td>
 					</tr>
+					<tr>
+						<td colspan="3">
+							<div class="input-group date form_date col-md-5" data-date="" data-date-format="yy년 MM d일" data-link-field="dtp_input3" data-link-format="yyyy-mm-d">
+		    					<div>
+		    						<input class="form-control"  id="setStartTime" size="16" type="text" placeholder="시작날짜" readonly style="color: white; width: 110px; cursor: pointer !important;">
+		  	 						<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+									<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+		    					</div>
+		  					</div>
+		  				</td>
+		  				<td colspan="1">
+		  					-
+						</td>
+						<td colspan="3">
+							<div class="input-group date form_date col-md-5" data-date="" data-date-format="yy년 MM d일" data-link-field="dtp_input3" data-link-format="yyyy-mm-d">
+		    					<div>
+		    						<input class="form-control"  id="setEndTime" size="16" type="text" placeholder="마지막날짜" readonly style="color: white; width: 110px; cursor: pointer !important;">
+		  	 						<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+									<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+		    					</div>
+		  					</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="7">
+							<button class="btn btn-info animation-on-hover" type="button" onclick="searchList()">검색</button>
+						</td>
+					</tr>
 				</c:if>
 				</tbody>
 			</table>
 		  </div></div></div>
 		  <div class="col-md-12" height="500px" id="listTable2">
           <div class="card ">
-          <div class="card-body" style="padding-bottom: 0px; overflow: auto; height: 300px;">
+          <div class="card-body" style="padding-bottom: 0px; overflow: auto; height: 200px;">
           	<table class="table tablesorter ">
-				<tbody align="center" style="overflow-y:auto; overflow-x:hidden;">
+				<tbody align="center" style="overflow-y:auto; overflow-x:hidden;" id="selectOilView">
 				<c:if test="${ !empty loginUser }">
-					<tr>
-						<td colspan="6">
-							기간 : 날짜부터 날짜까지
-						</td>
-					</tr>
 					<tr>
 						<td colspan="1"><b>사용일자</b></td>
 						<td colspan="3"><b>주차장명</b></td>
@@ -191,6 +211,17 @@
  
 </body>
 <script type="text/javascript">
+	$('.form_date').datetimepicker({
+	    language:  'ko',
+	    weekStart: 1,
+	    todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0
+	});
+
 	function changeTableList() {
 		$("#listTable").css("display", "none");
 		$("#listTable2").css("display", "none");
@@ -230,13 +261,13 @@
 		if (selectedPay != 0) {
 			var nowTime = new Date();
 			var randomUid = memberNo + "_" + chargeOil + "_"
-								+ nowTime.getFullYear() + (nowTime.getMonth() + 1) + nowTime.getDate() + nowTime.getHours() + nowTime.getMinutes();
+								+ nowTime.getFullYear() + (nowTime.getMonth() + 1) + nowTime.getDate() + nowTime.getHours() + nowTime.getMinutes() + nowTime.getSeconds();
 			
 			IMP.request_pay({
 			    pay_method : 'card',
 			    merchant_uid : randomUid,
 			    name : '주문명:결제테스트',
-			    amount : chargeOil,
+			    amount : 100,
 			    buyer_name : '구매자이름',
 			    m_redirect_url: link.substring(0, link.indexOf("jjg")) + 'jjg/oilIn.cu'
 			}, function(rsp) {
@@ -246,13 +277,269 @@
 			alert("먼저 금액을 선택해주세요!")
 		}
 	}
-		
+	
+	var selectedListInfo = "충전";
+	
 	function OilChargeList() {
 		$("#selectedOilView").html("오일 충전 내역");
+		
+		selectedListInfo = "충전";
 	}
 	
 	function OilUseList() {
 		$("#selectedOilView").html("사용내역");
+		
+		selectedListInfo = "사용";
+	}
+	
+	function searchList() {
+		var startTime = $("#setStartTime").val()
+		var endTime = $("#setEndTime").val();
+		
+		if (startTime != "" && endTime != "") {
+			if (compareTime(startTime, endTime)) {
+				$.ajax({
+					url:"searchOilList.cu",
+					type:"post",
+					data:{startTime:startTime, endTime:endTime, selectedListInfo:selectedListInfo},
+					success:function(data){
+						if (selectedListInfo == '충전') {
+							$("#selectOilView").html("");
+							
+							$("#selectOilView").append("<tr>"
+															+ "<th>"
+															+ "날짜"
+															+ "</th>"
+															+ "<th>"
+															+ "분류"
+															+ "</th>"
+															+ "<th>"
+															+ "오일"
+															+ "</th>"
+													+ "</tr>");
+							for (var i = 0; i < data.length; i++) {
+								if (data[i].oilListType == '충전') {
+									$("#selectOilView").append("<tr>"
+											+ "<td>"
+											+ (new Date(data[i].oilListDate).getYear() - 100) + "년 " + (new Date(data[i].oilListDate).getMonth() + 1) + "월 " + new Date(data[i].oilListDate).getDate() + "일"
+											+ "</td>"
+											+ "<td>"
+											+ data[i].oilListType
+											+ "</td>"
+											+ "<td>"
+											+ "+" + data[i].oil + "L"
+											+ "<td>"
+											+ "</tr>");
+								} else {
+									$("#selectOilView").append("<tr>"
+											+ "<td>"
+											+ (new Date(data[i].oilListDate).getYear() - 100) + "년 " + (new Date(data[i].oilListDate).getMonth() + 1) + "월 " + new Date(data[i].oilListDate).getDate() + "일"
+											+ "</td>"
+											+ "<td>"
+											+ data[i].oilListType
+											+ "</td>"
+											+ "<td>"
+											+ "-" + data[i].oil + "L"
+											+ "<td>"
+											+ "</tr>");
+								}
+
+							}
+						} else {
+							$("#selectOilView").html("");
+							
+							$("#selectOilView").append("<tr>"
+															+ "<th>"
+															+ "날짜"
+															+ "</th>"
+															+ "<th>"
+															+ "분류"
+															+ "</th>"
+															+ "<th>"
+															+ "주차장 명"
+															+ "</th>"
+															+ "<th>"
+															+ "오일"
+															+ "</th>"
+													+ "</tr>");
+							for (var i = 0; i < data.length; i++) {
+								if (data[i].oilListType == '예약취소') {
+									$("#selectOilView").append("<tr>"
+																	+ "<td>"
+																	+ (new Date(data[i].oilListDate).getYear() - 100) + "년<br>" + (new Date(data[i].oilListDate).getMonth() + 1) + "월 " + new Date(data[i].oilListDate).getDate() + "일"
+																	+ "</td>"
+																	+ "<td>"
+																	+ data[i].oilListType
+																	+ "</td>"
+																	+ "<td>"
+																	+ data[i].parkingName
+																	+ "</td>"
+																	+ "<td>"
+																	+ "+" + data[i].oil + "L"
+																	+ "<td>"
+																	+ "</tr>");
+								} else {
+									$("#selectOilView").append("<tr>"
+																	+ "<td>"
+																	+ (new Date(data[i].oilListDate).getYear() - 100) + "년<br>" + (new Date(data[i].oilListDate).getMonth() + 1) + "월 " + new Date(data[i].oilListDate).getDate() + "일"
+																	+ "</td>"
+																	+ "<td>"
+																	+ data[i].oilListType
+																	+ "</td>"
+																	+ "<td>"
+																	+ data[i].parkingName
+																	+ "</td>"
+																	+ "<td>"
+																	+ "-" + data[i].oil + "L"
+																	+ "<td>"
+																	+ "</tr>");
+								}
+							}
+						}
+					},
+					error:function(status){
+						console.log(status);
+					}
+				});
+			} else {
+				alert("마지막 날짜를 올바르게 입력해주세요!")
+			}
+		} else {
+			$.ajax({
+				url:"searchOilList.cu",
+				type:"post",
+				data:{startTime:startTime, endTime:endTime, selectedListInfo:selectedListInfo},
+				success:function(data){
+					if (selectedListInfo == '충전') {
+						$("#selectOilView").html("");
+						
+						$("#selectOilView").append("<tr>"
+														+ "<th>"
+														+ "날짜"
+														+ "</th>"
+														+ "<th>"
+														+ "분류"
+														+ "</th>"
+														+ "<th>"
+														+ "오일"
+														+ "</th>"
+												+ "</tr>");
+						for (var i = 0; i < data.length; i++) {
+							if (data[i].oilListType == '충전') {
+								$("#selectOilView").append("<tr>"
+										+ "<td>"
+										+ (new Date(data[i].oilListDate).getYear() - 100) + "년 " + (new Date(data[i].oilListDate).getMonth() + 1) + "월 " + new Date(data[i].oilListDate).getDate() + "일"
+										+ "</td>"
+										+ "<td>"
+										+ data[i].oilListType
+										+ "</td>"
+										+ "<td>"
+										+ "+" + data[i].oil + "L"
+										+ "<td>"
+										+ "</tr>");
+							} else {
+								$("#selectOilView").append("<tr>"
+										+ "<td>"
+										+ (new Date(data[i].oilListDate).getYear() - 100) + "년 " + (new Date(data[i].oilListDate).getMonth() + 1) + "월 " + new Date(data[i].oilListDate).getDate() + "일"
+										+ "</td>"
+										+ "<td>"
+										+ data[i].oilListType
+										+ "</td>"
+										+ "<td>"
+										+ "-" + data[i].oil + "L"
+										+ "<td>"
+										+ "</tr>");
+							}
+
+						}
+					} else {
+						$("#selectOilView").html("");
+						
+						$("#selectOilView").append("<tr>"
+														+ "<th>"
+														+ "날짜"
+														+ "</th>"
+														+ "<th>"
+														+ "분류"
+														+ "</th>"
+														+ "<th>"
+														+ "주차장 명"
+														+ "</th>"
+														+ "<th>"
+														+ "오일"
+														+ "</th>"
+												+ "</tr>");
+						for (var i = 0; i < data.length; i++) {
+							if (data[i].oilListType == '예약취소') {
+								$("#selectOilView").append("<tr>"
+																+ "<td>"
+																+ (new Date(data[i].oilListDate).getYear() - 100) + "년<br>" + (new Date(data[i].oilListDate).getMonth() + 1) + "월 " + new Date(data[i].oilListDate).getDate() + "일"
+																+ "</td>"
+																+ "<td>"
+																+ data[i].oilListType
+																+ "</td>"
+																+ "<td>"
+																+ data[i].parkingName
+																+ "</td>"
+																+ "<td>"
+																+ "+" + data[i].oil + "L"
+																+ "<td>"
+																+ "</tr>");
+							} else {
+								$("#selectOilView").append("<tr>"
+																+ "<td>"
+																+ (new Date(data[i].oilListDate).getYear() - 100) + "년<br>" + (new Date(data[i].oilListDate).getMonth() + 1) + "월 " + new Date(data[i].oilListDate).getDate() + "일"
+																+ "</td>"
+																+ "<td>"
+																+ data[i].oilListType
+																+ "</td>"
+																+ "<td>"
+																+ data[i].parkingName
+																+ "</td>"
+																+ "<td>"
+																+ "-" + data[i].oil + "L"
+																+ "<td>"
+																+ "</tr>");
+							}
+						}
+					}
+				},
+				error:function(status){
+					console.log(status);
+				}
+			});
+		}
+
+	}
+	
+	function compareTime(start, end) {
+		if (splitTime(start) < splitTime(end)) {
+			return true;
+		} else {
+			return false
+		}
+
+	}
+	
+	function splitTime(time) {
+		var temp = time.split(" ");
+		var result;
+		
+		if (Number(temp[1].split("월")[0]) >= 10) {
+			if (Number(temp[2].split("일")[0]) >= 10) {
+				result = "" + temp[0].split("년")[0] + Number(temp[1].split("월")[0]) + Number(temp[2].split("일")[0]);
+			} else {
+				result = temp[0].split("년")[0] + Number(temp[1].split("월")[0]) + "0" + Number(temp[2].split("일")[0]);
+			}
+		} else {
+			if (Number(temp[2].split("일")[0]) >= 10) {
+				result = temp[0].split("년")[0] + "0" + Number(temp[1].split("월")[0]) + Number(temp[2].split("일")[0]);
+			} else {
+				result = temp[0].split("년")[0] + "0" + Number(temp[1].split("월")[0]) + "0" + Number(temp[2].split("일")[0]);
+			}
+		}
+		
+		return result;
 	}
 	
 </script>
