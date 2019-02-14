@@ -63,8 +63,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 									<h4 class="card-title">쿠폰 검색</h4>
 								</div>
 
-								<form id="formList" method="POST"
-									action="selectSearchCouponList.ad">
+								<form id="formList" method="POST" action="selectSearchCouponList.ad">
 									<div class="card-body">
 										<div class="table-responsive" style="overflow: hidden;" align="center">
 											<table class="table tablesorter " id="" style="width: 40%">
@@ -416,7 +415,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 		</div>
 		<!-- 승인 버튼 -> 예 버튼 모달 끝. -->
 		
-		<!-- 반송 완료 상세 보기 모달 --><div class="modalDetail">
+		<!-- 반송 완료 상세 보기 모달 -->
+		<div class="modalDetail">
 			<div class="modal fade bd-example-modal-lg-7" tabindex="-1"
 				role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-lg" role="document">
@@ -450,7 +450,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 		</div>
 		<!-- 반송 완료 상세 보기 모달 끝 -->
 		
-		<!-- 반송 사유 ajax --><script>
+		<!-- 반송 사유 ajax -->
+		<script>
 			var reqNo = 0;
 			function selectRefuseReason(no) {
 				reqNo = $("#listTable td").parent().eq(no).children().eq(0).text();

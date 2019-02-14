@@ -13,6 +13,10 @@ public interface ParkingService {
 
 	HashMap<String, Object> selectNoteList(String selectBox, ParkingCeoPageInfo pi, Member m);
 
+	int selectSearchParkingDetailListCount(String inOutputSelectBox, String parkingSelectBox);
+
+	HashMap<String, Object> selectSearchParkingDetailList(String selectBox, ParkingCeoPageInfo pi,String parkingSelectBox);
+
 	
 
 }

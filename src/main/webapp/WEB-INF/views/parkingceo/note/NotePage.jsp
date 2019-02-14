@@ -163,6 +163,11 @@
 	function goNotePage(){
 		location.href = "goNotePage.pc";
 	}
+	function parkingceoLogin(){
+		location.href="parkingceoLogin.pc";	
+	}
+	
+	
 	
 	//페이징 처리할 변수 선언 및 기간 변수 선언
 	var currentPage = 1;

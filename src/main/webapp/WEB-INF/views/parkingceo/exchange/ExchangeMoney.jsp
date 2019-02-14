@@ -213,6 +213,11 @@
 		location.href = "goNotePage.pc";
 	}
 	
+	function parkingceoLogin(){
+		location.href="parkingceoLogin.pc";	
+	}
+	
+	
 	$('.form_date').datetimepicker({
         language:  'ko',
         weekStart: 1,

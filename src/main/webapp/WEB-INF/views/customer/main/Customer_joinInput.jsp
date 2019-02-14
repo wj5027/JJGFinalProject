@@ -31,7 +31,7 @@
                 
                   	차번호 <input type="text" class="form-control" name="member_carNo"><br>
                   	휴대폰 번호 <input type="text" class="form-control" name="phone"><br>                  	
-                  	이메일 <input type="email" class="form-control" name="email" id="userEmail"><br>
+                  	이메일 <input type="email" class="form-control" name="email" id="userEmail"><button onclick="return emailCheck()" class="btn btn-info btn-sm" id="emailCk">중복확인</button><br>
                   	<div align="right" style="width: 100%">
                   		<button class="btn btn-info btn-sm" type="button" onclick="mailSender();">인증번호 발송</button>
                   	</div>
@@ -60,6 +60,7 @@
 	var idCheckResult = 0;
 	var emailCheckResult = 0;
 	var pwdCheckResult = 0;
+	var emailCheckResult = 0;
 	
 	//랜덤코드 생성
 	var randomCode = {};
@@ -101,8 +102,8 @@
 				 	window.reload(); 
 				}
 			},
-			error:function(data){
-				console.log("통신 실패!");				
+			error:function(request, status, error){
+				console.log("통신 실패!");	
 			}
 		});
 		
@@ -152,6 +153,39 @@
 		return false;
 	}
 	
+  //이메일 중복체크    
+    function emailCheck(){
+		var email = $("#userEmail").val();
+		console.log(email);
+		
+		$.ajax({
+			url:"emailCheck.cu",
+			type:"post",
+			data:{email:email},
+			success:function(data){
+				//alert(data);
+				
+				if(data == 1){
+					alert("이미 존재하는 이메일입니다.");
+				}else{
+					alert("사용가능한 이메일입니다.");
+					
+					emailCheckResult = 1;
+				}
+			
+			
+				
+			
+			},
+			error:function(status){
+				console.log(status);
+			}
+		});
+		
+		
+		return false;
+	}
+	
 	$(function(){
 		$("#insertMember").click(function(){
 			var pass=$("#member_pwd").val();
@@ -181,10 +215,12 @@
 			}
 			
 			//location.href="insertMember.cu";
-			 if(idCheckResult == 1 && emailCheckResult == 1 && pwdCheckResult1 == 1){
+			 if(idCheckResult == 1 && emailCheckResult == 1 && pwdCheckResult == 1 && emailCheckResult == 1){
 				 alert("회원가입이 완료되었습니다");
 				 $("#insertForm").submit();
-			} 
+			}else{
+				alert("입력하신 정보를 다시 한 번 확인해주세요");
+			}; 
 			
 		});
 	});

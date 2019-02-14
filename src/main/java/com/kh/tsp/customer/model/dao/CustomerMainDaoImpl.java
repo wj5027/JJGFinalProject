@@ -22,6 +22,10 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 
 	@Override
 	public Member selectCheckMember(SqlSessionTemplate sqlSession, Member m) {
+		
+		System.out.println("로그인 체크하는 메소드 dao: "+sqlSession.selectOne("Member.selectCheckMember",m));
+		System.out.println("dao 비밀번호 : "+m.getMember_pwd());
+		
 		return sqlSession.selectOne("Member.selectCheckMember",m);
 	}
 
@@ -141,6 +145,24 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 	@Override
 	public ArrayList<CCoupon> selectUserCoupon(SqlSessionTemplate sqlSession, Member member) {
 		return (ArrayList)sqlSession.selectList("Member.selectUserCoupon", member);
+	}
+	//아이디찾기
+	@Override
+	public Member findId(SqlSessionTemplate sqlSession, String email) {
+
+		return sqlSession.selectOne("Member.findId", email);
+	}
+	//이메일 중복 확인
+	@Override
+	public Member emailCheck(SqlSessionTemplate sqlSession, String email) {
+
+		return sqlSession.selectOne("Member.emailChk", email);
+	}
+	//암호화된 비밀번호 조회용 메소드
+	@Override
+	public String selectEncPassword(SqlSessionTemplate sqlSession, Member m) {
+		System.out.println("비밀번호 조회 메소드 dao"+m);
+		return sqlSession.selectOne("Member.selectPwd", m.getMember_id());
 	}
 
 	@Override
