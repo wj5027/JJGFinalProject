@@ -76,6 +76,7 @@
   		SELECT COUNT(*)
 		FROM EXCHANGE E
 		INNER JOIN MEMBER M ON (M.MEMBER_NO = E.MEMBER_NO)
+		WHERE 0=0
 		<if test="status!='' and (status eq 'A'.toString())">
 			AND (E.STATUS = '환전진행중' 
 					OR E.STATUS = '환불진행중' 
@@ -127,6 +128,7 @@
   					E.APPLICATION_ACCOUNT_NUMBER, M.MEMBER_TYPE, M.MEMBER_ID
 		FROM EXCHANGE E
 		INNER JOIN MEMBER M ON (M.MEMBER_NO = E.MEMBER_NO)
+		WHERE 0=0
 		<if test="status!='' and (status eq 'A'.toString())">
 			AND (E.STATUS = '환전진행중' 
 					OR E.STATUS = '환불진행중' 

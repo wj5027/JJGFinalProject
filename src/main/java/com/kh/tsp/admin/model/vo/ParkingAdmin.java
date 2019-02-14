@@ -1,5 +1,7 @@
 package com.kh.tsp.admin.model.vo;
 
+import java.sql.Date;
+
 public class ParkingAdmin implements java.io.Serializable{
 	private String parkingNo;					// 주차장 관리 번호
 	private String parkingName;				// 주차장명
@@ -30,14 +32,19 @@ public class ParkingAdmin implements java.io.Serializable{
 	private int leftSize;							// 잔여대수
 	private String status;						// 상태 (default Y)
 	
-	public ParkingAdmin() {}
+	private String parkingListReason;		// 반송 사유
+	private Date modifyDate;					// 변경 날짜
+
+	public ParkingAdmin() {
+		super();
+	}
 
 	public ParkingAdmin(String parkingNo, String parkingName, String operateType, String parkingType,
 			String roadAddress, String address, int parkingSize, String openDays, String weekdayStime,
 			String weekdayEtime, String satStime, String satEtime, String hollydayStime, String hollydayEtime,
 			String priceInfo, int parkingNtime, int parkingNprice, int parkingAtime, int parkingAprice, String payType,
 			String remarks, String latitude, String longitude, String parkingManagement, String managementTel,
-			int memberNo, int leftSize, String status) {
+			int memberNo, int leftSize, String status, String parkingListReason, Date modifyDate) {
 		super();
 		this.parkingNo = parkingNo;
 		this.parkingName = parkingName;
@@ -67,6 +74,8 @@ public class ParkingAdmin implements java.io.Serializable{
 		this.memberNo = memberNo;
 		this.leftSize = leftSize;
 		this.status = status;
+		this.parkingListReason = parkingListReason;
+		this.modifyDate = modifyDate;
 	}
 
 	public String getParkingNo() {
@@ -293,6 +302,22 @@ public class ParkingAdmin implements java.io.Serializable{
 		this.status = status;
 	}
 
+	public String getParkingListReason() {
+		return parkingListReason;
+	}
+
+	public void setParkingListReason(String parkingListReason) {
+		this.parkingListReason = parkingListReason;
+	}
+
+	public Date getModifyDate() {
+		return modifyDate;
+	}
+
+	public void setModifyDate(Date modifyDate) {
+		this.modifyDate = modifyDate;
+	}
+
 	@Override
 	public String toString() {
 		return "ParkingAdmin [parkingNo=" + parkingNo + ", parkingName=" + parkingName + ", operateType=" + operateType
@@ -304,6 +329,8 @@ public class ParkingAdmin implements java.io.Serializable{
 				+ parkingAtime + ", parkingAprice=" + parkingAprice + ", payType=" + payType + ", remarks=" + remarks
 				+ ", latitude=" + latitude + ", longitude=" + longitude + ", parkingManagement=" + parkingManagement
 				+ ", managementTel=" + managementTel + ", memberNo=" + memberNo + ", leftSize=" + leftSize + ", status="
-				+ status + "]";
+				+ status + ", parkingListReason=" + parkingListReason + ", modifyDate=" + modifyDate + "]";
 	}
+
+	
 }

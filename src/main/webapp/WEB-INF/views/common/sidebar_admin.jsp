@@ -18,16 +18,14 @@
 			id="navbarDropdownMenuLink" data-toggle="dropdown"
 			aria-haspopup="true" aria-expanded="false"> <i
 				class="tim-icons icon-atom"></i>
-				<p>
-					사업자
-					관리&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b
+				<p>사업자 관리&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b
 						style="font-size: 15px">▽</b>
 				</p>
 		</a>
 			<div align="right" class="dropdown-menu dropdown-black"
 				aria-labelledby="navbarDropdownMenuLink">
 				<a class="dropdown-item" href="selectCEOList.ad">사업자 조회</a> <a
-					class="dropdown-item" href="parkingLotList.ad">주차장 조회</a> <a
+					class="dropdown-item" href="selectParkingLotList.ad">주차장 조회</a> <a
 					class="dropdown-item" href="parkingLotCertification.ad">주차장 인증</a>
 				<a class="dropdown-item" href="selectExchangeMoney.ad">환전/환불 관리</a> <a
 					class="dropdown-item" href="selectCouponCertification.ad">쿠폰 관리</a> <a

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.kh.tsp.admin.model.exception.CustomerSelectListException;
 import com.kh.tsp.admin.model.service.CustomerService;
@@ -108,15 +109,9 @@ public class searchCustomerListController {
 	}
 	
 	// 회원 검색
-	@RequestMapping("selectSearchCustomerList.ad")
+	@RequestMapping(value = "/selectSearchCustomerList.ad", method = {RequestMethod.GET, RequestMethod.POST})
 	public String searchCustomerList2(HttpServletRequest request, HttpServletResponse response,
 												String selectStatus, String memberId, String today, String startDate, String endDate) {
-
-		System.out.println("selectStatus : "+selectStatus);
-		System.out.println("memberId : "+memberId);
-		System.out.println("today : "+today);
-		System.out.println("startDate : "+startDate);
-		System.out.println("endDate : "+endDate);
 		
 		int currentPage =1;
 		if(request.getParameter("currentPage") != null) {
@@ -130,6 +125,12 @@ public class searchCustomerListController {
 			ArrayList<MemberAdmin> list =cs.selectSearchCustomerList(pi, selectStatus, memberId, today, startDate, endDate);
 			request.setAttribute("pi", pi);
 			request.setAttribute("list", list);
+
+			request.setAttribute("selectStatus", selectStatus);
+			request.setAttribute("memberId", memberId);
+			request.setAttribute("today", today);
+			request.setAttribute("startDate", startDate);
+			request.setAttribute("endDate", endDate);
 			
 			if(listCount==0 || list == null) {
 				nullCheck="nullCheck";
