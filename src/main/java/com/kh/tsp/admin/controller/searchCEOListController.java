@@ -109,15 +109,9 @@ public class searchCEOListController {
 	}
 	
 	// 회원 검색
-	@RequestMapping("selectSearchCEOList.ad")
+	@RequestMapping(value = "/selectSearchCEOList.ad", method = {RequestMethod.GET, RequestMethod.POST})
 	public String searchCEOList2(HttpServletRequest request, HttpServletResponse response,
 												String selectStatus, String memberId, String today, String startDate, String endDate) {
-
-		System.out.println("selectStatus : "+selectStatus);
-		System.out.println("memberId : "+memberId);
-		System.out.println("today : "+today);
-		System.out.println("startDate : "+startDate);
-		System.out.println("endDate : "+endDate);
 		
 		int currentPage =1;
 		if(request.getParameter("currentPage") != null) {
@@ -131,6 +125,12 @@ public class searchCEOListController {
 			ArrayList<MemberAdmin> list =pcs.selectSearchParkingCEOList(pi, selectStatus, memberId, today, startDate, endDate);
 			request.setAttribute("pi", pi);
 			request.setAttribute("list", list);
+
+			request.setAttribute("selectStatus", selectStatus);
+			request.setAttribute("memberId", memberId);
+			request.setAttribute("today", today);
+			request.setAttribute("startDate", startDate);
+			request.setAttribute("endDate", endDate);
 			
 			if(listCount==0 || list == null) {
 				nullCheck="nullCheck";

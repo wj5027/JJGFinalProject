@@ -63,7 +63,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 									<h4 class="card-title">환전/환불 검색</h4>
 								</div>
 								
-								<form id="formList" method="POST" action="selectExchangeMoney.ad">
+								<form id="formList" method="POST" action="selectSearchExchangeList.ad">
 									<div class="card-body">
 										<div class="table-responsive" style="overflow: hidden;">
 											<table class="table tablesorter " id="">
@@ -74,7 +74,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 															<div class="row">
 																<div class="form-group"  style="margin-left: 1.5%;">
 																	<input type="text" class="form-control" id="memberId"
-																		name="memberId" placeholder="아이디를 입력해주세요">
+																		name="memberId" placeholder="아이디를 입력해주세요" value="${memberId}">
 																</div>
 															</div>
 														</td>
@@ -85,7 +85,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 															<div style="width: 15%;">
 																<select class="custom-select nav-link dropdown-toggle"
 																	id="status" name="status" style="background-color: rgb(34, 42, 65);">
-																	<option value="A" selected>전체</option>
+																	<option value="A">전체</option>
 																	<option value="E">환전</option>
 																	<option value="R">환불</option>
 																	<option value="Y">승인완료</option>
@@ -100,7 +100,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 															<div style="width: 15%;">
 																<select class="custom-select nav-link dropdown-toggle"
 																	id="memberType" name="memberType" style="background-color: rgb(34, 42, 65);">
-																	<option value="A" selected>전체</option>
+																	<option value="A">전체</option>
 																	<option value="B">사업자</option>
 																	<option value="U">사용자</option>
 																</select>
@@ -233,10 +233,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 										<div id="pagingArea" align="center">
 											<!-- 첫번째 페이지 -->
 											<c:if test="${pi.currentPage != 1}">
-												<c:url var="blistFirst" value="selectSearchExchangeList.ad?status=${status}
-																								&memberId=${memberId}&memberType=${memberType}
-																								&today=${today}&startDate=${startDate}&endDate=${endDate}">
+												<c:url var="blistFirst" value="selectSearchExchangeList.ad">
 													<c:param name="currentPage" value="1" />
+													<c:param name="status" value="${status}" />
+													<c:param name="memberId" value="${memberId}" />
+													<c:param name="memberType" value="${memberType}" />
+													<c:param name="today" value="${today}" />
+													<c:param name="startDate" value="${startDate}" />
+													<c:param name="endDate" value="${endDate}" />
 												</c:url>
 												<a href="${blistFirst}"><button
 														class="btn btn-info animation-on-hover btn-sm"><<</button></a>
@@ -253,6 +257,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 											<c:if test="${pi.currentPage > 1}">
 												<c:url var="blistBack" value="/selectSearchExchangeList.ad">
 													<c:param name="currentPage" value="${pi.currentPage-1}" />
+													<c:param name="status" value="${status}" />
+													<c:param name="memberId" value="${memberId}" />
+													<c:param name="memberType" value="${memberType}" />
+													<c:param name="today" value="${today}" />
+													<c:param name="startDate" value="${startDate}" />
+													<c:param name="endDate" value="${endDate}" />
 												</c:url>
 												<a href="${blistBack}"><button
 														class="btn btn-info animation-on-hover btn-sm"><</button></a>
@@ -266,10 +276,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 														class="btn btn-info animation-on-hover btn-sm">${p}</button>
 												</c:if>
 												<c:if test="${p ne pi.currentPage}">
-													<c:url var="blistCheck" value="selectSearchExchangeList.ad?status=${status}
-																								&memberId=${memberId}&memberType=${memberType}
-																								&today=${today}&startDate=${startDate}&endDate=${endDate}">
+													<c:url var="blistCheck" value="selectSearchExchangeList.ad">
 														<c:param name="currentPage" value="${p}" />
+														<c:param name="status" value="${status}" />
+														<c:param name="memberId" value="${memberId}" />
+														<c:param name="memberType" value="${memberType}" />
+														<c:param name="today" value="${today}" />
+														<c:param name="startDate" value="${startDate}" />
+														<c:param name="endDate" value="${endDate}" />
 													</c:url>
 													<a href="${blistCheck}"><button
 															class="btn btn-info animation-on-hover btn-sm">${p}</button></a>
@@ -281,10 +295,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 													class="btn btn-info animation-on-hover btn-sm">></button>
 											</c:if>
 											<c:if test="${pi.currentPage < pi.maxPage}">
-												<c:url var="blistEnd" value="selectSearchExchangeList.ad?status=${status}
-																								&memberId=${memberId}&memberType=${memberType}
-																								&today=${today}&startDate=${startDate}&endDate=${endDate}">
+												<c:url var="blistEnd" value="selectSearchExchangeList.ad">
 													<c:param name="currentPage" value="${pi.currentPage+1}" />
+													<c:param name="status" value="${status}" />
+													<c:param name="memberId" value="${memberId}" />
+													<c:param name="memberType" value="${memberType}" />
+													<c:param name="today" value="${today}" />
+													<c:param name="startDate" value="${startDate}" />
+													<c:param name="endDate" value="${endDate}" />
 												</c:url>
 												<a href="${blistEnd}"><button
 														class="btn btn-info animation-on-hover btn-sm">></button></a>
@@ -292,10 +310,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 											<!-- 끝 페이지 -->
 											<c:if test="${pi.currentPage != pi.maxPage}">
-												<c:url var="blistEnd2" value="selectSearchExchangeList.ad?status=${status}
-																								&memberId=${memberId}&memberType=${memberType}
-																								&today=${today}&startDate=${startDate}&endDate=${endDate}">
+												<c:url var="blistEnd2" value="selectSearchExchangeList.ad">
 													<c:param name="currentPage" value="${pi.maxPage}" />
+													<c:param name="status" value="${status}" />
+													<c:param name="memberId" value="${memberId}" />
+													<c:param name="memberType" value="${memberType}" />
+													<c:param name="today" value="${today}" />
+													<c:param name="startDate" value="${startDate}" />
+													<c:param name="endDate" value="${endDate}" />
 												</c:url>
 												<a href="${blistEnd2}"><button
 														class="btn btn-info animation-on-hover btn-sm">>></button></a>
@@ -714,14 +736,28 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 		<!-- 반송 사유 ajax 끝 -->
 		<!-- /////////////////////////////////// 모달 끝 /////////////////////////////////////////// -->
 		
-	
+		<input type="hidden" value="${status}" id="inputStatus">
+		<input type="hidden" value="${memberType}" id="inputMemberType">
 		<!-- 검색 -->
 		<script>
 			$(function() {
+				
+				/* 자동 선택 - 환전 구분 */
+				for(var i=0; i<$("#status option").length; i++){
+					if($("#inputStatus").val() == $("#status option").eq(i).val()){
+						$("#status").val($('#inputStatus').val()).prop("selected", true);
+					}							
+				}
+				/* 자동 선택 - 회원 구분 */
+				for(var i=0; i<$("#memberType option").length; i++){
+					if($("#inputMemberType").val() == $("#memberType option").eq(i).val()){
+						$("#memberType").val($('#inputMemberType').val()).prop("selected", true);
+					}							
+				}
+				
 				/* 구분 */
 				$("#status").click(function() {
-					var selected = $("#status option:selected").val();
-					console.log(selected);
+					var selected = $("#status option:selected").val();					
 				});
 	
 				/* 아이디 */

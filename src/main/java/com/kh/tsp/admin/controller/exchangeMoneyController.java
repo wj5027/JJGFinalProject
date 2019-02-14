@@ -152,6 +152,13 @@ public class exchangeMoneyController {
 			ArrayList<ExchangeMoneyAdmin> list = ems.selectSearchExchangeMoneyAdminList(pi, status, memberId, memberType, today, startDate, endDate);
 			request.setAttribute("pi", pi);
 			request.setAttribute("list", list);
+			
+			request.setAttribute("status", status);
+			request.setAttribute("memberId", memberId);
+			request.setAttribute("memberType", memberType);
+			request.setAttribute("today", today);
+			request.setAttribute("startDate", startDate);
+			request.setAttribute("endDate", endDate);
 
 			System.out.println("list : "+list);
 			if(listCount==0 || list == null) {

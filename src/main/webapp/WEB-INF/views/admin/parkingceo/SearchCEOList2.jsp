@@ -89,7 +89,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 															<div class="row">
 																<div class="form-group" style="margin-left: 1.5%;">
 																	<input type="text" class="form-control" id="memberId"
-																		name="memberId" placeholder="아이디를 입력해주세요">
+																		name="memberId" placeholder="아이디를 입력해주세요" value="${memberId}">
 																</div>
 															</div>
 														</td>
@@ -206,6 +206,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 											<c:if test="${pi.currentPage != 1}">
 												<c:url var="blistFirst" value="selectSearchCEOList.ad">
 													<c:param name="currentPage" value="1" />
+													<c:param name="selectStatus" value="${selectStatus}" />
+													<c:param name="memberId" value="${memberId}" />
+													<c:param name="today" value="${today}" />
+													<c:param name="startDate" value="${startDate}" />
+													<c:param name="endDate" value="${endDate}" />
 												</c:url>
 												<a href="${blistFirst}"><button
 														class="btn btn-info animation-on-hover btn-sm"><<</button></a>
@@ -221,7 +226,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 											</c:if>
 											<c:if test="${pi.currentPage > 1}">
 												<c:url var="blistBack" value="selectSearchCEOList.ad">
-													<c:param name="currentPage" value="${pi.currentPage-1}" />
+												<c:param name="currentPage" value="${pi.currentPage-1}" />
+													<c:param name="selectStatus" value="${selectStatus}" />
+													<c:param name="memberId" value="${memberId}" />
+													<c:param name="today" value="${today}" />
+													<c:param name="startDate" value="${startDate}" />
+													<c:param name="endDate" value="${endDate}" />
 												</c:url>
 												<a href="${blistBack}"><button
 														class="btn btn-info animation-on-hover btn-sm"><</button></a>
@@ -237,6 +247,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 												<c:if test="${p ne pi.currentPage}">
 													<c:url var="blistCheck" value="selectSearchCEOList.ad">
 														<c:param name="currentPage" value="${p}" />
+														<c:param name="selectStatus" value="${selectStatus}" />
+														<c:param name="memberId" value="${memberId}" />
+														<c:param name="today" value="${today}" />
+														<c:param name="startDate" value="${startDate}" />
+														<c:param name="endDate" value="${endDate}" />
 													</c:url>
 													<a href="${blistCheck}"><button
 															class="btn btn-info animation-on-hover btn-sm">${p}</button></a>
@@ -250,6 +265,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 											<c:if test="${pi.currentPage < pi.maxPage}">
 												<c:url var="blistEnd" value="selectSearchCEOList.ad">
 													<c:param name="currentPage" value="${pi.currentPage+1}" />
+														<c:param name="selectStatus" value="${selectStatus}" />
+														<c:param name="memberId" value="${memberId}" />
+														<c:param name="today" value="${today}" />
+														<c:param name="startDate" value="${startDate}" />
+														<c:param name="endDate" value="${endDate}" />
 												</c:url>
 												<a href="${blistEnd}"><button
 														class="btn btn-info animation-on-hover btn-sm">></button></a>
@@ -259,6 +279,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 											<c:if test="${pi.currentPage != pi.maxPage}">
 												<c:url var="blistEnd2" value="selectSearchCEOList.ad">
 													<c:param name="currentPage" value="${pi.maxPage}" />
+														<c:param name="selectStatus" value="${selectStatus}" />
+														<c:param name="memberId" value="${memberId}" />
+														<c:param name="today" value="${today}" />
+														<c:param name="startDate" value="${startDate}" />
+														<c:param name="endDate" value="${endDate}" />
 												</c:url>
 												<a href="${blistEnd2}"><button
 														class="btn btn-info animation-on-hover btn-sm">>></button></a>
@@ -455,9 +480,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 		<!-- /////////////////////////////////// 모달 끝 /////////////////////////////////////////// -->
 	</c:if>
 
-	<!-- 검색 -->
+	<input type="hidden" value="${selectStatus}" id="inputSelectStatus">
+	<!-- 검색 -->		
 	<script>
 		$(function () {
+			
+			/* 자동 선택 - 구분 */
+			for(var i=0; i<$("#selectStatus option").length; i++){
+				if($("#inputSelectStatus").val() == $("#selectStatus option").eq(i).val()){
+					$("#selectStatus").val($('#inputSelectStatus').val()).prop("selected", true);
+				}							
+			}
+			
 			/* 구분 */
 			$("#selectStatus").click(function () {
 				var selected = $("#selectStatus option:selected").val();
