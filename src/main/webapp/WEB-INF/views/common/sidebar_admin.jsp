@@ -29,7 +29,7 @@
 				<a class="dropdown-item" href="selectCEOList.ad">사업자 조회</a> <a
 					class="dropdown-item" href="parkingLotList.ad">주차장 조회</a> <a
 					class="dropdown-item" href="parkingLotCertification.ad">주차장 인증</a>
-				<a class="dropdown-item" href="exchangeMoney.ad">환전 승인 및 조회</a> <a
+				<a class="dropdown-item" href="selectExchangeMoney.ad">환전/환불 관리</a> <a
 					class="dropdown-item" href="selectCouponCertification.ad">쿠폰 관리</a> <a
 					class="dropdown-item" href="statisticsCEO.ad">통계</a>
 			</div></li>
