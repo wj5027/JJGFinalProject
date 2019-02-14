@@ -58,12 +58,12 @@ public class CustomerMain {
 	//로그인 메소드
 	@RequestMapping(value="allLogin.cu",method=RequestMethod.POST)
 	public String allLogin(@ModelAttribute Member m,Model model) {
-		System.out.println("컨트롤러: "+m);
+		//System.out.println("컨트롤러: "+m);
 		
 		try {
 			Member loginUser = cms.selectCheckMember(m);
 			
-			System.out.println("컨트롤러: "+loginUser);
+			//System.out.println("컨트롤러: "+loginUser);
 			
 			model.addAttribute("loginUser", loginUser);
 			
@@ -317,7 +317,7 @@ public class CustomerMain {
 			 
 			 Member emailCheck =  cms.emailCheck(email);
 			 
-			 System.out.println(emailCheck);
+			 //System.out.println(emailCheck);
 			 
 			 int result = 0;
 			 
@@ -329,5 +329,50 @@ public class CustomerMain {
 			 return result;
 		}
 	
+	//정보 조회(비밀번호 찾기)
+	@ResponseBody
+	@RequestMapping(value="findPwd.cu", method=RequestMethod.POST)
+	public int chkForPwd(@ModelAttribute Member m,Model model) {
+		System.out.println("비밀번호 찾기 아이디&이메일: "+m);
+		
+		Member chk = cms.chkForPwd(m);
+		
+		int result = 0;
+		
+		if(chk != null) {
+			result = 1;
+
+		}
 	
+		
+		return result;
+	}
+	
+	//임시 비밀번호 등록
+	@ResponseBody	
+	@RequestMapping(value="setTempPwd.cu", method=RequestMethod.POST)
+	public String setTempPwd(@ModelAttribute Member m, HttpServletRequest request) {
+		//System.out.println("임시비밀번호로 바꾸기 : "+m);
+		
+		String tempPwd = request.getParameter("tempPwd");
+		String encPassword = passwordEncoder.encode(tempPwd);
+			
+		//System.out.println("암호화 된 임시 비밀번호 : "+encPassword);
+		
+		m.setMember_pwd(encPassword);
+		
+		int result = cms.insertTempPwd(m);
+		String alert = "";
+		
+		//System.out.println("result : "+result);
+		
+		if(result > 0) {
+			
+			alert="해당 이메일로 임시비밀번호가 발급되었습니다. 로그인 후 변경해주세요";
+		}else {
+			alert="임시번호 발급에 실패했습니다.";
+		}
+		
+		return alert;
+	}
 }
