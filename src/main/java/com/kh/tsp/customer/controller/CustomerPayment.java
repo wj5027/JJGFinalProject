@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kh.tsp.customer.model.service.CustomerMainService;
+import com.kh.tsp.customer.model.vo.ChargeOil;
 import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.customer.model.vo.Parking;
 import com.kh.tsp.customer.model.vo.Reservation;
@@ -33,9 +34,50 @@ public class CustomerPayment {
 	}
 	
 	@RequestMapping(value="/oil.cu", method=RequestMethod.GET)
-	public String CustomerOil() {
+	public String CustomerOil(HttpServletRequest request) {
 		
 		return "customer/member/Customer_oil";
+	}
+	
+	@RequestMapping(value="/oilIn.cu", method=RequestMethod.GET)
+	public String CustomerOilInsert(HttpServletRequest request) {
+		String imp_uid;
+		String merchant_uid;
+		boolean imp_success;
+		String [] breakString;
+		if (request.getParameter("imp_uid") != null && request.getParameter("merchant_uid") != null && request.getParameter("imp_success") != null) {
+			imp_uid = request.getParameter("imp_uid");
+			merchant_uid = request.getParameter("merchant_uid");
+			imp_success = Boolean.valueOf(request.getParameter("imp_success"));
+			
+			breakString = request.getParameter("merchant_uid").split("_");
+			
+			System.out.println("결재를 진행하였어요!");
+			System.out.println(imp_uid + "\r\n" + merchant_uid + "\r\n" + imp_success);
+			
+			if (imp_success) { // 오일 내역에 등록
+				ChargeOil chargeOil = new ChargeOil();
+				
+				chargeOil.setImp_uid(imp_uid);
+				chargeOil.setMerchant_uid(merchant_uid);
+				chargeOil.setImp_success(imp_success);
+				chargeOil.setMemberNo(Integer.parseInt(breakString[0]));
+				chargeOil.setOil(Integer.parseInt(breakString[1]));
+				
+				int result = 0;
+				
+				result = cms.insertCustomerOilCharge(chargeOil);
+				
+				if (result > 0) { // 회원 오일을 늘려줍니다!
+					cms.updateCustomerOilCharge(chargeOil);
+					System.out.println("결제를 무사히 마치고 DB에 등록도 됫어요!");
+				}
+			} else {
+				System.out.println("결제에 실패했으니 원래 페이지로 이동할게요...ㅜㅜㅜ");
+			}
+			
+		}
+		return "redirect:oil.cu";
 	}
 	
 	@RequestMapping(value="/reserv.cu", method=RequestMethod.GET)

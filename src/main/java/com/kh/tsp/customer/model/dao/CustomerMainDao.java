@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.tsp.customer.model.vo.CCoupon;
+import com.kh.tsp.customer.model.vo.ChargeOil;
 import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.customer.model.vo.Parking;
 import com.kh.tsp.customer.model.vo.Points;
@@ -45,11 +46,17 @@ public interface CustomerMainDao {
 
 	int insertMember(SqlSessionTemplate sqlSession, Member m);
 
+
+	int insertCustomerOilCharge(SqlSessionTemplate sqlSession, ChargeOil chargeOil);
+
+	void updateCustomerOilCharge(SqlSessionTemplate sqlSession, ChargeOil chargeOil);
+
 	Member findId(SqlSessionTemplate sqlSession, String email);
 
 	Member emailCheck(SqlSessionTemplate sqlSession, String email);
 
 	String selectEncPassword(SqlSessionTemplate sqlSession, Member m);
+
 
 
 }

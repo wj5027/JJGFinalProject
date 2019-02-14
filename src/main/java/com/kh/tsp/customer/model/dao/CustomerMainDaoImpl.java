@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.tsp.customer.model.vo.CCoupon;
+import com.kh.tsp.customer.model.vo.ChargeOil;
 import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.customer.model.vo.Parking;
 import com.kh.tsp.customer.model.vo.Points;
@@ -162,6 +163,17 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 	public String selectEncPassword(SqlSessionTemplate sqlSession, Member m) {
 		System.out.println("비밀번호 조회 메소드 dao"+m);
 		return sqlSession.selectOne("Member.selectPwd", m.getMember_id());
+	}
+
+	@Override
+	public int insertCustomerOilCharge(SqlSessionTemplate sqlSession, ChargeOil chargeOil) {
+		return sqlSession.insert("Member.insertCustomerOilCharge", chargeOil);
+	}
+
+	@Override
+	public void updateCustomerOilCharge(SqlSessionTemplate sqlSession, ChargeOil chargeOil) {
+		System.out.println(sqlSession);
+		sqlSession.update("Member.updateCustomerOilCharge", chargeOil);
 	}
 
 }

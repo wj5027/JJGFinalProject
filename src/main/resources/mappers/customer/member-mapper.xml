@@ -214,12 +214,25 @@
 	 		'Y', null, null, null, SYSDATE)
 	</insert>
 	
+
+	<insert id="insertCustomerOilCharge" parameterType="com.kh.tsp.customer.model.vo.ChargeOil">
+		INSERT INTO oil_list (oil_list_no, oil_list_type, oil_list_date, oil, member_no, payment_no, trans_no)
+		VALUES (OIL_LIST_SEQ.NEXTVAL, '충전', SYSDATE, #{ oil }, #{ memberNo }, #{ imp_uid }, #{ merchant_uid })
+	</insert>
+	
+	<update id="updateCustomerOilCharge" parameterType="com.kh.tsp.customer.model.vo.ChargeOil">
+		UPDATE member
+		SET oil = #{oil} + (SELECT oil FROM member WHERE member_no = #{ memberNo })
+		WHERE member_no = #{ memberNo }
+	</update>
+
 	<!-- 아이디 찾기 -->
 	<select id="findId" resultMap="MemberResultSet2" parameterType="String">
 		SELECT MEMBER_ID
 		FROM MEMBER
 		WHERE EMAIL = #{email}
 	</select>
+
 
 	<!-- 이메일 중복확인 -->
 	<select id="emailChk" resultMap="MemberResultSet2" parameterType="String">
