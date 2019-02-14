@@ -101,11 +101,10 @@
 	</resultMap>
 	
 	<select id="selectCheckMember" resultMap="MemberResultSet" parameterType="Member">
-		SELECT * FROM
-		MEMBER WHERE 
-		STATUS = 'Y'
-		AND MEMBER_ID = #{member_id}
-		AND MEMBER_PASSWORD = #{member_pwd}
+		SELECT * 
+		FROM MEMBER
+		WHERE MEMBER_ID = #{member_id}
+		AND STATUS = 'Y'
 	</select>
 
 
@@ -214,5 +213,29 @@
 	 VALUES (MNO_SEQ.NEXTVAL, #{member_id}, #{member_pwd}, 'U', 'M', '0', #{email}, #{phone}, #{member_name}, #{member_carNo},
 	 		'Y', null, null, null, SYSDATE)
 	</insert>
+	
+	<!-- 아이디 찾기 -->
+	<select id="findId" resultMap="MemberResultSet2" parameterType="String">
+		SELECT MEMBER_ID
+		FROM MEMBER
+		WHERE EMAIL = #{email}
+	</select>
 
+	<!-- 이메일 중복확인 -->
+	<select id="emailChk" resultMap="MemberResultSet2" parameterType="String">
+		SELECT EMAIL FROM
+		MEMBER 
+		WHERE STATUS = 'Y'
+		AND EMAIL = #{email}
+	</select>
+	
+	<!-- 암호화된 비밀번호 조회용 메소드 -->
+	<select id="selectPwd" resultType="java.lang.String" parameterType="java.lang.String">
+		SELECT MEMBER_PASSWORD
+		FROM MEMBER
+		WHERE MEMBER_ID=#{member_id}
+		AND STATUS = 'Y'
+	</select>
+	
+	
 </mapper>

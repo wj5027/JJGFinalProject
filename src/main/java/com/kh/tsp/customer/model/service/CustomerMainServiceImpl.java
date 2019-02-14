@@ -3,8 +3,11 @@ package com.kh.tsp.customer.model.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.security.auth.login.LoginException;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.kh.tsp.customer.model.dao.CustomerMainDao;
@@ -21,6 +24,8 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 	private SqlSessionTemplate sqlSession;
 	@Autowired
 	private CustomerMainDao cmd;
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 	
 	
 	
@@ -29,9 +34,23 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 	}
 
 	@Override
-	public Member selectCheckMember(Member m) {
+	public Member selectCheckMember(Member m) throws LoginException {
 		
-		return cmd.selectCheckMember(sqlSession,m);
+		Member loginUser = null;
+		
+		String encPassword = cmd.selectEncPassword(sqlSession, m);
+		
+		System.out.println("로그인 요청 메소드 실행됨: "+encPassword);
+		
+		if(!passwordEncoder.matches(m.getMember_pwd(), encPassword)) {
+			throw new LoginException("로그인 실패실패");
+			
+		}else {
+			loginUser = cmd.selectCheckMember(sqlSession,m);
+			System.out.println("loginUser: "+loginUser);
+		}
+		
+		return loginUser;
 	}
 
 	@Override
@@ -116,6 +135,18 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 	@Override
 	public ArrayList<CCoupon> selectUserCoupon(Member member) {
 		return cmd.selectUserCoupon(sqlSession, member);
+	}
+	//아이디찾기
+	@Override
+	public Member findId(String email) {
+
+		return cmd.findId(sqlSession, email);
+	}
+	//이메일중복
+	@Override
+	public Member emailCheck(String email) {
+
+		return cmd.emailCheck(sqlSession, email);
 	}
 	
 	
