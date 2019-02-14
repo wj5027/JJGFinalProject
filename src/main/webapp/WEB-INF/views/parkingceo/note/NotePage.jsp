@@ -466,7 +466,7 @@
 								+data.hmap.list[i].COUPON_START_DATE.month+"월 "
 								+data.hmap.list[i].COUPON_START_DATE.date+"일");
 						$end_dayTd = $("<td>").text((1900+data.hmap.list[i].COUPON_END_DATE.year)+"년 "
-								+data.hmap.list[i].COUPON_END_DATE.month+"월 "
+								+(data.hmap.list[i].COUPON_END_DATE.month+1)+"월 "
 								+data.hmap.list[i].COUPON_END_DATE.date+"일");
 						$amountTd = $("<td>").text(data.hmap.list[i].AMOUNT+"개");						
 						if(data.hmap.list[i].hasOwnProperty('REFUSE_REASON') == false){
