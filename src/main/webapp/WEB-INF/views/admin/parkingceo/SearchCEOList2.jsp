@@ -481,7 +481,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 	</c:if>
 
 	<input type="hidden" value="${selectStatus}" id="inputSelectStatus">
-	<!-- 검색 -->		
+	<!-- 검색. -->		
 	<script>
 		$(function () {
 			
