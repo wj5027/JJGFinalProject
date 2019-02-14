@@ -14170,9 +14170,9 @@ hr {
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
-
+/*현영수정 */
 .table>tbody>tr>td {
-  color: rgba(255, 255, 255, 0.7) !important;
+/*   color: rgba(255, 255, 255, 0.7); */
 }
 
 .table>tbody>tr>td .photo {
@@ -17166,9 +17166,9 @@ Copyright (c) 2015 Daniel Eden
 .white-content .card:not(.card-white).card-tasks .card-body i:hover {
   color: #222a42;
 }
-
+/*현영수정  */
 .white-content .table>tbody>tr>td {
-  color: rgba(34, 42, 66, 0.7) !important;
+/*   color: rgba(34, 42, 66, 0.7); */
 }
 
 .white-content .table>thead>tr>th,
