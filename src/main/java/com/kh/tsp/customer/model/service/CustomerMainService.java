@@ -27,7 +27,7 @@ public interface CustomerMainService {
 
 	ArrayList<Reservation> selectShowReserv(Member member);
 
-	Member selectCheckKakao(String kakao_id);
+	Member selectCheckKakao(String kakao_id) throws LoginException;
 
 	int insertKakao(Member m);
 
@@ -64,6 +64,10 @@ public interface CustomerMainService {
 
 
 	int getOilListCount(OilList searchInfo);
+
+	Member chkNaver(String member_id);
+
+	int insertNaver(Member m);
 	
 	
 }
