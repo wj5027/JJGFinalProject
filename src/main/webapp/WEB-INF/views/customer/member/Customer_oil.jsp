@@ -25,12 +25,12 @@
 				<tbody align="center">
 				<c:if test="${ !empty loginUser }">
 					<tr>
-						<td colspan="2" style="text-align: left;"><b>내 오일</b></td>
-						<td colspan="2"><b></b></td>
-						<td colspan="3"style="text-align: right;"><b><fmt:formatNumber value="${ loginUser.oil }" groupingUsed="true"></fmt:formatNumber>L</b></td>
+						<td colspan="1" style="text-align: left;"><b>내 오일</b></td>
+						<td colspan="1"><b></b></td>
+						<td colspan="1"style="text-align: right;"><b><fmt:formatNumber value="${ loginUser.oil }" groupingUsed="true"></fmt:formatNumber>L</b></td>
 					</tr>
 					<tr>
-						<td colspan="7">
+						<td colspan="3">
 							<div class="btn-group">
 							  <div style="margin-top: auto; margin-bottom: auto;" id="selectedOilView">오일 충전 내역</div>
 							  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -48,7 +48,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="3">
+						<td colspan="1">
 							<div class="input-group date form_date col-md-5" data-date="" data-date-format="yy년 MM d일" data-link-field="dtp_input3" data-link-format="yyyy-mm-d">
 		    					<div>
 		    						<input class="form-control"  id="setStartTime" size="16" type="text" placeholder="시작날짜" readonly style="color: white; width: 110px; cursor: pointer !important;">
@@ -60,7 +60,7 @@
 		  				<td colspan="1">
 		  					-
 						</td>
-						<td colspan="3">
+						<td colspan="1">
 							<div class="input-group date form_date col-md-5" data-date="" data-date-format="yy년 MM d일" data-link-field="dtp_input3" data-link-format="yyyy-mm-d">
 		    					<div>
 		    						<input class="form-control"  id="setEndTime" size="16" type="text" placeholder="마지막날짜" readonly style="color: white; width: 110px; cursor: pointer !important;">
@@ -71,8 +71,8 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="7">
-							<button class="btn btn-info animation-on-hover" type="button" onclick="searchList()">검색</button>
+						<td colspan="3">
+							<button class="btn btn-info animation-on-hover" type="button" onclick="searchList(1)">검색</button>
 						</td>
 					</tr>
 				</c:if>
@@ -84,56 +84,6 @@
           <div class="card-body" style="padding-bottom: 0px; overflow: auto; height: 200px;">
           	<table class="table tablesorter ">
 				<tbody align="center" style="overflow-y:auto; overflow-x:hidden;" id="selectOilView">
-				<c:if test="${ !empty loginUser }">
-					<tr>
-						<td colspan="1"><b>사용일자</b></td>
-						<td colspan="3"><b>주차장명</b></td>
-						<td colspan="1"><b>주차시간</b></td>
-						<td colspan="1"><b>사용오일</b></td>
-					</tr>
-					<tr>
-						<td colspan="1">2018-12-01</td>
-						<td colspan="3">롯데시네마</td>
-						<td colspan="1">2시간</td>
-						<td colspan="1">3,000L</td>
-					</tr>
-					<tr>
-						<td colspan="1">2018-12-01</td>
-						<td colspan="3">롯데시네마</td>
-						<td colspan="1">2시간</td>
-						<td colspan="1">3,000L</td>
-					</tr>
-					<tr>
-						<td colspan="1">2018-12-01</td>
-						<td colspan="3">롯데시네마</td>
-						<td colspan="1">2시간</td>
-						<td colspan="1">3,000L</td>
-					</tr>
-					<tr>
-						<td colspan="1">2018-12-01</td>
-						<td colspan="3">롯데시네마</td>
-						<td colspan="1">2시간</td>
-						<td colspan="1">3,000L</td>
-					</tr>
-					<tr>
-						<td colspan="1">2018-12-01</td>
-						<td colspan="3">롯데시네마</td>
-						<td colspan="1">2시간</td>
-						<td colspan="1">3,000L</td>
-					</tr>
-					<tr>
-						<td colspan="1">2018-12-01</td>
-						<td colspan="3">롯데시네마</td>
-						<td colspan="1">2시간</td>
-						<td colspan="1">3,000L</td>
-					</tr>
-					<tr>
-						<td colspan="1">2018-12-01</td>
-						<td colspan="3">롯데시네마</td>
-						<td colspan="1">2시간</td>
-						<td colspan="1">3,000L</td>
-					</tr>
-				</c:if>
 				<c:if test="${ empty loginUser }">
 					<tr>
 						<th colspan="3" style="color: white;">로그인을 해주세요!</th>
@@ -141,6 +91,7 @@
 				</c:if>
 				</tbody>
 			</table>
+			<div id="pagingArea" align="center"></div>
 		  </div>
 		  </div>
 		  </div>
@@ -206,11 +157,74 @@
 		  </div>
         </div>
       </div>
+      	  <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 결제 취소 모달 -->
+            <div class="modal fade cancle_pay" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			  <div class="modal-dialog modal-lg">
+			    <div class="modal-content" style="background: rgb(39,41,61);">
+			      <div class="modal-body" style="padding-bottom: 0px">
+			        <div class="table-responsive"  style="overflow: hidden; padding-bottom: 0px">
+			          <table class="table tablesorter " id="" style="margin-bottom: 0px;">
+			            <tbody id="ShowRefundModal">
+			                  <tr>
+			                  	<td align="center"><br><br>
+			                  		결제한지 3일 이내이고<br>
+			                  		포인트를 가지고 있어 환불이 가능합니다.<br>
+			                  		환불할 포인트는 1000 입니다.<br><br>
+			                  		정말로 환불 하시겠습니까?
+			                  	<br><br><br></td>
+			                  </tr>
+			                  <tr><td align="center">
+			                  	<button type="button" class="btn btn-default" data-dismiss="modal" onclick="">취소</button>
+			                  	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			                  	<button type="button" class="btn btn-default" data-dismiss="modal" onclick=";">환불</button>
+			                  </td></tr>      
+			            </tbody>
+			          </table>
+			        </div>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+		  <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+		  <button id="clickRefundResult" class='btn btn-info btn-sm' data-toggle='modal' data-target='.refund_pay_result' style="visibility: hidden;"></button>
+		  <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 결제 취소 확인 모달 -->
+            <div class="modal fade refund_pay_result" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			  <div class="modal-dialog modal-lg">
+			    <div class="modal-content" style="background: rgb(39,41,61);">
+			      <div class="modal-body" style="padding-bottom: 0px">
+			        <div class="table-responsive"  style="overflow: hidden; padding-bottom: 0px">
+			          <table class="table tablesorter " id="" style="margin-bottom: 0px;">
+			            <tbody id="ShowRefundResultModal">
+			                  <tr>
+			                  	<td align="center">
+			                  	<br><br>
+			                  		정상적으로 신청되었습니다.
+			                  		<br><br>
+			                  		7일 안에 관리자의 승인을 거처 환불이 됩니다.
+			                  	<br><br>
+			                  	</td>
+			                  </tr>
+			                  <tr>
+			                  	<td align="center">
+			                  		<button type="button" class="btn btn-default" data-dismiss="modal" onclick="">닫기</button>
+			                  	</td>
+			                  </tr>      
+			            </tbody>
+			          </table>
+			        </div>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+		  <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
     </div>
   </div>
  
 </body>
 <script type="text/javascript">
+	var selectedListInfo = "충전";
+	var memberNo = ${loginUser.member_no};
+	
 	$('.form_date').datetimepicker({
 	    language:  'ko',
 	    weekStart: 1,
@@ -278,8 +292,6 @@
 		}
 	}
 	
-	var selectedListInfo = "충전";
-	
 	function OilChargeList() {
 		$("#selectedOilView").html("오일 충전 내역");
 		
@@ -292,7 +304,7 @@
 		selectedListInfo = "사용";
 	}
 	
-	function searchList() {
+	function searchList(pageNo) {
 		var startTime = $("#setStartTime").val()
 		var endTime = $("#setEndTime").val();
 		
@@ -301,7 +313,7 @@
 				$.ajax({
 					url:"searchOilList.cu",
 					type:"post",
-					data:{startTime:startTime, endTime:endTime, selectedListInfo:selectedListInfo},
+					data:{startTime:startTime, endTime:endTime, selectedListInfo:selectedListInfo, memberNo:memberNo, pageNo:pageNo},
 					success:function(data){
 						if (selectedListInfo == '충전') {
 							$("#selectOilView").html("");
@@ -319,17 +331,32 @@
 													+ "</tr>");
 							for (var i = 0; i < data.length; i++) {
 								if (data[i].oilListType == '충전') {
-									$("#selectOilView").append("<tr>"
-											+ "<td>"
-											+ (new Date(data[i].oilListDate).getYear() - 100) + "년 " + (new Date(data[i].oilListDate).getMonth() + 1) + "월 " + new Date(data[i].oilListDate).getDate() + "일"
-											+ "</td>"
-											+ "<td>"
-											+ data[i].oilListType
-											+ "</td>"
-											+ "<td>"
-											+ "+" + data[i].oil + "L"
-											+ "<td>"
-											+ "</tr>");
+									if ((newDate.getTime() - new Date(data[i].oilListDate).getTime()) / (1000*60*60*24) <= 3) {
+										$("#selectOilView").append("<tr>"
+												+ "<td>"
+												+ (new Date(data[i].oilListDate).getYear() - 100) + "년 " + (new Date(data[i].oilListDate).getMonth() + 1) + "월 " + new Date(data[i].oilListDate).getDate() + "일"
+												+ "</td>"
+												+ "<td>"
+												+ data[i].oilListType
+												+ "</td>"
+												+ "<td>"
+												+ "+" + data[i].oil + "L" + " <button class='btn btn-info btn-sm' data-toggle='modal' data-target='.cancle_pay' onclick='refundNo(" + data[i].oilListNo + ");'>환불</button>"
+												+ "<td>"
+												+ "</tr>");
+									} else {
+										$("#selectOilView").append("<tr>"
+												+ "<td>"
+												+ (new Date(data[i].oilListDate).getYear() - 100) + "년 " + (new Date(data[i].oilListDate).getMonth() + 1) + "월 " + new Date(data[i].oilListDate).getDate() + "일"
+												+ "</td>"
+												+ "<td>"
+												+ data[i].oilListType
+												+ "</td>"
+												+ "<td>"
+												+ "+" + data[i].oil + "L"
+
+												+ "<td>"
+												+ "</tr>");
+									}
 								} else {
 									$("#selectOilView").append("<tr>"
 											+ "<td>"
@@ -396,6 +423,40 @@
 								}
 							}
 						}
+						// 페이징 Ajax
+						$.ajax({
+							url:"searchOilListPI.cu",
+							type:"post",
+							data:{startTime:startTime, endTime:endTime, selectedListInfo:selectedListInfo, memberNo:memberNo, pageNo:pageNo},
+							success:function(data){
+								$("#pagingArea").html("");
+								if (data.currentPage <= 1) {
+									
+								} else if (data.currentPage > 1) {
+									$("#pagingArea").append("<a onclick='searchList(" + (data.currentPage - 1) + ")'>[이전]</a> &nbsp; &nbsp;");
+								}
+								
+								
+								
+								for (var i = data.startPage; i <= data.endPage; i++) {
+									if (data.currentPage == i) {
+										$("#pagingArea").append("<font color='white' size='4'><b>" + i + "</b></font> &nbsp; &nbsp;");
+									} else {
+										$("#pagingArea").append("<a onclick='searchList(" + i + ")'>" + i + "</a> &nbsp; &nbsp;");
+									}
+								}
+								
+								
+								if (data.currentPage >= data.maxPage) {
+									
+								} else if (data.currentPage < data.maxPage) {
+									$("#pagingArea").append("<a onclick='searchList(" + (data.currentPage + 1) + ")'>[다음]</a>");
+								}
+							},
+							error:function(status){
+								console.log(status);
+							}
+						});
 					},
 					error:function(status){
 						console.log(status);
@@ -408,8 +469,9 @@
 			$.ajax({
 				url:"searchOilList.cu",
 				type:"post",
-				data:{startTime:startTime, endTime:endTime, selectedListInfo:selectedListInfo},
+				data:{startTime:startTime, endTime:endTime, selectedListInfo:selectedListInfo, memberNo:memberNo, pageNo:pageNo},
 				success:function(data){
+					var newDate = new Date();
 					if (selectedListInfo == '충전') {
 						$("#selectOilView").html("");
 						
@@ -426,17 +488,34 @@
 												+ "</tr>");
 						for (var i = 0; i < data.length; i++) {
 							if (data[i].oilListType == '충전') {
-								$("#selectOilView").append("<tr>"
-										+ "<td>"
-										+ (new Date(data[i].oilListDate).getYear() - 100) + "년 " + (new Date(data[i].oilListDate).getMonth() + 1) + "월 " + new Date(data[i].oilListDate).getDate() + "일"
-										+ "</td>"
-										+ "<td>"
-										+ data[i].oilListType
-										+ "</td>"
-										+ "<td>"
-										+ "+" + data[i].oil + "L"
-										+ "<td>"
-										+ "</tr>");
+								if ((newDate.getTime() - new Date(data[i].oilListDate).getTime()) / (1000*60*60*24) <= 3) {
+									$("#selectOilView").append("<tr>"
+											+ "<td>"
+											+ (new Date(data[i].oilListDate).getYear() - 100) + "년 " + (new Date(data[i].oilListDate).getMonth() + 1) + "월 " + new Date(data[i].oilListDate).getDate() + "일"
+											+ "</td>"
+											+ "<td>"
+											+ data[i].oilListType
+											+ "</td>"
+											+ "<td>"
+											+ "+" + data[i].oil + "L" + " <button class='btn btn-info btn-sm' data-toggle='modal' data-target='.cancle_pay' onclick='refundNo(" + data[i].oilListNo + ", " + "${ loginUser.oil }" + ", " + data[i].oil + ");'>환불</button>"
+											+ "<td>"
+											+ "</tr>");
+								} else {
+									$("#selectOilView").append("<tr>"
+											+ "<td>"
+											+ (new Date(data[i].oilListDate).getYear() - 100) + "년 " + (new Date(data[i].oilListDate).getMonth() + 1) + "월 " + new Date(data[i].oilListDate).getDate() + "일"
+											+ "</td>"
+											+ "<td>"
+											+ data[i].oilListType
+											+ "</td>"
+											+ "<td>"
+											+ "+" + data[i].oil + "L"
+
+											+ "<td>"
+											+ "</tr>");
+								}
+								
+								
 							} else {
 								$("#selectOilView").append("<tr>"
 										+ "<td>"
@@ -503,6 +582,40 @@
 							}
 						}
 					}
+					// 페이징 Ajax
+					$.ajax({
+						url:"searchOilListPI.cu",
+						type:"post",
+						data:{startTime:startTime, endTime:endTime, selectedListInfo:selectedListInfo, memberNo:memberNo, pageNo:pageNo},
+						success:function(data){
+							$("#pagingArea").html("");
+							if (data.currentPage <= 1) {
+								
+							} else if (data.currentPage > 1) {
+								$("#pagingArea").append("<a onclick='searchList(" + (data.currentPage - 1) + ")'>[이전]</a> &nbsp; &nbsp;");
+							}
+							
+							
+							
+							for (var i = data.startPage; i <= data.endPage; i++) {
+								if (data.currentPage == i) {
+									$("#pagingArea").append("<font color='white' size='4'><b>" + i + "</b></font> &nbsp; &nbsp;");
+								} else {
+									$("#pagingArea").append("<a onclick='searchList(" + i + ")'>" + i + "</a> &nbsp; &nbsp;");
+								}
+							}
+							
+							
+							if (data.currentPage >= data.maxPage) {
+								
+							} else if (data.currentPage < data.maxPage) {
+								$("#pagingArea").append("<a onclick='searchList(" + (data.currentPage + 1) + ")'>[다음]</a>");
+							}
+						},
+						error:function(status){
+							console.log(status);
+						}
+					});
 				},
 				error:function(status){
 					console.log(status);
@@ -543,5 +656,85 @@
 	}
 	
 </script>
+<script type="text/javascript">
+	// 환불 신청
+	function refundNo(oilListNo, possesOil, refundOil) {
+		$("#ShowRefundModal").html("");
+		
+		if (possesOil > refundOil) {
+			$("#ShowRefundModal").append("<tr><td align='center' colspan='2'>"
+									+ "결제한지 3일 이내이고<br>"
+									+ "포인트를 " + possesOil + "L 가지고 있습니다.<br>"
+									+ "환불할 포인트는 " + refundOil +" 입니다.<br>"
+									+ "아래 내용을 입력하고 신청하기를 눌러주세요!</td></tr>"
+									+ "<tr align='center'><td colspan='2'>※잘못된 계좌를 입력하여 발생한<br>문제는 관리자에게 연락바랍니다.</td></tr>"
+									+ "<tr><td align='center'><div style='color: white;'>예금주</div></td>"
+									+ "<td><input type='text' placeholder='예금주 명' class='form-control form-control-success' style='width: 150px;' id='accountHolder'/></td></tr>"
+									+ "<tr><td align='center'><div style='color: white;'>환전 오일</div></td>"
+									+ "<td><input type='number' value='" + refundOil + "' readonly class='form-control form-control-success' style='width: 150px;' id='ApplicationOil'/></td>"
+									+ "<tr><td align='center'><div style='color: white;'>은행</div></td>"
+									+ "<td><select class='custom-select nav-link dropdown-toggle' style='width: 150px;' id='selectionBank'>"
+									+ "<option value='국민' style='color: black;' selected>국민</option>"
+									+ "<option value='신한' style='color: black;'>신한</option>"
+									+ "<option value='농협' style='color: black;'>농협</option>"
+									+ "<option value='우리' style='color: black;'>우리</option>"
+									+ "</select></td></tr>"
+									+ "<tr><td align='center'><div style='color: white;'>계좌번호</div></td>"
+									+ "<td><input type='text' placeholder='계좌번호' class='form-control form-control-success' style='width: 150px;' id='accountNumber'/></td></tr>"
+									+ "<br>"
+									+ "<tr><td align='center' colspan='2'>"
+									+ "<button type='button' class='btn btn-default' data-dismiss='modal' onclick=''>취소</button>"
+									+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+									+ "<button type='button' class='btn btn-default' data-dismiss='modal' onclick='requestRefund(" + oilListNo + ")'>환불 신청</button>"
+									+ "</td></tr>");
+		} else {
+			$("#ShowRefundModal").append("<tr><td align='center'><br><br>"
+									+ "결제한지 3일 이내이지만<br>"
+									+ "현재 포인트가 " + possesOil + "L 이므로 환불이 불가능합니다.<br>"
+									+ "환불에 필요한 포인트는 " + refundOil +" 입니다.<br><br>"
+									+ "<br></td></tr>"
+									+ "<tr><td align='center'>"
+									+ "<button type='button' class='btn btn-default' data-dismiss='modal' onclick=''>닫기</button>"
+									+ "</td></tr>");
+		}
+		
+	}
+	function requestRefund(oilListNo) {
+		var accountHolder = $("#accountHolder").val();
+		var Application_bank = $("#selectionBank").val();
+		var application_account_number = $("#accountNumber").val();
+		
+		if (accountHolder == "" || Application_bank == "" || application_account_number == "") {
+			alert("값을 전부 입력해주세요!");
+		} else {
+			$.ajax({
+				url:"requestRefund.cu",
+				type:"post",
+				data:{oilListNo:oilListNo, accountHolder:accountHolder, Application_bank:Application_bank, application_account_number:application_account_number},
+				success:function(data){
+					if (data > 0) {
+						$("#clickRefundResult").click();
+					} else {
+						alert("신청 실패! 관리자에게 문의하세요...")
+					}
+					
+				},
+				error:function(status){
+					console.log(status);
+				}
+			});
+		}
+		
+		
+		
+	}
+	
+</script>
+
+<c:if test="${ !empty loginUser }">
+<script type="text/javascript">
+	searchList(1);
+</script>
+</c:if>
 
 </html>

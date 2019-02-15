@@ -189,6 +189,11 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 		return cmd.insertTempPwd(sqlSession, m);
 
 	}
+
+	@Override
+	public int intsertRequestRefund(HashMap<String, String> requesthmap) {
+		return cmd.intsertRequestRefund(sqlSession, requesthmap);
+	}
 	
 	
 }

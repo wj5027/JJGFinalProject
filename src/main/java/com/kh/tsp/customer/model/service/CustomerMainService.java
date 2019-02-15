@@ -64,6 +64,8 @@ public interface CustomerMainService {
 
 
 	int getOilListCount(OilList searchInfo);
+
+	int intsertRequestRefund(HashMap<String, String> requesthmap);
 	
 	
 }

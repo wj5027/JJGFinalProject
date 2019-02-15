@@ -68,6 +68,8 @@ public interface CustomerMainDao {
 
 	int insertTempPwd(SqlSessionTemplate sqlSession, Member m);
 
+	int intsertRequestRefund(SqlSessionTemplate sqlSession, HashMap<String, String> requesthmap);
+
 
 
 
