@@ -34,6 +34,50 @@ public class ParkingAdminServiceImpl implements ParkingAdminService{
 		return list;
 	}
 
+	// 리스트 상세보기 ajax
+	@Override
+	public ParkingListAdmin detailParkingLot(ParkingListAdmin pl) throws ParkingException {
+		pl = pd.detailParkingLot(sqlSession, pl);
+		return pl;
+	}
+
+	// 승인 버튼
+	@Override
+	public int updateParkingLot(ParkingListAdmin pl) throws ParkingException {
+		int result = pd.updateParkingLot(sqlSession, pl);
+		return result;
+	}
+
+	// 반송 버튼
+	@Override
+	public int updateReturnParkingLot(ParkingListAdmin pl) throws ParkingException {
+		int result = pd.updateReturnParkingLot(sqlSession, pl);
+		return result;
+	}
+
+	// 반송 사유 ajax
+	@Override
+	public ParkingListAdmin updateCancelReasonDetail(ParkingListAdmin pl) throws ParkingException {
+		pl = pd.updateCancelReasonDetail(sqlSession, pl);
+		return pl;
+	}
+
+	// 검색 수
+	@Override
+	public int getSearchListCount(String parkingListStatus, String memberId, String parkingAddress, String parkingListName, String today,
+			String startDate, String endDate) throws ParkingException {
+		int listCount = pd.getSearchListCount(sqlSession, parkingListStatus, memberId, parkingAddress, parkingListName, today, startDate, endDate);
+		return listCount;
+	}
+
+	// 검색 결과
+	@Override
+	public ArrayList<ParkingListAdmin> selectSearchParkingLotList(PageInfo pi, String parkingListStatus, String memberId, String parkingAddress,
+			String parkingListName, String today, String startDate, String endDate) throws ParkingException {
+		ArrayList<ParkingListAdmin> list = pd.selectSearchParkingLotList(sqlSession, pi, parkingListStatus, memberId, parkingAddress, parkingListName, today, startDate, endDate);
+		return list;
+	}
+
 /*	// 쿠폰 전체 수
 	@Override
 	public int getCouponListCount() throws CouponListException {
