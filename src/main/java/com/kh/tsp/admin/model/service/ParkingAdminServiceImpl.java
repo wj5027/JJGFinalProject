@@ -78,6 +78,13 @@ public class ParkingAdminServiceImpl implements ParkingAdminService{
 		return list;
 	}
 
+	// 삭제 버튼
+	@Override
+	public int deleteRemoveParkingLot(ParkingListAdmin pl) throws ParkingException {
+		int result = pd.deleteRemoveParkingLot(sqlSession, pl);
+		return result;
+	}
+
 /*	// 쿠폰 전체 수
 	@Override
 	public int getCouponListCount() throws CouponListException {

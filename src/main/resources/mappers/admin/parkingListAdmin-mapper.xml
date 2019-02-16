@@ -82,12 +82,29 @@
 		SET PARKING_LIST_STATUS = '변경완료'
 		WHERE PARKING_LIST_NO = #{parkingListNo}
   	</update>
+  	<update id="updateParkingNo"  parameterType="java.lang.String">
+  		UPDATE PARKING
+		SET STATUS = 'Y'
+		WHERE PARKING_NO = #{parkingNo}
+  	</update>
   	
   	<!-- 반송 버튼 -->
   	<update id="updateReturnParkingLot"  parameterType="ParkingListAdmin">
   		UPDATE PARKING_LIST
 		SET PARKING_LIST_STATUS = '반송', PARKING_LIST_REASON=#{parkingListReason}
 		WHERE PARKING_LIST_NO = #{parkingListNo}
+  	</update>
+  	
+  	<!-- 삭제 버튼 -->
+  	<update id="deleteRemoveParkingLot"  parameterType="java.lang.String">
+  		UPDATE PARKING_LIST
+		SET PARKING_LIST_STATUS = '삭제완료'
+		WHERE PARKING_LIST_NO = #{parkingListNo}
+  	</update>
+  	<update id="deleteRemoveParkingNo"  parameterType="java.lang.String">
+  		UPDATE PARKING
+		SET STATUS = 'N'
+		WHERE PARKING_NO = #{parkingNo}
   	</update>
   	
   	<!-- 반송 사유 ajax -->

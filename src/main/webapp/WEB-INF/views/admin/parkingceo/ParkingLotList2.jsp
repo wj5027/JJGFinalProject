@@ -197,6 +197,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 												<c:forEach var="pl" items="${list}" varStatus="varstatus">
 													<tr class="listAreaTr">
 														<td class="text-center">${pl.parkingListNo}</td>
+														<td class="parkingNo">${pl.parkingNo}</td>
 														<td>${pl.memberId}</td>
 														<td>${pl.parkingListName}</td>
 														<td>
@@ -223,7 +224,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 															</c:if>
 															<c:if test="${pl.parkingListStatus=='반송'}">
 																<button data-toggle="modal" data-target=".bd-example-modal-lg-10" style="width: 90%;"
-																	class="btn btn-default animation-on-hover btn-sm" onclick="cancelReasonDetail()">반송 완료</button>								
+																	class="btn btn-default animation-on-hover btn-sm" onclick="cancelReasonDetail()">반송 완료</button>	
+															<c:if test="${pl.parkingListStatus=='삭제완료'}">
+																<button data-toggle="modal" data-target=".bd-example-modal-lg-12" style="width: 90%;"
+																	class="btn btn-warning animation-on-hover btn-sm" onclick="">복구하기</button>								
+															</c:if>							
 															</c:if>
 														</td>													
 													</tr>
@@ -352,12 +357,17 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 		<script>
 			$(function () {
 				parkingListNo=0;
+				parkingNo=0;
+				
+				/* parkingNo hide */
+				$(".parkingNo").hide();
 				
 				/* hover 되었을 때 */
 				$(".listAreaTr").mouseenter(function () {
 					for (var i = 0; i < 9; i++) {
 						$(this).children().eq(i).css({"background":"rgb(28, 28, 38)", "cursor":"pointer"});	
-						parkingListNo = $(this).children().eq(0).text();	
+						parkingListNo = $(this).children().eq(0).text();
+						parkingNo = $(this).children().eq(1).text();		
 					}	
 				/* hover 해제 되었을 때 */	
 				}).mouseout(function () {	
@@ -371,7 +381,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 					for (var j = 0; j < 8; j++) {
 						$(".listAreaTr").eq(i).children().eq(j).click(function () {
 							$("#clickModal").click();	
-							console.log(parkingListNo)	
+							console.log("parkingListNo :"+parkingListNo)	
+							console.log("parkingNo :"+parkingNo)	
 							
 							/* ajax */										
 							$.ajax({
@@ -449,6 +460,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 												+'</tr>');
 									}
 									$select.append('</tbody>');
+
+									
+									/* parkingNo hide */
+									$(".parkingNo").hide();
+									
 								},error:function(status){
 									console.log(status);
 								}
@@ -508,7 +524,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 												<tr>
 													<td align="center">
 														<button type="button" data-target=".bd-example-modal-lg-3" data-toggle="modal" 
-															class="btn btn-warning animation-on-hover">예</button>&nbsp;&nbsp;
+															class="btn btn-warning animation-on-hover" id="deleteRemoveParkingLot">예</button>&nbsp;&nbsp;
 														<button type="button"
 															class="btn btn-info animation-on-hover"
 															data-dismiss="modal">아니오</button>
@@ -525,6 +541,16 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 			</div>
 		</div>
 		<!-- 주차장 삭제버튼 클릭 시 모달 끝 -->
+		
+		<!-- 삭제버튼 > 예 클릭 -->
+		<script>
+			$(function () {
+				$("#deleteRemoveParkingLot").click(function () {
+					location.href='deleteRemoveParkingLot.ad?parkingListNo='+parkingListNo+'&parkingNo='+parkingNo;
+				});
+			});
+		</script>
+		<!-- 삭제버튼 > 예 클릭 끝 -->
 			
 		<!-- 주차장 삭제버튼 클릭 > 예 버튼 클릭 시 모달 3 -->
 		<div class="modalDetail">
@@ -602,7 +628,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 		<script>
 			$(function () {
 				$("#updateParkingLot").click(function () {
-					location.href='updateParkingLot.ad?parkingListNo='+parkingListNo;
+					location.href='updateParkingLot.ad?parkingListNo='+parkingListNo+'&parkingNo='+parkingNo;
 				});
 			});
 		</script>
@@ -636,6 +662,82 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 		</div>
 		<!-- 환전승인 버튼 -> 예 버튼 모달 끝 --> 	
 		
+		<!-- 복구버튼 클릭 시 모달 -->
+		<div class="modalDetail">
+			<div class="modal fade bd-example-modal-lg-12" tabindex="-1"
+				role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content" style="background: rgb(39, 41, 61);">
+						<div class="modal-body" style="padding-bottom: 0px;">
+							<div class="card ">
+								<div class="card-header">
+									<h4 class="card-title">주차장 복구</h4>
+								</div>
+								<div class="card-body" style="padding-bottom: 0px;">
+									<div class="table-responsive" style="overflow: hidden; padding-bottom: 0px;">
+										<table class="table tablesorter" id="modalTable" style="padding-bottom: 0px;">
+											<tbody>
+												<tr>
+													<td>정말로 복구 하시겠습니까?</td>
+												</tr>
+												<tr>
+													<td align="center">
+														<button type="button" data-target=".bd-example-modal-lg-13" data-toggle="modal" 
+															class="btn btn-warning animation-on-hover" id="updateRecoverParkingLot">예</button>&nbsp;&nbsp;
+														<button type="button"
+															class="btn btn-info animation-on-hover"
+															data-dismiss="modal">아니오</button>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 복구버튼 클릭 시 모달 끝 -->
+		
+		<!-- 복구버튼 클릭 -->
+		<script>
+			$(function () {
+				$("#updateRecoverParkingLot").click(function () {
+					location.href='updateParkingLot.ad?parkingListNo='+parkingListNo+'&parkingNo='+parkingNo;
+				});
+			});
+		</script>
+		<!-- 복구버튼 클릭 끝 -->
+	
+		<!-- 복구 버튼 -> 예 버튼 모달 -->
+		<div class="modal fade bd-example-modal-lg-13" tabindex="-1"
+			role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content" style="background: rgb(39, 41, 61);">
+					<div class="modal-body" style="padding-bottom: 0px;">
+						<div class="table-responsive"
+							style="overflow: hidden; padding-bottom: 0px;">
+							<table class="table tablesorter " id=""
+								style="margin-bottom: 0px;">
+								<tbody>
+									<tr>
+										<td align="center"><b>정상적으로 복구 되었습니다.</b></td>
+									</tr>
+									<tr>
+										<td align="center"><button type="button"
+												class="btn btn-default animation-on-hover"
+												data-dismiss="modal" onclick="window.location.reload();">닫기</button></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 복구 버튼 -> 예 버튼 모달 끝 --> 	
 		<!-- 취소 사유 모달 -->
 		<div class="modalDetail">
 			<div class="modal fade bd-example-modal-lg-6" tabindex="-1"
@@ -771,9 +873,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 						$("#ajaxCancelModalTable").empty(); 
 						
 						$select.append('<tbody>');
-						$select.append('<tr>'
-											+'<td align="center">'+data.parkingListReason+'</b></td>'
-											+'</tr>');
+						if(data.parkingListReason == null){
+							$select.append('<tr>'
+												+'<td align="center">반송 사유 없음</b></td>'
+												+'</tr>');
+						}else{
+							$select.append('<tr>'
+												+'<td align="center">'+data.parkingListReason+'</b></td>'
+												+'</tr>');
+						}
 						$select.append('<tr>'
 											+'<td align="center"><button type="button" class="btn btn-default animation-on-hover" data-dismiss="modal"'
 											+'onclick="">닫기</button></b></td>'

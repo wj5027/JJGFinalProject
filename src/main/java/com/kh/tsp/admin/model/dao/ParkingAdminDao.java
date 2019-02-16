@@ -36,4 +36,7 @@ public interface ParkingAdminDao {
 	ArrayList<ParkingListAdmin> selectSearchParkingLotList(SqlSessionTemplate sqlSession, PageInfo pi, String parkingListStatus, String memberId,
 			String parkingAddress, String parkingListName, String today, String startDate, String endDate) throws ParkingException;
 
+	// 삭제 버튼
+	int deleteRemoveParkingLot(SqlSessionTemplate sqlSession, ParkingListAdmin pl) throws ParkingException;
+
 }

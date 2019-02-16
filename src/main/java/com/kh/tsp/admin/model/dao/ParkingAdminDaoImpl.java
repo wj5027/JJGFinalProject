@@ -64,10 +64,14 @@ public class ParkingAdminDaoImpl  implements ParkingAdminDao{
 	public int updateParkingLot(SqlSessionTemplate sqlSession, ParkingListAdmin pl) throws ParkingException {
 		
 		String parkingListNo = pl.getParkingListNo();
+		String parkingNo = pl.getParkingNo();
 		
-		int result = sqlSession.update("ParkingListAdmin.updateParkingLot", parkingListNo);
+		int result1 = sqlSession.update("ParkingListAdmin.updateParkingLot", parkingListNo);
+		int result2 = sqlSession.update("ParkingListAdmin.updateParkingNo", parkingNo);
 		
-		if(result<=0) {
+		int result = result1+result2;
+		
+		if(result1<=0 && result2<=0) {
 			throw new ParkingException("승인 실패!");
 		}
 		return result;
@@ -146,6 +150,24 @@ public class ParkingAdminDaoImpl  implements ParkingAdminDao{
 		System.out.println("DAO list : "+list);
 
 		return list;
+	}
+
+	// 삭제 버튼
+	@Override
+	public int deleteRemoveParkingLot(SqlSessionTemplate sqlSession, ParkingListAdmin pl) throws ParkingException {
+		
+		String parkingListNo = pl.getParkingListNo();
+		String parkingNo = pl.getParkingNo();
+		
+		int result1 = sqlSession.update("ParkingListAdmin.deleteRemoveParkingLot", parkingListNo);
+		int result2 = sqlSession.update("ParkingListAdmin.deleteRemoveParkingNo", parkingNo);
+		
+		int result = result1+result2;
+		
+		if(result1<=0 && result2<=0) {
+			throw new ParkingException("승인 실패!");
+		}
+		return result;
 	}
 
 }
