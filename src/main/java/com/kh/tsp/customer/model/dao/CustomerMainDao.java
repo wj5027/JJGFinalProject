@@ -68,6 +68,10 @@ public interface CustomerMainDao {
 
 	int insertTempPwd(SqlSessionTemplate sqlSession, Member m);
 
+	Member chkNaver(SqlSessionTemplate sqlSession, String member_id);
+
+	int insertNaver(SqlSessionTemplate sqlSession, Member m);
+
 
 
 

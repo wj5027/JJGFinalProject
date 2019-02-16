@@ -99,7 +99,7 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 		return (ArrayList)sqlSession.selectList("Member.selectReserve", member);
 	}
 
-    
+    //카카오톡 로그인
 	public Member selectCheckKakao(SqlSessionTemplate sqlSession, String kakao_id) {
 
 		return sqlSession.selectOne("Member.selectCheckKakao", kakao_id);
@@ -210,6 +210,18 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 	@Override
 	public int getOilListCount(SqlSessionTemplate sqlSession, OilList searchInfo) {
 		return sqlSession.selectOne("Member.getOilListCount", searchInfo);
+	}
+	//네이버 아이디 유무 확인
+	@Override
+	public Member chkNaver(SqlSessionTemplate sqlSession, String member_id) {
+
+		return sqlSession.selectOne("Member.chkNaver", member_id);
+	}
+
+	@Override
+	public int insertNaver(SqlSessionTemplate sqlSession, Member m) {
+
+		return sqlSession.insert("Member.insertNaver", m);
 	}
 	
 

@@ -31,6 +31,8 @@
                 <div align="center" style="width: 100%">
                     <button class="btn btn-info btn-sm" onclick="location.href='customer_loginPage.cu'">취소</button>&nbsp;&nbsp;&nbsp;
                     <button class="btn btn-info btn-sm" onclick="return checkId()" id="findIdBtn" >확인</button>
+                     <button class="btn btn-info btn-sm" onclick="location.href='customer_loginPage.cu'">메인으로</button>&nbsp;&nbsp;&nbsp;
+				
 				</div>
               </div>
             </div>
@@ -57,8 +59,10 @@
               	<br>
                     
                 <div align="center" style="width: 100%">
-                    <button class="btn btn-info btn-sm" onclick="location.href='customer_login.cu'">취소</button>&nbsp;&nbsp;&nbsp;
-                     <button class="btn btn-info btn-sm" onclick="return chkPwd()" id="chkForPwd" >확인</button>
+                    <button class="btn btn-info btn-sm" onclick="location.href='customer_loginPage.cu'">취소</button>&nbsp;&nbsp;&nbsp;
+                     <button class="btn btn-info btn-sm" onclick="return chkPwd()" id="chkForPwd" >확인</button><br>
+                     <button class="btn btn-info btn-sm" onclick="location.href='customer_loginPage.cu'">메인으로</button>&nbsp;&nbsp;&nbsp;
+                     
                   
 				</div>
               </div>

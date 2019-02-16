@@ -20,17 +20,17 @@
 		  <div class="col-md-12" height="500px">
             <div class="card ">
               <div class="card-header">
-                <h4 class="card-title"><b>지주갑 카카오톡 로그인 추가정보 입력</b></h4>
+                <h4 class="card-title" align="center"><b>지주갑 네이버 로그인 추가정보 입력</b></h4>
               </div>
               <div class="card-body">
-              	<form action="insertKakao.cu" id="kakaoForm" method="post">
+              	<form action="insertNaver.cu" id="naverForm" method="post">
               		이름 <input type="text" class="form-control" name="member_name" value="${ member_name }" readonly><br>
-              		아이디 <input type="text" class="form-control" name="member_id" value="${ kakao_id }" readonly><br>
+              		아이디 <input type="text" class="form-control" name="member_id" value="${ member_id }" readonly><br>
                   	비밀번호 <input type="password" class="form-control" name="member_pwd"><br>
                   	비밀번호 확인 <input type="password" class="form-control" name="member_pwd2"><br> 
                   	차번호 <input type="text" class="form-control" name="member_carNo"><br>
                   	전화번호<input type="text" class="form-control" name="phone"><br>
-                  	이메일 <input type="email" class="form-control" name="email" id="userEmail"><br>
+                  	이메일 <input type="email" class="form-control" name="email" id="userEmail" value="${ email }"><br>
                   	<div align="right" style="width: 100%">
                   		<button class="btn btn-info btn-sm" type="button" onclick="mailSender();">인증번호 발송</button>
                   	</div>
@@ -44,7 +44,7 @@
                     
                 <div align="center" style="width: 100%">
                     <button class="btn btn-info btn-sm" onclick="location.href='customer_loginPage.cu'">취소</button>&nbsp;&nbsp;&nbsp;
-                    <button class="btn btn-info btn-sm" type="submit" id="insertKakaoBtn">확인</button>
+                    <button class="btn btn-info btn-sm" type="submit" id="insertNaverBtn">확인</button>
 				</div>
               </div>
             </div>
@@ -114,9 +114,9 @@
 	
 
 	$(function(){
-		$("#insertKakaoBtn").click(function(){
+		$("#insertNaverBtn").click(function(){
 			alert("회원가입이 완료되었습니다");
-			$("#kakaoForm").submit();
+			$("#naverForm").submit();
 			
 		});			
 		
