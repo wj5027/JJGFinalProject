@@ -3,65 +3,32 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="Parking">
-
-		<resultMap type="com.kh.tsp.parkingceo.model.vo.ParkingCeoVo" id="ParkingResultSet">
-			<id property="parkingNo" column="PARKING_NO"/>
-			<result property="parkingName" column="PARKING_NAME"/>
-			<result property="operateType" column="OPERATE_TYPE"/>
-			<result property="parkingType" column="PARKING_TYPE"/>
-			<result property="roadAddress" column="ROAD_ADDRESS"/>
-			<result property="address" column="ADDRESS"/>
-			<result property="parkingSize" column="PARKING_SIZE"/>
-			<result property="openDays" column="OPEN_DAYS"/>
-			<result property="weekdayStime" column="WEEKDAY_STIME"/>
-			<result property="weekdayEtime" column="WEEKDAY_ETIME"/>
-			<result property="satStime" column="SAT_STIME"/>
-			<result property="satEtime" column="SAT_ETIME"/>
-			<result property="hollydayStime" column="HOLIDAY_STIME"/>
-			<result property="hollydayEtime" column="HOLIDAY_ETIME"/>
-			<result property="priceInfo" column="PRICE_INFO"/>
-			<result property="parkingNtime" column="PARKING_NTIME"/>	
-			<result property="parkingNprice" column="PARKING_NPRICE"/>
-			<result property="parkingAtime" column="PARKING_ATIME"/>
-			<result property="parkingAprice" column="PARKING_APRICE"/>
-			<result property="payType" column="PAY_TYPE"/>
-			<result property="remarks" column="REMARKS"/>
-			<result property="latitude" column="LATITUDE"/>
-			<result property="longitude" column="LONGITUDE"/>
-			<result property="parkingManagement" column="PARKING_MANGEMENT"/>
-			<result property="managementTel" column="MANAGEMENT_TEL"/>
-			<result property="memberNo" column="MEMBER_NO"/>
-			<result property="leftSize" column="LEFT_SIZE"/>
-			<result property="status" column="STATUS"/>
-			<result property="parkingListReason" column="PARKING_LIST_REASON"/>
-			<result property="modifyDate" column="MODIFY_DATE"/>
-	</resultMap>
+<mapper namespace="InsertParkingType">
 	
-	<insert id="insertParkingOne" parameterType="com.kh.tsp.parkingceo.model.vo.ParkingCeoVo">
+	<insert id="insertParkingOne" parameterType="ParkingCeoVo">
 		INSERT INTO PARKING
 		VALUES (PARKING_NO_SEQ.NEXTVAL,#{parkingName},'민영',#{parkingType},NULL,#{address},#{parkingSize},#{openDays},#{weekdayStime},#{weekdayEtime},#{satStime},#{satEtime},#{hollydayStime},#{hollydayEtime},#{priceInfo}
-		,#{parkingNtime},#{parkingNprice},#{parkingAtime},#{parkingAprice},#{payType},#{remarks},#{latitude},#{longitude},NULL,NULL,#{memberNo},#{parkingSize},SYSDATE,NULL)
+,#{parkingNtime},#{parkingNprice},#{parkingAtime},#{parkingAprice},#{payType},#{remarks},#{latitude},#{longitude},NULL,NULL,#{memberNo},#{leftSize},'N',SYSDATE)
 	</insert>
 
 <select id="selectParkingNo" resultType="java.lang.String">
-	SELECT PARKING_NO_SEQ.CURRVAL FROM DUAL;
+	SELECT PARKING_NO_SEQ.CURRVAL FROM DUAL
 </select>
 
-<insert id="insertParkingListOne">
+<insert id="insertParkingListOne" parameterType="com.kh.tsp.parkingceo.model.vo.ParkingCeoVo">
 		INSERT INTO PARKING_LIST
 		VALUES(PARKING_LIST_SEQ.NEXTVAL,#{parkingName},'민영',#{parkingSize},#{openDays},#{weekdayStime},#{weekdayEtime},#{satStime},#{satEtime},#{hollydayStime},#{hollydayEtime},#{priceInfo}
 		,#{parkingNtime},#{parkingNprice},#{parkingAtime},#{parkingAprice},#{payType},'변경중',#{memberNo},#{parkingNo},NULL,SYSDATE)
 </insert>
 
 <select id="selectParkingListNo" resultType="_int">
-	SELECT PARKING_LIST_SEQ.CURRVAL FROM DUAL;
+	SELECT PARKING_LIST_SEQ.CURRVAL FROM DUAL
 </select>
 
 
-<insert id="insertAttachment">
+<insert id="insertAttachment" parameterType="com.kh.tsp.parkingceo.model.vo.ParkingCeoAttachmentVo">
 	INSERT INTO ATTACHMENT
-	VALUES(FID_SEQ.NEXTVAL,'변경신청사진',#{origin_name},#{origin_name},#{origin_name},#{file_path},SYSDATE,1,'N',NULL,NULL,#{parking_list_no})
+	VALUES(FID_SEQ.NEXTVAL,'변경신청사진',#{origin_name},#{change_name},#{file_path},SYSDATE,1,'N',NULL,NULL,#{parking_list_no})
 </insert>
 
 

@@ -134,27 +134,27 @@ public class ParkingDaoImpl implements ParkingDao{
 
 	@Override
 	public void insertParkingOne(SqlSessionTemplate sqlSession, ParkingCeoVo parking) {
-		sqlSession.insert("Parking.insertParkingOne", parking);
+		sqlSession.insert("InsertParkingType.insertParkingOne", parking);
 	}
 
 	@Override
 	public String selectParkingNo(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("Parking.selectParkingNo");
+		return sqlSession.selectOne("InsertParkingType.selectParkingNo");
 	}
 
 	@Override
 	public void insertPakringListOne(SqlSessionTemplate sqlSession, ParkingCeoVo parking) {
-		sqlSession.insert("Parking.insertParkingListOne", parking);
+		sqlSession.insert("InsertParkingType.insertParkingListOne", parking);
 	}
 
 	@Override
 	public int selectParkingListNo(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("Parking.selectParkingListNo");
+		return sqlSession.selectOne("InsertParkingType.selectParkingListNo");
 	}
 
 	@Override
 	public void insertAttachment(SqlSessionTemplate sqlSession, ParkingCeoAttachmentVo parkingCeoAttachmentVo) {
-		sqlSession.insert("Pakring.insertAttachment", parkingCeoAttachmentVo);
+		sqlSession.insert("InsertParkingType.insertAttachment", parkingCeoAttachmentVo);
 	}
 
 
