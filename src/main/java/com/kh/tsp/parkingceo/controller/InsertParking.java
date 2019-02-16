@@ -62,12 +62,12 @@ public class InsertParking {
 		String openDaysResult = String.join(",", parking.getOpenDaysArry());
 		parking.setOpenDays(openDaysResult);
 		//운영 시간 재 설정
-		parking.setWeekdayStime(null);
-		parking.setWeekdayEtime(null);
-		parking.setSatStime(null);
-		parking.setSatEtime(null);
-		parking.setHollydayStime(null);
-		parking.setHollydayEtime(null);
+		parking.setWeekdayStime("00:00");
+		parking.setWeekdayEtime("00:00");
+		parking.setSatStime("00:00");
+		parking.setSatEtime("00:00");
+		parking.setHollydayStime("00:00");
+		parking.setHollydayEtime("00:00");
 		
 		for(int i = 0; i < parking.getOpenDaysArry().length; i++) {
 			if(parking.getOpenDaysArry()[i].equals("평일")) {
@@ -82,29 +82,37 @@ public class InsertParking {
 			}
 		}
 		
-		
-		
 		//결제 방법 재 설정
 		String payTypeResult = String.join(",", parking.getPay_typeArry());
 		parking.setPayType(payTypeResult);
 		
-
+		//남은 주차 획수 설정
+		parking.setLeftSize(parking.getParkingSize());
+		
+		//비고 설정
+		if(parking.getRemarks() == "") {
+			parking.setRemarks("없음");
+		}
 		
 		//파일 설정
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String filePath = root + "\\common\\parkingImage";
-		
-		
 		ArrayList<MultipartFile> multipartList = new ArrayList<MultipartFile>();
+		ArrayList<String> changeNameList = new ArrayList<String>();
 		ArrayList<ParkingCeoAttachmentVo> attachList = new ArrayList<ParkingCeoAttachmentVo>();
-		multipartList.add(parkingImage1);
-		multipartList.add(parkingImage2);
-		multipartList.add(parkingImage3);
+		
+		if(parkingImage1.getOriginalFilename() != "") {
+			multipartList.add(parkingImage1);			
+		}
+		if(parkingImage2.getOriginalFilename() != "") {
+			multipartList.add(parkingImage2);			
+		}
+		if(parkingImage3.getOriginalFilename() != "") {
+			multipartList.add(parkingImage3);			
+		}
 		String originFileName = "";
 		String changeName = "";
 		String ext = "";
-		
-
 		
 		try {
 			for(int i = 0 ; i < multipartList.size(); i++) {
@@ -112,23 +120,21 @@ public class InsertParking {
 					originFileName = multipartList.get(i).getOriginalFilename();
 					ext = originFileName.substring(originFileName.lastIndexOf("."));
 					changeName = CommonUtils.getRandomString();
-					
+					changeNameList.add(changeName);
 					
 					attach.setFile_path(filePath);
 					attach.setChange_name(changeName);
 					attach.setOrigin_name(originFileName);
 					attachList.add(attach);
 					multipartList.get(i).transferTo(new File(filePath+"\\"+changeName+ext));
-
-					
 				}
-				System.out.println(parking);
 				//데이터 베이스에 넣기 위한 메소드
-				System.out.println("나오니?");
 				ps.insertParkingOne(parking,attachList);
 			
 			}catch (Exception e) {
-				new File(filePath + "\\" + changeName + ext).delete();
+				for(int i = 0 ; i < changeNameList.size(); i ++) {
+					new File(filePath + "\\" + changeNameList.get(i) + ext).delete();					
+				}
 				return "redirect:insertParkingFailed.pc";
 			}
 			

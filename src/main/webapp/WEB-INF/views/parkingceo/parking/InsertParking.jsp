@@ -82,7 +82,7 @@
 		      </div>
 		      	<div class="form-group">
 		        <label for="parking_size">주차 구획수</label>
-		        <input type="text" class="form-control" id="parking_size" name="leftSize" placeholder="주차 구획수를 입력해주세요" style="width: 400px;">
+		        <input type="text" class="form-control" id="parking_size" name="parkingSize" placeholder="주차 구획수를 입력해주세요" style="width: 400px;">
 		      </div>
 		      <div class="form-check">
 		      <label for="open_days">운영 요일</label>
