@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.kh.tsp.common.ParkingCeoPageInfo;
 import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.parkingceo.model.dao.ParkingDao;
+import com.kh.tsp.parkingceo.model.vo.ParkingCeoAttachmentVo;
+import com.kh.tsp.parkingceo.model.vo.ParkingCeoVo;
 
 @Service
 public class ParkingServiceImpl implements ParkingService{
@@ -125,5 +127,35 @@ public class ParkingServiceImpl implements ParkingService{
 			hmap.put("list", list);
 		}
 		return hmap;
+	}
+
+	
+	// 주차장 등록
+	@Override
+	public void insertParkingOne(ParkingCeoVo parking, ArrayList<ParkingCeoAttachmentVo> attachList) {
+		//주차장 테이블 등록
+		pd.insertParkingOne(sqlSession,parking);
+		System.out.println("주차장 테이블 등록 확인");
+		//주차장 번호 조회
+		String parkingNo = pd.selectParkingNo(sqlSession);
+		System.out.println("주차장 번호 조회");
+		//주차장 번호 값 넣기
+		parking.setParkingNo(parkingNo);
+		//주차장 리스트 테이블 등록
+		pd.insertPakringListOne(sqlSession,parking);
+		System.out.println("주차장 리스트 테이블 등록 확인");
+		//주차장 리스트 번호 조회
+		int parkingListNo = pd.selectParkingListNo(sqlSession);
+		System.out.println("주차장 리스트 번호 조회");
+		
+		for(int i = 0 ; i < attachList.size(); i ++) {
+			//주차장 리스트 번호 넣기
+			attachList.get(i).setParking_list_no(parkingListNo);
+			//파일 리스트 테이블 등록
+			pd.insertAttachment(sqlSession,attachList.get(i));
+			System.out.println(i+"번쨰 파일 테이블 등록 확인");
+		}
+		
+		
 	}
 }

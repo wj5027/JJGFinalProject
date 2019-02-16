@@ -250,6 +250,14 @@
 			<artifactId>javax.mail</artifactId>
 			<version>1.6.1</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.google.code.geocoder-java/geocoder-java -->
+		<dependency>
+		    <groupId>com.google.code.geocoder-java</groupId>
+		    <artifactId>geocoder-java</artifactId>
+		    <version>0.16</version>
+		</dependency>
+		
 
 	</dependencies>
     <build>

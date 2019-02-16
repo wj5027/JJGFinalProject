@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -15,16 +16,26 @@
 		display: inline-block;
 	
 	}
+	#contentImg1,#contentImg2,#contentImg3{
+	  max-width:100%; 
+	  max-height:100%;
+  		margin:auto;
+  		display:block;
 	
+	
+	}
+	
+
 	#hiddenButton{
 		display: none;
 	}
 	
-	#weekday_stime,#weekday_etime,#sat_stime,#sat_etime,#holiday_stime,#holiday_etime{
+ 	#weekdayStime,#weekdayEtime,#satStime,#satEtime,#hollydayStime,#hollydayEtime{
 		display: none;
-	}
+	} 
 </style>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=85185db0fc452125ec8070a4279f67bb&libraries=services,clusterer,drawing"></script>
 </head>
 
 <body class="">
@@ -45,14 +56,14 @@
 		    	<div class="form-group" align="center">
 		    		<h4 class="card-title">주차장 유형</h4>	
 		    		<br>
-		    		<input type="radio" name="parking_type" value="노상">&nbsp;<b style="color: white;">노상</b>
+		    		<input type="radio" name="parkingType" value="노상">&nbsp;<b style="color: white;">노상</b>
 		    		&nbsp;&nbsp;&nbsp;&nbsp;
-		    		<input type="radio" name="parking_type" value="노외">&nbsp;<b style="color: white;">노외</b>
+		    		<input type="radio" name="parkingType" value="노외">&nbsp;<b style="color: white;">노외</b>
 		    	</div>
 		    	
 		      <div class="form-group">
 		        <label for="parking_name">주차장 명</label>
-		        <input type="text" class="form-control" id="parking_name" placeholder="주차장 이름을 입력해주세요"  name="parking_name" style="width: 300px;">
+		        <input type="text" class="form-control" id="parkingName" placeholder="주차장 이름을 입력해주세요"  name="parkingName" style="width: 300px;">
 		      </div>
 		      <div class="form-group">
 		        <label for="ex3">주차장 주소</label>
@@ -61,37 +72,37 @@
 		        <button class="btn btn-info btn-sm" type="button" onclick="selectAddress();" >주소 검색</button>
 		        <br>
 		        <br>
-		        <input type="text" class="form-control" placeholder="우편번호" style="width: 200px; color: white;" id="postCode" readonly>
+		        <input type="text" class="form-control" placeholder="우편번호" style="width: 200px; color: white;" id="postCode" name="postCode" readonly>
 		        <br>
-		        <input type="text" class="form-control" placeholder="기본 주소" style="width: 600px; color: white;" id="address" readonly>
+		        <input type="text" class="form-control" placeholder="기본 주소" style="width: 600px; color: white;" id="address" name="address" readonly>
 		        <br>
-		        <input type="text" class="form-control" placeholder="상세 주소" style="width: 600px;" id="detailAddress">
+		        <input type="text" class="form-control" placeholder="상세 주소" style="width: 600px;" id="detailAddress" name="detailAddress">
 		        <br>
-		        <input type="text" class="form-control" placeholder="참고 항목" style="width: 600px;" id="extraAddress">
+		        <input type="text" class="form-control" placeholder="참고 항목" style="width: 600px;" id="extraAddress" name="extraAddress">
 		      </div>
 		      	<div class="form-group">
 		        <label for="parking_size">주차 구획수</label>
-		        <input type="text" class="form-control" id="parking_size" placeholder="주차 구획수를 입력해주세요" style="width: 400px;">
+		        <input type="text" class="form-control" id="parking_size" name="leftSize" placeholder="주차 구획수를 입력해주세요" style="width: 400px;">
 		      </div>
 		      <div class="form-check">
 		      <label for="open_days">운영 요일</label>
 		      <br>
 		          <label class="form-check-label" id="open_days">
-		              <input class="form-check-input" type="checkbox" name="open_days" value="평일" id="week_days" onclick="weekChk();">
+		              <input class="form-check-input" type="checkbox" name="openDaysArry" value="평일" id="week_days" onclick="weekChk();">
 		              평일
 		              <span class="form-check-sign">
 		                  <span class="check"></span>
 		              </span>
 		          </label>
 		           <label class="form-check-label">
-		              <input class="form-check-input" type="checkbox" name="open_days" value="토요일" id="sat_days" onclick="satChk();">
+		              <input class="form-check-input" type="checkbox" name="openDaysArry" value="토요일" id="sat_days" onclick="satChk();">
 		              토요일
 		              <span class="form-check-sign">
 		                  <span class="check"></span>
 		              </span>
 		          </label>
 		           <label class="form-check-label">
-		              <input class="form-check-input" type="checkbox" name="open_days" value="공휴일" id="hol_days" onclick="holChk();">
+		              <input class="form-check-input" type="checkbox" name="openDaysArry" value="공휴일" id="hol_days" onclick="holChk();">
 		              공휴일
 		              <span class="form-check-sign">
 		                  <span class="check"></span>
@@ -103,14 +114,14 @@
 		      <label for="pay_type">결제 방법</label>
 		      <br>
 		          <label class="form-check-label" id="pay_type">
-		              <input class="form-check-input" type="checkbox" name="pay_type" value="현금">
+		              <input class="form-check-input" type="checkbox" name="pay_typeArry" value="현금">
 		              현금
 		              <span class="form-check-sign">
 		                  <span class="check"></span>
 		              </span>
 		          </label>
 		           <label class="form-check-label">
-		              <input class="form-check-input" type="checkbox" name="pay_type" value="카드">
+		              <input class="form-check-input" type="checkbox" name="pay_typeArry" value="카드">
 		              카드
 		              <span class="form-check-sign">
 		                  <span class="check"></span>
@@ -122,9 +133,9 @@
 		      <div class="form-group" style="color: rgb(167,168,176);">
 		      <label for="price_info">요금정보</label>
 		      <br>
-		      <input class="form-radio-input" type="radio" name="price_info">&nbsp;무료
+		      <input class="form-radio-input" type="radio" name="priceInfo" value="무료">&nbsp;무료
 		      &nbsp;&nbsp;&nbsp;
-		      <input class="form-radio-input" type="radio" name="price_info">&nbsp;유료
+		      <input class="form-radio-input" type="radio" name="priceInfo" value="유료">&nbsp;유료
 		      </div>
 		      
 		 
@@ -132,14 +143,14 @@
 		   <div class="form-group">
 		   <label for="ex6">평일 운영 시간</label>
 		   <div>
-		   <div class="input-group date form_time col-md-5" data-date="" data-date-format="hh:ii" data-link-field="weekday_stime" data-link-format="hh:ii">
-		    <div style="width: 70%"><input class="form-control"  id="weekday_stime" name="weekday_stime" size="16" type="text" placeholder="시작시간" readonly style="color: white; width: 100%; cursor: pointer !important;">
+		   <div class="input-group date form_time col-md-5" data-date="" data-date-format="hh:ii" data-link-field="weekdayStime" data-link-format="hh:ii">
+		    <div style="width: 70%"><input class="form-control"  id="weekdayStime" name="weekdayStime" size="16" type="text" placeholder="시작시간"  readonly style="color: white; width: 100%; cursor: pointer !important;">
 		  	 <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 			<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
 		    </div>
 		  	</div>
-		  	<div class="input-group date form_time col-md-5" data-date="" data-date-format="hh:ii" data-link-field="weekday_etime" data-link-format="hh:ii">
-		    <div style="width: 70%"><input class="form-control"  id="weekday_etime" name="weekday_etime" size="16" type="text" placeholder="종료시간" readonly style="color: white; width: 100%; cursor: pointer !important; " >
+		  	<div class="input-group date form_time col-md-5" data-date="" data-date-format="hh:ii" data-link-field="weekdayEtime" data-link-format="hh:ii">
+		    <div style="width: 70%"><input class="form-control"  id="weekdayEtime" name="weekdayEtime" size="16" type="text" placeholder="종료시간"  readonly style="color: white; width: 100%; cursor: pointer !important; " >
 		  	 <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 			<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
 		    </div>	
@@ -150,14 +161,14 @@
 		  	<div class="form-group">
 		   <label for="exSat">토요일 운영 시간</label>
 		   <div>
-		   <div class="input-group date form_time col-md-5" data-date="" data-date-format="hh:ii" data-link-field="sat_stime" data-link-format="hh:ii">
-		    <div style="width: 70%"><input class="form-control"  id="sat_stime" name="sat_stime" size="16" type="text" placeholder="시작시간" readonly style="color: white; width: 100%; cursor: pointer !important;">
+		   <div class="input-group date form_time col-md-5" data-date="" data-date-format="hh:ii" data-link-field="satStime" data-link-format="hh:ii">
+		    <div style="width: 70%"><input class="form-control"  id="satStime" name="satStime" size="16" type="text" placeholder="시작시간"  readonly style="color: white; width: 100%; cursor: pointer !important;">
 		  	 <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 			<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
 		    </div>
 		  	</div>
-		  	<div class="input-group date form_time col-md-5" data-date="" data-date-format="hh:ii" data-link-field="sat_etime" data-link-format="hh:ii">
-		    <div style="width: 70%"><input class="form-control"  id="sat_etime" name="sat_etime" size="16" type="text" placeholder="종료시간" readonly style="color: white; width: 100%; cursor: pointer !important;">
+		  	<div class="input-group date form_time col-md-5" data-date="" data-date-format="hh:ii" data-link-field="satEtime" data-link-format="hh:ii">
+		    <div style="width: 70%"><input class="form-control"  id="satEtime" name="satEtime" size="16" type="text" placeholder="종료시간"  readonly style="color: white; width: 100%; cursor: pointer !important;">
 		  	 <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 			<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
 		    </div>	
@@ -168,14 +179,14 @@
 		  <div class="form-group">
 		   <label for="exHol">공휴일 운영 시간</label>
 		   <div>
-		   <div class="input-group date form_time col-md-5" data-date="" data-date-format="hh:ii" data-link-field="holiday_stime" data-link-format="hh:ii">
-		    <div style="width: 70%"><input class="form-control"  id="holiday_stime" name="holiday_stime" size="16" type="text" placeholder="시작시간" readonly style="color: white; width: 100%; cursor: pointer !important;" >
+		   <div class="input-group date form_time col-md-5" data-date="" data-date-format="hh:ii" data-link-field="hollydayStime" data-link-format="hh:ii">
+		    <div style="width: 70%"><input class="form-control"  id="hollydayStime" name="hollydayStime" size="16" type="text" placeholder="시작시간"  readonly style="color: white; width: 100%; cursor: pointer !important;" >
 		  	 <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 			<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
 		    </div>
 		  	</div>
-		  	<div class="input-group date form_time col-md-5" data-date="" data-date-format="hh:ii" data-link-field="holiday_etime" data-link-format="hh:ii">
-		    <div style="width: 70%"><input class="form-control"  id="holiday_etime" name="holiday_etime" size="16" type="text" placeholder="종료시간" readonly style="color: white; width: 100%; cursor: pointer !important; " >
+		  	<div class="input-group date form_time col-md-5" data-date="" data-date-format="hh:ii" data-link-field="hollydayEtime" data-link-format="hh:ii">
+		    <div style="width: 70%"><input class="form-control"  id="hollydayEtime" name="hollydayEtime" size="16" type="text" placeholder="종료시간"  readonly style="color: white; width: 100%; cursor: pointer !important; " >
 		  	 <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 			<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
 		    </div>	
@@ -187,35 +198,61 @@
 		  	<div class="form-group">
 		   <label for="parking_ntime">기본 시간(분 단위로 입력해주세요)/요금</label>
 		   <div>
-		    <input type="text" class="form-control" id="parking_ntime" name="parking_ntime" placeholder="기본 시간" style="width: 250px;">
+		    <input type="text" class="form-control" id="parking_ntime" name="parkingNtime" placeholder="기본 시간" style="width: 250px;">
 		  	<br>
-		  	<input type="text" class="form-control" placeholder="기본 요금" id="parking_nprice" name="parking_nprice" style="width: 250px;">
+		  	<input type="text" class="form-control" placeholder="기본 요금" id="parking_nprice" name="parkingNprice" style="width: 250px;">
 		  </div>
 		  </div>
 		  <br>
 		  <div class="form-group">
 		   <label for="parking_atime">추가 시간(분 단위로 입력해주세요)/요금</label>
 		   <div>
-		    <input type="text" class="form-control" id="parking_atime" name="parking_atime" placeholder="추가 시간" style="width: 250px;">
+		    <input type="text" class="form-control" id="parking_atime" name="parkingAtime" placeholder="추가 시간" style="width: 250px;">
 		    <br>
-		  	<input type="text" class="form-control" id="parking_aprice" name="parking_aprice" placeholder="추가 요금" style="width: 250px;">
+		  	<input type="text" class="form-control" id="parking_aprice" name="parkingAprice" placeholder="추가 요금" style="width: 250px;">
 		  </div>
 		  </div>
+		  <br>
+		  <div class="form-group">
+		  <label for="remarks">비고</label>
+		  <div>
+		  <input type="text" class="form-control" id="remarks" name="remarks" placeholder="비고" style="width: 350px;">
+		  </div>
+		  </div>
+		  <br>
+		                         <ul>
+                        <li>기본 필수 항목을 입력하지 않으시면 경고창이 뜹니다.</li>
+                       <li>요일 체크되어 있는 시간만 데이터로 인식되어 등록됩니다.</li>
+                       <li>시간을 입력하지 않았을시 10:00 ~ 18:00 으로 기본 설정 됩니다.</li>
+                       <li>기본 시간과 추가 시간은 5분,요금은 100원 단위로 입력바랍니다 다른 단위로 입력시 5분, 100원 단위로 저장됩니다.</li>
+                       </ul>
+                       <br>
 		      <br>
 			<div align="center">
-				<div class="images"></div>
-				<div class="images"></div>
-				<div class="images"></div>
+				<div class="images" id="contentImgArea1" style="float: left; margin: 25px;" >
+				<img alt="주차장 이미지1" id="contentImg1" height="295" src="${pageContext.servletContext.contextPath }/resources/common/img/noimage.gif">
+				</div>
+				<div class="images" id="contentImgArea2" style="float: left; margin: 25px;">
+				<img alt="주차장 이미지2" id="contentImg2" height="295" src="${pageContext.servletContext.contextPath }/resources/common/img/noimage.gif">
+				</div>
+				<div class="images" id="contentImgArea3" style="float: left; margin: 25px;">
+				<img alt="주차장 이미지3" id="contentImg3" height="295" src="${pageContext.servletContext.contextPath }/resources/common/img/noimage.gif">
+				</div>
+				<div style="clear: both;"></div>
 				<!-- 파일 숨기기 -->
-				<input type="file" style="display: none;">
-				<input type="file" style="display: none;">
-				<input type="file" style="display: none;">
+				<input type="file" id="parkingImage1" name="parkingImage1"  style="display: none;" onchange="loadImg(this, 1)">
+				<input type="file" id="parkingImage2" name="parkingImage2"  style="display: none;" onchange="loadImg(this, 2)">
+				<input type="file" id="parkingImage3" name="parkingImage3" style="display: none;" onchange="loadImg(this, 3)">
 			</div>	
 			
 			<br>
 				<div align="center">
 				<button type="submit" class="btn btn-info btn-sm" >신청하기</button>
 				</div>
+				
+				<input type="hidden" name="latitude" id="latitude">
+				<input type="hidden" name="longitude" id="longitude">
+				
 				
 				
 		    </form>
@@ -244,6 +281,7 @@
 
 
 <div id="hiddenButton">
+<button onclick="searchGeolocation();"></button>
 <button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-4" type="button" id="modalBtn">현장 결제</button>
 </div>     
       
@@ -332,6 +370,8 @@ function parkingceoLogin(){
 		forceParse: 0
     });
 	
+
+	
 	
 	//주소 팝업
 	function selectAddress() {
@@ -374,18 +414,49 @@ function parkingceoLogin(){
                 document.getElementById("address").value = addr;
                 // 커서를 상세주소 필드로 이동한다.
                 document.getElementById("detailAddress").focus();
+                searchGeolocation();
             }
         }).open();
+        
     }
 	
 	
+	//위도 경도 전역변수
+	var latitude = "";
+	var longitude = "";
+	
+	
+	function searchGeolocation(){
+		//위도,경도 구하기
+		var geocoder = new daum.maps.services.Geocoder();
+		var gap = $("#address").val();
+		geocoder.addressSearch(gap, function(result, status) {
+			//위도
+			x = result[0].y;
+			//경도
+			y = result[0].x;
+			
+			latitude = x;
+			longitude = y;
+			
+			$("#latitude").val(x)
+			$("#longitude").val(y);
+
+
+		});
+	}
+	
+	
+
+	
 	//주차장 등록 메소드
 	function insertParking(){
-		
 		//각 데이터 정규식 표현 진행
 		
+		
+		
 		//주차장 타입 미체크시
-		if($("input[name=parking_type]").is(":checked") == false){
+		if($("input[name=parkingType]").is(":checked") == false){
 			var modalText = $("<b>").text("주차장 유형을 입력해주세요.");
 			$("#modalText").append(modalText);
 			$("#modalBtn").click();
@@ -395,14 +466,23 @@ function parkingceoLogin(){
 		
 		
 		
-/* 		//주차장명 값
-		parking_name = $("#parking_name").val();
+ 		//주차장명 값 및 정규표현식
+		parking_name = $("#parkingName").val();
+		var regExp1 = /^[가-힣 ]{2,15}$/g;
 		//주차장명이 비었을시
-		if($("#parking_name").val() == null || $("#parking_name").val() == ''){
+		if($("#parkingName").val() == null || $("#parkingName").val() == ''){
 			var modalText = $("<b>").text("주차장 명을 입력해주세요.");
 			$("#modalText").append(modalText);
 			$("#modalBtn").click();
-			$("#parking_name").focus();
+			$("#parkingName").focus();
+			return false;	
+			//주차장명 정규표현식 진행
+		}else if (!regExp1.test(parking_name)){
+			$("#modalText").html('');
+			var modalText = $("<b>").text("주차장 명은 한글로 입력해주세요.");
+			$("#modalText").append(modalText);
+			$("#modalBtn").click();
+			$("#parkingName").focus();
 			return false;	
 		}
 		$("#modalText").html('');
@@ -420,6 +500,7 @@ function parkingceoLogin(){
 			$("#address").focus();
 			return false;	
 		}
+
 		$("#modalText").html('');
 		
 		//상세 주소가 비었을시
@@ -432,8 +513,22 @@ function parkingceoLogin(){
 		}
 		$("#modalText").html('');
 		
-		//주차 구획수 변수
+		//주소 정규표현식
+		regExp2 = /(([가-힣]+(\d{1,5}|\d{1,5}(,|.)\d{1,5}|)+(읍|면|동|가|리))(^구|)((\d{1,5}(~|-)\d{1,5}|\d{1,5})(가|리|)|))([ ](산(\d{1,5}(~|-)\d{1,5}|\d{1,5}))|)|(([가-힣]|(\d{1,5}(~|-)\d{1,5})|\d{1,5})+(로|길))/;
+		
+		if(!regExp2.test(resultAdd)){
+			var modalText = $("<b>").text("주소 입력 형식이 잘못되었습니다.");
+			$("#modalText").append(modalText);
+			$("#modalBtn").click();
+			$("#detailAddress").focus();
+			return false;	
+		}
+		$("#modalText").html('');
+		
+		
+		//주차 구획수 변수 및 정규표현식
 		parking_size = $("#parking_size").val();
+		regExp3 = /\d{1,5}/g;
 		//주차 구획수가 비었을시
 		if($("#parking_size").val() == null || $("#parking_size").val() == ''){
 			var modalText = $("<b>").text("주차 구획수를 입력해주세요.");
@@ -441,13 +536,20 @@ function parkingceoLogin(){
 			$("#modalBtn").click();
 			$("#parking_size").focus();
 			return false;	
-		} 
+		}else if(!regExp3.test(parking_size)) {
+			$("#modalText").html('');
+			var modalText = $("<b>").text("주차 구획수는 1~99999의 숫자로 지정해주세요.");
+			$("#modalText").append(modalText);
+			$("#modalBtn").click();
+			$("#parking_size").focus();
+			return false;	
+		}
 		$("#modalText").html('');
-		*/
+
 		
 		//체크 확인을 위한 변수
 		inputChk1 = 0;
-		$("input[name=open_days]").each(function(){
+		$("input[name=openDaysArry]").each(function(){
 			if($(this).is(":checked") == false){
 				inputChk1 +=1; 
 			}
@@ -464,7 +566,7 @@ function parkingceoLogin(){
 		
 		//체크 확인 변수2
 		inputChk2 = 0;
-		$("input[name=pay_type]").each(function(){
+		$("input[name=pay_typeArry]").each(function(){
 			if($(this).is(":checked") == false){
 				inputChk2 +=1; 
 			}
@@ -479,8 +581,9 @@ function parkingceoLogin(){
 		}
 		$("#modalText").html('');
 		
-		if($("input[name=price_info]").is(":checked") == false){
-			var modalText = $("<b>").text("주차장 유형을 입력해주세요.");
+		//요금 정보 미입력시
+		if($("input[name=priceInfo]").is(":checked") == false){
+			var modalText = $("<b>").text("요금 정보를 입력해주세요.");
 			$("#modalText").append(modalText);
 			$("#modalBtn").click();
 			return false;
@@ -488,42 +591,115 @@ function parkingceoLogin(){
 		$("#modalText").html('');
 		
 		
-		return false;
+		//기본 시간 텍스트가 비었을시
+		parking_ntime = $("#parking_ntime").val();
+		regExp4 = /\d{1,5}/g;
+		if($("#parking_ntime").val() == null || $("#parking_ntime").val() == ''){
+			var modalText = $("<b>").text("기본 시간을 입력해주세요.");
+			$("#modalText").append(modalText);
+			$("#modalBtn").click();
+			$("#parking_ntime").focus();
+			return false;	
+		}else if(!regExp4.test(parking_ntime)) {
+			$("#modalText").html('');
+			var modalText = $("<b>").text("기본 시간은 5~1440의 숫자로 지정해주세요.");
+			$("#modalText").append(modalText);
+			$("#modalBtn").click();
+			$("#parking_ntime").focus();
+			return false;	
+		}
+		$("#modalText").html('');
+		
+		//기본 요금이 비었을시
+		parking_nprice = $("#parking_nprice").val();
+		regExp5 = /\d{1,6}/g;
+		if($("#parking_nprice").val() == null || $("#parking_nprice").val() == ''){
+			var modalText = $("<b>").text("기본 요금을 입력해주세요.");
+			$("#modalText").append(modalText);
+			$("#modalBtn").click();
+			$("#parking_nprice").focus();
+			return false;	
+		}else if(!regExp5.test(parking_nprice)) {
+			$("#modalText").html('');
+			var modalText = $("<b>").text("기본 요금은 100~100000의 숫자로 지정해주세요.");
+			$("#modalText").append(modalText);
+			$("#modalBtn").click();
+			$("#parking_nprice").focus();
+			return false;	
+		}
+		$("#modalText").html('');
+		
+		
+		
+		
+		return true;
 	}
 	
 	
 	
 	//운영요일 체크 박스 선택시 css 변화
-	function weekChk(){
+ 	function weekChk(){
 	 	if($("input[id=week_days]").is(":checked") == false){
-			$("#weekday_stime").css('display', 'none');
-			$("#weekday_etime").css('display', 'none');
+			$("#weekdayStime").css('display', 'none');
+			$("#weekdayEtime").css('display', 'none');
 		}else{
-			$("input[id=weekday_stime]").css('display', 'block');
-			$("input[id=weekday_etime]").css('display', 'block');
+			$("input[id=weekdayStime]").css('display', 'block');
+			$("input[id=weekdayEtime]").css('display', 'block');
 		} 
 	}
 	
 	function satChk(){
 	 	if($("input[id=sat_days]").is(":checked") == false){
-			$("#sat_stime").css('display', 'none');
-			$("#sat_etime").css('display', 'none');
+			$("#satStime").css('display', 'none');
+			$("#satEtime").css('display', 'none');
 		}else{
-			$("input[id=sat_stime]").css('display', 'block');
-			$("input[id=sat_etime]").css('display', 'block');
+			$("input[id=satStime]").css('display', 'block');
+			$("input[id=satEtime]").css('display', 'block');
 		} 
 	}
 	
 	function holChk(){
 	 	if($("input[id=hol_days]").is(":checked") == false){
-			$("#holiday_stime").css('display', 'none');
-			$("#holiday_etime").css('display', 'none');
+			$("#hollydayStime").css('display', 'none');
+			$("#hollydayEtime").css('display', 'none');
 		}else{
-			$("input[id=holiday_stime]").css('display', 'block');
-			$("input[id=holiday_etime]").css('display', 'block');
+			$("input[id=hollydayStime]").css('display', 'block');
+			$("input[id=hollydayEtime]").css('display', 'block');
 		} 
-	}
+	} 
 	
+	//파일 업로드
+	
+
+	$(document).ready(function(){
+		
+		$("#contentImgArea1").click(function(){
+			$("#parkingImage1").click();
+		});
+		$("#contentImgArea2").click(function(){
+			$("#parkingImage2").click();
+		});
+		$("#contentImgArea3").click(function(){
+			$("#parkingImage3").click();
+		});
+	});
+
+	function loadImg(value, num){
+		if(value.files && value.files[0]){
+			var reader = new FileReader();
+			reader.onload = function(e){
+				switch(num){
+				case 1 : $("#contentImg1").attr("src", e.target.result);
+					break;
+				case 2 : $("#contentImg2").attr("src",e.target.result);
+					break;
+				case 3 : $("#contentImg3").attr("src",e.target.result);
+					break;
+				}
+			}
+			reader.readAsDataURL(value.files[0]);
+		}
+	}
 
 	
 </script>
