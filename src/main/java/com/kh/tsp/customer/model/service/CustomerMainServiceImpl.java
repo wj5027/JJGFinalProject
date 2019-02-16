@@ -192,10 +192,15 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 	}
 
 	@Override
+	public int intsertRequestRefund(HashMap<String, String> requesthmap) {
+		return cmd.intsertRequestRefund(sqlSession, requesthmap);
+	}
+  
+  @Override
 	public Member chkNaver(String member_id) {
-
 		return cmd.chkNaver(sqlSession, member_id);
 	}
+  
 	//네이버 회원가입
 	@Override
 	public int insertNaver(Member m) {

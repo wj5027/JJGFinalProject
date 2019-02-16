@@ -271,7 +271,7 @@
 			<when test="selectedListInfo == '충전'">
 				SELECT * FROM oil_list
 				<where>
-					(oil_list_type = '충전' OR oil_list_type = '결제취소') AND member_no = 2
+					(oil_list_type = '충전' OR oil_list_type = '결제취소') AND member_no = #{ memberNo }
 					<choose>
 						<when test="startDate != null and endDate == null">
 							<![CDATA[
@@ -296,7 +296,7 @@
 			<when test="selectedListInfo == '사용'">
 				SELECT * FROM oil_list o JOIN parking p ON (o.parking_no = p.parking_no)
 				<where>
-					(o.oil_list_type = '사용' OR o.oil_list_type = '예약' OR o.oil_list_type = '예약취소') AND o.member_no = 2
+					(o.oil_list_type = '사용' OR o.oil_list_type = '예약' OR o.oil_list_type = '예약취소') AND o.member_no = #{ memberNo }
 					<choose>
 						<when test="startDate != null and endDate == null">
 							<![CDATA[
@@ -327,7 +327,7 @@
 			<when test="selectedListInfo == '충전'">
 				SELECT COUNT(*) FROM oil_list
 				<where>
-					(oil_list_type = '충전' OR oil_list_type = '결제취소') AND member_no = 2
+					(oil_list_type = '충전' OR oil_list_type = '결제취소') AND member_no = #{ memberNo }
 					<choose>
 						<when test="startDate != null and endDate == null">
 							<![CDATA[
@@ -351,7 +351,7 @@
 			<when test="selectedListInfo == '사용'">
 				SELECT COUNT(*) FROM oil_list o JOIN parking p ON (o.parking_no = p.parking_no)
 				<where>
-					(o.oil_list_type = '사용' OR o.oil_list_type = '예약' OR o.oil_list_type = '예약취소') AND o.member_no = 2
+					(o.oil_list_type = '사용' OR o.oil_list_type = '예약' OR o.oil_list_type = '예약취소') AND o.member_no = #{ memberNo }
 					<choose>
 						<when test="startDate != null and endDate == null">
 							<![CDATA[
@@ -412,8 +412,27 @@
 		UPDATE MEMBER
 		SET MEMBER_PASSWORD = #{member_pwd}, MEMBER_CARNO=#{member_carNo,jdbcType=VARCHAR}, PHONE = #{phone}, EMAIL = #{email}
 		WHERE MEMBER_ID = #{member_id}
-		
 	</update>
+	
+	<!-- 사용자 - 오일 환불 신청 -->
+	<insert id="intsertRequestRefund" parameterType="hashmap">
+		INSERT INTO exchange (exchange_no, status,
+							oil,
+							cash,
+							application_date,
+							member_no,
+							account_holder,
+							application_bank,
+							application_account_number)
+		VALUES (EXCHANGE_NO_SEQ.NEXTVAL, '환불진행중', 
+				(SELECT oil FROM oil_list WHERE oil_list_no = #{ oilListNo }),
+				(SELECT oil / 1.1 FROM oil_list WHERE oil_list_no = #{ oilListNo }),
+				SYSDATE,
+				(SELECT member_no FROM oil_list WHERE oil_list_no = #{ oilListNo }),
+				#{ accountHolder },
+				#{ Application_bank },
+				#{ application_account_number })
+	</insert>
 	
 	<!-- 네이버 아이디 유무 확인 -->
 	<select id="chkNaver"  resultMap="MemberResultSet2" parameterType="String">

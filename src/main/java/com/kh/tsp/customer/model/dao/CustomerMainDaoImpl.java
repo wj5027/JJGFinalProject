@@ -211,6 +211,13 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 	public int getOilListCount(SqlSessionTemplate sqlSession, OilList searchInfo) {
 		return sqlSession.selectOne("Member.getOilListCount", searchInfo);
 	}
+
+
+	@Override
+	public int intsertRequestRefund(SqlSessionTemplate sqlSession, HashMap<String, String> requesthmap) {
+		return sqlSession.insert("Member.intsertRequestRefund", requesthmap);
+	}
+  
 	//네이버 아이디 유무 확인
 	@Override
 	public Member chkNaver(SqlSessionTemplate sqlSession, String member_id) {
@@ -222,6 +229,7 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 	public int insertNaver(SqlSessionTemplate sqlSession, Member m) {
 
 		return sqlSession.insert("Member.insertNaver", m);
+
 	}
 	
 

@@ -65,9 +65,13 @@ public interface CustomerMainService {
 
 	int getOilListCount(OilList searchInfo);
 
+
+	int intsertRequestRefund(HashMap<String, String> requesthmap);
+
 	Member chkNaver(String member_id);
 
 	int insertNaver(Member m);
+
 	
 	
 }

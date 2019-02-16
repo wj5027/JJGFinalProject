@@ -52,12 +52,8 @@ public class CustomerSearch {
 	
 	// 사용자 - 오일 내역 조회
 	@RequestMapping("searchOilList.cu")
-	public @ResponseBody ArrayList<OilList> searchOilList(HttpServletRequest request, @RequestParam String startTime, @RequestParam String endTime, @RequestParam String selectedListInfo, HttpServletResponse response) {
-		int currentPage = 1;
-		
-		if (request.getParameter("currentPage") != null) {
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		}
+	public @ResponseBody ArrayList<OilList> searchOilList(HttpServletRequest request, @RequestParam String startTime, @RequestParam String endTime, @RequestParam String selectedListInfo, @RequestParam int memberNo, @RequestParam int pageNo, HttpServletResponse response) {
+		int currentPage = pageNo;
 		
 		OilList searchInfo = new OilList();
 		
@@ -73,8 +69,9 @@ public class CustomerSearch {
 			searchInfo.setEndDate(new Date(new GregorianCalendar(Integer.parseInt("20" + temp[0].split("년")[0]), Integer.parseInt(temp[1].split("월")[0]) - 1, Integer.parseInt(temp[2].split("일")[0]) + 1).getTime().getTime()));
 			
 		}
+		searchInfo.setMemberNo(memberNo);
 		searchInfo.setSelectedListInfo(selectedListInfo);
-		System.out.println(selectedListInfo);
+		System.out.println(searchInfo);
 		int listCount = cms.getOilListCount(searchInfo);
 		
 		PageInfo pi = OilPagination.getPageInfo(currentPage, listCount);
@@ -82,5 +79,34 @@ public class CustomerSearch {
 		ArrayList<OilList> Olist = cms.searchOilList(searchInfo, pi);
 				
 		return Olist;
+    }
+	
+	// 페이징 정보 전달
+	@RequestMapping("searchOilListPI.cu")
+	public @ResponseBody PageInfo searchOilListPI(HttpServletRequest request, @RequestParam String startTime, @RequestParam String endTime, @RequestParam String selectedListInfo, @RequestParam int memberNo, @RequestParam int pageNo, HttpServletResponse response) {
+		int currentPage = pageNo;
+		
+		OilList searchInfo = new OilList();
+		
+		if (startTime != "") {
+			String[] temp = startTime.split(" ");
+			
+			searchInfo.setStartDate(new Date(new GregorianCalendar(Integer.parseInt("20" + temp[0].split("년")[0]), Integer.parseInt(temp[1].split("월")[0]) - 1, Integer.parseInt(temp[2].split("일")[0])).getTime().getTime()));
+			
+		}
+		if (endTime != "") {
+			String[] temp = endTime.split(" ");
+			
+			searchInfo.setEndDate(new Date(new GregorianCalendar(Integer.parseInt("20" + temp[0].split("년")[0]), Integer.parseInt(temp[1].split("월")[0]) - 1, Integer.parseInt(temp[2].split("일")[0]) + 1).getTime().getTime()));
+			
+		}
+		searchInfo.setMemberNo(memberNo);
+		searchInfo.setSelectedListInfo(selectedListInfo);
+		
+		int listCount = cms.getOilListCount(searchInfo);
+		
+		PageInfo pi = OilPagination.getPageInfo(currentPage, listCount);
+				
+		return pi;
     }
 }

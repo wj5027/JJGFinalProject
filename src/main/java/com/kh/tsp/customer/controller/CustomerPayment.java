@@ -149,4 +149,17 @@ public class CustomerPayment {
 		
 		return result;
     }
+	
+	@RequestMapping("requestRefund.cu")
+	public @ResponseBody int intsertRequestRefund(@RequestParam int oilListNo, @RequestParam String accountHolder, @RequestParam String Application_bank, @RequestParam String application_account_number, HttpSession session) {
+		HashMap<String, String> requesthmap = new HashMap<String, String>();
+		requesthmap.put("oilListNo", "" + oilListNo);
+		requesthmap.put("accountHolder", accountHolder);
+		requesthmap.put("Application_bank", Application_bank);
+		requesthmap.put("application_account_number", application_account_number);
+		
+		int result = cms.intsertRequestRefund(requesthmap);
+		
+		return result;
+    }
 }
