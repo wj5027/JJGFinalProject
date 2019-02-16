@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <html>
-
-
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 
 
 <head>
@@ -40,7 +40,8 @@
                    <!--  <a href="http://developers.kakao.com/logout"></a>-->                    
                     
                     <br>
-					<button class="btn btn-info btn-sm" type="button" onclick="" style="width: 120px;">네이버 로그인	</button>
+                    <div id="naver_id_login"></div> 
+					 
                     </div>
                  </form>
                     <br>
@@ -109,17 +110,6 @@
            $("#member_name").val(res.properties.nickname)
            $("#kakao").submit();
            
-            /* $.ajax({
-            	url:"kakao.cu",
-            	type:"post",
-            	data:{kakao_id:res.id, nickname:res.properties.nickname},
-            	success:function(data){
-            		console.log("성공");
-            	},
-            	error:function(status){
-            		console.log(status);
-            	}
-            }); */
           },
           fail: function(error) {
             alert(JSON.stringify(error));
@@ -131,22 +121,17 @@
       }
     });
 	
-  /* //<![CDATA[
-    // 사용할 앱의 JavaScript 키를 설정해 주세요.
-    Kakao.init('7b1dba10e7202c6538408b93f85572ab');
-    function loginWithKakao() {
-      // 로그인 창을 띄웁니다.
-      Kakao.Auth.login({
-        success: function(authObj) {
-          alert(JSON.stringify(authObj));
-        },
-        fail: function(err) {
-          alert(JSON.stringify(err));
-        }
-      });
-    };
-  //]]>  */
+    //네이버 로그인
+    
+    	var naver_id_login = new naver_id_login("hEi80LKwFmVECmA2A2z0", "http://127.0.0.1:8765/jjg/customer.cu");
+   	 	var state = naver_id_login.getUniqState();
+   	 	naver_id_login.setButton("green", 3,48);
+    	naver_id_login.setDomain("http://127.0.0.1:8765/jjg/naver.cu");
+   	  	naver_id_login.setState(state);
+   	  	//naver_id_login.setPopup();
+   	  	naver_id_login.init_naver_id_login();
 
+   	  	
 </script>
 
 </html>

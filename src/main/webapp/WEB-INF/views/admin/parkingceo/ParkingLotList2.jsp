@@ -91,7 +91,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 														<td>
 															<div class="row">
 																<div class="form-group"  style="margin-left: 1.5%;">
-																	<input type="text" class="form-control" id="memberId"
+																	<input type="text" class="form-control" id="memberId" value="${memberId}"
 																		name="memberId" placeholder="아이디를 입력해주세요">
 																</div>
 															</div>
@@ -102,7 +102,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 														<td>
 															<div class="row">
 																<div class="form-group"  style="margin-left: 1.5%;">
-																	<input type="text" class="form-control" id="parkingAddress"
+																	<input type="text" class="form-control" id="parkingAddress" value="${parkingAddress}"
 																		name="parkingAddress" placeholder="지역을 입력해주세요">
 																</div>
 															</div>
@@ -113,7 +113,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 														<td>
 															<div class="row">
 																<div class="form-group"  style="margin-left: 1.5%;">
-																	<input type="text" class="form-control" id="parkingListName"
+																	<input type="text" class="form-control" id="parkingListName" value="${parkingListName}"
 																		name="parkingListName" placeholder="주차장명을 입력해주세요">
 																</div>
 															</div>
@@ -174,7 +174,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 						<div class="col-md-12">
 							<div class="card ">
 								<div class="card-header">
-									<h4 class="card-title">주차장 전체 리스트</h4>
+									<h4 class="card-title">주차장 검색 결과</h4>
 									<button id="clickModal" data-toggle="modal" data-target=".bd-example-modal-lg-1" type="button" style="display: none;"></button>
 								</div>
 								<div class="card-body">
@@ -203,9 +203,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 															${fn:split(pl.parkingAddress,' ')[0]}
 														</td>
 														<td>															
-															<c:set var = "parkingAddress" value = "${pl.parkingAddress}"/>
-															${fn:substring(parkingAddress, 0, 15)}
-															<c:if test="${fn:length(parkingAddress) > 15}">...</c:if>	
+															<c:set var = "parkingLotAddress" value = "${pl.parkingAddress}"/>
+															${fn:substring(parkingLotAddress, 0, 15)}
+															<c:if test="${fn:length(parkingLotAddress) > 15}">...</c:if>	
 														</td>
 														<td class="text-center">${pl.parkingListParkingSize}</td>
 														<td class="text-center">${pl.phone}</td>
@@ -236,8 +236,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 											<!-- 첫번째 페이지 -->
 											<c:if test="${pi.currentPage != 1}">
-												<c:url var="blistFirst" value="selectParkingLotList.ad">
+												<c:url var="blistFirst" value="selectSearchParkingLotList.ad">
 													<c:param name="currentPage" value="1" />
+													<c:param name="parkingListStatus" value="${parkingListStatus}" />
+													<c:param name="memberId" value="${memberId}" />
+													<c:param name="parkingAddress" value="${parkingAddress}" />
+													<c:param name="parkingListName" value="${parkingListName}" />
+													<c:param name="today" value="${today}" />
+													<c:param name="startDate" value="${startDate}" />
+													<c:param name="endDate" value="${endDate}" />
 												</c:url>
 												<a href="${blistFirst}"><button
 														class="btn btn-info animation-on-hover btn-sm"><<</button></a>
@@ -252,8 +259,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 													class="btn btn-info animation-on-hover btn-sm"><</button>
 											</c:if>
 											<c:if test="${pi.currentPage > 1}">
-												<c:url var="blistBack" value="/selectParkingLotList.ad">
+												<c:url var="blistBack" value="/selectSearchParkingLotList.ad">
 													<c:param name="currentPage" value="${pi.currentPage-1}" />
+													<c:param name="parkingListStatus" value="${parkingListStatus}" />
+													<c:param name="memberId" value="${memberId}" />
+													<c:param name="parkingAddress" value="${parkingAddress}" />
+													<c:param name="parkingListName" value="${parkingListName}" />
+													<c:param name="today" value="${today}" />
+													<c:param name="startDate" value="${startDate}" />
+													<c:param name="endDate" value="${endDate}" />
 												</c:url>
 												<a href="${blistBack}"><button
 														class="btn btn-info animation-on-hover btn-sm"><</button></a>
@@ -267,8 +281,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 														class="btn btn-info animation-on-hover btn-sm">${p}</button>
 												</c:if>
 												<c:if test="${p ne pi.currentPage}">
-													<c:url var="blistCheck" value="selectParkingLotList.ad">
+													<c:url var="blistCheck" value="selectSearchParkingLotList.ad">
 														<c:param name="currentPage" value="${p}" />
+													<c:param name="parkingListStatus" value="${parkingListStatus}" />
+													<c:param name="memberId" value="${memberId}" />
+													<c:param name="parkingAddress" value="${parkingAddress}" />
+													<c:param name="parkingListName" value="${parkingListName}" />
+													<c:param name="today" value="${today}" />
+													<c:param name="startDate" value="${startDate}" />
+													<c:param name="endDate" value="${endDate}" />
 													</c:url>
 													<a href="${blistCheck}"><button
 															class="btn btn-info animation-on-hover btn-sm">${p}</button></a>
@@ -280,8 +301,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 													class="btn btn-info animation-on-hover btn-sm">></button>
 											</c:if>
 											<c:if test="${pi.currentPage < pi.maxPage}">
-												<c:url var="blistEnd" value="selectParkingLotList.ad">
+												<c:url var="blistEnd" value="selectSearchParkingLotList.ad">
 													<c:param name="currentPage" value="${pi.currentPage+1}" />
+													<c:param name="parkingListStatus" value="${parkingListStatus}" />
+													<c:param name="memberId" value="${memberId}" />
+													<c:param name="parkingAddress" value="${parkingAddress}" />
+													<c:param name="parkingListName" value="${parkingListName}" />
+													<c:param name="today" value="${today}" />
+													<c:param name="startDate" value="${startDate}" />
+													<c:param name="endDate" value="${endDate}" />
 												</c:url>
 												<a href="${blistEnd}"><button
 														class="btn btn-info animation-on-hover btn-sm">></button></a>
@@ -289,8 +317,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 											<!-- 끝 페이지 -->
 											<c:if test="${pi.currentPage != pi.maxPage}">
-												<c:url var="blistEnd2" value="selectParkingLotList.ad">
+												<c:url var="blistEnd2" value="selectSearchParkingLotList.ad">
 													<c:param name="currentPage" value="${pi.maxPage}" />
+													<c:param name="parkingListStatus" value="${parkingListStatus}" />
+													<c:param name="memberId" value="${memberId}" />
+													<c:param name="parkingAddress" value="${parkingAddress}" />
+													<c:param name="parkingListName" value="${parkingListName}" />
+													<c:param name="today" value="${today}" />
+													<c:param name="startDate" value="${startDate}" />
+													<c:param name="endDate" value="${endDate}" />
 												</c:url>
 												<a href="${blistEnd2}"><button
 														class="btn btn-info animation-on-hover btn-sm">>></button></a>
@@ -752,6 +787,20 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 		</script>
 		<!-- 반송 사유 ajax 끝 -->
 		<!-- ////////////////////////////////////// 모달 끝 //////////////////////////////////////// -->
+		
+		<input type="hidden" value="${parkingListStatus}" id="inputParkingListStatus">
+		<!-- 검색 -->
+		<script>
+			$(function () {				
+				/* 자동 선택 - 환전 구분 */
+				for(var i=0; i<$("#parkingListStatus option").length; i++){
+					if($("#inputParkingListStatus").val() == $("#parkingListStatus option").eq(i).val()){
+						$("#parkingListStatus").val($('#inputParkingListStatus').val()).prop("selected", true);
+					}							
+				}				
+			});
+		</script>
+		<!-- 검색 끝 -->
 		
 		<!-- 테이블 날짜버튼 클릭 시 색상 변경 -->
 		<script>

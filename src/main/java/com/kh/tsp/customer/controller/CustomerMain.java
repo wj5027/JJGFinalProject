@@ -1,17 +1,13 @@
 package com.kh.tsp.customer.controller;
 
-import static org.hamcrest.CoreMatchers.nullValue;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.security.auth.login.LoginException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,12 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.tsp.customer.model.service.CustomerMainService;
 import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.customer.model.vo.Parking;
@@ -185,20 +176,14 @@ public class CustomerMain {
 	
 	//카카오톡 로그인
 	@RequestMapping(value="kakao.cu", method=RequestMethod.POST)
-	public String kakao(@RequestParam String kakao_id, String member_name, HttpServletResponse response, Model model, Member m) {
+	public String kakao(@RequestParam String kakao_id, String member_name, HttpServletResponse response, Model model, Member m) throws LoginException {
 		System.out.println("kakao_id: "+kakao_id+"//member_name: "+member_name);
-		
-		/*Member loginUser = new Member();
-		loginUser.setMember_name(name);
-		
-		model.addAttribute("loginUser", loginUser);
-		*/
 		
 		
 		
 		Member loginUser = cms.selectCheckKakao(kakao_id);
 		if(loginUser == null) {//회원가입
-			System.out.println("kakao_id: "+kakao_id+"member_name: "+member_name);
+			System.out.println("회원가입:kakao_id: "+kakao_id+"member_name: "+member_name);
 			model.addAttribute("kakao_id", kakao_id);
 			model.addAttribute("member_name", member_name);
 			
@@ -219,6 +204,11 @@ public class CustomerMain {
 	@RequestMapping(value="insertKakao.cu", method=RequestMethod.POST)
 	public String insertKakao(@ModelAttribute Member m, Model model) {
 		System.out.println(m);
+		String encPassword = passwordEncoder.encode(m.getMember_pwd());
+		
+		System.out.println("암호화 후: "+encPassword);
+		
+		m.setMember_pwd(encPassword);
 		try {
 			cms.insertKakao(m);
 		}catch(Exception e) {
@@ -370,9 +360,60 @@ public class CustomerMain {
 			
 			alert="해당 이메일로 임시비밀번호가 발급되었습니다. 로그인 후 변경해주세요";
 		}else {
-			alert="임시번호 발급에 실패했습니다.";
+			alert="임시비밀번호 발급에 실패했습니다.";
 		}
 		
 		return alert;
 	}
+	
+	//네이버 로그인
+	@RequestMapping(value="naver.cu", method=RequestMethod.POST)
+	public String naver() {
+		
+		return "redirect:customer.cu"; 
+	}
+    //네이버 로그인
+	@RequestMapping(value="naverLogin.cu", method=RequestMethod.GET)
+	public String naverLogin(@RequestParam String member_name, String member_id, String email, Model model) {
+		System.out.println("네이버 아이디: "+member_id);
+		System.out.println("네이버 이름 : "+member_name);
+		System.out.println("네이버 이메일 : "+email);
+
+		Member loginUser = null;
+		loginUser = cms.chkNaver(member_id);
+		
+		if(loginUser != null) {//로그인
+			System.out.println("네이버아이디로 로그인");
+			model.addAttribute("loginUser", loginUser);
+			
+			return "redirect:customer.cu";
+		}else {//회원가입
+			System.out.println("네이버 회원가입");
+			
+			model.addAttribute("member_id", member_id);
+			model.addAttribute("member_name", member_name);
+			model.addAttribute("email", email);
+			
+			return "customer/main/Customer_naver_joinInput";
+		}
+		//return "customer.cu"; 
+	
+	}
+	//네이버 회원가입
+	@RequestMapping(value="insertNaver.cu", method=RequestMethod.POST)
+	public String insertNaver(@ModelAttribute Member m, Model model) {
+		System.out.println("네이버 회원가입 : "+m);
+		String encPassword = passwordEncoder.encode(m.getMember_pwd());
+		
+		System.out.println("암호화 후 : "+encPassword);
+		
+		m.setMember_pwd(encPassword);
+		
+		cms.insertNaver(m);
+		
+		
+		return "redirect:customer_loginPage.cu";
+	}
+    
+	
 }

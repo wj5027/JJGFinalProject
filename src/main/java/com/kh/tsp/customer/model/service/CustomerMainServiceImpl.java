@@ -91,10 +91,11 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 	public ArrayList<Reservation> selectShowReserv(Member member) {
 		return cmd.selectShowReserv(sqlSession, member);
 	}
-
-	public Member selectCheckKakao(String kakao_id) {
-
-		return cmd.selectCheckKakao(sqlSession, kakao_id);
+	//카카오톡 로그인
+	public Member selectCheckKakao(String kakao_id) throws LoginException {
+		
+		
+		return  cmd.selectCheckKakao(sqlSession, kakao_id);
 	}
 	//카카오톡 회원가입
 	@Override
@@ -193,6 +194,18 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 	@Override
 	public int intsertRequestRefund(HashMap<String, String> requesthmap) {
 		return cmd.intsertRequestRefund(sqlSession, requesthmap);
+	}
+  
+  @Override
+	public Member chkNaver(String member_id) {
+		return cmd.chkNaver(sqlSession, member_id);
+	}
+  
+	//네이버 회원가입
+	@Override
+	public int insertNaver(Member m) {
+
+		return cmd.insertNaver(sqlSession, m);
 	}
 	
 	

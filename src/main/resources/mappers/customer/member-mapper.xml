@@ -434,4 +434,18 @@
 				#{ application_account_number })
 	</insert>
 	
+	<!-- 네이버 아이디 유무 확인 -->
+	<select id="chkNaver"  resultMap="MemberResultSet2" parameterType="String">
+		SELECT * FROM
+		MEMBER 
+		WHERE STATUS = 'Y'
+		AND MEMBER_ID = #{member_id}
+	</select>
+	
+	<!-- 네이버 회원가입 -->
+	<insert id="insertNaver" parameterType="Member">
+		INSERT INTO MEMBER 
+		VALUES (MNO_SEQ.NEXTVAL, #{member_id}, #{member_pwd}, 'U', 'N', '0', #{email}, #{phone}, #{member_name}, #{member_carNo},
+				'Y', null, null, null, SYSDATE)
+	</insert>
 </mapper>

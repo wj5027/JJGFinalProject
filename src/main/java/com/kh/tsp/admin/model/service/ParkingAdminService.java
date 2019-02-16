@@ -18,27 +18,26 @@ public interface ParkingAdminService {
 	
 	// 주차장 전체 리스트
 	ArrayList<ParkingListAdmin> selectParkingList(PageInfo pi) throws ParkingException;
-	
-/*	// 쿠폰 전체 수
-	int getCouponListCount() throws CouponListException;
 
-	// 쿠폰 전체 리스트
-	ArrayList<CouponRequestList> selectCouponList(PageInfo pi) throws CouponListException;
+	// 리스트 상세보기 ajax
+	ParkingListAdmin detailParkingLot(ParkingListAdmin pl) throws ParkingException;
 
-	// 쿠폰 발급
-	int updateCoupon(CouponRequestList crl) throws CouponListException;
+	// 승인 버튼
+	int updateParkingLot(ParkingListAdmin pl) throws ParkingException;
 
-	// 쿠폰 반송
-	int deleteCoupon(CouponRequestList crl) throws CouponListException;
+	// 반송 버튼
+	int updateReturnParkingLot(ParkingListAdmin pl) throws ParkingException;
 
 	// 반송 사유 ajax
-	CouponRequestList selectRefuseReason(CouponRequestList c) throws CouponListException;
+	ParkingListAdmin updateCancelReasonDetail(ParkingListAdmin pl) throws ParkingException;
 
-	// 쿠폰 검색 수
-	int getSearchListCount(String selectStatus, String selectCoupon, String memberId, String parkingName) throws CouponListException;
+	// 검색 수
+	int getSearchListCount(String parkingListStatus, String memberId, String parkingAddress, String parkingListName, String today,
+			String startDate, String endDate) throws ParkingException;
 
-	// 쿠폰 검색 결과
-	ArrayList<CouponRequestList> selectSearchCouponList(PageInfo pi, String selectStatus, String selectCoupon,
-			String memberId, String parkingName) throws CouponListException;*/
+	// 검색 결과
+	ArrayList<ParkingListAdmin> selectSearchParkingLotList(PageInfo pi, String parkingListStatus, String memberId, String parkingAddress,
+			String parkingListName, String today, String startDate, String endDate) throws ParkingException;
+	
 
 }

@@ -25,8 +25,7 @@
 			<div align="right" class="dropdown-menu dropdown-black"
 				aria-labelledby="navbarDropdownMenuLink">
 				<a class="dropdown-item" href="selectCEOList.ad">사업자 조회</a> <a
-					class="dropdown-item" href="selectParkingLotList.ad">주차장 조회</a> <a
-					class="dropdown-item" href="parkingLotCertification.ad">주차장 인증</a>
+					class="dropdown-item" href="selectParkingLotList.ad">주차장 관리</a>
 				<a class="dropdown-item" href="selectExchangeMoney.ad">환전/환불 관리</a> <a
 					class="dropdown-item" href="selectCouponCertification.ad">쿠폰 관리</a> <a
 					class="dropdown-item" href="statisticsCEO.ad">통계</a>
