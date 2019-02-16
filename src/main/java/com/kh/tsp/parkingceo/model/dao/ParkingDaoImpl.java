@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.tsp.common.ParkingCeoPageInfo;
 import com.kh.tsp.customer.model.vo.Member;
+import com.kh.tsp.parkingceo.model.vo.ParkingCeoAttachmentVo;
+import com.kh.tsp.parkingceo.model.vo.ParkingCeoVo;
 
 @Repository
 public class ParkingDaoImpl implements ParkingDao{
@@ -129,6 +131,33 @@ public class ParkingDaoImpl implements ParkingDao{
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		return (ArrayList)sqlSession.selectList("ParkingDetail.inputOutputCarList", daoHmap, rowBounds);
 	}
+
+	@Override
+	public void insertParkingOne(SqlSessionTemplate sqlSession, ParkingCeoVo parking) {
+		sqlSession.insert("Parking.insertParkingOne", parking);
+	}
+
+	@Override
+	public String selectParkingNo(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("Parking.selectParkingNo");
+	}
+
+	@Override
+	public void insertPakringListOne(SqlSessionTemplate sqlSession, ParkingCeoVo parking) {
+		sqlSession.insert("Parking.insertParkingListOne", parking);
+	}
+
+	@Override
+	public int selectParkingListNo(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("Parking.selectParkingListNo");
+	}
+
+	@Override
+	public void insertAttachment(SqlSessionTemplate sqlSession, ParkingCeoAttachmentVo parkingCeoAttachmentVo) {
+		sqlSession.insert("Pakring.insertAttachment", parkingCeoAttachmentVo);
+	}
+
+
 
 
 
