@@ -83,12 +83,14 @@ public class parkingLotListController {
 	
 	// 승인 버튼
 	@RequestMapping("updateParkingLot.ad")
-	public String updateParkingLot(String parkingListNo, Model model){
-		
+	public String updateParkingLot(String parkingListNo, String parkingNo, Model model){
+
 		System.out.println("parkingListNo : "+parkingListNo);
+		System.out.println("parkingNo : "+parkingNo);
 		
 		ParkingListAdmin pl = new ParkingListAdmin();
 		pl.setParkingListNo(parkingListNo);
+		pl.setParkingNo(parkingNo);
 		
 		int result=0;
 		
@@ -135,6 +137,26 @@ public class parkingLotListController {
 		
 		return pl;
 	}
+
+	// 삭제 버튼
+	@RequestMapping("deleteRemoveParkingLot.ad")
+	public String deleteRemoveParkingLot(String parkingListNo, String parkingNo, Model model){
+		
+		ParkingListAdmin pl = new ParkingListAdmin();
+		pl.setParkingNo(parkingNo);
+		pl.setParkingListNo(parkingListNo);
+		
+		int result=0;
+		
+		try {
+			result = ps.deleteRemoveParkingLot(pl);
+			return "redirect:selectParkingLotList.ad";
+		} catch (ParkingException e) {
+			model.addAttribute("msg", e.getMessage());
+			return "common/errorPage";
+		}
+	}
+
 	
 	// 검색
 	@RequestMapping(value="/selectSearchParkingLotList.ad", method = {RequestMethod.GET, RequestMethod.POST})

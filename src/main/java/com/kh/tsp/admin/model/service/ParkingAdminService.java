@@ -38,6 +38,9 @@ public interface ParkingAdminService {
 	// 검색 결과
 	ArrayList<ParkingListAdmin> selectSearchParkingLotList(PageInfo pi, String parkingListStatus, String memberId, String parkingAddress,
 			String parkingListName, String today, String startDate, String endDate) throws ParkingException;
+
+	// 삭제 버튼
+	int deleteRemoveParkingLot(ParkingListAdmin pl) throws ParkingException;
 	
 
 }
