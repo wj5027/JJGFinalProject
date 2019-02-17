@@ -35,8 +35,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 		<jsp:forward page="../../common/errorPage.jsp"></jsp:forward>
 	</c:if>
 
-	<c:if
-		test="${not empty sessionScope.loginUser and loginUser.member_type=='A'}">
+	<c:if test="${not empty sessionScope.loginUser and loginUser.member_type=='A'}">
 		<div class="wrapper">
 			<div class="sidebar" style="background: rgb(49, 49, 49) !important;">
 				<!-- sidebar_admin -->
