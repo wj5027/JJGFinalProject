@@ -10,6 +10,17 @@
 		</layout>
 	</appender>
 	
+	<!-- 아래의 Root Logger와 연결 -->
+	<!-- DailyRolling이란 하루가 지나면 log 파일을 마감하여 log 파일의 이름 뒤에 날짜를 기록한다. -->
+	<appender name="fileLogger" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="C:/JJGConsoleLogData.log"/>
+	 	<param name="Appender" value="true"/>
+	 	<param name="DataPattern" value="'.'yyyy-MM-dd"/>
+	 	<layout class="org.apache.log4j.PatternLayout">
+	 		<param name="ConversionPattern" value="[%d{HH:mm:ss}][%-5p](%F:%L) - %m%n"/>
+	 	</layout>
+	</appender>
+	
 	<!-- Application Loggers -->
 	<logger name="com.kh.tsp">
 		<level value="info" />
@@ -35,7 +46,7 @@
 	<!-- Root Logger -->
 	<root>
 		<priority value="warn" />
-		<appender-ref ref="console" />
+		<appender-ref ref="fileLogger" />
 	</root>
 	
 </log4j:configuration>

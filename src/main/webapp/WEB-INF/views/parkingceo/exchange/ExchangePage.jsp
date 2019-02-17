@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -14,6 +15,10 @@
 		width: 300px;
 		display: inline-block;
 	
+	}
+	
+	#hiddenButton{
+		display: none;
 	}
 </style>
 </head>
@@ -42,18 +47,33 @@
                   <table class="table tablesorter " id="">
                     <tbody>
                       <tr>
-                        <td align="center"><div style="color: white;">[고객]님의 주차장을 선택해주세요</div></td>
+                        <td align="center"><div style="color: white;">${loginUser.member_name }님의 주차장을 선택해주세요</div></td>
                         <td>	
-						  <select class="custom-select nav-link dropdown-toggle" id="inputGroupSelect02">
-    					<option selected style="color: black;">주차장을 선택해주세요</option>
-    					<option value="1" style="color: black;">주차장1</option>
-    					<option value="2" style="color: black;">주차장2</option>
-    					<option value="3" style="color: black;">주차장3</option>
-  					</select>
+						<select class="custom-select nav-link dropdown-toggle" id="inputGroupSelect01" style="width: 500px;" name="parking_no">
+    						<c:if test="${not empty  CurrentParkinglist}">
+    						<option selected style="color: black;" value=${CurrentParkinglist[0].parking_no } id="pakringOption1">주차장을 선택해주세요</option>
+    						<c:set var="number" value="1"/>
+    						<c:forEach var="list" items="${CurrentParkinglist }" varStatus="status">
+    							<option value=${list.parking_no } style="color: black;">${list.parking_name }</option>
+    						</c:forEach>
+    						</c:if>
+    						<c:if test="${empty CurrentParkinglist }">
+    							<option selected style="color: black;" value="none">등록하신 주차장이 없습니다.</option>
+    						</c:if>
+  						</select>
 						</td>
+						
+						
                       </tr>  
+                      <tr><td colspan="2">
+						<ul>
+                        <li>선택 박스를 체크 하지 않으시면 제일 첫번째 주차장이 검색됩니다.</li>
+                       <li>주차장이 없으실 경우에 등록을 먼저 해주시기 바랍니다.</li>
+                       </ul>
+						
+						</td></tr>
                       <tr>
-                      	<td colspan="2" align="center"><button class="btn btn-info animation-on-hover" type="button">검색</button></td>
+                      	<td colspan="2" align="center"><button class="btn btn-info animation-on-hover" type="button" onclick="selectParking();">검색</button></td>
                       </tr>                    
                     </tbody>
                   </table>
@@ -65,31 +85,10 @@
          <div class="card">
 		  <div class="card-body">
 		    <form action="#" method="post">
-		    	<div class="form-group" align="center">
-		    		<h4 class="card-title">주차장 유형</h4>
-		    		<br>
-		    		<input type="radio" name="type">&nbsp;<b style="color: white;">노상</b>
-		    		&nbsp;&nbsp;&nbsp;&nbsp;
-		    		<input type="radio" name="type">&nbsp;<b style="color: white;">노외</b>
-		    	</div>
 		    	
 		      <div class="form-group">
 		        <label for="ex1">주차장 명</label>
 		        <input type="text" class="form-control" id="ex1" placeholder="주차장 이름을 입력해주세요"  name="parkingName" style="width: 300px;">
-		      </div>
-		      <div class="form-group">
-		        <label for="ex2">연락처</label>
-		        <input type="text" class="form-control" id="ex2" placeholder="연락처를 입력해주세요" style="width: 500px;">
-		      </div>
-		      <div class="form-group">
-		        <label for="ex3">주차장 주소</label>
-		        <br>
-		        <br>
-		        <input type="text" class="form-control" placeholder="우편번호" style="width: 200px;">
-		        <br>
-		        <input type="text" class="form-control" placeholder="기본 주소" style="width: 600px;">
-		        <br>
-		        <input type="text" class="form-control" placeholder="상세 주소" style="width: 600px;">
 		      </div>
 		      	<div class="form-group">
 		        <label for="ex4">주차 구획수</label>
@@ -306,8 +305,31 @@
     </div>
     
     
+         <div class="modal fade bd-example-modal-lg-4" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="background: rgb(39,41,61);">
+    <div class="modal-body">
+                     <div class="table-responsive"  style="overflow: hidden;">
+                  <table class="table tablesorter " id="">
+                    <tbody>
+						<tr><td align="center" id="modalText" style="color: white;"></td></tr>
+						<tr><td align="center">
+						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button></td></tr>      
+      			</tbody>
+      		</table>
+      	</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="hiddenButton">
+<button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-4" type="button" id="modalBtn">현장 결제</button>
+</div>     
     
     
+    
+  </div>
   </div>
 
   
@@ -393,6 +415,18 @@ function parkingceoLogin(){
 		forceParse: 0
     });
 	
+	
+	function selectParking(){
+		var parkingSelectBox = $("#inputGroupSelect01 option:selected").val();
+		console.log(parkingSelectBox);
+		if(parkingSelectBox = 'none'){
+			var modalText = $("<b>").text("주차장이 없습니다 등록해주세요.");
+			$("#modalText").append(modalText);
+			$("#modalBtn").click();
+		}
+		$("#modalText").html('');
+		
+	}
 
 	
 </script>
