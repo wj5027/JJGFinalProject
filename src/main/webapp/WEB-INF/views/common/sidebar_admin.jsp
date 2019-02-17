@@ -14,6 +14,10 @@
 				class="tim-icons icon-chart-bar-32"></i>
 				<p>메인 페이지</p>
 		</a></li>
+		<li class=" "><a  href="selectExchangeMoney.ad"> <i
+				class="tim-icons icon-coins"></i>
+				<p>환전/환불 관리</p>
+		</a></li>
 		<li><a class="nav-link dropdown-toggle" href=""
 			id="navbarDropdownMenuLink" data-toggle="dropdown"
 			aria-haspopup="true" aria-expanded="false"> <i
@@ -25,8 +29,7 @@
 			<div align="right" class="dropdown-menu dropdown-black"
 				aria-labelledby="navbarDropdownMenuLink">
 				<a class="dropdown-item" href="selectCEOList.ad">사업자 조회</a> <a
-					class="dropdown-item" href="selectParkingLotList.ad">주차장 관리</a>
-				<a class="dropdown-item" href="selectExchangeMoney.ad">환전/환불 관리</a> <a
+					class="dropdown-item" href="selectParkingLotList.ad">주차장 관리</a> <a
 					class="dropdown-item" href="selectCouponCertification.ad">쿠폰 관리</a> <a
 					class="dropdown-item" href="statisticsCEO.ad">통계</a>
 			</div></li>
@@ -53,7 +56,7 @@
 				aria-labelledby="navbarDropdownMenuLink">
 				<a class="dropdown-item" href="selectBoardQnA.ad">문의 게시판</a> <a
 					class="dropdown-item" href="selectBoardReview.ad">후기 게시판</a><a
-					class="dropdown-item" href="filter.ad">필터설정</a>
+					class="dropdown-item" href="selectFilter.ad">필터설정</a>
 			</div></li>
 	</ul>
 </div>
