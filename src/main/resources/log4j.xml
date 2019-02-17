@@ -12,8 +12,9 @@
 	
 	<!-- 아래의 Root Logger와 연결 -->
 	<!-- DailyRolling이란 하루가 지나면 log 파일을 마감하여 log 파일의 이름 뒤에 날짜를 기록한다. -->
+	<!-- http://dorbae.blogspot.com/2015/04/java-system-properties.html 파일 경로는 이 사이트를 참조! -->
 	<appender name="fileLogger" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="file" value="C:/JJGConsoleLogData.log"/>
+		<param name="file" value="${user.home}/Desktop/JJGConsoleLogData.log"/>
 	 	<param name="Appender" value="true"/>
 	 	<param name="DataPattern" value="'.'yyyy-MM-dd"/>
 	 	<layout class="org.apache.log4j.PatternLayout">
