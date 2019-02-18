@@ -23,12 +23,12 @@
 	</appender> -->
 	
 	<!-- Application Loggers -->
-	<logger name="com.kh.tsp">
+<!-- 	<logger name="com.kh.tsp">
 		<level value="info" />
-	</logger>
+	</logger> -->
 	
 	<!-- 3rdparty Loggers -->
-<!-- 	<logger name="org.springframework.core">
+ 	<logger name="org.springframework.core">
 		<level value="info" />
 	</logger>
 	
@@ -38,11 +38,11 @@
 	
 	<logger name="org.springframework.context">
 		<level value="info" />
-	</logger> -->
+	</logger> 
 
-<!-- 	<logger name="org.springframework.web">
+ 	<logger name="org.springframework.web">
 		<level value="info" />
-	</logger> -->
+	</logger>
 
 	<!-- Root Logger -->
 	<root>
