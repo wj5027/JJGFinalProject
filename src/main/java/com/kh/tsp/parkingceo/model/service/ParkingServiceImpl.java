@@ -145,16 +145,18 @@ public class ParkingServiceImpl implements ParkingService{
 		//주차장 리스트 번호 조회
 		int parkingListNo = pd.selectParkingListNo(sqlSession);
 		
+		
 		for(int i = 0 ; i < attachList.size(); i ++) {
 			//주차장 리스트 번호 넣기
 			attachList.get(i).setParking_list_no(parkingListNo);
+			attachList.get(i).setParking_no(parkingNo);
 			//파일 리스트 테이블 등록
 			pd.insertAttachment(sqlSession,attachList.get(i));
 		}
 	}
 
 	@Override
-	public ParkingCeoParkingListVo selectSearchParkingOne(ParkingCeoVo parking) {
+	public HashMap<String, Object> selectSearchParkingOne(ParkingCeoVo parking) {
 		return pd.selectSearchParkingOne(sqlSession,parking);
 	}
 	

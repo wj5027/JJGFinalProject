@@ -159,7 +159,7 @@ public class ParkingDaoImpl implements ParkingDao{
 	}
 
 	@Override
-	public ParkingCeoParkingListVo selectSearchParkingOne(SqlSessionTemplate sqlSession, ParkingCeoVo parking) {
+	public HashMap<String, Object> selectSearchParkingOne(SqlSessionTemplate sqlSession, ParkingCeoVo parking) {
 		return sqlSession.selectOne("Parking.selectSearchParkingOne", parking);
 	}
 

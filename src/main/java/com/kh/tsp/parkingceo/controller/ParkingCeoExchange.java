@@ -58,8 +58,18 @@ public class ParkingCeoExchange {
 		parking.setParkingNo(parkingSelectBox);
 		
 		//주차장 데이터 조회
-		ParkingCeoParkingListVo searchParkingOne = ps.selectSearchParkingOne(parking);
-		System.out.println(searchParkingOne);
+		try {
+			HashMap<String, Object> hmap = ps.selectSearchParkingOne(parking);
+			System.out.println(hmap);
+			mv.addObject("hmap", hmap);
+			/*mv.addObject(parkingCeoParkingListVo);	*/
+		}catch(Exception e) {
+			mv.addObject("message", "주차장 조회 실패");
+			mv.setViewName("jsonView");
+			return mv;
+		}
+		
+		
 		
 		
 		mv.setViewName("jsonView");
