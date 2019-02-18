@@ -1,5 +1,6 @@
 package com.kh.tsp.customer.model.dao;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -95,8 +96,18 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 	}
 
 	@Override
-	public ArrayList<Reservation> selectShowReserv(SqlSessionTemplate sqlSession, Member member) {
-		return (ArrayList)sqlSession.selectList("Member.selectReserve", member);
+	public ArrayList<Reservation> selectShowReserv(SqlSessionTemplate sqlSession, Member member, PageInfo pi) {
+
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		return (ArrayList)sqlSession.selectList("Member.selectReserve", member, rowBounds);
+	}
+	
+	@Override
+	public int selectReservCount(SqlSessionTemplate sqlSession, Member member) {
+		return sqlSession.selectOne("Member.selectReservCount", member);
 	}
 
     //카카오톡 로그인
@@ -230,6 +241,11 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 
 		return sqlSession.insert("Member.insertNaver", m);
 
+	}
+
+	@Override
+	public int insertRequestReserve(SqlSessionTemplate sqlSession, Reservation reservInfo) {
+		return sqlSession.insert("Member.insertRequestReserve", reservInfo);
 	}
 	
 

@@ -1,5 +1,6 @@
 package com.kh.tsp.customer.model.dao;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -27,7 +28,7 @@ public interface CustomerMainDao {
 	HashMap<String, Parking> selectSearchTextParking(SqlSessionTemplate sqlSession, String keyword);
 
 
-	ArrayList<Reservation> selectShowReserv(SqlSessionTemplate sqlSession, Member member);
+	ArrayList<Reservation> selectShowReserv(SqlSessionTemplate sqlSession, Member member, PageInfo pi);
 
 	Member selectCheckKakao(SqlSessionTemplate sqlSession, String kakao_id);
 
@@ -74,6 +75,10 @@ public interface CustomerMainDao {
 	Member chkNaver(SqlSessionTemplate sqlSession, String member_id);
 
 	int insertNaver(SqlSessionTemplate sqlSession, Member m);
+
+	int insertRequestReserve(SqlSessionTemplate sqlSession, Reservation reservInfo);
+
+	int selectReservCount(SqlSessionTemplate sqlSession, Member member);
 
 
 

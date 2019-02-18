@@ -16,12 +16,15 @@ public class Reservation implements Serializable {
 	private String carNo;
 	private String reserveTime;
 	
+	private String stringResDate;
+	
 	public Reservation() {
 		
 	}
 
 	public Reservation(int rnum, int resNo, Date resApplyDate, Date resDate, String status, int memberNo,
-			String parkingNo, String parkingName, String cancelReason, String carNo, String reserveTime) {
+			String parkingNo, String parkingName, String cancelReason, String carNo, String reserveTime,
+			String stringResDate) {
 		super();
 		this.rnum = rnum;
 		this.resNo = resNo;
@@ -34,6 +37,7 @@ public class Reservation implements Serializable {
 		this.cancelReason = cancelReason;
 		this.carNo = carNo;
 		this.reserveTime = reserveTime;
+		this.stringResDate = stringResDate;
 	}
 
 	public int getRnum() {
@@ -124,12 +128,20 @@ public class Reservation implements Serializable {
 		this.reserveTime = reserveTime;
 	}
 
+	public String getStringResDate() {
+		return stringResDate;
+	}
+
+	public void setStringResDate(String stringResDate) {
+		this.stringResDate = stringResDate;
+	}
+
 	@Override
 	public String toString() {
 		return "Reservation [rnum=" + rnum + ", resNo=" + resNo + ", resApplyDate=" + resApplyDate + ", resDate="
 				+ resDate + ", status=" + status + ", memberNo=" + memberNo + ", parkingNo=" + parkingNo
 				+ ", parkingName=" + parkingName + ", cancelReason=" + cancelReason + ", carNo=" + carNo
-				+ ", reserveTime=" + reserveTime + "]";
+				+ ", reserveTime=" + reserveTime + ", stringResDate=" + stringResDate + "]";
 	}
 	
 }

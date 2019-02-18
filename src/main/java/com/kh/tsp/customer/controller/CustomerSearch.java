@@ -81,7 +81,7 @@ public class CustomerSearch {
 		return Olist;
     }
 	
-	// 페이징 정보 전달
+	// 오일 페이징 정보 전달
 	@RequestMapping("searchOilListPI.cu")
 	public @ResponseBody PageInfo searchOilListPI(HttpServletRequest request, @RequestParam String startTime, @RequestParam String endTime, @RequestParam String selectedListInfo, @RequestParam int memberNo, @RequestParam int pageNo, HttpServletResponse response) {
 		int currentPage = pageNo;

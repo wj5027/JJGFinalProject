@@ -1,6 +1,8 @@
 package com.kh.tsp.customer.controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,9 +18,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.kh.tsp.common.OilPagination;
+import com.kh.tsp.common.PageInfo;
+import com.kh.tsp.common.ReservPagination;
 import com.kh.tsp.customer.model.service.CustomerMainService;
 import com.kh.tsp.customer.model.vo.ChargeOil;
 import com.kh.tsp.customer.model.vo.Member;
+import com.kh.tsp.customer.model.vo.OilList;
 import com.kh.tsp.customer.model.vo.Parking;
 import com.kh.tsp.customer.model.vo.Reservation;
 
@@ -82,11 +88,25 @@ public class CustomerPayment {
 	
 	@RequestMapping(value="/reserv.cu", method=RequestMethod.GET)
 	public String showCustomerReserve(HttpServletRequest request, HttpSession session) {
+		
+		int currentPage = 1;
+		int listCount = 0;
+		PageInfo pi;
+		
+		if(request.getParameter("pageNo") != null) {
+			currentPage = Integer.parseInt(request.getParameter("pageNo"));
+		}
+		
 		Member member = (Member) session.getAttribute("loginUser");
 		
 		if (member != null) {
-			ArrayList<Reservation> reservList = cms.selectShowReserv(member);
+			listCount = cms.selectReservCount(member);
 			
+			pi = ReservPagination.getPageInfo(currentPage, listCount);
+			
+			ArrayList<Reservation> reservList = cms.selectShowReserv(member, pi);
+			
+			request.setAttribute("pi", pi);
 			request.setAttribute("reservList", reservList);
 			
 			System.out.println(reservList);
@@ -162,4 +182,37 @@ public class CustomerPayment {
 		
 		return result;
     }
+	
+	@RequestMapping(value="/requestReserve.cu", method=RequestMethod.POST)
+	public String RequestReserve(HttpServletRequest request, HttpSession session, @RequestParam String reservParkingNo, @RequestParam String selectedTime, @RequestParam String selectTime2, @RequestParam String carNo) {
+		
+		Member user = (Member)session.getAttribute("loginUser");
+		
+		int year = 2000 + Integer.parseInt(selectedTime.split(" ")[0].split("년")[0]);
+		int month = Integer.parseInt(selectedTime.split(" ")[1].split("월")[0]);
+		int day = Integer.parseInt(selectedTime.split(" ")[2].split("일")[0]);
+		
+		int hour = Integer.parseInt(selectTime2.split(":")[0]);
+		
+		
+		
+		Reservation reservInfo = new Reservation();
+		
+		reservInfo.setMemberNo(user.getMember_no());
+		reservInfo.setCarNo(carNo);
+		reservInfo.setParkingNo(reservParkingNo);
+		reservInfo.setStringResDate(month + "-" + day + "-" + year + " " + hour + ":00");
+		
+		System.out.println(reservInfo.toString());
+		
+		
+		
+		int result = cms.insertRequestReserve(reservInfo);
+		
+		if (result > 0) {
+			System.out.println("예약 시스템 정상");
+		}
+		
+		return "redirect:reserv.cu";
+	}
 }

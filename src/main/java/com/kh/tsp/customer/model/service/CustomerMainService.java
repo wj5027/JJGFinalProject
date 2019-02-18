@@ -1,5 +1,6 @@
 package com.kh.tsp.customer.model.service;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -25,7 +26,7 @@ public interface CustomerMainService {
 	HashMap<String, Parking> selectSearchTextParking(String keyword);
 
 
-	ArrayList<Reservation> selectShowReserv(Member member);
+	ArrayList<Reservation> selectShowReserv(Member member, PageInfo pi);
 
 	Member selectCheckKakao(String kakao_id) throws LoginException;
 
@@ -71,6 +72,10 @@ public interface CustomerMainService {
 	Member chkNaver(String member_id);
 
 	int insertNaver(Member m);
+
+	int insertRequestReserve(Reservation reservInfo);
+
+	int selectReservCount(Member member);
 
 	
 	
