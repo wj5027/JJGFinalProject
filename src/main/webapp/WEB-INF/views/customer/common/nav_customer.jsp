@@ -12,12 +12,13 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div> 
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <div>
 	            <button class="btn btn-link" id="search-button" data-toggle="modal" data-target="#searchModal"><i class="tim-icons icon-zoom-split" style="color: black;"></i> 검색
 	            </button>
-	            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	            &nbsp;&nbsp;&nbsp;
 	            <button class="btn btn-link" data-toggle="modal" data-target=".bd-example-modal-lg-6" onclick="startSTT();"><i class="fas fa-microphone-alt" style="color: black;"></i> 음성
+	            </button>
+	            <button class="btn btn-link"  onclick="span_myP();"><img src='resources/common/img/mypositionP.png' width="20px" height="20px">내위치
 	            </button>
             </div>
             <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 음성 인식 모달 -->

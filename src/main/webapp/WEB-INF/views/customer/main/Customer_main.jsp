@@ -16,41 +16,66 @@
 <body class="">
   <div class="wrapper">
    <jsp:include page="/WEB-INF/views/customer/common/nav_customer.jsp"></jsp:include>
-   <jsp:include page="/WEB-INF/views/customer/common/sidebar_customer.jsp"></jsp:include>
+ 
+   
    
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=85185db0fc452125ec8070a4279f67bb&libraries=services,clusterer,drawing"></script>
     <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
     
      <!--  <div class="row"> -->
-          <div class="card-body" style="padding: 0px;">
-            <div class="map" style="position: relative; overflow: hidden;">
-	          <div id="daumMap" style="height: 100%; width: 100%; position: absolute; top: 0px; left: 0px; background-color: rgb(229, 227, 223);">
+            <div class="map" style="position: relative;height: 90%; width: 90%;">
+	          <div id="daumMap" style=" height: 100%; width: 100%; position: fixed; top: 54px; left: 0px; background-color: rgb(229, 227, 223);" >
 	          </div>
+	          </div>
+	          
+	          <div style="position: absolute;width: 100px;height: 200px;z-index:100000000;top: 7%;left: 72%;">
+	          <br>
+	          <div id="" style="margin:1px; background-color:white; border-radius: 10px;">
+	          <span align="center" style="margin:2px; color:black; font-size:0.1em;"><img src='resources/common/img/greenMarker.png' width="25px" height="25px"> &nbsp;<b>2000원 이하</b></span>
+	          <span align="center" style="margin:2px; color:black; font-size:0.1em;"><img src='resources/common/img/blueMarker.png' width="25px" height="25px"> &nbsp;<b>2000~4000</b></span>
+	          <span align="center" style="margin:2px; color:black; font-size:0.1em;"><img src='resources/common/img/yellowMarker.png' width="25px" height="25px"> &nbsp;<b>4000~8000</b></span>
+	          <span align="center" style="margin:2px; color:black; font-size:0.1em;"><img src='resources/common/img/pinkMarker.png' width="25px" height="25px"> &nbsp;<b>8000원 이상</b></span>
+	          <span align="center" style="margin:2px; color:black; font-size:0.1em;"><img src='resources/common/img/muni.png' width="25px" height="25px"> &nbsp;<b>관리자에게 문의</b></span>
+	           <span align="center" style="margin:2px; color:black; font-size:0.1em;"><img src='resources/common/img/freeparking.png' width="25px" height="25px"> &nbsp;<b>무료</b></span>
+	          </div>
+	          </div>
+	         
+	      
+	          
 	          <!--@@@@@@@@@@@@@@@@@@@@@2모달과 버튼  -->
 	           <button id="detailparking" class="btn btn-link" data-toggle="modal" data-target=".bd-detail-modal-lg-6"></button>
 	              <div class="modal fade bd-detail-modal-lg-6" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-			 	  <div class="modal-dialog modal-lg">
-			    <div class="modal-content" style="background: white; color:black">
-			      <div class="modal-body" style="padding-bottom: 0px;">
-			        <div class="table-responsive" id="voiceSize" style="overflow: auto; padding-bottom: 0px;">
+			 	  <div class="modal-dialog modal-lg" style="font-size: 0.7em; margin-top:130px;">
+			    <div class="modal-content" style="background: white; color:black;">
+			      <div class="modal-body1" style="padding-bottom: 0px;">
+			        <div class="table-responsive" id="voiceSize" style="overflow: auto; padding-bottom: 0px;  ">
 			          <table class="table tablesorter " style="margin-bottom: 0px;">
 			            <tbody id="STTResult">
 			                  <tr>
-			                  <td align="left" >주차장명 : <b id="pname"></b></td>
-			                  <td align="right" colspan="4" style="padding:0px">총자리:<span id="allseat" style="display:inline">150</span><br><span style="color:red">남은자리:<span id="extraseat" style="display:inline">100</span></span></td>
+			                  <td align="left" colspan="5">-주차장명 <br> <b id="pname"></b></td>
+			                  <td align="right" colspan="6" style="padding:0px">총자리:<span id="allseat" style="display:inline">150</span><br><span style="color:red">남은자리:<span id="extraseat" style="display:inline">100</span></span></td>
 			                  </tr>
-			                  <tr ><td colspan="5" style="padding:0px"><hr></td></tr>
+			                  <tr ><td colspan="12" style="padding:0px"><hr></td></tr>
 			                  <tr>
-			                  <td><img src="resources/common/img/pinkMarker.png" width="100px" height="100px" style="border:1px solid black;"/></td>
-			                  <td><b>주차요금 </b>: 30분 ,<span id="price"></span>원<br><b>운영시간</b> : <span id="time"></span></td>
+			                  <td colspan="3"><img src="resources/common/img/pinkMarker.png" width="100px" height="100px" style="border:1px solid black;"/></td>
+			                  <td colspan="7">
+			                   				  <span id="paddr"></span><br>
+			                  				  <b>주차요금 </b>: 30분 ,<span id="price"></span>원<br>
+			                  				  <b>운영시간</b> : <span id="time"></span>
+			                  </td>
 			                  </tr>
-			                  <tr >
-			                  <td align="left"><button type="button" class="btn btn-default " data-dismiss="modal" onclick="navi()">네비게이션</button></td>
-			                  <td align="left"><button type="button" class="btn btn-default " data-dismiss="modal">닫기</button></td>
+			                  <tr>
+			                  <td align="center" colspan="3"><button type="button" class="btn btn-sm  " data-dismiss="modal" onclick="navi()">길찾기</button></td>
+			                  <td align="center" colspan="3"><button type="button" class="btn btn-sm " data-dismiss="modal">예약하기</button></td>
+			                  <td align="center" colspan="3"><button type="button" class="btn btn-sm  " data-dismiss="modal">즐겨찾기</button></td>
+			                  </tr>
+			                  <tr>
+			                  <td align="center" colspan="3"><button type="button" class="btn btn-sm  " data-dismiss="modal">문의</button></td>
+			                  <td align="center" colspan="3"><button type="button" class="btn btn-sm  " data-dismiss="modal">로드뷰</button></td>
+			                  <td align="center" colspan="3"><button type="button" class="btn btn-sm  " data-dismiss="modal">닫기</button></td>
 			                  <td><input type="hidden" id="member_id" name="member_id" value="">
                    				<input type="hidden" id="member_name" name="member_name" value="">
                    	                   	<input type="hidden" id="email" name="email" value=""></td>
-                   				</td>
 			                  <td></td>
 			                  <td></td>
 			                  </tr>
@@ -67,8 +92,7 @@
 	           
            <!--@@@@@@@@@@@@@@@@@@@@@2모달과 버튼  -->
            <script type='text/javascript'>
-           
-          
+       
 		 	
             
             
@@ -82,17 +106,7 @@
 				};
 				
 				var map = new daum.maps.Map(mapContainer, mapOption); 
-				// 지도 타입 변경 컨트롤을 생성한다
-				var mapTypeControl = new daum.maps.MapTypeControl();
-
-				// 지도의 상단 우측에 지도 타입 변경 컨트롤을 추가한다
-				map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);	
-
-				// 지도에 확대 축소 컨트롤을 생성한다
-				var zoomControl = new daum.maps.ZoomControl();
-
-				// 지도의 우측에 확대 축소 컨트롤을 추가한다
-				map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
+			
 				
 				var mypositionMarker;
 			        
@@ -144,6 +158,13 @@
 				            
 				      });
 				}
+			    function span_myP(){
+		        	   var moveLatLon = mypositionMarker.getPosition();
+		        	    // 지도 중심을 부드럽게 이동시킵니다
+		        	    // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+		        	    map.panTo(moveLatLon);            
+		           }
+		          
 				
 				
 				 Kakao.init('df9b4b2c505f7b6860e9e73d0c22e278');
@@ -305,10 +326,7 @@
 											else{
 												img='resources/common/img/muni.png';
 											}
-											
 										}
-										
-										
 										
 										if((0<allfair) && (2000>=allfair)){
 											 img='resources/common/img/greenMarker.png';
@@ -326,6 +344,9 @@
 										if(img==null){
 											img='resources/common/img/muni.png';
 										}
+										
+										
+										
 										
 										var parkingImgPath =img, // 마커이미지의 주소입니다    
 									    imageSize = new daum.maps.Size(30, 30), // 마커이미지의 크기입니다
@@ -353,17 +374,18 @@
 								 	    	/*  pname allseat extraseat */
 								 	    	$("#detailparking").click();
 								 	    	console.log(parking);
+								 	    	ppname=parking.parking_NAME;
+								 	    	addr =parking.address;
+								 	    	 latt=parking.latitude;
+								 	    	loo=parking.longitude;
 								 	    	$("#pname").text(parking.parking_NAME);
 								 	    	$("#allseat").text(parking.parking_SIZE);
 								 	    	$("#extraseat").text(parking.left_SIZE);
 								 	    	console.log(price);
 								 	    	$("#price").text(Number(price));
 								 	    	$("#time").text(parking.weekday_STIME+"~ 익일:"+parking.weekday_ETIME);
+								 	    	$("#paddr").text(addr);
 								 	    	
-								 	    	ppname=parking.parking_NAME;
-								 	    	addr =parking.road_ADDRESS;
-								 	    	 latt=parking.latitude;
-								 	    	loo=parking.  longitude;
 								 	    	
 								 	    	
 								 	    	
@@ -574,11 +596,12 @@
         </div>
       </footer> -->
     </div>
-  </div>
  
+ <!--@@@@@@@@@@@@@@@@@@@@@@@@@@@사이드바 자리입니다.  -->
+ 
+ <jsp:include page="/WEB-INF/views/customer/common/sidebar_customer.jsp"></jsp:include>
 </body>
  <script type="text/javascript">
-
 	//네이버 로그인
   var naver_id_login = new naver_id_login("hEi80LKwFmVECmA2A2z0", "http://127.0.0.1:8765/jjg/customer.cu");
   // 접근 토큰 값 출력
