@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.kh.tsp.admin.model.exception.CustomerSelectListException;
 import com.kh.tsp.admin.model.service.CustomerService;
+import com.kh.tsp.admin.model.vo.MemberAdmin;
 import com.kh.tsp.admin.model.vo.OilListAdmin;
 import com.kh.tsp.common.PageInfo;
 import com.kh.tsp.common.Pagination;
@@ -43,9 +44,20 @@ public class statisticsCustomerController {
 			int listCount = cs.getStatisticsListCount();
 			PageInfo pi = Pagination.getPageInfo(currentPage,listCount);
 			ArrayList<OilListAdmin> list =cs.selectStatisticsCustomerList(pi);
+			ArrayList<OilListAdmin> listNoPaging =cs.selectStatisticsCustomerListNoPaging();
+			int sum = 0;
+			for(int i=0; i<listNoPaging.size(); i++) {
+				if(listNoPaging.get(i).getOilListType().equals("충전")) {
+					sum += listNoPaging.get(i).getOil();
+				}else {
+					sum -= listNoPaging.get(i).getOil();
+				}
+			}		
+			
 			request.setAttribute("pi", pi);
 			request.setAttribute("list", list);
-			
+			request.setAttribute("sum", sum);
+			System.out.println("list 확인 : "+list);
 			System.out.println("nullCheck : "+nullCheck);
 			
 			if(nullCheck != null) {
@@ -54,6 +66,61 @@ public class statisticsCustomerController {
 			}
 
 			return "admin/customer/StatisticsCustomer";
+			
+		} catch (CustomerSelectListException e) {
+			request.setAttribute("msg", e.getMessage());
+			return "common/errorPage";
+		}
+	}
+
+	// 회원 검색
+	@RequestMapping(value = "/selectSearchStatisticsCustomerList.ad", method = {RequestMethod.GET, RequestMethod.POST})
+	public String selectSearchStatisticsCustomerList(HttpServletRequest request, HttpServletResponse response,
+												String selectStatus, String memberId, String startMoney, String endMoney, String today, String startDate, String endDate) {
+		
+		int currentPage =1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		if(startMoney.equals("")) {
+			startMoney = "0";
+		}
+		
+		try {
+			int listCount = cs.getSearchStatisticsCustomerListCount(selectStatus, memberId, startMoney, endMoney, today, startDate, endDate);
+			System.out.println("listCount : "+listCount);
+			PageInfo pi = Pagination.getPageInfo(currentPage,listCount);
+			ArrayList<OilListAdmin> list =cs.selectSearchStatisticsCustomerList(pi, selectStatus, memberId, startMoney, endMoney,  today, startDate, endDate);
+			ArrayList<OilListAdmin> listNoPaging =cs.selectSearchStatisticsCustomerList(selectStatus, memberId, startMoney, endMoney,  today, startDate, endDate);
+			
+			int sum = 0;
+			for(int i=0; i<listNoPaging.size(); i++) {
+				if(listNoPaging.get(i).getOilListType().equals("충전")) {
+					sum += listNoPaging.get(i).getOil();
+				}else {
+					sum -= listNoPaging.get(i).getOil();
+				}
+			}		
+			
+			request.setAttribute("pi", pi);
+			request.setAttribute("list", list);
+			request.setAttribute("sum", sum);
+
+			request.setAttribute("selectStatus", selectStatus);
+			request.setAttribute("memberId", memberId);
+			request.setAttribute("startMoney", startMoney);
+			request.setAttribute("endMoney", endMoney);
+			request.setAttribute("today", today);
+			request.setAttribute("startDate", startDate);
+			request.setAttribute("endDate", endDate);
+			
+			if(listCount==0 || list == null) {
+				nullCheck="nullCheck";
+				return "redirect:selectStatisticsCustomer.ad";
+			}else {
+				return "admin/customer/StatisticsCustomer2";		
+			}
 			
 		} catch (CustomerSelectListException e) {
 			request.setAttribute("msg", e.getMessage());

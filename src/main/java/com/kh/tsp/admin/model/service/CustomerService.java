@@ -35,5 +35,20 @@ public interface CustomerService {
 	// 사용자 통계 리스트
 	ArrayList<OilListAdmin> selectStatisticsCustomerList(PageInfo pi) throws CustomerSelectListException;
 
+	// 충전 합계
+	ArrayList<OilListAdmin> selectStatisticsCustomerListNoPaging() throws CustomerSelectListException;
+
+	// 사용자 통계 검색 수
+	int getSearchStatisticsCustomerListCount(String selectStatus, String memberId, String startMoney, String endMoney,
+			String today, String startDate, String endDate) throws CustomerSelectListException;
+
+	// 사용자 통계 검색 리스트
+	ArrayList<OilListAdmin> selectSearchStatisticsCustomerList(PageInfo pi, String selectStatus, String memberId,
+			String startMoney, String endMoney, String today, String startDate, String endDate) throws CustomerSelectListException;
+
+	// 충전 합계 (검색)
+	ArrayList<OilListAdmin> selectSearchStatisticsCustomerList(String selectStatus, String memberId, String startMoney,
+			String endMoney, String today, String startDate, String endDate) throws CustomerSelectListException;
+
 
 }

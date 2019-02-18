@@ -156,4 +156,92 @@ public class CustomerDaoImpl  implements CustomerDao{
 		return list;
 	}
 
+	// 충전 합계
+	@Override
+	public ArrayList<OilListAdmin> selectStatisticsCustomerListNoPaging(SqlSessionTemplate sqlSession)
+			throws CustomerSelectListException {
+		
+		ArrayList<OilListAdmin> list = (ArrayList)sqlSession.selectList("MemberAdmin2.selectStatisticsCustomerListNoPaging");
+		
+		if(list == null) {
+			throw new CustomerSelectListException("사용자 통계 리스트 조회 실패");
+		}
+		return list;
+	}
+
+	// 사용자 통계 검색 수
+	@Override
+	public int getSearchStatisticsCustomerListCount(SqlSessionTemplate sqlSession, String selectStatus,
+			String startMoney, String endMoney, String memberId, String today, String startDate, String endDate)
+			throws CustomerSelectListException {
+
+		Map<String, Object> hmap = new HashMap();
+
+		hmap.put("selectStatus", selectStatus);
+		hmap.put("memberId", memberId);
+		hmap.put("startMoney", startMoney);
+		hmap.put("endMoney", endMoney);
+		hmap.put("today", today);
+		hmap.put("startDate", startDate);
+		hmap.put("endDate", endDate);
+		
+		int listCount = sqlSession.selectOne("MemberAdmin2.getSearchStatisticsCustomerListCount", hmap);
+
+		return listCount;
+	}
+
+	// 사용자 통계 검색 리스트
+	@Override
+	public ArrayList<OilListAdmin> selectSearchStatisticsCustomerList(SqlSessionTemplate sqlSession, PageInfo pi,
+			String selectStatus, String startMoney, String endMoney, String memberId, String today, String startDate,
+			String endDate) throws CustomerSelectListException {
+		System.out.println("startMoney : "+startMoney);
+
+		ArrayList<OilListAdmin> list = null;
+		
+		int offset = (pi.getCurrentPage()-1)* pi.getLimit();			
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		Map<String, Object> hmap = new HashMap();
+
+		hmap.put("selectStatus", selectStatus);
+		hmap.put("memberId", memberId);
+		hmap.put("startMoney", startMoney);
+		hmap.put("endMoney", endMoney);
+		hmap.put("today", today);
+		hmap.put("startDate", startDate);
+		hmap.put("endDate", endDate);
+		
+		list = (ArrayList)sqlSession.selectList("MemberAdmin2.selectSearchStatisticsCustomerList", hmap, rowBounds);
+		
+		System.out.println("DAO list : "+list);
+		
+		return list;
+	}
+
+	// 충전 합계 (검색)
+	@Override
+	public ArrayList<OilListAdmin> selectSearchStatisticsCustomerList(SqlSessionTemplate sqlSession,
+			String selectStatus, String startMoney, String endMoney, String memberId, String today, String startDate,
+			String endDate) throws CustomerSelectListException {
+
+		ArrayList<OilListAdmin> list = null;
+		
+		Map<String, Object> hmap = new HashMap();
+
+		hmap.put("selectStatus", selectStatus);
+		hmap.put("memberId", memberId);
+		hmap.put("startMoney", startMoney);
+		hmap.put("endMoney", endMoney);
+		hmap.put("today", today);
+		hmap.put("startDate", startDate);
+		hmap.put("endDate", endDate);
+		
+		list = (ArrayList)sqlSession.selectList("MemberAdmin2.selectSearchStatisticsCustomerList", hmap);
+		
+		System.out.println("DAO list : "+list);
+		
+		return list;
+	}
+
 }

@@ -15,7 +15,8 @@ public class OilListAdmin implements Serializable{
 	private String transNo;			// 결제번호
 	
 	private String memberId;			// 회원 아이디
-	private String memeberName;	// 회원 이름
+	private String memberName;	// 회원 이름
+	private String memberStatus;	// 회원 상태
 	
 	private String parkingName;		// 주차장 이름
 
@@ -24,7 +25,8 @@ public class OilListAdmin implements Serializable{
 	}
 
 	public OilListAdmin(int oilListNo, String oilListType, Date oilListDate, int oil, int memberNo, String parkingNo,
-			int resNo, String paymentNo, String transNo, String memberId, String memeberName, String parkingName) {
+			int resNo, String paymentNo, String transNo, String memberId, String memberName, String memberStatus,
+			String parkingName) {
 		super();
 		this.oilListNo = oilListNo;
 		this.oilListType = oilListType;
@@ -36,7 +38,8 @@ public class OilListAdmin implements Serializable{
 		this.paymentNo = paymentNo;
 		this.transNo = transNo;
 		this.memberId = memberId;
-		this.memeberName = memeberName;
+		this.memberName = memberName;
+		this.memberStatus = memberStatus;
 		this.parkingName = parkingName;
 	}
 
@@ -120,12 +123,20 @@ public class OilListAdmin implements Serializable{
 		this.memberId = memberId;
 	}
 
-	public String getMemeberName() {
-		return memeberName;
+	public String getMemberName() {
+		return memberName;
 	}
 
-	public void setMemeberName(String memeberName) {
-		this.memeberName = memeberName;
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
+	public String getMemberStatus() {
+		return memberStatus;
+	}
+
+	public void setMemberStatus(String memberStatus) {
+		this.memberStatus = memberStatus;
 	}
 
 	public String getParkingName() {
@@ -140,8 +151,8 @@ public class OilListAdmin implements Serializable{
 	public String toString() {
 		return "OilListAdmin [oilListNo=" + oilListNo + ", oilListType=" + oilListType + ", oilListDate=" + oilListDate
 				+ ", oil=" + oil + ", memberNo=" + memberNo + ", parkingNo=" + parkingNo + ", resNo=" + resNo
-				+ ", paymentNo=" + paymentNo + ", transNo=" + transNo + ", memberId=" + memberId + ", memeberName="
-				+ memeberName + ", parkingName=" + parkingName + "]";
+				+ ", paymentNo=" + paymentNo + ", transNo=" + transNo + ", memberId=" + memberId + ", memberName="
+				+ memberName + ", memberStatus=" + memberStatus + ", parkingName=" + parkingName + "]";
 	}
 
 }

@@ -39,4 +39,20 @@ public interface CustomerDao {
 	// 사용자 통계 전체 리스트
 	ArrayList<OilListAdmin> selectStatisticsCustomerList(SqlSessionTemplate sqlSession, PageInfo pi) throws CustomerSelectListException;
 
+	// 충전 합계
+	ArrayList<OilListAdmin> selectStatisticsCustomerListNoPaging(SqlSessionTemplate sqlSession) throws CustomerSelectListException;
+
+	// 사용자 통계 검색 수
+	int getSearchStatisticsCustomerListCount(SqlSessionTemplate sqlSession, String selectStatus, String startMoney,
+			String endMoney, String memberId, String today, String startDate, String endDate) throws CustomerSelectListException;
+
+	// 사용자 통계 검색 리스트
+	ArrayList<OilListAdmin> selectSearchStatisticsCustomerList(SqlSessionTemplate sqlSession, PageInfo pi,
+			String selectStatus, String startMoney, String endMoney, String memberId, String today, String startDate,
+			String endDate) throws CustomerSelectListException;
+
+	// 충전 합계 (검색)
+	ArrayList<OilListAdmin> selectSearchStatisticsCustomerList(SqlSessionTemplate sqlSession, String selectStatus,
+			String startMoney, String endMoney, String memberId, String today, String startDate, String endDate) throws CustomerSelectListException;
+
 }
