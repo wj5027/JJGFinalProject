@@ -10,9 +10,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.tsp.customer.model.vo.Member;
+import com.kh.tsp.parkingceo.model.service.ParkingService;
 import com.kh.tsp.parkingceo.model.service.PromotionService;
+import com.kh.tsp.parkingceo.model.vo.ParkingCeoParkingListVo;
+import com.kh.tsp.parkingceo.model.vo.ParkingCeoVo;
 
 @Controller
 public class ParkingCeoExchange {
@@ -20,6 +25,9 @@ public class ParkingCeoExchange {
 	
 	@Autowired
 	private PromotionService promotion;
+	
+	@Autowired
+	private ParkingService ps;
 
 	public ParkingCeoExchange() {
 		
@@ -40,6 +48,23 @@ public class ParkingCeoExchange {
 		return "parkingceo/exchange/ExchangePage";
 	}
 	
+	@RequestMapping(value="/searchParkingOne.pc",method=RequestMethod.POST)
+	public ModelAndView searchParkingOne(ModelAndView mv,@RequestParam String parkingSelectBox, HttpSession session) {
+		
+		//주차장 조회를 위한 데이터 조회 및 삽입
+		Member m = (Member)session.getAttribute("loginUser");
+		ParkingCeoVo parking = new ParkingCeoVo();
+		parking.setMemberNo(m.getMember_no());
+		parking.setParkingNo(parkingSelectBox);
+		
+		//주차장 데이터 조회
+		ParkingCeoParkingListVo searchParkingOne = ps.selectSearchParkingOne(parking);
+		System.out.println(searchParkingOne);
+		
+		
+		mv.setViewName("jsonView");
+		return mv;
+	}
 
 
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.tsp.common.ParkingCeoPageInfo;
 import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.parkingceo.model.vo.ParkingCeoAttachmentVo;
+import com.kh.tsp.parkingceo.model.vo.ParkingCeoParkingListVo;
 import com.kh.tsp.parkingceo.model.vo.ParkingCeoVo;
 
 @Repository
@@ -134,27 +135,32 @@ public class ParkingDaoImpl implements ParkingDao{
 
 	@Override
 	public void insertParkingOne(SqlSessionTemplate sqlSession, ParkingCeoVo parking) {
-		sqlSession.insert("InsertParkingType.insertParkingOne", parking);
+		sqlSession.insert("Parking.insertParkingOne", parking);
 	}
 
 	@Override
 	public String selectParkingNo(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("InsertParkingType.selectParkingNo");
+		return sqlSession.selectOne("Parking.selectParkingNo");
 	}
 
 	@Override
 	public void insertPakringListOne(SqlSessionTemplate sqlSession, ParkingCeoVo parking) {
-		sqlSession.insert("InsertParkingType.insertParkingListOne", parking);
+		sqlSession.insert("Parking.insertParkingListOne", parking);
 	}
 
 	@Override
 	public int selectParkingListNo(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("InsertParkingType.selectParkingListNo");
+		return sqlSession.selectOne("Parking.selectParkingListNo");
 	}
 
 	@Override
 	public void insertAttachment(SqlSessionTemplate sqlSession, ParkingCeoAttachmentVo parkingCeoAttachmentVo) {
-		sqlSession.insert("InsertParkingType.insertAttachment", parkingCeoAttachmentVo);
+		sqlSession.insert("Parking.insertAttachment", parkingCeoAttachmentVo);
+	}
+
+	@Override
+	public ParkingCeoParkingListVo selectSearchParkingOne(SqlSessionTemplate sqlSession, ParkingCeoVo parking) {
+		return sqlSession.selectOne("Parking.selectSearchParkingOne", parking);
 	}
 
 
