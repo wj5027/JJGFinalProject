@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.tsp.admin.model.exception.CustomerSelectListException;
 import com.kh.tsp.admin.model.vo.MemberAdmin;
+import com.kh.tsp.admin.model.vo.OilListAdmin;
 import com.kh.tsp.common.PageInfo;
 
 public interface CustomerDao {
@@ -29,5 +30,13 @@ public interface CustomerDao {
 	// 사용자 검색 결과
 	ArrayList<MemberAdmin> selectSearchCustomerList(SqlSessionTemplate sqlSession, PageInfo pi, String selectStatus,
 			String memberId, String today, String startDate, String endDate) throws CustomerSelectListException;
+
+	
+	
+	// 사용자 통계 전체 리스트 수
+	int getStatisticsListCount(SqlSessionTemplate sqlSession) throws CustomerSelectListException;
+
+	// 사용자 통계 전체 리스트
+	ArrayList<OilListAdmin> selectStatisticsCustomerList(SqlSessionTemplate sqlSession, PageInfo pi) throws CustomerSelectListException;
 
 }

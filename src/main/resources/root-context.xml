@@ -61,7 +61,7 @@
 		</tx:attributes>
 	</tx:advice>
 	<aop:config proxy-target-class="true">
-		<aop:pointcut expression="execution(* com.kh.tsp..*.*(..))" id="adviceMethod"/>
+		<aop:pointcut expression="execution(* com.kh.tsp..*ServiceImpl.*(..))" id="adviceMethod"/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="adviceMethod" id="transactionAdvisor"/>
 	</aop:config>
 
