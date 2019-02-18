@@ -23,14 +23,16 @@
                 <h4 class="card-title"><b>지주갑 회원가입</b></h4>
               </div>
               <div class="card-body">
-              	<form action="insertMember.cu" id="insertForm" method="post">
-              		이름 <input type="text" class="form-control" name="member_name" id="member_name"><br>
+              	<form action="insertMember.cu" id="insertForm"  method="post">
+              		이름 <input type="text" class="form-control" name="member_name" id="member_name" placeholder="2글자이상 한글로 입력해주세요"><br>
               		아이디 <input type="text" class="form-control" name="member_id" id="member_id"><button onclick="return duplicationCheck()" class="btn btn-info btn-sm" id="idCk">중복확인</button><br>
                   	비밀번호 <input type="password" class="form-control" name="member_pwd" id="member_pwd"><br>
                   	비밀번호 확인 <input type="password" class="form-control" name="member_pwd2" id="member_pwd2"><br>
                 
                   	차번호 <input type="text" class="form-control" name="member_carNo"><br>
-                  	휴대폰 번호 <input type="text" class="form-control" name="phone"><br>                  	
+                  	휴대폰 번호 <input type="text" class="form-control" name="phone" id="phone" placeholder="'-'를 포함해서 입력해주세요">                  	 
+                  	<br>                  	
+                  	
                   	이메일 <input type="email" class="form-control" name="email" id="userEmail"><button onclick="return emailCheck()" class="btn btn-info btn-sm" id="emailCk">중복확인</button><br>
                   	<div align="right" style="width: 100%">
                   		<button class="btn btn-info btn-sm" type="button" onclick="mailSender();">인증번호 발송</button>
@@ -45,7 +47,7 @@
                     
                 <div align="center" style="width: 100%">
                     <button class="btn btn-info btn-sm" onclick="location.href='customer_join.cu'">취소</button>&nbsp;&nbsp;&nbsp;
-                    <button class="btn btn-info btn-sm" type="submit" id="insertMember" >확인</button>
+                    <button class="btn btn-info btn-sm" onclick="return insertMember()" type="submit" id="insertMember" >확인</button>
 				</div>
               </div>
             </div>
@@ -60,7 +62,8 @@
 	var idCheckResult = 0;
 	var emailCheckResult = 0;
 	var pwdCheckResult = 0;
-	var emailCheckResult = 0;
+	var emailCodeChkResult = 0;
+	var phoneChk = 0;
 	
 	//랜덤코드 생성
 	var randomCode = {};
@@ -77,6 +80,79 @@
 	}
 	
 	var checkCode = 0;
+	
+	//유효성 검사
+	function insertMember(){
+		var name = document.getElementById("member_name").value;
+
+		var regExp0 = /[가-힣]{2,}/; 
+		
+		console.log(name);
+		
+		if(regExp0.test(name)){ 
+		//	alert("이름 정상입력"); 
+		
+		}else if($("#name").val() == null || $("#name").val() == ''){
+			alert("이름을 입력해주세요"); 
+			
+			return false;
+		}else{ 
+
+			alert("이름 형식을 확인해주세요"); 
+			return false;
+		}
+
+		//이메일 검사
+		var regExp = /\w{4,}@\w{1,}.{1,3}/g;
+		var email =  document.getElementById("userEmail").value;
+		
+		console.log(email);
+		if(regExp.test(email)){ 
+			//		   	alert("이메일 정상입력!!");
+		   }else{ 
+		   alert("email 입력 형식을 확인해주세요"); 
+		   
+		   return false;
+		   } 
+		
+		
+		
+		//비밀번호 검사
+		var pass= document.getElementById("member_pwd").value;
+		var pass2=document.getElementById("member_pwd2").value;
+		
+		console.log("pass:"+pass);
+		console.log(pass2);
+		
+		if(pass != pass2){ 
+			alert("비밀번호가 일치하지 않습니다.");
+			
+			return false;
+		}else{
+			//alert("비밀번호 확인 완료");
+			pwdCheckResult = 1;
+			
+		}
+		
+		//핸드폰 번호
+		var phone = document.getElementById("phone").value;
+		var phoneNum = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/;
+		console.log(phone);
+		console.log(phoneNum.test(phone));
+		
+		if(!(phoneNum.test(phone))){
+			alert("전화번호 형식을 확인해주세요");
+			
+			return false;
+		}else{
+			alert("알맞은 전화번호 형식!!");
+			phoneChk=1;
+		}
+		
+		   return true;
+		  
+
+	}
 	
 	//이메일 전송 ajax
 	function mailSender(){
@@ -117,6 +193,8 @@
 		if($("#certificationNo").val() == checkCode){
 			alert("정상적으로 인증이 되었습니다.");
 			$("#insertMember").attr('disabled', false);
+			
+			emailCodeChkResult = 1;
 		}else{
 			alert("비정상적인 번호입니다. 재 확인해주세요");
 			$("#insertMember").attr('disabled', true);
@@ -137,6 +215,7 @@
 			
 				if(data == 1){
 					alert("사용불가한 아이디입니다.");
+//					return false;
 				}else{
 					alert("사용가능한 아이디입니다.");
 					
@@ -167,15 +246,13 @@
 				
 				if(data == 1){
 					alert("이미 존재하는 이메일입니다.");
+				
 				}else{
 					alert("사용가능한 이메일입니다.");
 					
 					emailCheckResult = 1;
 				}
-			
-			
-				
-			
+
 			},
 			error:function(status){
 				console.log(status);
@@ -188,38 +265,20 @@
 	
 	$(function(){
 		$("#insertMember").click(function(){
-			var pass=$("#member_pwd").val();
-			var pass2=$("#member_pwd2").val();
-			
-			console.log(pass);
-			console.log(pass2);
-			
-			if(pass != pass2){ 
-				alert("비밀번호가 일치하지 않습니다.");
-			}else{
-				pwdCheckResult = 1;
-				
-				/* if(idCheckResult = 0){
-					alert("아이디 중복체크를 해주세요");
-				}else if(emailCheckResult = 0){
-					alert("이메일 인증을 해주세요");
-				}else if(idCheckResult = 1 && emailCheckResult = 1 && pwdCheckResult1 = 1){
-					location.href="insertMember.cu";
-					alert("회원가입이 완료되었습니다.");
-					location.href="customer_loginPage.cu";
-				}else{
-					alert("입력 항목을 다시 확인 해 주세요");
-				} */
-				
-				
-			}
+
+			console.log(idCheckResult);
+			console.log(emailCheckResult);
+			console.log(pwdCheckResult);
+			console.log(emailCodeChkResult);
+			console.log(phoneChk);
 			
 			//location.href="insertMember.cu";
-			 if(idCheckResult == 1 && emailCheckResult == 1 && pwdCheckResult == 1 && emailCheckResult == 1){
+			 if(idCheckResult == 1 && emailCheckResult == 1 && pwdCheckResult == 1 && emailCodeChkResult == 1 && phoneChk == 1){
 				 alert("회원가입이 완료되었습니다");
 				 $("#insertForm").submit();
 			}else{
 				alert("입력하신 정보를 다시 한 번 확인해주세요");
+				//return false;
 			}; 
 			
 		});
