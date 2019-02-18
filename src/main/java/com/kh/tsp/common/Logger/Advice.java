@@ -15,9 +15,9 @@ public class Advice {
 	@Pointcut("execution(* com.kh.tsp..*ServiceImpl.*(..))")
 	public void allPointcut() {
 		
-	}
+	}*/
 	
-	@Around("allPointcut()")
+	/*@Around("allPointcut()")
 	public Object preAdvice(ProceedingJoinPoint pj) throws Throwable {
 		logger.info("---------------------------------------------------------------------");
 		logger.info("클래스 명 : " + pj.getTarget().getClass().getSimpleName());
@@ -41,6 +41,7 @@ public class Advice {
 		logger.info(pj.getSignature().getName() + "메소드 수행에 걸린 시간 : " + stopWatch.getTotalTimeMillis() + "(ms)초");
 		logger.info("---------------------------------------------------------------------");
 		return obj;
+
 	}
 	
 	@AfterReturning(pointcut = "allPointcut()", returning="returnObj") 
@@ -49,5 +50,6 @@ public class Advice {
 		String methodName = jp.getSignature().getName();
 		
 		System.out.println(jp.getSignature().getName() + "메소드의 리턴값 : " + returnObj.toString());
+
 	}*/
 }

@@ -22,6 +22,25 @@
 			<result property="enrollDate" column="ENROLL_DATE"/>	
 	</resultMap>
 	
+	<resultMap type="com.kh.tsp.admin.model.vo.OilListAdmin" id="OilListAdminResultSet">
+			<id property="oilListNo" column="OIL_LIST_NO"/>
+			<result property="oilListType" column="OIL_LIST_TYPE"/>
+			<result property="oilListDate" column="OIL_LIST_DATE"/>
+			<result property="oil" column="OIL"/>
+			<result property="memberNo" column="MEMBER_NO"/>
+			<result property="parkingNo" column="PARKING_NO"/>
+			<result property="resNo" column="RES_NO"/>
+			<result property="paymentNo" column="PAYMENT_NO"/>	
+			<result property="transNo" column="TRANS_NO"/>
+			
+			<!-- 회원 테이블 -->
+			<result property="memberId" column="MEMBER_ID"/>
+			<result property="memeberName" column="MEMBER_NAME"/>
+			
+			<!-- 주차장 테이블 -->
+			<result property="parkingName" column="PARKING_NAME"/>
+	</resultMap>
+	
 	<!-- 사업자 수 -->
   	<select id="getListCount" resultType="_int">
   		SELECT COUNT(*) FROM MEMBER
@@ -112,6 +131,29 @@
 		]]>		
 		</if>
 		ORDER BY M.MEMBER_NO DESC
+  	</select>
+  	
+  	
+  	
+	
+	<!-- 사업자 통계 리스트 수 -->
+  	<select id="getStatisticsListCount" resultType="_int">
+  		SELECT COUNT(*)
+		FROM OIL_LIST O
+		INNER JOIN MEMBER M ON (M.MEMBER_NO=O.MEMBER_NO)
+		WHERE O.OIL_LIST_TYPE IN('충전','예약취소')
+		AND M.MEMBER_TYPE='U'
+  	</select>
+  	
+	<!-- 사업자 통계 리스트 -->
+  	<select id="selectStatisticsCustomerList" resultMap="OilListAdminResultSet">		
+		SELECT O.OIL_LIST_NO, O.OIL_LIST_TYPE, O.OIL_LIST_DATE, O.OIL, O.MEMBER_NO, 
+            		O.PARKING_NO, O.RES_NO, O.PAYMENT_NO, O.TRANS_NO, M.MEMBER_ID, M.MEMBER_NAME
+		FROM OIL_LIST O
+		INNER JOIN MEMBER M ON (M.MEMBER_NO=O.MEMBER_NO)
+		WHERE O.OIL_LIST_TYPE IN('충전','예약취소')
+		AND M.MEMBER_TYPE='U'
+		ORDER BY OIL_LIST_NO DESC
   	</select>
 
 </mapper>

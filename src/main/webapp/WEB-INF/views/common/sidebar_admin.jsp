@@ -43,7 +43,7 @@
 			<div align="right" class="dropdown-menu dropdown-black"
 				aria-labelledby="navbarDropdownMenuLink">
 				<a class="dropdown-item" href="selectCustomerList.ad">사용자 조회</a> <a
-					class="dropdown-item" href="statisticsCustomer.ad">통계</a>
+					class="dropdown-item" href="selectStatisticsCustomer.ad">통계</a>
 			</div></li>
 		<li><a class="nav-link dropdown-toggle" href=""
 			id="navbarDropdownMenuLink" data-toggle="dropdown"
