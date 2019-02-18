@@ -2,29 +2,28 @@ package com.kh.tsp.common.Logger;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
-@Component
-@Aspect
 public class Advice {
-	private Logger logger = LoggerFactory.getLogger(Advice.class);
+	/*private Logger logger = LoggerFactory.getLogger(Advice.class);
 	
-	/*@Pointcut("execution(* com.kh.tsp..*.*(..))")
+	@Pointcut("execution(* com.kh.tsp..*ServiceImpl.*(..))")
 	public void allPointcut() {
 		
 	}*/
 	
 	/*@Around("allPointcut()")
 	public Object preAdvice(ProceedingJoinPoint pj) throws Throwable {
-		logger.info("------------------------- 메소드 명 : " + pj.getSignature().getName() + "-------------------------");
-		// 사전, 사후 처리를 모두 해결하려고 할 때 사용하는 어드바이스이다.
+		logger.info("---------------------------------------------------------------------");
+		logger.info("클래스 명 : " + pj.getTarget().getClass().getSimpleName());
+		logger.info("메소드 명 : " + pj.getSignature().getName());
+
+		logger.info("");
 		
 		// 사전에 대한 처리할 내용
 		StopWatch stopWatch = new StopWatch();
@@ -38,8 +37,19 @@ public class Advice {
 		// 사후에 대한 처리할 내용
 		stopWatch.stop();
 		
+		logger.info(obj.toString());
 		logger.info(pj.getSignature().getName() + "메소드 수행에 걸린 시간 : " + stopWatch.getTotalTimeMillis() + "(ms)초");
-		logger.info("------------------------------------------------------------------------------------");
+		logger.info("---------------------------------------------------------------------");
 		return obj;
+
+	}
+	
+	@AfterReturning(pointcut = "allPointcut()", returning="returnObj") 
+	public void afterLog(JoinPoint jp, Object returnObj) {
+		// 비지니스 메소드가 리턴한 결과 데이터를 다른 용도로 처리할 때 사용한다.
+		String methodName = jp.getSignature().getName();
+		
+		System.out.println(jp.getSignature().getName() + "메소드의 리턴값 : " + returnObj.toString());
+
 	}*/
 }
