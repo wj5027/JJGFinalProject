@@ -7,7 +7,7 @@
 <head>
 <jsp:include page="/WEB-INF/views/common/bootInfo.jsp"></jsp:include>
 <style type="text/css">
-	.imagesTest{
+.images{
 		border: 2px solid rgb(167,168,176);
 		height: 300px;
 		margin-left : 10px;
@@ -16,7 +16,16 @@
 		display: inline-block;
 	
 	}
+	#contentImg1,#contentImg2,#contentImg3{
+	  max-width:100%; 
+	  max-height:100%;
+  		margin:auto;
+  		display:block;
 	
+	
+	}
+	
+
 	#hiddenButton{
 		display: none;
 	}
@@ -92,27 +101,27 @@
 		      </div>
 		      	<div class="form-group">
 		        <label for="ex4">주차 구획수</label>
-		        <input type="text" class="form-control" id="ex4" placeholder="주차 구획수를 입력해주세요" style="width: 400px;">
+		        <input type="text" class="form-control" id="ex4" placeholder="주차 구획수를 입력해주세요" name="parkingSize" style="width: 400px;">
 		      </div>
 		      <div class="form-check">
 		      <label for="ex5">운영 요일</label>
 		      <br>
 		          <label class="form-check-label" id="ex5">
-		              <input class="form-check-input" type="checkbox" value="평일">
+		              <input class="form-check-input" type="checkbox" name="openDaysArry" value="평일">
 		              평일
 		              <span class="form-check-sign">
 		                  <span class="check"></span>
 		              </span>
 		          </label>
 		           <label class="form-check-label">
-		              <input class="form-check-input" type="checkbox" value="토요일">
+		              <input class="form-check-input" type="checkbox" name="openDaysArry" value="토요일">
 		              토요일
 		              <span class="form-check-sign">
 		                  <span class="check"></span>
 		              </span>
 		          </label>
 		           <label class="form-check-label">
-		              <input class="form-check-input" type="checkbox" value="공휴일">
+		              <input class="form-check-input" type="checkbox" name="openDaysArry" value="공휴일">
 		              공휴일
 		              <span class="form-check-sign">
 		                  <span class="check"></span>
@@ -124,14 +133,14 @@
 		      <label for="ex5">결제 방법</label>
 		      <br>
 		          <label class="form-check-label" id="ex5">
-		              <input class="form-check-input" type="checkbox" value="현금">
+		              <input class="form-check-input" type="checkbox" name="pay_typeArry" value="현금">
 		              현금
 		              <span class="form-check-sign">
 		                  <span class="check"></span>
 		              </span>
 		          </label>
 		           <label class="form-check-label">
-		              <input class="form-check-input" type="checkbox" value="카드">
+		              <input class="form-check-input" type="checkbox" name="pay_typeArry" value="카드">
 		              카드
 		              <span class="form-check-sign">
 		                  <span class="check"></span>
@@ -143,9 +152,9 @@
 		      <div class="form-group" style="color: rgb(167,168,176);">
 		      <label for="exzero">요금정보</label>
 		      <br>
-		      <input class="form-radio-input" type="radio" name="payType">&nbsp;무료
+		      <input class="form-radio-input" type="radio" name="priceInfo">&nbsp;무료
 		      &nbsp;&nbsp;&nbsp;
-		      <input class="form-radio-input" type="radio" name="payType">&nbsp;유료
+		      <input class="form-radio-input" type="radio" name="priceInfo">&nbsp;유료
 		      </div>
 		      
 		 
@@ -202,13 +211,13 @@
 		   <label for="ex6">평일 운영 시간</label>
 		   <div>
 		   <div class="input-group date form_time col-md-5" data-date="" data-date-format="hh:ii" data-link-field="dtp_input3" data-link-format="hh:ii">
-		    <div style="width: 70%"><input class="form-control"  id="weekDayStartTime" size="16" type="text" placeholder="시작시간" readonly style="color: white; width: 100%; cursor: pointer !important;">
+		    <div style="width: 70%"><input class="form-control"  id="weekdayStime" name="weekdayStime" size="16" type="text" placeholder="시작시간" readonly style="color: white; width: 100%; cursor: pointer !important;">
 		  	 <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 			<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
 		    </div>
 		  	</div>
 		  	<div class="input-group date form_time col-md-5" data-date="" data-date-format="hh:ii" data-link-field="dtp_input3" data-link-format="hh:ii">
-		    <div style="width: 70%"><input class="form-control"  id="weekDayEndTime" size="16" type="text" placeholder="종료시간" readonly style="color: white; width: 100%; cursor: pointer !important; " >
+		    <div style="width: 70%"><input class="form-control"  id="weekdayEtime" name="weekdayEtime" size="16" type="text" placeholder="종료시간" readonly style="color: white; width: 100%; cursor: pointer !important; " >
 		  	 <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 			<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
 		    </div>	
@@ -220,13 +229,13 @@
 		   <label for="exSat">토요일 운영 시간</label>
 		   <div>
 		   <div class="input-group date form_time col-md-5" data-date="" data-date-format="hh:ii" data-link-field="dtp_input3" data-link-format="hh:ii">
-		    <div style="width: 70%"><input class="form-control"  id="satDayStartTime" size="16" type="text" placeholder="시작시간" readonly style="color: white; width: 100%; cursor: pointer !important;">
+		    <div style="width: 70%"><input class="form-control"  id="satStime" name="satStime" size="16" type="text" placeholder="시작시간" readonly style="color: white; width: 100%; cursor: pointer !important;">
 		  	 <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 			<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
 		    </div>
 		  	</div>
 		  	<div class="input-group date form_time col-md-5" data-date="" data-date-format="hh:ii" data-link-field="dtp_input3" data-link-format="hh:ii">
-		    <div style="width: 70%"><input class="form-control"  id="satDayEndTime" size="16" type="text" placeholder="종료시간" readonly style="color: white; width: 100%; cursor: pointer !important; " >
+		    <div style="width: 70%"><input class="form-control" id="satEtime" name="satEtime" size="16" type="text" placeholder="종료시간" readonly style="color: white; width: 100%; cursor: pointer !important; " >
 		  	 <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 			<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
 		    </div>	
@@ -238,13 +247,13 @@
 		   <label for="exHol">공휴일 운영 시간</label>
 		   <div>
 		   <div class="input-group date form_time col-md-5" data-date="" data-date-format="hh:ii" data-link-field="dtp_input3" data-link-format="hh:ii">
-		    <div style="width: 70%"><input class="form-control"  id="holDayStartTime" size="16" type="text" placeholder="시작시간" readonly style="color: white; width: 100%; cursor: pointer !important;">
+		    <div style="width: 70%"><input class="form-control"  id="hollydayStime" name="hollydayStime" size="16" type="text" placeholder="시작시간" readonly style="color: white; width: 100%; cursor: pointer !important;">
 		  	 <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 			<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
 		    </div>
 		  	</div>
 		  	<div class="input-group date form_time col-md-5" data-date="" data-date-format="hh:ii" data-link-field="dtp_input3" data-link-format="hh:ii">
-		    <div style="width: 70%"><input class="form-control"  id="holDayEndTime" size="16" type="text" placeholder="종료시간" readonly style="color: white; width: 100%; cursor: pointer !important; " >
+		    <div style="width: 70%"><input class="form-control"  id="hollydayEtime" name="hollydayEtime" size="16" type="text" placeholder="종료시간" readonly style="color: white; width: 100%; cursor: pointer !important; " >
 		  	 <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 			<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
 		    </div>	
@@ -254,31 +263,52 @@
 		  
 		  <br>
 		  	<div class="form-group">
-		   <label for="ex7">기본 시간/요금</label>
+		   <label for="parking_ntime">기본 시간/요금</label>
 		   <div>
-		    <input type="text" class="form-control" id="ex7" placeholder="기본 시간" style="width: 250px;">
+		    <input type="text" class="form-control" id="parking_ntime" name="parkingNtime" placeholder="기본 시간" style="width: 250px;">
 		  	<br>
-		  	<input type="text" class="form-control" placeholder="기본 요금" style="width: 250px;">
+		  	<input type="text" class="form-control" placeholder="기본 요금" id="parking_nprice" name="parkingNprice" style="width: 250px;">
 		  </div>
 		  </div>
 		  <br>
 		  <div class="form-group">
-		   <label for="ex7">추가 시간/요금</label>
+		   <label for="parking_atime">추가 시간/요금</label>
 		   <div>
-		    <input type="text" class="form-control" id="ex7" placeholder="추가 시간" style="width: 250px;">
+		    <input type="text" class="form-control" id="parking_atime" name="parkingAtime" placeholder="추가 시간" style="width: 250px;">
 		    <br>
-		  	<input type="text" class="form-control" placeholder="추가 요금" style="width: 250px;">
+		  	<input type="text" class="form-control" id="parking_aprice" name="parkingAprice" placeholder="추가 요금" style="width: 250px;">
+		  </div>
+		  </div>
+		  <br>
+		  <div class="form-group">
+		  <label for="remarks">비고</label>
+		  <div>
+		  <input type="text" class="form-control" id="remarks" name="remarks" placeholder="비고" style="width: 350px;">
 		  </div>
 		  </div>
 		      <br>
+		        <ul>
+                        <li>기본 필수 항목을 입력하지 않으시면 경고창이 뜹니다.</li>
+                       <li>요일 체크되어 있는 시간만 데이터로 인식되어 등록됩니다.</li>
+                       <li>시간을 입력하지 않았을시 00:00 ~ 00:00 으로 기본 설정 됩니다.</li>
+                       <li>기본 시간과 추가 시간은 5분,요금은 100원 단위로 입력바랍니다 다른 단위로 입력시 5분, 100원 단위로 저장됩니다.</li>
+                       </ul>
+                     <br>
 			<div align="center">
-				<div class="imagesTest"></div>
-				<div class="imagesTest"></div>
-				<div class="imagesTest"></div>
+				<div class="images" id="contentImgArea1" style="float: left; margin: 25px;" >
+				<img alt="주차장 이미지1" id="contentImg1" height="295" src="${pageContext.servletContext.contextPath }/resources/common/img/noimage.gif">
+				</div>
+				<div class="images" id="contentImgArea2" style="float: left; margin: 25px;">
+				<img alt="주차장 이미지2" id="contentImg2" height="295" src="${pageContext.servletContext.contextPath }/resources/common/img/noimage.gif">
+				</div>
+				<div class="images" id="contentImgArea3" style="float: left; margin: 25px;">
+				<img alt="주차장 이미지3" id="contentImg3" height="295" src="${pageContext.servletContext.contextPath }/resources/common/img/noimage.gif">
+				</div>
+				<div style="clear: both;"></div>
 				<!-- 파일 숨기기 -->
-				<input type="file" style="display: none;">
-				<input type="file" style="display: none;">
-				<input type="file" style="display: none;">
+				<input type="file" id="parkingImage1" name="parkingImage1"  style="display: none;" onchange="loadImg(this, 1)">
+				<input type="file" id="parkingImage2" name="parkingImage2"  style="display: none;" onchange="loadImg(this, 2)">
+				<input type="file" id="parkingImage3" name="parkingImage3" style="display: none;" onchange="loadImg(this, 3)">
 			</div>	
 			
 			<br>

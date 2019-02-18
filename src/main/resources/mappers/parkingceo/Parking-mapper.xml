@@ -4,9 +4,9 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Parking">
-	  	<resultMap type="com.kh.tsp.parkingceo.model.vo.ParkingCeoParkingListVo" id="ParkingResultSet">
-			<id property="parkingListName" column="PARKING_LIST_NO"/>
-			<result property="parkingName" column="PARKING_LIST_NAME"/>
+	  	<resultMap type="com.kh.tsp.parkingceo.model.vo.ParkingCeoParkingListVo" id="ParkingResultSet3">
+			<id property="parkingListNo" column="PARKING_LIST_NO"/>
+			<result property="parkingListName" column="PARKING_LIST_NAME"/>
 			<result property="parkingListOperateType" column="PARKING_LIST_OPERATE_TYPE"/>
 			<result property="parkingListParkingSize" column="PARKING_LIST_PARKING_SIZE"/>
 			<result property="parkingListOpenDays" column="PARKING_LIST_OPEN_DAYS"/>
@@ -24,7 +24,7 @@
 			<result property="parkingListPayType" column="PARKING_LIST_PAY_TYPE"/>
 			<result property="parkingListStatus" column="PARKING_LIST_STATUS"/>
 			<result property="memberNo" column="MEMBER_NO"/>
-			<result property="ParkingNo" column="PARKING_NO"/>
+			<result property="parkingNo" column="PARKING_NO"/>
 			<result property="parkingListReason" column="PARKING_LIST_REASON"/>
 			<result property="modifyDate" column="MODIFY_DATE"/>
 	</resultMap>
@@ -53,13 +53,14 @@
 
 <insert id="insertAttachment" parameterType="com.kh.tsp.parkingceo.model.vo.ParkingCeoAttachmentVo">
 	INSERT INTO ATTACHMENT
-	VALUES(FID_SEQ.NEXTVAL,'변경신청사진',#{origin_name},#{change_name},#{file_path},SYSDATE,1,'N',NULL,NULL,#{parking_list_no})
+	VALUES(FID_SEQ.NEXTVAL,'변경신청사진',#{origin_name},#{change_name},#{file_path},SYSDATE,1,'N',#{parking_no},NULL,#{parking_list_no})
 </insert>
 
-<select id="selectSearchParkingOne" parameterType="com.kh.tsp.parkingceo.model.vo.ParkingCeoVo" resultMap="ParkingResultSet">
-	SELECT * FROM PARKING_LIST
-	WHERE MEMBER_NO = #{memberNo}
-	AND PARKING_NO = #{parkingNo}
+<select id="selectSearchParkingOne" parameterType="com.kh.tsp.parkingceo.model.vo.ParkingCeoVo" resultType="hashmap">
+	SELECT * FROM PARKING_LIST PL
+	LEFT JOIN ATTACHMENT A ON (A.PARKING_LIST_NO = PL.PARKING_LIST_NO)
+	WHERE PL.MEMBER_NO = #{memberNo}
+	AND PL.PARKING_NO = #{parkingNo}
 
 </select>
 

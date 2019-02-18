@@ -23,7 +23,7 @@ public interface ParkingService {
 
 	void insertParkingOne(ParkingCeoVo parking, ArrayList<ParkingCeoAttachmentVo> attachList);
 
-	ParkingCeoParkingListVo selectSearchParkingOne(ParkingCeoVo parking);
+	HashMap<String, Object> selectSearchParkingOne(ParkingCeoVo parking);
 
 	
 
