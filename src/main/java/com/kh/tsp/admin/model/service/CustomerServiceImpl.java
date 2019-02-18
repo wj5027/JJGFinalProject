@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.tsp.admin.model.dao.CustomerDao;
 import com.kh.tsp.admin.model.exception.CustomerSelectListException;
 import com.kh.tsp.admin.model.vo.MemberAdmin;
+import com.kh.tsp.admin.model.vo.OilListAdmin;
 import com.kh.tsp.common.PageInfo;
 
 @Service
@@ -61,6 +62,21 @@ public class CustomerServiceImpl implements CustomerService{
 	public ArrayList<MemberAdmin> selectSearchCustomerList(PageInfo pi, String selectStatus, String memberId,
 			String today, String startDate, String endDate) throws CustomerSelectListException {
 		ArrayList<MemberAdmin> list = cd.selectSearchCustomerList(sqlSession,pi, selectStatus, memberId, today, startDate, endDate);
+		return list;
+	}
+
+	
+	// 사용자 통계 전체 리스트 수
+	@Override
+	public int getStatisticsListCount() throws CustomerSelectListException {		
+		int listCount = cd.getStatisticsListCount(sqlSession);
+		return listCount;		
+	}
+
+	// 사용자 통계 전체 리스트
+	@Override
+	public ArrayList<OilListAdmin> selectStatisticsCustomerList(PageInfo pi) throws CustomerSelectListException {
+		ArrayList<OilListAdmin> list = cd.selectStatisticsCustomerList(sqlSession,pi);
 		return list;
 	}
 

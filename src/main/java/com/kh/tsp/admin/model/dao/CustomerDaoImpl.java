@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.tsp.admin.model.exception.CustomerSelectListException;
 import com.kh.tsp.admin.model.vo.MemberAdmin;
+import com.kh.tsp.admin.model.vo.OilListAdmin;
 import com.kh.tsp.common.PageInfo;
 
 @Repository
@@ -125,6 +126,33 @@ public class CustomerDaoImpl  implements CustomerDao{
 		/*if(list == null) {
 			throw new CustomerSelectListException("사용자 회원 조회 실패");
 		}*/
+		return list;
+	}
+
+	
+	// 사용자 통계 리스트 수
+	@Override
+	public int getStatisticsListCount(SqlSessionTemplate sqlSession) throws CustomerSelectListException {
+		int listCount = sqlSession.selectOne("MemberAdmin2.getStatisticsListCount");
+		if(listCount <=0) {
+			throw new CustomerSelectListException("사용자 통계 리스트 수 조회 실패!");
+		}
+		return listCount;
+	}
+
+	// 사용자 통계 리스트
+	@Override
+	public ArrayList<OilListAdmin> selectStatisticsCustomerList(SqlSessionTemplate sqlSession, PageInfo pi)
+			throws CustomerSelectListException {
+		ArrayList<OilListAdmin> list = null;
+		int offset = (pi.getCurrentPage()-1)* pi.getLimit();	
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		list = (ArrayList)sqlSession.selectList("MemberAdmin2.selectStatisticsCustomerList", null, rowBounds);
+		
+		if(list == null) {
+			throw new CustomerSelectListException("사용자 통계 리스트 조회 실패");
+		}
 		return list;
 	}
 

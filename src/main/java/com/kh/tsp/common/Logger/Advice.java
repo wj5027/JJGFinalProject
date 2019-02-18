@@ -16,12 +16,12 @@ import org.springframework.util.StopWatch;
 public class Advice {
 	private Logger logger = LoggerFactory.getLogger(Advice.class);
 	
-	@Pointcut("execution(* com.kh.tsp..*.*(..))")
+	/*@Pointcut("execution(* com.kh.tsp..*.*(..))")
 	public void allPointcut() {
 		
-	}
+	}*/
 	
-	@Around("allPointcut()")
+	/*@Around("allPointcut()")
 	public Object preAdvice(ProceedingJoinPoint pj) throws Throwable {
 		logger.info("------------------------- 메소드 명 : " + pj.getSignature().getName() + "-------------------------");
 		// 사전, 사후 처리를 모두 해결하려고 할 때 사용하는 어드바이스이다.
@@ -41,5 +41,5 @@ public class Advice {
 		logger.info(pj.getSignature().getName() + "메소드 수행에 걸린 시간 : " + stopWatch.getTotalTimeMillis() + "(ms)초");
 		logger.info("------------------------------------------------------------------------------------");
 		return obj;
-	}
+	}*/
 }

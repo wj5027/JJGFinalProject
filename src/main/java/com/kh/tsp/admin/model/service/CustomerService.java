@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.tsp.admin.model.exception.CustomerSelectListException;
 import com.kh.tsp.admin.model.vo.MemberAdmin;
+import com.kh.tsp.admin.model.vo.OilListAdmin;
 import com.kh.tsp.common.PageInfo;
 
 public interface CustomerService {
@@ -26,6 +27,13 @@ public interface CustomerService {
 	// 사용자 검색결과
 	ArrayList<MemberAdmin> selectSearchCustomerList(PageInfo pi, String selectStatus, String memberId, String today,
 			String startDate, String endDate) throws CustomerSelectListException;
+
+	
+	// 사용자 통계 리스트 수
+	int getStatisticsListCount() throws CustomerSelectListException;
+
+	// 사용자 통계 리스트
+	ArrayList<OilListAdmin> selectStatisticsCustomerList(PageInfo pi) throws CustomerSelectListException;
 
 
 }
