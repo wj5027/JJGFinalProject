@@ -164,7 +164,7 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 	//암호화된 비밀번호 조회용 메소드
 	@Override
 	public String selectEncPassword(SqlSessionTemplate sqlSession, Member m) {
-		//System.out.println("비밀번호 조회 메소드 dao"+m);
+		System.out.println("비밀번호 조회 메소드 dao"+m);
 		return sqlSession.selectOne("Member.selectPwd", m.getMember_id());
 	}
 

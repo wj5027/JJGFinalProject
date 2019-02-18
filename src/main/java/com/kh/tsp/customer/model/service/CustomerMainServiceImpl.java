@@ -43,7 +43,7 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 		
 		String encPassword = cmd.selectEncPassword(sqlSession, m);
 		
-		//System.out.println("로그인 요청 메소드 실행됨: "+encPassword);
+		System.out.println("로그인 요청 메소드 실행됨: "+encPassword);
 		
 		if(!passwordEncoder.matches(m.getMember_pwd(), encPassword)) {
 			throw new LoginException("로그인 실패실패");

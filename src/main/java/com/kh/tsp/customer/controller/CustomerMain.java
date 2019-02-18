@@ -54,7 +54,7 @@ public class CustomerMain {
 		try {
 			Member loginUser = cms.selectCheckMember(m);
 			
-			//System.out.println("컨트롤러: "+loginUser);
+			System.out.println("컨트롤러: "+loginUser);
 			
 			model.addAttribute("loginUser", loginUser);
 			
