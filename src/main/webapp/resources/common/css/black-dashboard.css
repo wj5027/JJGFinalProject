@@ -57,7 +57,8 @@
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+	/*현영수정  */
+ /*  box-sizing: border-box; */
 }
 
 html {
@@ -4374,7 +4375,7 @@ input[type="button"].btn-block {
 }
 
 .navbar {
-  position: relative;
+  position: fixed;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -5982,6 +5983,10 @@ button.close {
   position: relative;
   flex: 1 1 auto;
   padding: 24px 24px 16px 24px;
+}
+.modal-body1 {
+  position: relative;
+  flex: 1 1 auto;
 }
 
 .modal-footer {
@@ -14867,7 +14872,8 @@ table.tablesorter thead tr .headerSortDown {
   display: block;
   box-shadow: 0px 0px 45px 0px rgba(0, 0, 0, 0.6);
   margin-top: 80px;
-  margin-left: 20px;
+  /*현영 수정 */
+  /* margin-left: 20px; */
   border-radius: 5px;
   transition: 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
 }
