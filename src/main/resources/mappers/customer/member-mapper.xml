@@ -159,7 +159,15 @@
 		SELECT r.res_no, r.res_apply_date, r.res_date, r.status, r.member_no, r.parking_no, p.parking_name, r.cancel_reason, r.car_no, TO_CHAR(r.res_date, 'RRRRMMDDHH24MI') AS RESERVETIME FROM parking_reservation r
 		JOIN parking p ON(r.parking_no = p.parking_no)
 		WHERE r.member_no = #{member_no}
-		ORDER BY res_date DESC
+		ORDER BY res_no DESC
+	</select>
+
+	<!-- 사용자 - 예약 조회 -->
+	<select id="selectReservCount" resultType="_int" parameterType="Member">
+		SELECT COUNT(*) FROM parking_reservation r
+		JOIN parking p ON(r.parking_no = p.parking_no)
+		WHERE r.member_no = #{member_no}
+		ORDER BY res_no DESC
 	</select>
 
 	<select id="selectCheckKakao"  resultMap="MemberResultSet2" parameterType="String">
@@ -447,5 +455,11 @@
 		INSERT INTO MEMBER 
 		VALUES (MNO_SEQ.NEXTVAL, #{member_id}, #{member_pwd}, 'U', 'N', '0', #{email}, #{phone}, #{member_name}, #{member_carNo},
 				'Y', null, null, null, SYSDATE)
+	</insert>
+	
+	<!-- 예약하기 Insert -->
+	<insert id="insertRequestReserve" parameterType="Reservation">
+		INSERT INTO parking_reservation (res_no, res_apply_date, res_date, status, member_no, parking_no, car_no)
+		VALUES (RES_NO_SEQ.NEXTVAL, SYSDATE, TO_DATE('${ stringResDate }','mm-dd-yyyy hh24:mi'), 'Y', ${ memberNo }, ${ parkingNo }, '${ carNo }')
 	</insert>
 </mapper>

@@ -1,5 +1,6 @@
 package com.kh.tsp.customer.model.service;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -88,9 +89,15 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 	}
 
 	@Override
-	public ArrayList<Reservation> selectShowReserv(Member member) {
-		return cmd.selectShowReserv(sqlSession, member);
+	public ArrayList<Reservation> selectShowReserv(Member member, PageInfo pi) {
+		return cmd.selectShowReserv(sqlSession, member, pi);
 	}
+	
+	@Override
+	public int selectReservCount(Member member) {
+		return cmd.selectReservCount(sqlSession, member);
+	}
+	
 	//카카오톡 로그인
 	public Member selectCheckKakao(String kakao_id) throws LoginException {
 		
@@ -206,6 +213,11 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 	public int insertNaver(Member m) {
 
 		return cmd.insertNaver(sqlSession, m);
+	}
+
+	@Override
+	public int insertRequestReserve(Reservation reservInfo) {
+		return cmd.insertRequestReserve(sqlSession, reservInfo);
 	}
 	
 	
