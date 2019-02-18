@@ -35,7 +35,8 @@
 			
 			<!-- 회원 테이블 -->
 			<result property="memberId" column="MEMBER_ID"/>
-			<result property="memeberName" column="MEMBER_NAME"/>
+			<result property="memberName" column="MEMBER_NAME"/>
+			<result property="memberStatus" column="STATUS"/>
 			
 			<!-- 주차장 테이블 -->
 			<result property="parkingName" column="PARKING_NAME"/>
@@ -141,18 +142,105 @@
   		SELECT COUNT(*)
 		FROM OIL_LIST O
 		INNER JOIN MEMBER M ON (M.MEMBER_NO=O.MEMBER_NO)
-		WHERE O.OIL_LIST_TYPE IN('충전','예약취소')
+		WHERE O.OIL_LIST_TYPE IN('충전','결제취소')
 		AND M.MEMBER_TYPE='U'
   	</select>
   	
 	<!-- 사업자 통계 리스트 -->
   	<select id="selectStatisticsCustomerList" resultMap="OilListAdminResultSet">		
-		SELECT O.OIL_LIST_NO, O.OIL_LIST_TYPE, O.OIL_LIST_DATE, O.OIL, O.MEMBER_NO, 
+		SELECT O.OIL_LIST_NO, O.OIL_LIST_TYPE, O.OIL_LIST_DATE, O.OIL, O.MEMBER_NO, M.STATUS,
             		O.PARKING_NO, O.RES_NO, O.PAYMENT_NO, O.TRANS_NO, M.MEMBER_ID, M.MEMBER_NAME
 		FROM OIL_LIST O
 		INNER JOIN MEMBER M ON (M.MEMBER_NO=O.MEMBER_NO)
-		WHERE O.OIL_LIST_TYPE IN('충전','예약취소')
+		WHERE O.OIL_LIST_TYPE IN('충전','결제취소')
 		AND M.MEMBER_TYPE='U'
+		ORDER BY OIL_LIST_NO DESC
+  	</select>
+  	
+	<!-- 충전 합계 -->
+  	<select id="selectStatisticsCustomerListNoPaging" resultMap="OilListAdminResultSet">		
+		SELECT O.OIL, O.OIL_LIST_TYPE
+		FROM OIL_LIST O
+		INNER JOIN MEMBER M ON (M.MEMBER_NO=O.MEMBER_NO)
+		WHERE O.OIL_LIST_TYPE IN('충전','결제취소')
+		AND M.MEMBER_TYPE='U'
+  	</select>
+  		
+	<!-- 사용자 통계 검색 수 -->
+  	<select id="getSearchStatisticsCustomerListCount" resultType="_int" parameterType="java.util.Map">
+  		SELECT COUNT(*)
+		FROM OIL_LIST O
+		INNER JOIN MEMBER M ON (M.MEMBER_NO=O.MEMBER_NO)
+		WHERE O.OIL_LIST_TYPE IN('충전','결제취소')
+		AND M.MEMBER_TYPE='U'
+		<if test="selectStatus!='' and (selectStatus eq 'A'.toString())">
+			AND M.STATUS IN('Y','N')
+		</if>
+		<if test="selectStatus!='' and (selectStatus eq 'Y'.toString())">
+			AND M.STATUS='Y'
+		</if>
+		<if test="selectStatus!='' and (selectStatus eq 'N'.toString())">
+			AND M.STATUS='N'
+		</if>
+		<if test="memberId != ''">
+			AND M.MEMBER_ID LIKE '%'||#{memberId}||'%'
+		</if>
+		<if test="endMoney != ''">
+		<![CDATA[
+			AND (O.OIL BETWEEN TO_NUMBER(#{startMoney}) AND TO_NUMBER(#{endMoney})) 
+		]]>		
+		</if>
+		<if test="today != ''">
+		<![CDATA[
+			AND (TO_CHAR(TO_DATE(O.OIL_LIST_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') >= TO_CHAR(TO_DATE(#{today},'yyyy/mm/dd'), 'yyyy/mm/dd') 
+					AND TO_CHAR(TO_DATE(O.OIL_LIST_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') <= TO_CHAR(TO_DATE(SYSDATE,'rrrr/mm/dd'), 'yyyy/mm/dd'))
+		]]>		
+		</if>
+		<if test="startDate != ''">
+		<![CDATA[
+			AND (TO_CHAR(TO_DATE(O.OIL_LIST_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') >= TO_CHAR(TO_DATE(#{startDate},'yyyy-mm-dd'),'yyyy-mm-dd') 
+					AND TO_CHAR(TO_DATE(O.OIL_LIST_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') <= TO_CHAR(TO_DATE(#{endDate},'yyyy-mm-dd'),'yyyy-mm-dd'))
+		]]>		
+		</if>
+  	</select>
+  	
+  	<!-- 사용자 통계 검색 리스트 -->
+  	<select id="selectSearchStatisticsCustomerList" resultMap="OilListAdminResultSet" parameterType="java.util.Map">		
+		SELECT O.OIL_LIST_NO, O.OIL_LIST_TYPE, O.OIL_LIST_DATE, O.OIL, O.MEMBER_NO, M.STATUS,
+            		O.PARKING_NO, O.RES_NO, O.PAYMENT_NO, O.TRANS_NO, M.MEMBER_ID, M.MEMBER_NAME
+		FROM OIL_LIST O
+		INNER JOIN MEMBER M ON (M.MEMBER_NO=O.MEMBER_NO)
+		WHERE O.OIL_LIST_TYPE IN('충전','결제취소')
+		AND M.MEMBER_TYPE='U'
+		<if test="selectStatus!='' and (selectStatus eq 'A'.toString())">
+			AND M.STATUS IN('Y','N')
+		</if>
+		<if test="selectStatus!='' and (selectStatus eq 'Y'.toString())">
+			AND M.STATUS='Y'
+		</if>
+		<if test="selectStatus!='' and (selectStatus eq 'N'.toString())">
+			AND M.STATUS='N'
+		</if>
+		<if test="memberId != ''">
+			AND M.MEMBER_ID LIKE '%'||#{memberId}||'%'
+		</if>
+		<if test="endMoney != ''">
+		<![CDATA[
+			AND (O.OIL BETWEEN TO_NUMBER(#{startMoney}) AND TO_NUMBER(#{endMoney})) 
+		]]>		
+		</if>
+		<if test="today != ''">
+		<![CDATA[
+			AND (TO_CHAR(TO_DATE(O.OIL_LIST_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') >= TO_CHAR(TO_DATE(#{today},'yyyy/mm/dd'), 'yyyy/mm/dd') 
+					AND TO_CHAR(TO_DATE(O.OIL_LIST_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') <= TO_CHAR(TO_DATE(SYSDATE,'rrrr/mm/dd'), 'yyyy/mm/dd'))
+		]]>		
+		</if>
+		<if test="startDate != ''">
+		<![CDATA[
+			AND (TO_CHAR(TO_DATE(O.OIL_LIST_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') >= TO_CHAR(TO_DATE(#{startDate},'yyyy-mm-dd'),'yyyy-mm-dd') 
+					AND TO_CHAR(TO_DATE(O.OIL_LIST_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') <= TO_CHAR(TO_DATE(#{endDate},'yyyy-mm-dd'),'yyyy-mm-dd'))
+		]]>		
+		</if>
 		ORDER BY OIL_LIST_NO DESC
   	</select>
 

@@ -62,148 +62,227 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 								<div class="card-header">
 									<h4 class="card-title">충전 통계 검색</h4>
 								</div>
-								<div class="card-body">
-									<div class="table-responsive" style="overflow: hidden;">
-										<table class="table tablesorter " id="">
-											<tbody>
-												<tr>
-													<td>구분</td>
-													<td>
-														<div style="width: 20%;">
-															<select class="custom-select nav-link dropdown-toggle"
-																id="" style="background-color: rgb(34, 42, 65);">
+								
+								<form id="formList" method="POST" action="selectSearchStatisticsCustomerList.ad">
+									<div class="card-body">
+										<div class="table-responsive" style="overflow: hidden;">
+											<table class="table tablesorter " id="">
+												<tbody>
+													<tr>
+														<td>구분</td>
+														<td>
+															<div style="width: 20%;">
+																<select class="custom-select nav-link dropdown-toggle"
+																	id="selectStatus" name="selectStatus"
+																	style="background-color: rgb(34, 42, 65);">
 																	<option value="A" selected>전체</option>
 																	<option value="Y">활동중인 사용자</option>
 																	<option value="N">탈퇴한 사용자</option>
-															</select>
-														</div>
-													</td>
-												</tr>
-													<tr>
-														<td>아이디</td>
-														<td>
-															<div class="row">
-																<div class="form-group" style="margin-left: 1.5%;">
-																	<input type="text" class="form-control" id="memberId"
-																		name="memberId" placeholder="아이디를 입력해주세요">
-																</div>
+																</select>
 															</div>
 														</td>
 													</tr>
-													<tr>
-														<td>충전일</td>
-														<td><input type="hidden" name="today" id="today">
-															<div id="dayBtn" name="dayBtn">
-																<button id="one" onclick="return one()"
-																	class="btn btn-info animation-on-hover btn-sm">1일</button>
-																&nbsp;&nbsp;
-																<button id="seven" onclick="return seven()"
-																	class="btn btn-info animation-on-hover btn-sm">7일</button>
-																&nbsp;&nbsp;
-																<button id="month" onclick="return month()"
-																	class="btn btn-info animation-on-hover btn-sm">1개월</button>
-																&nbsp;&nbsp;
-																<button id="halfYear" onclick="return halfYear()"
-																	class="btn btn-info animation-on-hover btn-sm">6개월</button>
-																&nbsp;&nbsp;
-																<button id="year" onclick="return year()"
-																	class="btn btn-info animation-on-hover btn-sm">1년</button>
-																&nbsp;&nbsp;
-																<button id="detailDate" onclick="return detailDate()"
-																	class="btn btn-warning animation-on-hover btn-sm">날짜 상세 검색</button>
-															</div>
-
-															<div class="row" id="datePicker"
-																style="margin-top: 1%; visibility: hidden;">
-																<div class="form-group" style="margin-left: 1.5%;">
-																	<input type="date" class="form-control" value=""
-																		id="startDate" name="startDate">
+														<tr>
+															<td>아이디</td>
+															<td>
+																<div class="row">
+																	<div class="form-group" style="margin-left: 1.5%;">
+																		<input type="text" class="form-control" id="memberId"
+																			name="memberId" placeholder="아이디를 입력해주세요">
+																	</div>
 																</div>
-																<div class="form-group">
-																	&nbsp;&nbsp;&nbsp;<b style="font-size: 20px">~</b>&nbsp;&nbsp;&nbsp;
+															</td>
+														</tr>
+														<tr>
+															<td>금액</td>
+															<td>
+																<div class="row">
+																	<div class="form-group" style="margin-left: 1.5%;">
+																		<input type="number" class="form-control" id="startMoney"
+																			name="startMoney" placeholder="금액을 입력해주세요">
+																	</div>
+																	<div class="form-group" style="margin-left: 1.5%; margin-top: 1%;">
+																		이상&nbsp;&nbsp;&nbsp;~
+																	</div>
+																	<div class="form-group" style="margin-left: 1.5%;">
+																		<input type="number" class="form-control" id="endMoney"
+																			name="endMoney" placeholder="금액을 입력해주세요">
+																	</div>
+																	<div class="form-group" style="margin-left: 1.5%; margin-top: 1%;">
+																		이하
+																	</div>
 																</div>
-																<div class="form-group">
-																	<input type="date" class="form-control" value=""
-																		id="endDate" name="endDate">
+															</td>
+														</tr>
+														<tr>
+															<td>충전일</td>
+															<td><input type="hidden" name="today" id="today">
+																<div id="dayBtn" name="dayBtn">
+																	<button id="one" onclick="return one()"
+																		class="btn btn-info animation-on-hover btn-sm">1일</button>
+																	&nbsp;&nbsp;
+																	<button id="seven" onclick="return seven()"
+																		class="btn btn-info animation-on-hover btn-sm">7일</button>
+																	&nbsp;&nbsp;
+																	<button id="month" onclick="return month()"
+																		class="btn btn-info animation-on-hover btn-sm">1개월</button>
+																	&nbsp;&nbsp;
+																	<button id="halfYear" onclick="return halfYear()"
+																		class="btn btn-info animation-on-hover btn-sm">6개월</button>
+																	&nbsp;&nbsp;
+																	<button id="year" onclick="return year()"
+																		class="btn btn-info animation-on-hover btn-sm">1년</button>
+																	&nbsp;&nbsp;
+																	<button id="detailDate" onclick="return detailDate()"
+																		class="btn btn-warning animation-on-hover btn-sm">날짜 상세 검색</button>
 																</div>
-															</div></td>
-													</tr>
-													<tr>
-														<td colspan="2" align="center">
-															<button type="submit"
-																class="btn btn-info animation-on-hover" id="searchList">검색</button>
-														</td>
-													</tr>
-											</tbody>
-										</table>
+	
+																<div class="row" id="datePicker"
+																	style="margin-top: 1%; visibility: hidden;">
+																	<div class="form-group" style="margin-left: 1.5%;">
+																		<input type="date" class="form-control" value=""
+																			id="startDate" name="startDate">
+																	</div>
+																	<div class="form-group">
+																		&nbsp;&nbsp;&nbsp;<b style="font-size: 20px">~</b>&nbsp;&nbsp;&nbsp;
+																	</div>
+																	<div class="form-group">
+																		<input type="date" class="form-control" value=""
+																			id="endDate" name="endDate">
+																	</div>
+																</div></td>
+														</tr>
+														<tr>
+															<td colspan="2" align="center">
+																<button type="submit"
+																	class="btn btn-info animation-on-hover" id="searchList">검색</button>
+															</td>
+														</tr>
+												</tbody>
+											</table>
+										</div>
 									</div>
-								</div>
+								</form>
 							</div>
 						</div>
 	
 						<div class="col-md-12">
 							<div class="card ">
 								<div class="card-header">
-									<h4 class="card-title">충전 통계 리스트</h4>
+									<h4 class="card-title">충전 리스트</h4>
 								</div>
 								<div class="card-body">
 									<div class="table-responsive" style="overflow: hidden;">
 										<table class="table tablesorter " id="">
 											<thead class=" text-primary">
 												<tr>
-													<th class="text-center">계정번호</th>
-													<th>아이디</th>
-													<th>이름</th>
-													<th>전화번호</th>
-													<th>주소</th>
-													<th class="text-center">충전 포인트</th>
-													<th>환전 날짜</th>
-													<th class="text-center">상태</th>
+													<th class="text-center">내역번호</th>
+													<th>사용자 아이디</th>
+													<th>사용자명</th>
+													<th class="text-center">충전/환불 포인트</th>
+													<th>충전/환불 날짜</th>
+													<th class="text-center">회원 상태</th>
 												</tr>
 											</thead>
 											<tbody>
-												<tr>
-													<td class="text-center">1</td>
-													<td>Niger</td>
-													<td>니제르</td>
-													<td>010-1234-5678</td>
-													<td>서울시 강남구 역삼동</td>
-													<td class="text-center">7000</td>
-													<td>2019-01-03</td>
-													<td class="text-center">활동중인 사용자</td>
-												</tr>
-												<tr>
-													<td class="text-center">2</td>
-													<td>Red</td>
-													<td>레드</td>
-													<td>010-0001-5678</td>
-													<td>서울시 강남구 삼성동</td>
-													<td class="text-center">12000</td>
-													<td>2019-01-07</td>
-													<td class="text-center">활동중인 사용자</td>
-												</tr>
-												<tr>
-													<td class="text-center">3</td>
-													<td>Blue</td>
-													<td>블루</td>
-													<td>010-0012-5678</td>
-													<td>서울시 강남구 역삼동</td>
-													<td class="text-center">3200</td>
-													<td>2019-01-15</td>
-													<td class="text-center">탈퇴한 사용자</td>
-												</tr>
-												<tr>
-													<td class="text-center">4</td>
-													<td>Niger</td>
-													<td>니제르</td>
-													<td>010-1234-5678</td>
-													<td>서울시 강남구 역삼동</td>
-													<td class="text-center">12000</td>
-													<td>2019-01-25</td>
-													<td class="text-center">활동중인 사용자</td>
-												</tr>
+												<c:forEach var="s" items="${list}" varStatus="varstatus">
+													<tr>
+														<td class="text-center">${s.oilListNo}</td>
+														<td>${s.memberId}</td>
+														<td>${s.memberName}</td>
+														<c:if test="${empty s.oil}">
+															<td class="text-center">0</td>
+														</c:if>
+														<c:if test="${!empty s.oil}">
+															<c:if test="${s.oilListType == '충전'}">
+																<td class="text-center" class="oilChart">${s.oil}</td>
+															</c:if>
+															<c:if test="${s.oilListType == '결제취소'}">
+																<td class="text-center" class="oilChart2">-${s.oil}</td>
+															</c:if>
+														</c:if>
+														<td>${s.oilListDate}</td>
+														<c:if test="${s.memberStatus == 'Y'}">
+															<td class="text-center">활동중인 사용자</td>
+														</c:if>
+														<c:if test="${s.memberStatus == 'N'}">
+															<td class="text-center">탈퇴한 사용자</td>
+														</c:if>
+													</tr>
+												</c:forEach>
 											</tbody>
 										</table>
+
+										<!-- 페이징 버튼 영역 -->
+										<div id="pagingArea" align="center">
+
+											<!-- 첫번째 페이지 -->
+											<c:if test="${pi.currentPage != 1}">
+												<c:url var="blistFirst" value="selectStatisticsCustomer.ad">
+													<c:param name="currentPage" value="1" />
+												</c:url>
+												<a href="${blistFirst}"><button
+														class="btn btn-info animation-on-hover btn-sm"><<</button></a>
+											</c:if>
+											<c:if test="${pi.currentPage == 1}">
+												<button disable
+													class="btn btn-info animation-on-hover btn-sm"><<</button>
+											</c:if>
+
+											<c:if test="${pi.currentPage <= 1}">
+												<button disabled
+													class="btn btn-info animation-on-hover btn-sm"><</button>
+											</c:if>
+											<c:if test="${pi.currentPage > 1}">
+												<c:url var="blistBack" value="/selectStatisticsCustomer.ad">
+													<c:param name="currentPage" value="${pi.currentPage-1}" />
+												</c:url>
+												<a href="${blistBack}"><button
+														class="btn btn-info animation-on-hover btn-sm"><</button></a>
+											</c:if>
+
+											<!-- 숫자부분 -->
+											<c:forEach var="p" begin="${pi.startPage}"
+												end="${pi.endPage}">
+												<c:if test="${p eq pi.currentPage}">
+													<button disabled
+														class="btn btn-info animation-on-hover btn-sm">${p}</button>
+												</c:if>
+												<c:if test="${p ne pi.currentPage}">
+													<c:url var="blistCheck" value="selectStatisticsCustomer.ad">
+														<c:param name="currentPage" value="${p}" />
+													</c:url>
+													<a href="${blistCheck}"><button
+															class="btn btn-info animation-on-hover btn-sm">${p}</button></a>
+												</c:if>
+											</c:forEach>
+
+											<c:if test="${pi.currentPage >= pi.maxPage }">
+												<button disable
+													class="btn btn-info animation-on-hover btn-sm">></button>
+											</c:if>
+											<c:if test="${pi.currentPage < pi.maxPage}">
+												<c:url var="blistEnd" value="selectStatisticsCustomer.ad">
+													<c:param name="currentPage" value="${pi.currentPage+1}" />
+												</c:url>
+												<a href="${blistEnd}"><button
+														class="btn btn-info animation-on-hover btn-sm">></button></a>
+											</c:if>
+
+											<!-- 끝 페이지 -->
+											<c:if test="${pi.currentPage != pi.maxPage}">
+												<c:url var="blistEnd2" value="selectStatisticsCustomer.ad">
+													<c:param name="currentPage" value="${pi.maxPage}" />
+												</c:url>
+												<a href="${blistEnd2}"><button
+														class="btn btn-info animation-on-hover btn-sm">>></button></a>
+											</c:if>
+											<c:if test="${pi.currentPage == pi.maxPage}">
+												<button disable
+													class="btn btn-info animation-on-hover btn-sm">>></button>
+											</c:if>
+										</div>
+										<!-- 페이징 버튼 영역 끝 -->
 									</div>
 								</div>
 							</div>
@@ -215,7 +294,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 						<div class="card-header">
 							<h4 class="card-title">
 								충전 통계 그래프 (매출:
-								<p style="display: inline;">140000</p>
+								<p style="display: inline;">${sum}</p>
 								원)
 							</h4>
 						</div>
@@ -246,6 +325,23 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 			/* 아이디 */
 			$("#memberId").click(function() {
 				var memberId = $("#memberId").val();
+			});
+
+			/* ★★★ 금액 ★★★ */
+			$("#searchList").click(function() {
+				var endMoney = $("#endMoney").val();
+				var startMoney = $("#startMoney").val();
+				console.log(endMoney);
+				console.log(startMoney);
+				
+				if(endMoney<startMoney){
+					alert("금액 조건이 잘못되었습니다.");
+					return false;
+				} if(endMoney<0 || startMoney<0){
+					alert("0이하의 수는 검색하실 수 없습니다..");
+					return false;
+				}
+				
 			});
 
 			/* 상세날짜 선택 */
@@ -401,7 +497,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 						},
 						ticks : {
 							suggestedMin : 50,
-							suggestedMax : 110,
+							suggestedMax : 110,	// y축
 							padding : 20,
 							fontColor : "#9a9a9a"
 						}
@@ -430,6 +526,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 			gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
 			gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
 	
+			var chartData = [100, 50, 20, 130];
+			
 			var data = {
 				labels : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월',
 						'10월', '11월', '12월' ],
@@ -448,7 +546,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 					pointHoverRadius : 4,
 					pointHoverBorderWidth : 15,
 					pointRadius : 4,
-					data : [ 60, 110, 70, 100, 75, 90, 80, 100, 70, 80, 120, 80 ],
+// 					data : [ 60, 110, 70, 100, 75, 90, 80, 100, 70, 80, 120, 80 ],
+					data : chartData
 				} ]
 			};
 	
