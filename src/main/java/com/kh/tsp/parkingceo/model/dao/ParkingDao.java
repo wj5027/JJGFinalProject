@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import com.kh.tsp.common.ParkingCeoPageInfo;
 import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.parkingceo.model.vo.ParkingCeoAttachmentVo;
+import com.kh.tsp.parkingceo.model.vo.ParkingCeoParkingListVo;
 import com.kh.tsp.parkingceo.model.vo.ParkingCeoVo;
 
 public interface ParkingDao {
@@ -57,6 +58,8 @@ public interface ParkingDao {
 	int selectParkingListNo(SqlSessionTemplate sqlSession);
 
 	void insertAttachment(SqlSessionTemplate sqlSession, ParkingCeoAttachmentVo parkingCeoAttachmentVo);
+
+	ParkingCeoParkingListVo selectSearchParkingOne(SqlSessionTemplate sqlSession, ParkingCeoVo parking);
 
 
 

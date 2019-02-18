@@ -11,6 +11,7 @@ import com.kh.tsp.common.ParkingCeoPageInfo;
 import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.parkingceo.model.dao.ParkingDao;
 import com.kh.tsp.parkingceo.model.vo.ParkingCeoAttachmentVo;
+import com.kh.tsp.parkingceo.model.vo.ParkingCeoParkingListVo;
 import com.kh.tsp.parkingceo.model.vo.ParkingCeoVo;
 
 @Service
@@ -151,4 +152,11 @@ public class ParkingServiceImpl implements ParkingService{
 			pd.insertAttachment(sqlSession,attachList.get(i));
 		}
 	}
+
+	@Override
+	public ParkingCeoParkingListVo selectSearchParkingOne(ParkingCeoVo parking) {
+		return pd.selectSearchParkingOne(sqlSession,parking);
+	}
+	
+	
 }

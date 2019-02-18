@@ -419,13 +419,25 @@ function parkingceoLogin(){
 	function selectParking(){
 		var parkingSelectBox = $("#inputGroupSelect01 option:selected").val();
 		console.log(parkingSelectBox);
-		if(parkingSelectBox = 'none'){
+		if(parkingSelectBox == 'none'){
 			var modalText = $("<b>").text("주차장이 없습니다 등록해주세요.");
 			$("#modalText").append(modalText);
 			$("#modalBtn").click();
 		}
 		$("#modalText").html('');
 		
+		$.ajax({
+			url:"searchParkingOne.pc",
+			type:"post",
+			data: {parkingSelectBox:parkingSelectBox},
+			success : function(data){
+				console.log(data);
+			},
+			error : function(data){
+				console.log("데이터 통신 실패");	
+			}
+		});
+		 
 	}
 
 	

@@ -3,7 +3,32 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="InsertParkingType">
+<mapper namespace="Parking">
+	  	<resultMap type="com.kh.tsp.admin.model.vo.ParkingAdmin" id="ParkingResultSet">
+			<id property="parkingListName" column="PARKING_LIST_NO"/>
+			<result property="parkingName" column="PARKING_LIST_NAME"/>
+			<result property="parkingListOperateType" column="PARKING_LIST_OPERATE_TYPE"/>
+			<result property="parkingListParkingSize" column="PARKING_LIST_PARKING_SIZE"/>
+			<result property="parkingListOpenDays" column="PARKING_LIST_OPEN_DAYS"/>
+			<result property="parkingListWeekdayStime" column="PARKING_LIST_WEEKDAY_STIME"/>
+			<result property="parkingListWeekdayEtime" column="PARKING_LIST_WEEKDAY_ETIME"/>
+			<result property="parkingListSatStime" column="PARKING_LIST_SAT_STIME"/>
+			<result property="parkingListSatEtime" column="PARKING_LIST_SAT_ETIME"/>
+			<result property="parkingListHollydayStime" column="PARKING_LIST_HOLIDAY_STIME"/>
+			<result property="parkingListHollydayEtime" column="PARKING_LIST_HOLIDAY_ETIME"/>
+			<result property="parkingListPriceInfo" column="PARKING_LIST_PRICE_INFO"/>
+			<result property="parkingListParkingNtime" column="PARKING_LIST_NTIME"/>	
+			<result property="parkingListParkingNprice" column="PARKING_LIST_NPRICE"/>
+			<result property="parkingListParkingAtime" column="PARKING_LIST_ATIME"/>
+			<result property="parkingListParkingAprice" column="PARKING_LIST_APRICE"/>
+			<result property="parkingListPayType" column="PARKING_LIST_PAY_TYPE"/>
+			<result property="parkingListStatus" column="PARKING_LIST_STATUS"/>
+			<result property="memberNo" column="MEMBER_NO"/>
+			<result property="ParkingNo" column="PARKING_NO"/>
+			<result property="parkingListReason" column="PARKING_LIST_REASON"/>
+			<result property="modifyDate" column="MODIFY_DATE"/>
+	</resultMap>
+
 	
 	<insert id="insertParkingOne" parameterType="ParkingCeoVo">
 		INSERT INTO PARKING
@@ -30,6 +55,13 @@
 	INSERT INTO ATTACHMENT
 	VALUES(FID_SEQ.NEXTVAL,'변경신청사진',#{origin_name},#{change_name},#{file_path},SYSDATE,1,'N',NULL,NULL,#{parking_list_no})
 </insert>
+
+<select id="selectSearchParkingOne" parameterMap="com.kh.tsp.parkingceo.model.vo.ParkingCeoVo" resultMap="ParkingResultSet">
+	SELECT * FROM PARKING_LIST
+	WHERE MEMBER_NO = #{memberNo}
+	AND PARKING_NO = #{parkingNo}
+
+</select>
 
 
 </mapper>
