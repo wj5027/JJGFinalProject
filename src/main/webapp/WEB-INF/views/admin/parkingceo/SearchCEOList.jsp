@@ -88,7 +88,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 														<td>
 															<div class="row">
 																<div class="form-group" style="margin-left: 1.5%;">
-																	<input type="text" class="form-control" id="memberId"
+																	<input type="text" class="form-control" id="memberId" style="width:80%; height: 60%;"
 																		name="memberId" placeholder="아이디를 입력해주세요">
 																</div>
 															</div>
@@ -120,14 +120,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 															<div class="row" id="datePicker"
 																style="margin-top: 1%; visibility: hidden;">
 																<div class="form-group" style="margin-left: 1.5%;">
-																	<input type="date" class="form-control" value=""
+																	<input type="date" class="form-control" value="" style="width:80%; height: 60%;"
 																		id="startDate" name="startDate">
 																</div>
 																<div class="form-group">
 																	&nbsp;&nbsp;&nbsp;<b style="font-size: 20px">~</b>&nbsp;&nbsp;&nbsp;
 																</div>
 																<div class="form-group">
-																	<input type="date" class="form-control" value=""
+																	<input type="date" class="form-control" value="" style="width:80%; height: 60%;"
 																		id="endDate" name="endDate">
 																</div>
 															</div></td>

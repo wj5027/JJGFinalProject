@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.tsp.admin.model.dao.CustomerDao;
 import com.kh.tsp.admin.model.exception.CustomerSelectListException;
+import com.kh.tsp.admin.model.vo.DateAdmin;
 import com.kh.tsp.admin.model.vo.MemberAdmin;
 import com.kh.tsp.admin.model.vo.OilListAdmin;
 import com.kh.tsp.common.PageInfo;
@@ -112,6 +113,27 @@ public class CustomerServiceImpl implements CustomerService{
 			throws CustomerSelectListException {
 		ArrayList<OilListAdmin> list = cd.selectSearchStatisticsCustomerList(sqlSession, selectStatus, startMoney, endMoney, memberId, today, startDate, endDate);
 		return list;
+	}
+
+	// 통꼐 그래프 (월별)
+	@Override
+	public DateAdmin selectStatisticsMonth() throws CustomerSelectListException {
+		DateAdmin da = cd.selectStatisticsMonth(sqlSession);
+		return da;
+	}
+
+	// 통계 리스트 (최근 7일)
+	@Override
+	public DateAdmin selectStatistics7Day() throws CustomerSelectListException {
+		DateAdmin da = cd.selectStatistics7Day(sqlSession);
+		return da;
+	}
+
+	// 통계 리스트 (최근 24시간)
+	@Override
+	public DateAdmin selectStatisticsToday() throws CustomerSelectListException {
+		DateAdmin da = cd.selectStatisticsToday(sqlSession);
+		return da;
 	}
 
 }

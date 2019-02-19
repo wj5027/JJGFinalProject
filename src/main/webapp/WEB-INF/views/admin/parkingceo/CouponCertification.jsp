@@ -102,7 +102,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 														<td style="padding-left: 10%;">
 															<div class="row">
 																<div class="form-group" style="margin-left: 4%; margin-top: 3%;">
-																	<input type="text" class="form-control" id="memberId"
+																	<input type="text" class="form-control" id="memberId" style="width:80%; height: 60%;"
 																		name="memberId" placeholder="아이디를 입력해주세요">
 																</div>
 															</div>
@@ -113,7 +113,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 														<td style="padding-left: 10%;">
 															<div class="row">
 																<div class="form-group" style="margin-left: 4%; margin-top: 3%;">
-																	<input type="text" class="form-control" id="parkingName"
+																	<input type="text" class="form-control" id="parkingName" style="width:80%; height: 60%;"
 																		name="parkingName" placeholder="주차장을 입력해주세요">
 																</div>
 															</div>

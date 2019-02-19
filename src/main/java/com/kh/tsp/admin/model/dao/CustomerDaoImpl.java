@@ -12,6 +12,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.tsp.admin.model.exception.CustomerSelectListException;
+import com.kh.tsp.admin.model.vo.DateAdmin;
 import com.kh.tsp.admin.model.vo.MemberAdmin;
 import com.kh.tsp.admin.model.vo.OilListAdmin;
 import com.kh.tsp.common.PageInfo;
@@ -242,6 +243,42 @@ public class CustomerDaoImpl  implements CustomerDao{
 		System.out.println("DAO list : "+list);
 		
 		return list;
+	}
+
+	// 통계 그래프 (월별)
+	@Override
+	public DateAdmin selectStatisticsMonth(SqlSessionTemplate sqlSession) throws CustomerSelectListException {
+		
+		DateAdmin da = sqlSession.selectOne("MemberAdmin2.selectStatisticsMonth");
+		
+		if(da == null) {
+			throw new CustomerSelectListException("통계 그래프 (월별) 조회 실패");
+		}
+		return da;
+	}
+
+	// 통계 리스트 (최근 7일)
+	@Override
+	public DateAdmin selectStatistics7Day(SqlSessionTemplate sqlSession) throws CustomerSelectListException {
+		
+		DateAdmin da = sqlSession.selectOne("MemberAdmin2.selectStatistics7Day");
+		
+		if(da == null) {
+			throw new CustomerSelectListException("통계 리스트 (최근 7일) 조회 실패");
+		}
+		return da;
+	}
+
+	// 통계 리스트 (최근 24시간)
+	@Override
+	public DateAdmin selectStatisticsToday(SqlSessionTemplate sqlSession) throws CustomerSelectListException {
+		
+		DateAdmin da = sqlSession.selectOne("MemberAdmin2.selectStatisticsToday");
+		
+		if(da == null) {
+			throw new CustomerSelectListException("통계 리스트 (최근 24시간) 조회 실패");
+		}
+		return da;
 	}
 
 }

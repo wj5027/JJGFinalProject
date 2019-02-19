@@ -3,6 +3,7 @@ package com.kh.tsp.admin.model.service;
 import java.util.ArrayList;
 
 import com.kh.tsp.admin.model.exception.CustomerSelectListException;
+import com.kh.tsp.admin.model.vo.DateAdmin;
 import com.kh.tsp.admin.model.vo.MemberAdmin;
 import com.kh.tsp.admin.model.vo.OilListAdmin;
 import com.kh.tsp.common.PageInfo;
@@ -49,6 +50,15 @@ public interface CustomerService {
 	// 충전 합계 (검색)
 	ArrayList<OilListAdmin> selectSearchStatisticsCustomerList(String selectStatus, String memberId, String startMoney,
 			String endMoney, String today, String startDate, String endDate) throws CustomerSelectListException;
+
+	// 통꼐 그래프 (월별)
+	DateAdmin selectStatisticsMonth() throws CustomerSelectListException;
+
+	// 통꼐 그래프 (최근 7일)
+	DateAdmin selectStatistics7Day() throws CustomerSelectListException;
+
+	// 통계 리스트 (최근 24시간)
+	DateAdmin selectStatisticsToday() throws CustomerSelectListException;
 
 
 }

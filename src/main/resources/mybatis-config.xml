@@ -15,6 +15,7 @@
  	 <typeAlias type="com.kh.tsp.admin.model.vo.ParkingListAdmin" alias="ParkingListAdmin"/>
  	 <typeAlias type="com.kh.tsp.admin.model.vo.Filter" alias="Filter"/>
  	 <typeAlias type="com.kh.tsp.admin.model.vo.MemberAdmin" alias="MemberAdmin2"/>
+ 	 <typeAlias type="com.kh.tsp.admin.model.vo.DateAdmin" alias="DateAdmin"/>
 	 <typeAlias type="com.kh.tsp.customer.model.vo.Board" alias="Board"/>
 	 <typeAlias type="com.kh.tsp.customer.model.vo.Board" alias="BoardAdmin"/>
 	 <typeAlias type="com.kh.tsp.customer.model.vo.Parking" alias="Parking"/>
