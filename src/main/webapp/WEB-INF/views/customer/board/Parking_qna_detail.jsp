@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,9 +9,7 @@
 
 <jsp:include page="/WEB-INF/views/common/bootInfo.jsp"></jsp:include>
 
-<style>
 
-</style>
 
 </head>
 
@@ -28,36 +26,47 @@
 		  <div class="col-md-12" height="500px">
             <div class="card ">
               <div class="card-header">
-                <h3 class="card-title" align="center">공지사항 상세보기</h3>
+                <h3 class="card-title" align="center">주차장 문의</h3>
                 <hr style="border: solid 1px white;">
-              		<table class="firstTable" width="100%" border="0" cellpadding="0" cellspacing="0" align="center">
+              		
+              		<table width="100%" border="0" cellpadding="0" cellspacing="0">
 			<!-- BOARD TITLE -->
 			
-			
-			<tr height="20"><!-- BOARD CONTENTS -->
+			<tr height="20" >
+				<td width="50px">작성자</td>
+				<td>${ b.mno }</td>
+			</tr>
+			<tr ><!-- BOARD CONTENTS -->
 				
-				<td >제목</td>
+				<td>제목</td>
 				<td><input type="hidden" name="bno" value="${ b.bno }">${ b.bTitle }</td>
 			</tr>
 			
-			<tr height="200" >
-				
-				<td>내용</td>
+			<tr height="200">
+				<td  valign="top">내용</td>
 				<td valign="top" >${ b.bContext }</td>
 			</tr>
 			
-		
 			
-			<tr><!-- BOARD BUTTONS -->
-				<td colspan="5" align="center">
-					
+			</table>
+			
+			<table width="100%" border="0" cellpadding="0" cellspacing="0">
+			
+			<tr>
+				<td width="60px">댓글&nbsp;</td>
+				<td   colspan="2">댓글내용　　　　　　　　　</td>
+				
+				<td>&nbsp;<button float="right" class="btn btn-info btn-sm">등록</button></td>
+			</tr>
+			</table>
+			
+			
+				<div align="center">	
 					<button id="editBtn" class="btn btn-info btn-sm">수정</button>&nbsp;
 					<button id="deleteBtn" class="btn btn-info btn-sm">삭제</button>&nbsp;					
 					<button id="goToList" class="btn btn-info btn-sm">목록</button>&nbsp;					
-				
-				</td>
-			</tr>
-		</table>
+				</div>
+		
 		<br>
 		<br>
 		<br>
@@ -67,31 +76,28 @@
           </div>
         </div>
       </div>
-      
-      <script>
-      	$(function(){
-      		$("#editBtn").click(function(){
-      			var num = $("input[name='bno']").val();
-      			console.log(num);
-      			location.href="./updateNotice.cu?num="+num;
-      		});
-      	});
-      
-      	$(function(){
-      		$("#deleteBtn").click(function(){
-      			var num = $("input[name='bno']").val();
-      			console.log(num);
-      			location.href="./deleteNotice.cu?num="+num;
-      		});
-      	});
-      	
-      	$(function(){
-      		$("#goToList").click(function(){
-      			location.href="./customerNotice.cu";
-      		});
-      	});
-      	
-      </script>
+<script>
+	$(function(){
+		$("#editBtn").click(function(){
+			var num = $("input[name='bno']").val();
+			console.log(num);
+			location.href="./updateQna.cu?num="+num;
+		});
+	});
 	
+	  $(function(){
+		$("#deleteBtn").click(function(){
+		  	 var bno = $("input[name='bno']").val();
+			console.log(bno);   
+			location.href="./deleteQna.cu?bno="+bno;
+		});
+	});  
+	
+	$(function(){
+		$("#goToList").click(function(){
+			location.href="./qna.cu";
+		});
+	});
+</script>	
 </body>
 </html>

@@ -54,7 +54,7 @@
        </div>
        
        <div align="center">
-       <button id="insertQna">작성</button>
+       <button id="insertQna" class="btn btn-info btn-sm">작성</button>
        </div>
    
        
@@ -159,7 +159,13 @@
    });
    
    $(function(){
-		  $("#listArea td").click(function(){
+		  $("#listArea td").mouseenter(function(){
+			  $(this).parent().css({"color":"black", "cursor":"pointer"});
+
+		  }).mouseout(function(){
+			  $(this).parent().css({"color":"rgb(180,181,188)", "cursor":"pointer"});
+
+		  }).click(function(){
 			  var num = $(this).find("#bno").val();
 			  console.log(num);
 			location.href="./qnaDetail.cu?num="+num;  

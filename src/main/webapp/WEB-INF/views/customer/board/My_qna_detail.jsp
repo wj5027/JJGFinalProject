@@ -32,19 +32,19 @@
               		<table width="100%" border="0" cellpadding="0" cellspacing="0">
 			<!-- BOARD TITLE -->
 			
-			<tr>
-				<td>작성자</td>
+			<tr height="20" >
+				<td width="50px">작성자</td>
 				<td>${ b.mno }</td>
 			</tr>
-			<tr height="30"><!-- BOARD CONTENTS -->
+			<tr ><!-- BOARD CONTENTS -->
 				
-				<td width="60px">제목</td>
+				<td>제목</td>
 				<td><input type="hidden" name="bno" value="${ b.bno }">${ b.bTitle }</td>
 			</tr>
 			
 			<tr height="200">
-				<td>내용</td>
-				<td valign="top" style="border: 1px solid white">${ b.bContext }</td>
+				<td  valign="top">내용</td>
+				<td valign="top" >${ b.bContext }</td>
 			</tr>
 			
 			
@@ -61,11 +61,11 @@
 			</table>
 			
 			
-					
+				<div align="center">	
 					<button id="editBtn" class="btn btn-info btn-sm">수정</button>&nbsp;
 					<button id="deleteBtn" class="btn btn-info btn-sm">삭제</button>&nbsp;					
 					<button id="goToList" class="btn btn-info btn-sm">목록</button>&nbsp;					
-				
+				</div>
 		
 		<br>
 		<br>

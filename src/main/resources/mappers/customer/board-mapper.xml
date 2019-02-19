@@ -284,4 +284,26 @@
   		AND BOARD_TYPE = '관리자문의'
         OR BOARD_TYPE = '사업자문의'
   	</select>
+  	
+  	<!-- 주차장 문의 게시물 목록 조회용 쿼리문 -->
+  	<select id="selectParkingQnaList" resultMap="boardListSet">
+  		SELECT *
+  		FROM BOARD B
+  		JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
+  		WHERE B.STATUS = 'Y'
+  		AND B.BOARD_TYPE = '사업자문의'
+  		ORDER BY BOARD_NO DESC
+  	</select>
+  	
+  	<!-- 주차장 문의 게시물 상세보기 -->
+  	<select id="selectOneReview" parameterType="_int" resultMap="reviewListSet">
+  		SELECT *
+  		FROM BOARD B
+  		JOIN MEMBER M ON (B.MEMBER_NO = M.MEMBER_NO)
+  		JOIN PARKING P ON(B.PARKING_NO = P.PARKING_NO) 
+  		WHERE B.BOARD_NO = #{bno}
+  		AND B.BOARD_TYPE = '사업자문의'
+  		AND B.STATUS = 'Y'
+  	</select>
+  	
   </mapper>

@@ -186,6 +186,24 @@ public class BoardDaoImpl implements BoardDao{
 		
 		return (ArrayList)sqlSession.selectList("Board.selectQnaList", null, rowBounds);
 	}
+
+	//페이징 처리된 주차장 문의 게시판 목록 조회
+	@Override
+	public ArrayList<Board> selectParkingQnaList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		ArrayList<Board> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		return (ArrayList)sqlSession.selectList("Board.selectParkingQnaList", null, rowBounds);
+	}
+	//주차장 문의 상세보기
+	@Override
+	public Board selectOneParkingQna(SqlSessionTemplate sqlSession, int bno) {
+
+		return sqlSession.selectOne("Board.selectOneParkingQna", bno);
+	}
 	
 	
 	
