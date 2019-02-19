@@ -82,7 +82,7 @@
 		      </div>
 		      	<div class="form-group">
 		        <label for="parking_size">주차 구획수</label>
-		        <input type="text" class="form-control" id="parking_size" name="parkingSize" placeholder="주차 구획수를 입력해주세요" style="width: 400px;">
+		        <input type="text" class="form-control" id="parkingSize" name="parkingSize" placeholder="주차 구획수를 입력해주세요" style="width: 400px;">
 		      </div>
 		      <div class="form-check">
 		      <label for="open_days">운영 요일</label>
@@ -530,18 +530,18 @@ function parkingceoLogin(){
 		parking_size = $("#parking_size").val();
 		regExp3 = /\d{1,5}/g;
 		//주차 구획수가 비었을시
-		if($("#parking_size").val() == null || $("#parking_size").val() == ''){
+		if($("#parkingSize").val() == null || $("#parkingSize").val() == ''){
 			var modalText = $("<b>").text("주차 구획수를 입력해주세요.");
 			$("#modalText").append(modalText);
 			$("#modalBtn").click();
-			$("#parking_size").focus();
+			$("#parkingSize").focus();
 			return false;	
 		}else if(!regExp3.test(parking_size)) {
 			$("#modalText").html('');
 			var modalText = $("<b>").text("주차 구획수는 1~99999의 숫자로 지정해주세요.");
 			$("#modalText").append(modalText);
 			$("#modalBtn").click();
-			$("#parking_size").focus();
+			$("#parkingSize").focus();
 			return false;	
 		}
 		$("#modalText").html('');

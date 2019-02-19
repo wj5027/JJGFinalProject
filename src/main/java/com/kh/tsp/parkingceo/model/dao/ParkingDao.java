@@ -59,7 +59,12 @@ public interface ParkingDao {
 
 	void insertAttachment(SqlSessionTemplate sqlSession, ParkingCeoAttachmentVo parkingCeoAttachmentVo);
 
-	HashMap<String, Object> selectSearchParkingOne(SqlSessionTemplate sqlSession, ParkingCeoVo parking);
+	HashMap<String, Object> selectParkingListOne(SqlSessionTemplate sqlSession, ParkingCeoVo parking);
+
+	ArrayList<HashMap<String, Object>> selectAttachmentList(SqlSessionTemplate sqlSession,
+			HashMap<String, Object> parkingList);
+
+
 
 
 

@@ -157,7 +157,17 @@ public class ParkingServiceImpl implements ParkingService{
 
 	@Override
 	public HashMap<String, Object> selectSearchParkingOne(ParkingCeoVo parking) {
-		return pd.selectSearchParkingOne(sqlSession,parking);
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		//주차장 리스트 조회
+		HashMap<String, Object> parkingList = pd.selectParkingListOne(sqlSession,parking);
+		//주차장 리스트로 어테치먼트 조회 
+		ArrayList<HashMap<String, Object>> attachList = pd.selectAttachmentList(sqlSession,parkingList);
+		
+		hmap.put("parkingListOne", parkingList);
+		if(attachList != null) {
+			hmap.put("attList", attachList);			
+		}
+		return hmap;
 	}
 	
 	
