@@ -28,15 +28,15 @@
 	          </div>
 	          </div>
 	          
-	          <div style="position: absolute;width: 100px;height: 200px;z-index:100000000;top: 7%;left: 72%;">
+	          <div style="position:absolute; width: 100px;height: 200px;z-index:100000000;top: 7%;left: 72%;">
 	          <br>
 	          <div id="" style="margin:1px; background-color:white; border-radius: 10px;">
-	          <span align="center" style="margin:2px; color:black; font-size:0.1em;"><img src='resources/common/img/greenMarker.png' width="25px" height="25px"> &nbsp;<b>2000원 이하</b></span>
-	          <span align="center" style="margin:2px; color:black; font-size:0.1em;"><img src='resources/common/img/blueMarker.png' width="25px" height="25px"> &nbsp;<b>2000~4000</b></span>
-	          <span align="center" style="margin:2px; color:black; font-size:0.1em;"><img src='resources/common/img/yellowMarker.png' width="25px" height="25px"> &nbsp;<b>4000~8000</b></span>
-	          <span align="center" style="margin:2px; color:black; font-size:0.1em;"><img src='resources/common/img/pinkMarker.png' width="25px" height="25px"> &nbsp;<b>8000원 이상</b></span>
-	          <span align="center" style="margin:2px; color:black; font-size:0.1em;"><img src='resources/common/img/muni.png' width="25px" height="25px"> &nbsp;<b>관리자에게 문의</b></span>
-	           <span align="center" style="margin:2px; color:black; font-size:0.1em;"><img src='resources/common/img/freeparking.png' width="25px" height="25px"> &nbsp;<b>무료</b></span>
+	          <span align="center" style="margin:2px; color:black; font-size:0.5em;"><img src='resources/common/img/greenMarker.png' width="25px" height="25px"> &nbsp;<b>2000원 이하</b></span>
+	          <span align="center" style="margin:2px; color:black; font-size:0.5em;"><img src='resources/common/img/blueMarker.png' width="25px" height="25px"> &nbsp;<b>2000~4000</b></span>
+	          <span align="center" style="margin:2px; color:black; font-size:0.5em;"><img src='resources/common/img/yellowMarker.png' width="25px" height="25px"> &nbsp;<b>4000~8000</b></span>
+	          <span align="center" style="margin:2px; color:black; font-size:0.5em;"><img src='resources/common/img/pinkMarker.png' width="25px" height="25px"> &nbsp;<b>8000원 이상</b></span>
+	          <span align="center" style="margin:2px; color:black; font-size:0.5em;"><img src='resources/common/img/muni.png' width="25px" height="25px"> &nbsp;<b>관리자에게 문의</b></span>
+	           <span align="center" style="margin:2px; color:black; font-size:0.5em;"><img src='resources/common/img/freeparking.png' width="25px" height="25px"> &nbsp;<b>무료</b></span>
 	          </div>
 	          </div>
 	         
@@ -71,7 +71,7 @@
 			                  </tr>
 			                  <tr>
 			                  <td align="center" colspan="3"><button type="button" class="btn btn-sm  " data-dismiss="modal">문의</button></td>
-			                  <td align="center" colspan="3"><button type="button" class="btn btn-sm  " data-dismiss="modal">로드뷰</button></td>
+			                  <td align="center" colspan="3"><button type="button" class="btn btn-sm  " data-dismiss="modal">후기</button></td>
 			                  <td align="center" colspan="3"><button type="button" class="btn btn-sm  " data-dismiss="modal">닫기</button></td>
 			                  <td><input type="hidden" id="member_id" name="member_id" value="">
                    				<input type="hidden" id="member_name" name="member_name" value="">
@@ -385,62 +385,23 @@
 								 	    	$("#price").text(Number(price));
 								 	    	$("#time").text(parking.weekday_STIME+"~ 익일:"+parking.weekday_ETIME);
 								 	    	$("#paddr").text(addr);
-								 	    	
-								 	    	
-								 	    	
-								 	    	
-								 	    	
+								 	   /* 		$.ajax({
+											url:"getnearParkings.cu",
+											type:"get",
+											data:{x0:x0,x1:x1,y0:y0,y1:y1}, 
+											success:function(data){
+											 
+									
+										
+												},error:function(status){
+												console.log(status);
+											}
+										 }); */
 								 	    	
 								 	    	
 								 	    	
 								 	    };
 								 	}
-								
-								   
-								 		 
-								 	
-								 		 
-								 		 
-								 		 
-										// 마커에 표시할 인포윈도우를 생성합니다 
-					/* 				  
-										  
-									 	
-									    //커스텀 오버레이
-									    var customOverlay = new daum.maps.CustomOverlay({
-									        map: map,
-									        content: '<div>'+ntime+'분에'+nprice+'</div>',
-									        position:new daum.maps.LatLng(lat, lon),
-									    });
-									    
-									    customOverlay.setMap(map); 
-									    
-									    
-									    
-									 	// 마커에 click 이벤트를 등록합니다
-									    daum.maps.event.addListener(marker2,'click',makeClickListener(map,marker2,infowindow2)); 
-								    infowindow2.open(map,marker2); 
-										 
-								
-									}
-								 	
-							geocoder.addressSearch(parkingadress, function(result, status) {
-
-										    // 정상적으로 검색이 완료됐으면 
-										     if (status === daum.maps.services.Status.OK) {
-
-										        var coords = new daum.maps.LatLng(result[0].y, result[0].x);
-
-										        // 결과값으로 받은 위치를 마커로 표시합니다
-										       
-										        
-										        
-										       
-											}else{
-												console.log(parkingadress+"이거 문제임");
-											}
-										})	 
-										*/
 							 clusterer.addMarkers(markers);
 							
 									},error:function(status){
@@ -463,139 +424,6 @@
           </div>
   
  
-  
-				
-				
-    
-    
-    
-    
-      
-     <!--  <div class="content">
-        <div class="row">
-		  <div class="col-md-12" height="500px">
-            <div class="card ">
-              <div class="card-header">
-                <h4 class="card-title">내정보수정</h4>
-              </div>
-              <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table tablesorter " id="">
-                    <tbody>
-                      <tr>
-                        <td>이름</td>
-                        <td>
-                  			<div class="row">
-		                    	<div class="form-group">
-                        			<input type="text" class="form-control" name="name" value="홍길동" disabled>
-                        		</div>
-                        	</div>
-                        </td>
-                      </tr>  
-                      <tr>
-                        <td>아이디</td>
-                        <td>
-                  			<div class="row">
-		                    	<div class="form-group">
-                        			<input type="text" class="form-control" name="userId" value="user01" disabled>
-                        		</div>
-                        	</div>
-                        </td>
-                      </tr>  
-                      <tr>
-                        <td>비밀번호</td>
-                        <td>
-                  			<div class="row">
-		                    	<div class="form-group">
-                        			<input type="password" class="form-control" name="password">
-                        		</div>
-                        	</div>
-                        </td>
-                      </tr>  
-                      <tr>
-                        <td>비밀번호 확인</td>
-                        <td>
-                  			<div class="row">
-		                    	<div class="form-group">
-                        			<input type="password" class="form-control" name="password2">
-                        		</div>
-                        	</div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>차번호</td>
-                        <td>
-                  			<div class="row">
-		                    	<div class="form-group">
-                        			<input type="text" class="form-control" id="carNo">
-                        		</div>
-                        	</div>
-                        </td>
-                      </tr>  
-                      <tr>
-                        <td>전화번호</td>
-                        <td>
-                  			<div class="row">
-		                    	<div class="form-group">
-                        			<input type="text" class="form-control" name="phone">
-                        		</div>
-                        	</div>
-                        </td>
-                      </tr>  
-                      <tr>
-                        <td>이메일</td>
-                        <td>
-                  			<div class="row">
-		                    	<div class="form-group">
-                        			<input type="email" class="form-control" name="email">
-                        		</div>
-                        	</div>
-                        </td>
-                      </tr>  
-                      <tr>
-                      	<td></td>
-                      	<td style="padding-left: 30%">
-                      		<button class="btn btn-info dropdown-toggle">수정</button>
-                      	</td>
-                      </tr>                    
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
-     <!--    
-      <footer class="footer">
-        <div class="container-fluid">
-          <ul class="nav">
-            <li class="nav-item">
-              <a href="javascript:void(0)" class="nav-link">
-                Creative Tim
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="javascript:void(0)" class="nav-link">
-                About Us
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="javascript:void(0)" class="nav-link">
-                Blog
-              </a>
-            </li>
-          </ul>
-          <div class="copyright">
-            ©
-            <script>
-              document.write(new Date().getFullYear())
-            </script> made with <i class="tim-icons icon-heart-2"></i> by
-            <a href="javascript:void(0)" target="_blank">Creative Tim</a> for a better web.
-          </div>
-        </div>
-      </footer> -->
-    </div>
  
  <!--@@@@@@@@@@@@@@@@@@@@@@@@@@@사이드바 자리입니다.  -->
  
