@@ -59,6 +59,10 @@ public interface BoardDao {
 	int getQnaListCount(SqlSessionTemplate sqlSession);
 	//페이징 처리 된 문의 목록 조회
 	ArrayList<Board> selectQnaList(SqlSessionTemplate sqlSession, PageInfo pi);
+	//페이징 처리 된 주차장 문의 목록 조회
+	ArrayList<Board> selectParkingQnaList(SqlSessionTemplate sqlSession, PageInfo pi);
+	//주차장 문의 상세보기
+	Board selectOneParkingQna(SqlSessionTemplate sqlSession, int bno);
 	
 	
 	

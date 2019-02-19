@@ -488,7 +488,42 @@ public class CustomerBoard {
 	}
 	
 	
-	
+	@RequestMapping(value="/parkingQna.cu", method=RequestMethod.GET)
+	public String parkingQna(Board b, Model model,HttpServletRequest request,
+			HttpServletResponse response) {
+		
+		//작성자
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		//String mno = Integer.toString(loginUser.getMember_no());
+
+		int currentPage = 1;
+						 
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+						
+		int listCount = bs.getQnaListCount();
+			System.out.println("주차장 문의 전체게시글 수 : "+listCount);
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+				
+			ArrayList<Board> list = bs.selectParkingQnaList(pi);
+						
+
+			if(list == null) {
+				request.setAttribute("message", "주차장 문의 목록 불러오기 실패");
+				
+				return "common/errorPage";
+				
+			}else {
+				request.setAttribute("loginUser", loginUser);
+				request.setAttribute("list", list);
+				request.setAttribute("pi", pi);
+						
+				return "customer/board/Parking_qna_list";
+			}
+		
+	}
 	
 	
 }

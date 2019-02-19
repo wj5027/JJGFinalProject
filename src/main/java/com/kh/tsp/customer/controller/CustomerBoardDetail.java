@@ -62,4 +62,21 @@ public class CustomerBoardDetail {
 	
 		return "customer/board/My_qna_detail";
 	}
+	
+	//주차장 문의 상세보기
+	@RequestMapping(value="parkingQnaDetail.cu", method=RequestMethod.GET)
+	public String ParkingQnaDetail(HttpServletRequest request, HttpServletResponse response) {
+		int bno = Integer.parseInt(request.getParameter("num"));
+		System.out.println("문의상세보기 서블릿 bno: "+bno);
+		
+		
+	
+		Board b = bs.selectOneParkingQna(bno); 
+		
+		request.setAttribute("b", b);
+	
+		return "customer/board/My_parking_qna_detail";
+	}
+	
+	
 }

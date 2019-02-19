@@ -31,34 +31,33 @@
                 <h3 class="card-title" align="center">공지사항</h3>
                 <!-- <hr style="border: solid 1px white;"> -->
               <div align="center">
-<!--    <a href="./customerNoticeDetail.cu">쿠폰행사안내</a><h5>2019/01/25</h5>
- -->   
+  
    <hr style="border: solid 1px white;">
    
    <c:forEach var="b" items="${ list }">
-   	<table id="listArea">
+   	<table id="listArea" >
    		
    		<tr>
-   			<td><input type="hidden" id="bno" name="bno" value="${b.bno}">${ b.bTitle }</td>
+   			<td id="bTitle"><input type="hidden" id="bno" name="bno" value="${b.bno}">${ b.bTitle }</td>
 			 	
    		</tr>
-   		<tr>
+   		<tr align="center">
    			<td>${ b.createDate }</td>
    			
    		</tr>
-   		<hr style="border: solid 1px white;">
+   		
    	</table>
-   		<%-- <a href="./customerNoticeDetail.cu" >${ b.bTitle }<intput type="hidden" name="bno" value="${ b.bno }"></a><h5>${ b.createDate }</h5> --%>
+   		   <hr style="border: solid 1px white;">
    		
    </c:forEach>
    
    
-   <hr style="border: solid 1px white;">
+  
     </div>
        </div>
        
        <div align="center">
-       <button id="insertNotice">작성</button>
+       <button id="insertNotice" class="btn btn-info btn-sm">작성</button>
        </div>
               <div class="card-body">
                 <div class="table-responsive">
@@ -160,7 +159,12 @@
    });
    
    $(function(){
-	  $("#listArea td").click(function(){
+	  $("#listArea tr").mouseenter(function(){
+		  $(this).parent().css({"color":"black", "cursor":"pointer"});
+		  
+	  }).mouseout(function(){
+		  $(this).parent().css({"color":"rgb(207,208,188)", "cursor":"pointer"});
+	  }).click(function(){
 		  var num = $(this).find("#bno").val();
 		  console.log(num);
 		location.href="./customerNoticeDetail.cu?num="+num;  

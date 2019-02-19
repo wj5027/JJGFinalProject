@@ -167,7 +167,7 @@
 			    					
 				    				if (sortData[i].value.parking_NPRICE == '0') {
 				    					table.append(
-								            	"<tr>"
+				    							"<tr onclick='moveParkingSpot(" + sortData[i].value.latitude + "," + sortData[i].value.longitude + ")'>"
 								            	+ "<td style='color: white;'>"
 								            	+ sortData[i].value.parking_NAME
 								            	+ "</td>"
@@ -178,7 +178,7 @@
 								            	);
 									} else {
 										table.append(
-								            	"<tr>"
+												"<tr onclick='moveParkingSpot(" + sortData[i].value.latitude + "," + sortData[i].value.longitude + ")'>"
 								            	+ "<td style='color: white;'>"
 								            	+ sortData[i].value.parking_NAME
 								            	+ "</td>"
@@ -268,6 +268,10 @@
 	}
 </script>
 <script type="text/javascript">
+function moveParkingSpot(lat, lon) {
+	location.href="moveParkingSpot.cu?requestLat=" + lat + "&requestlon=" + lon;
+}
+
 function searchVoice(keyword, type) {
 	var table = $("#STTResult");
 	
@@ -350,7 +354,7 @@ function searchVoice(keyword, type) {
     					
 	    				if (sortData[i].value.parking_NPRICE == '0') {
 	    					table.append(
-					            	"<tr>"
+					            	"<tr onclick='moveParkingSpot(" + sortData[i].value.latitude + "," + sortData[i].value.longitude + ")'>"
 					            	+ "<td style='color: white;'>"
 					            	+ sortData[i].value.parking_NAME
 					            	+ "</td>"
@@ -361,7 +365,7 @@ function searchVoice(keyword, type) {
 					            	);
 						} else {
 							table.append(
-					            	"<tr>"
+									"<tr onclick='moveParkingSpot(" + sortData[i].value.latitude + "," + sortData[i].value.longitude + ")'>"
 					            	+ "<td style='color: white;'>"
 					            	+ sortData[i].value.parking_NAME
 					            	+ "</td>"

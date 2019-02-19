@@ -26,14 +26,14 @@
 		  <div class="col-md-12" height="500px">
             <div class="card ">
               <div class="card-header">
-                <h3 class="card-title" align="center">내 후기 상세보기</h3>
+                <h3 class="card-title" align="center">내 후기</h3>
                 <hr style="border: solid 1px white;">
               		<table width="100%" border="0" cellpadding="0" cellspacing="0">
 			<!-- BOARD TITLE -->
 			
 			
 			<tr height="20"><!-- BOARD CONTENTS -->
-				<td>작성자</td>
+				<td width="70px">작성자</td>
 				<td>${ b.mno }</td>
 				
 			</tr>
@@ -46,15 +46,10 @@
 				<td><input type="hidden" id="num" name="num" value="${ b.bno }">${ b.bTitle }</td>
 			</tr>
 			<tr height="200">
-				<td>내용</td>
-				<td valign="top" style="border: 1px solid white">${ b.bContext }</td>
+				<td valign="top" >내용</td>
+				<td valign="top" >${ b.bContext }</td>
 			</tr>
 			
-			<tr height="40">
-				<th>첨부파일</th>
-				<td>
-				</td>
-			</tr>
 			<tr>
 			<td><td>
 			</tr>

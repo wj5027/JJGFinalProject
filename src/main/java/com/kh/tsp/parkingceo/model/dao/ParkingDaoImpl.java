@@ -159,9 +159,16 @@ public class ParkingDaoImpl implements ParkingDao{
 	}
 
 	@Override
-	public HashMap<String, Object> selectSearchParkingOne(SqlSessionTemplate sqlSession, ParkingCeoVo parking) {
-		return sqlSession.selectOne("Parking.selectSearchParkingOne", parking);
+	public HashMap<String, Object> selectParkingListOne(SqlSessionTemplate sqlSession, ParkingCeoVo parking) {
+		return sqlSession.selectOne("Parking.selectParkingListOne", parking);
 	}
+
+	@Override
+	public ArrayList<HashMap<String, Object>> selectAttachmentList(SqlSessionTemplate sqlSession,
+			HashMap<String, Object> parkingList) {
+		return (ArrayList)sqlSession.selectList("Parking.selectAttachmentList", parkingList);
+	}
+
 
 
 

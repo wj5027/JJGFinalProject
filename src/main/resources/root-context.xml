@@ -61,8 +61,16 @@
 		</tx:attributes>
 	</tx:advice>
 	<aop:config proxy-target-class="true">
-		<aop:pointcut expression="execution(* com.kh.tsp..*ServiceImpl.*(..))" id="serviceMethod"/>
+		<aop:pointcut expression="execution(* com.kh.tsp..*ServiceImpl.insert*(..))" id="serviceMethod"/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethod" id="transactionAdvisor"/>
+	</aop:config>
+	<aop:config proxy-target-class="true">
+		<aop:pointcut expression="execution(* com.kh.tsp..*ServiceImpl.update*(..))" id="serviceMethod2"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethod2" id="transactionAdvisor2"/>
+	</aop:config>
+	<aop:config proxy-target-class="true">
+		<aop:pointcut expression="execution(* com.kh.tsp..*ServiceImpl.delete*(..))" id="serviceMethod3"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethod3" id="transactionAdvisor3"/>
 	</aop:config>
 
 

@@ -26,7 +26,7 @@
 						style="font-size: 15px">▽</b>
 				</p>
 		</a>
-			<div align="right" class="dropdown-menu dropdown-black"
+			<div align="right" class="dropdown-menu dropdown-black" style="width: 100%;"
 				aria-labelledby="navbarDropdownMenuLink">
 				<a class="dropdown-item" href="selectCEOList.ad">사업자 조회</a> <a
 					class="dropdown-item" href="selectParkingLotList.ad">주차장 관리</a> <a
@@ -40,7 +40,7 @@
 						style="font-size: 15px">▽</b>
 				</p>
 		</a>
-			<div align="right" class="dropdown-menu dropdown-black"
+			<div align="right" class="dropdown-menu dropdown-black" style="width: 100%;"
 				aria-labelledby="navbarDropdownMenuLink">
 				<a class="dropdown-item" href="selectCustomerList.ad">사용자 조회</a> <a
 					class="dropdown-item" href="selectStatisticsCustomer.ad">통계</a>
@@ -52,7 +52,7 @@
 						style="font-size: 15px">▽</b>
 				</p>
 		</a>
-			<div align="right" class="dropdown-menu dropdown-black"
+			<div align="right" class="dropdown-menu dropdown-black" style="width: 100%;"
 				aria-labelledby="navbarDropdownMenuLink">
 				<a class="dropdown-item" href="selectBoardQnA.ad">문의 게시판</a> <a
 					class="dropdown-item" href="selectBoardReview.ad">후기 게시판</a><a

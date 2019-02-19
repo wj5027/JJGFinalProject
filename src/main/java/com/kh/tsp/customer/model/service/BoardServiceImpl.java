@@ -193,6 +193,28 @@ public class BoardServiceImpl implements BoardService {
 		
 		return bd.selectQnaList(sqlSession, pi);
 	}
+	//페이징처리 된 주차장 문의 게시판 목록 조회
+	@Override
+	public ArrayList<Board> selectParkingQnaList(PageInfo pi) {
+
+		return bd.selectParkingQnaList(sqlSession, pi);
+	}
+
+	//주차장 문의 상세보기
+	@Override
+	public Board selectOneParkingQna(int bno) {
+		Board b = null;
+		
+		//조회수 증가
+				int result = bd.updateCount(sqlSession, bno);
+				
+				if(result > 0) {
+					b = bd.selectOneParkingQna(sqlSession, bno);
+				}
+				
+				return b;
+		
+	}
 	
 	
 	

@@ -59,6 +59,10 @@ public interface BoardService {
 	int getQnaListCount();
 	//페이징 된 문의 목록
 	ArrayList<Board> selectQnaList(PageInfo pi);
+	//주차장 문의 게시판 목록(페이징처리)
+	ArrayList<Board> selectParkingQnaList(PageInfo pi);
+	//주차장 문의 상세보기
+	Board selectOneParkingQna(int bno);
 	
 	
 	

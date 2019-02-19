@@ -87,7 +87,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 															<td>
 																<div class="row">
 																	<div class="form-group" style="margin-left: 1.5%;">
-																		<input type="text" class="form-control" id="memberId"
+																		<input type="text" class="form-control" id="memberId" style="width:80%; height: 60%;"
 																			name="memberId" placeholder="아이디를 입력해주세요" value="${memberId}">
 																	</div>
 																</div>
@@ -103,7 +103,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 																			name="startMoney" placeholder="금액을 입력해주세요">
 																	</c:if>
 																	<c:if test="${startMoney != 0}">
-																		<input type="number" class="form-control" id="startMoney"
+																		<input type="number" class="form-control" id="startMoney" style="width:80%; height: 60%;"
 																			name="startMoney" placeholder="금액을 입력해주세요" value="${startMoney}">
 																	</c:if>
 																	</div>
@@ -111,7 +111,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 																		이상&nbsp;&nbsp;&nbsp;~
 																	</div>
 																	<div class="form-group" style="margin-left: 1.5%;">
-																		<input type="number" class="form-control" id="endMoney"
+																		<input type="number" class="form-control" id="endMoney" style="width:80%; height: 60%;"
 																			name="endMoney" placeholder="금액을 입력해주세요" value="${endMoney}">
 																	</div>
 																	<div class="form-group" style="margin-left: 1.5%; margin-top: 1%;">
@@ -146,14 +146,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 																<div class="row" id="datePicker"
 																	style="margin-top: 1%; visibility: hidden;">
 																	<div class="form-group" style="margin-left: 1.5%;">
-																		<input type="date" class="form-control" value=""
+																		<input type="date" class="form-control" value="" style="width:80%; height: 60%;"
 																			id="startDate" name="startDate">
 																	</div>
 																	<div class="form-group">
 																		&nbsp;&nbsp;&nbsp;<b style="font-size: 20px">~</b>&nbsp;&nbsp;&nbsp;
 																	</div>
 																	<div class="form-group">
-																		<input type="date" class="form-control" value=""
+																		<input type="date" class="form-control" value="" style="width:80%; height: 60%;"
 																			id="endDate" name="endDate">
 																	</div>
 																</div></td>
@@ -224,8 +224,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 											<!-- 첫번째 페이지 -->
 											<c:if test="${pi.currentPage != 1}">
-												<c:url var="blistFirst" value="selectStatisticsCustomer.ad">
+												<c:url var="blistFirst" value="selectSearchStatisticsCustomerList.ad">
 													<c:param name="currentPage" value="1" />
+													<c:param name="selectStatus" value="${selectStatus}" />
+													<c:param name="memberId" value="${memberId}" />
+													<c:param name="startMoney" value="${startMoney}" />
+													<c:param name="endMoney" value="${endMoney}" />
+													<c:param name="today" value="${today}" />
+													<c:param name="startDate" value="${startDate}" />
+													<c:param name="endDate" value="${endDate}" />
 												</c:url>
 												<a href="${blistFirst}"><button
 														class="btn btn-info animation-on-hover btn-sm"><<</button></a>
@@ -240,8 +247,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 													class="btn btn-info animation-on-hover btn-sm"><</button>
 											</c:if>
 											<c:if test="${pi.currentPage > 1}">
-												<c:url var="blistBack" value="/selectStatisticsCustomer.ad">
+												<c:url var="blistBack" value="/selectSearchStatisticsCustomerList.ad">
 													<c:param name="currentPage" value="${pi.currentPage-1}" />
+													<c:param name="selectStatus" value="${selectStatus}" />
+													<c:param name="memberId" value="${memberId}" />
+													<c:param name="startMoney" value="${startMoney}" />
+													<c:param name="endMoney" value="${endMoney}" />
+													<c:param name="today" value="${today}" />
+													<c:param name="startDate" value="${startDate}" />
+													<c:param name="endDate" value="${endDate}" />
 												</c:url>
 												<a href="${blistBack}"><button
 														class="btn btn-info animation-on-hover btn-sm"><</button></a>
@@ -255,8 +269,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 														class="btn btn-info animation-on-hover btn-sm">${p}</button>
 												</c:if>
 												<c:if test="${p ne pi.currentPage}">
-													<c:url var="blistCheck" value="selectStatisticsCustomer.ad">
+													<c:url var="blistCheck" value="selectSearchStatisticsCustomerList.ad">
 														<c:param name="currentPage" value="${p}" />
+													<c:param name="selectStatus" value="${selectStatus}" />
+													<c:param name="memberId" value="${memberId}" />
+													<c:param name="startMoney" value="${startMoney}" />
+													<c:param name="endMoney" value="${endMoney}" />
+													<c:param name="today" value="${today}" />
+													<c:param name="startDate" value="${startDate}" />
+													<c:param name="endDate" value="${endDate}" />
 													</c:url>
 													<a href="${blistCheck}"><button
 															class="btn btn-info animation-on-hover btn-sm">${p}</button></a>
@@ -268,8 +289,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 													class="btn btn-info animation-on-hover btn-sm">></button>
 											</c:if>
 											<c:if test="${pi.currentPage < pi.maxPage}">
-												<c:url var="blistEnd" value="selectStatisticsCustomer.ad">
+												<c:url var="blistEnd" value="selectSearchStatisticsCustomerList.ad">
 													<c:param name="currentPage" value="${pi.currentPage+1}" />
+													<c:param name="selectStatus" value="${selectStatus}" />
+													<c:param name="memberId" value="${memberId}" />
+													<c:param name="startMoney" value="${startMoney}" />
+													<c:param name="endMoney" value="${endMoney}" />
+													<c:param name="today" value="${today}" />
+													<c:param name="startDate" value="${startDate}" />
+													<c:param name="endDate" value="${endDate}" />
 												</c:url>
 												<a href="${blistEnd}"><button
 														class="btn btn-info animation-on-hover btn-sm">></button></a>
@@ -277,8 +305,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 											<!-- 끝 페이지 -->
 											<c:if test="${pi.currentPage != pi.maxPage}">
-												<c:url var="blistEnd2" value="selectStatisticsCustomer.ad">
+												<c:url var="blistEnd2" value="selectSearchStatisticsCustomerList.ad">
 													<c:param name="currentPage" value="${pi.maxPage}" />
+													<c:param name="selectStatus" value="${selectStatus}" />
+													<c:param name="memberId" value="${memberId}" />
+													<c:param name="startMoney" value="${startMoney}" />
+													<c:param name="endMoney" value="${endMoney}" />
+													<c:param name="today" value="${today}" />
+													<c:param name="startDate" value="${startDate}" />
+													<c:param name="endDate" value="${endDate}" />
 												</c:url>
 												<a href="${blistEnd2}"><button
 														class="btn btn-info animation-on-hover btn-sm">>></button></a>
