@@ -56,13 +56,19 @@
 	VALUES(FID_SEQ.NEXTVAL,'변경신청사진',#{origin_name},#{change_name},#{file_path},SYSDATE,1,'N',#{parking_no},NULL,#{parking_list_no})
 </insert>
 
-<select id="selectSearchParkingOne" parameterType="com.kh.tsp.parkingceo.model.vo.ParkingCeoVo" resultType="hashmap">
-	SELECT * FROM PARKING_LIST PL
-	LEFT JOIN ATTACHMENT A ON (A.PARKING_LIST_NO = PL.PARKING_LIST_NO)
-	WHERE PL.MEMBER_NO = #{memberNo}
-	AND PL.PARKING_NO = #{parkingNo}
-
+<select id="selectParkingListOne" parameterType="com.kh.tsp.parkingceo.model.vo.ParkingCeoVo" resultType="hashmap">
+	SELECT * FROM PARKING_LIST
+    WHERE MEMBER_NO = #{memberNo}
+    AND PARKING_NO = #{parkingNo}
+    AND PARKING_LIST_STATUS = '변경완료'
 </select>
+
+<select id="selectAttachmentList" parameterType="hashmap" resultType="hashmap">
+	SELECT * FROM ATTACHMENT
+    WHERE PARKING_LIST_NO = #{PARKING_LIST_NO}
+    AND STATUS = 'Y'
+</select>
+
 
 
 </mapper>
