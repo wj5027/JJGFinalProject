@@ -70,7 +70,7 @@
 			                  <td align="center" colspan="3"><button type="button" class="btn btn-sm  " data-dismiss="modal">즐겨찾기</button></td>
 			                  </tr>
 			                  <tr>
-			                  <td align="center" colspan="3"><button type="button" class="btn btn-sm  " data-dismiss="modal">문의</button></td>
+			                  <td align="center" colspan="3"><button type="button" class="btn btn-sm  " data-dismiss="modal" id="qna">문의</button></td>
 			                  <td align="center" colspan="3"><button type="button" class="btn btn-sm  " data-dismiss="modal">로드뷰</button></td>
 			                  <td align="center" colspan="3"><button type="button" class="btn btn-sm  " data-dismiss="modal">닫기</button></td>
 			                  <td><input type="hidden" id="member_id" name="member_id" value="">
@@ -624,6 +624,19 @@
      console.log(email);
       location.href="./naverLogin.cu?member_id="+member_id+"&member_name="+member_name+"&email="+email;
    // alert(naver_id_login.getProfileData('age'));
+ 
   }
+	  
+  $(function(){
+	 $("#qna").click(function(){
+		
+		 location.href="./parkingQna.cu";
+	
+	 });
+  });	 
+
+  
+  
+  
 </script>
 </html>
