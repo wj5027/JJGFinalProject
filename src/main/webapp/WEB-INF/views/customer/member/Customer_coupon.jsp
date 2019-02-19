@@ -37,7 +37,7 @@
 							<td>${ coupon.startDay }~<br>${ coupon.endDay }</td>
 							<td>어반 플레이스</td>
 							<td>
-								<button class="btn btn-info btn-sm" onclick="#">위치</button>
+								<button class="btn btn-info btn-sm" onclick="moveParkingSpot(${ coupon.latitude }, ${ coupon.longitude })">위치</button>
 							</td>
 							<td>
 								<c:if test="${ coupon.couponOdiscount ne 0 }">
@@ -59,5 +59,10 @@
   </div>
  
 </body>
+<script type="text/javascript">
+	function moveParkingSpot(lat, lon) {
+		location.href="moveParkingSpot.cu?requestLat=" + lat + "&requestlon=" + lon;
+	}
+</script>
 
 </html>
