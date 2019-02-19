@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.tsp.admin.model.exception.CustomerSelectListException;
 import com.kh.tsp.admin.model.service.CustomerService;
+import com.kh.tsp.admin.model.vo.DateAdmin;
 import com.kh.tsp.admin.model.vo.MemberAdmin;
 import com.kh.tsp.admin.model.vo.OilListAdmin;
 import com.kh.tsp.common.PageInfo;
@@ -126,6 +128,45 @@ public class statisticsCustomerController {
 			request.setAttribute("msg", e.getMessage());
 			return "common/errorPage";
 		}
+	}
+	
+	// 통계 리스트 (월별)
+	@RequestMapping(value = "/selectStatisticsMonth.ad", method = RequestMethod.GET)
+	public @ResponseBody DateAdmin selectStatisticsMonth(HttpServletRequest request, HttpServletResponse response) {
+		
+		DateAdmin da = new DateAdmin();
+		
+		try {
+			da =cs.selectStatisticsMonth();			
+		} catch (CustomerSelectListException e) {}
+		
+		return da;
+	}
+	
+	// 통계 리스트 (최근 7일)
+	@RequestMapping(value = "/selectStatistics7Day.ad", method = RequestMethod.GET)
+	public @ResponseBody DateAdmin selectStatistics7Day(HttpServletRequest request, HttpServletResponse response) {
+		
+		DateAdmin da = new DateAdmin();
+		
+		try {
+			da =cs.selectStatistics7Day();			
+		} catch (CustomerSelectListException e) {}
+		
+		return da;
+	}
+	
+	// 통계 리스트 (최근 24시간)
+	@RequestMapping(value = "/selectStatisticsToday.ad", method = RequestMethod.GET)
+	public @ResponseBody DateAdmin selectStatisticsToday(HttpServletRequest request, HttpServletResponse response) {
+		
+		DateAdmin da = new DateAdmin();
+		
+		try {
+			da =cs.selectStatisticsToday();			
+		} catch (CustomerSelectListException e) {}
+		
+		return da;
 	}
 	
 }

@@ -91,7 +91,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 														<td>
 															<div class="row">
 																<div class="form-group"  style="margin-left: 1.5%;">
-																	<input type="text" class="form-control" id="memberId" value="${memberId}"
+																	<input type="text" class="form-control" id="memberId" value="${memberId}" style="width:80%; height: 60%;"
 																		name="memberId" placeholder="아이디를 입력해주세요">
 																</div>
 															</div>
@@ -102,7 +102,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 														<td>
 															<div class="row">
 																<div class="form-group"  style="margin-left: 1.5%;">
-																	<input type="text" class="form-control" id="parkingAddress" value="${parkingAddress}"
+																	<input type="text" class="form-control" id="parkingAddress" value="${parkingAddress}" style="width:80%; height: 60%;"
 																		name="parkingAddress" placeholder="지역을 입력해주세요">
 																</div>
 															</div>
@@ -113,7 +113,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 														<td>
 															<div class="row">
 																<div class="form-group"  style="margin-left: 1.5%;">
-																	<input type="text" class="form-control" id="parkingListName" value="${parkingListName}"
+																	<input type="text" class="form-control" id="parkingListName" value="${parkingListName}" style="width:80%; height: 60%;"
 																		name="parkingListName" placeholder="주차장명을 입력해주세요">
 																</div>
 															</div>
@@ -145,14 +145,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 															<div class="row" id="datePicker"
 																style="margin-top: 1%; visibility: hidden;">
 																<div class="form-group" style="margin-left: 1.5%;">
-																	<input type="date" class="form-control" value=""
+																	<input type="date" class="form-control" value="" style="width:80%; height: 60%;"
 																		id="startDate" name="startDate">
 																</div>
 																<div class="form-group">
 																	&nbsp;&nbsp;&nbsp;<b style="font-size: 20px">~</b>&nbsp;&nbsp;&nbsp;
 																</div>
 																<div class="form-group">
-																	<input type="date" class="form-control" value=""
+																	<input type="date" class="form-control" value="" style="width:80%; height: 60%;"
 																		id="endDate" name="endDate">
 																</div>
 															</div>
@@ -913,6 +913,25 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 		<!-- 테이블 날짜버튼 클릭 시 색상 변경 -->
 		<script>
 			$(function() {
+				
+				/* 날짜 상세 검색 버튼 */
+				$("#detailDate").click(function() {
+					$("#dayBtn").css("visibility", "hidden");
+					$("#datePicker").css("visibility", "visible");
+					today = "";
+					return false;
+				});
+
+				/* 검색 버튼 */
+				$("#searchList").click(function () {
+					$("#startDate").click();
+					$("#endDate").click();
+					if(start_date.getTime() > end_date.getTime()) {
+			            alert("종료날짜보다 시작날짜가 작아야합니다.");
+			            return false;
+			        }
+				});
+				
 				var d = new Date();
 				var today = "";
 	

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.tsp.admin.model.exception.CustomerSelectListException;
+import com.kh.tsp.admin.model.vo.DateAdmin;
 import com.kh.tsp.admin.model.vo.MemberAdmin;
 import com.kh.tsp.admin.model.vo.OilListAdmin;
 import com.kh.tsp.common.PageInfo;
@@ -54,5 +55,14 @@ public interface CustomerDao {
 	// 충전 합계 (검색)
 	ArrayList<OilListAdmin> selectSearchStatisticsCustomerList(SqlSessionTemplate sqlSession, String selectStatus,
 			String startMoney, String endMoney, String memberId, String today, String startDate, String endDate) throws CustomerSelectListException;
+
+	// 통꼐 그래프 (월별)
+	DateAdmin selectStatisticsMonth(SqlSessionTemplate sqlSession) throws CustomerSelectListException;
+
+	// 통계 리스트 (최근 7일)
+	DateAdmin selectStatistics7Day(SqlSessionTemplate sqlSession) throws CustomerSelectListException;
+
+	// 통계 리스트 (최근 24시간)
+	DateAdmin selectStatisticsToday(SqlSessionTemplate sqlSession) throws CustomerSelectListException;
 
 }
