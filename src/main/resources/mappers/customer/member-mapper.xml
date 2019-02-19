@@ -97,7 +97,9 @@
 			<result property="couponPdiscount" column="COUPON_PDISCOUNT"/>
 			<result property="userMemberNo" column="MEMBER_NO"/>
 			<result property="userDate" column="USER_DATE"/>
-			<result property="userYN" column="USER_YN"/>	
+			<result property="userYN" column="USER_YN"/>
+			<result property="latitude" column="LATITUDE"/>
+			<result property="longitude" column="LONGITUDE"/>	
 	</resultMap>
 	
 	<resultMap type="com.kh.tsp.customer.model.vo.OilList" id="OilListView">
@@ -218,6 +220,8 @@
 		SELECT * FROM coupon_create cu 
 	    JOIN (SELECT * FROM coupon c JOIN coupon_request_list cr ON (c.coupon_req_no = cr.coupon_req_no)) cl
 	    ON (cu.coupon_no = cl.coupon_no)
+        JOIN parking p
+        ON (cl.QCSJ_C000000000500002 = p.parking_no)
 	    WHERE cu.member_no = #{ member_no }
 	</select>
 	

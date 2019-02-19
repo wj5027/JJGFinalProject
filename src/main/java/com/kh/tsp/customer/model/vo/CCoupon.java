@@ -35,6 +35,8 @@ public class CCoupon implements Serializable{
 	private String memberId;            // 회원아이디
 	private String startDay;			// 시작일 문자열
 	private String endDay;				// 종료일 문자열
+	private String latitude;			// 위도
+	private String longitude;			// 경도
 	
 	public CCoupon() {
 		
@@ -44,7 +46,7 @@ public class CCoupon implements Serializable{
 			int amount, String remark, int businessMemberNo, String parkingNo, String refuseReason, int couponOdiscount,
 			double couponPdiscount, String couponReqStatus, int couponNo, Date createDate, String couponStatus,
 			int couponCRNo, int userMemberNo, Date userDate, String userYN, String parkingName, String memberId,
-			String startDay, String endDay) {
+			String startDay, String endDay, String latitude, String longitude) {
 		super();
 		this.couponReqNo = couponReqNo;
 		this.couponName = couponName;
@@ -70,6 +72,8 @@ public class CCoupon implements Serializable{
 		this.memberId = memberId;
 		this.startDay = startDay;
 		this.endDay = endDay;
+		this.latitude = latitude;
+		this.longitude = longitude;
 	}
 
 	public int getCouponReqNo() {
@@ -264,6 +268,22 @@ public class CCoupon implements Serializable{
 		this.endDay = endDay;
 	}
 
+	public String getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+
+	public String getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+
 	@Override
 	public String toString() {
 		return "CCoupon [couponReqNo=" + couponReqNo + ", couponName=" + couponName + ", couponType=" + couponType
@@ -273,8 +293,8 @@ public class CCoupon implements Serializable{
 				+ couponPdiscount + ", couponReqStatus=" + couponReqStatus + ", couponNo=" + couponNo + ", createDate="
 				+ createDate + ", couponStatus=" + couponStatus + ", couponCRNo=" + couponCRNo + ", userMemberNo="
 				+ userMemberNo + ", userDate=" + userDate + ", userYN=" + userYN + ", parkingName=" + parkingName
-				+ ", memberId=" + memberId + ", startDay=" + startDay + ", endDay=" + endDay + "]";
+				+ ", memberId=" + memberId + ", startDay=" + startDay + ", endDay=" + endDay + ", latitude=" + latitude
+				+ ", longitude=" + longitude + "]";
 	}
-	
 	
 }
