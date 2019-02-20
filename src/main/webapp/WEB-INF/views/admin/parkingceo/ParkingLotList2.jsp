@@ -210,7 +210,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 														</td>
 														<td class="text-center">${pl.parkingListParkingSize}</td>
 														<td class="text-center">${pl.phone}</td>
-														<td class="text-center">${pl.allianceDate}</td>
+														<td class="text-center">${pl.modifyDate}</td>
 														<td class="text-center">														
 															<c:if test="${pl.parkingListStatus=='변경중'}">
 																<button data-toggle="modal" data-target=".bd-example-modal-lg-4" class="btn btn-info animation-on-hover btn-sm" 

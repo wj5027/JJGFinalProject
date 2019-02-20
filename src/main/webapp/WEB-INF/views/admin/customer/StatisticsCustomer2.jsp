@@ -183,10 +183,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 											<thead class=" text-primary">
 												<tr>
 													<th class="text-center">내역번호</th>
-													<th>사용자 아이디</th>
-													<th>사용자명</th>
+													<th class="text-center">사용자 아이디</th>
+													<th class="text-center">사용자명</th>
 													<th class="text-center">충전/환불 포인트</th>
-													<th>충전/환불 날짜</th>
+													<th class="text-center">충전/환불 날짜</th>
 													<th class="text-center">회원 상태</th>
 												</tr>
 											</thead>
@@ -194,8 +194,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 												<c:forEach var="s" items="${list}" varStatus="varstatus">
 													<tr>
 														<td class="text-center">${s.oilListNo}</td>
-														<td>${s.memberId}</td>
-														<td>${s.memberName}</td>
+														<td class="text-center">${s.memberId}</td>
+														<td class="text-center">${s.memberName}</td>
 														<c:if test="${empty s.oil}">
 															<td class="text-center">0</td>
 														</c:if>
@@ -207,7 +207,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 																<td class="text-center">-${s.oil}</td>
 															</c:if>
 														</c:if>
-														<td>${s.oilListDate}</td>
+														<td class="text-center">${s.oilListDate}</td>
 														<c:if test="${s.memberStatus == 'Y'}">
 															<td class="text-center">활동중인 사용자</td>
 														</c:if>
