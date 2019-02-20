@@ -65,10 +65,14 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 	@Override
 	public HashMap<String, Parking> searchVoiceParking(String keyword, String type) {
 		
-		HashMap<String, Parking> hmap;
+		HashMap<String, Parking> hmap = new HashMap<String, Parking>();
 		
 		if (type.equals("지역")) {
-			hmap = cmd.searchVoiceLocalParking(sqlSession, keyword);
+			if (cmd.selectSearchTextCount(sqlSession, keyword) < 351) {
+				hmap = cmd.searchVoiceLocalParking(sqlSession, keyword);
+			} else {
+				
+			}
 		} else if (type.equals("근처 주차장")) {
 			//37.4996559/127.0330656
 			String[] temp = keyword.split("/");
@@ -85,7 +89,16 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 
 	@Override
 	public HashMap<String, Parking> selectSearchTextParking(String keyword) {
-		return cmd.selectSearchTextParking(sqlSession, keyword);
+		
+		HashMap<String, Parking> hmap = new HashMap<String, Parking>();
+		
+		if (cmd.selectSearchTextCount(sqlSession, keyword) < 351) {
+			hmap = cmd.selectSearchTextParking(sqlSession, keyword);
+		} else {
+			
+		}
+		
+		return hmap;
 	}
 
 	@Override
@@ -218,6 +231,12 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 	@Override
 	public int insertRequestReserve(Reservation reservInfo) {
 		return cmd.insertRequestReserve(sqlSession, reservInfo);
+	}
+
+	@Override
+	public int updateRequestRefund(HashMap<String, String> requesthmap) {
+		// TODO Auto-generated method stub
+		return cmd.updateRequestRefund(sqlSession, requesthmap);
 	}
 	
 	

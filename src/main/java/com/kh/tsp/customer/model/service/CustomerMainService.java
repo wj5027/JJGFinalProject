@@ -77,6 +77,8 @@ public interface CustomerMainService {
 
 	int selectReservCount(Member member);
 
+	int updateRequestRefund(HashMap<String, String> requesthmap);
+
 	
 	
 }
