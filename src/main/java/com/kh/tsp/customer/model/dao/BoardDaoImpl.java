@@ -189,20 +189,78 @@ public class BoardDaoImpl implements BoardDao{
 
 	//페이징 처리된 주차장 문의 게시판 목록 조회
 	@Override
-	public ArrayList<Board> selectParkingQnaList(SqlSessionTemplate sqlSession, PageInfo pi) {
+	public ArrayList<Board> selectParkingQnaList(SqlSessionTemplate sqlSession, PageInfo pi, String pno) {
 		ArrayList<Board> list = null;
 		
 		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
 
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
-		return (ArrayList)sqlSession.selectList("Board.selectParkingQnaList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("Board.selectParkingQnaList", pno, rowBounds);
 	}
 	//주차장 문의 상세보기
 	@Override
 	public Board selectOneParkingQna(SqlSessionTemplate sqlSession, int bno) {
 
 		return sqlSession.selectOne("Board.selectOneParkingQna", bno);
+	}
+	//주차장 후기 목록 조회
+	@Override
+	public ArrayList<Board> selectParkingReviewList(SqlSessionTemplate sqlSession, PageInfo pi, String pno) {
+
+		ArrayList<Board> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		return (ArrayList)sqlSession.selectList("Board.selectParkingReviewList", pno, rowBounds);
+	}
+	
+	//주차장 후기 상세보기
+	@Override
+	public Board selectOneParkingReview(SqlSessionTemplate sqlSession, int bno) {
+
+		return sqlSession.selectOne("Board.selectOneParkingReview", bno);
+	}
+	//주차장 후기 등록
+	@Override
+	public int insertParkingReview(SqlSessionTemplate sqlSession, Board b) {
+
+		return sqlSession.insert("Board.insertParkingReview", b);
+	}
+	//주차장 후기 수정1
+	@Override
+	public Board updateParkingReview(SqlSessionTemplate sqlSession, int bno) {
+
+		return sqlSession.selectOne("Board.updateParkingReview", bno);
+	}
+	//후기 수정2(등록)
+	@Override
+	public int updateParkingReview2(SqlSessionTemplate sqlSession, Board b) {
+
+		return sqlSession.update("Board.updateParkingReview2", b);
+	}
+	//주차장 문의 전체 게시글 수
+	@Override
+	public int getParkingQnaListCount(SqlSessionTemplate sqlSession, String pno) {
+
+		return sqlSession.selectOne("Board.selectParkingQnaListCount", pno);
+	}
+	
+	//주차장 후기 전체 게시글 수
+	@Override
+	public int getParkingReviewListCount(SqlSessionTemplate sqlSession, String pno) {
+
+		return sqlSession.selectOne("Board.selectParkingReviewListCount", pno);
+	}
+	
+	//주차장 문의 등록
+	@Override
+	public int insertParkingQna(SqlSessionTemplate sqlSession, Board b) {
+
+		
+		return sqlSession.insert("Board.insertParkingQna", b);
 	}
 	
 	

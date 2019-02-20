@@ -487,11 +487,14 @@ public class CustomerBoard {
 		}
 	}
 	
-	
+	//주차장 문의 목록
 	@RequestMapping(value="/parkingQna.cu", method=RequestMethod.GET)
 	public String parkingQna(Board b, Model model,HttpServletRequest request,
 			HttpServletResponse response) {
+		//주차장 번호 가져오기
+		String pno = request.getParameter("num");
 		
+		System.out.println("주차장번호: "+pno);
 		//작성자
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
@@ -503,11 +506,11 @@ public class CustomerBoard {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 						
-		int listCount = bs.getQnaListCount();
+		int listCount = bs.getParkingQnaListCount(pno);
 			System.out.println("주차장 문의 전체게시글 수 : "+listCount);
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 				
-			ArrayList<Board> list = bs.selectParkingQnaList(pi);
+			ArrayList<Board> list = bs.selectParkingQnaList(pi, pno);
 						
 
 			if(list == null) {
@@ -519,11 +522,268 @@ public class CustomerBoard {
 				request.setAttribute("loginUser", loginUser);
 				request.setAttribute("list", list);
 				request.setAttribute("pi", pi);
-						
+				
+				
 				return "customer/board/Parking_qna_list";
 			}
 		
 	}
+	//주차장 후기 목록
+	@RequestMapping(value="parkingReview.cu", method=RequestMethod.GET)
+	public String parkingReview(Board b, Model model,HttpServletRequest request,
+			HttpServletResponse response) {
+		//주차장 번호 가져오기
+		String pno = request.getParameter("num");		
+		System.out.println("(주차장후기)주차장번호: "+pno);
+		
+		//주차장 이름 가져오기
+		String pName = request.getParameter("pName");
+		System.out.println("(주차장후기)주차장이름: "+pName);
+		//작성자
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		//String mno = Integer.toString(loginUser.getMember_no());
+
+		int currentPage = 1;
+							 
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+							
+		int listCount = bs.getReviewListCount(pno);
+		System.out.println("주차장 후기 전체게시글 수 : "+listCount);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+						
+		ArrayList<Board> list = bs.selectParkingReviewList(pi, pno);
+								
+
+		if(list == null) {
+			request.setAttribute("message", "주차장 후기 목록 불러오기 실패");
+					
+			return "common/errorPage";
+						
+		}else {
+			request.setAttribute("loginUser", loginUser);
+			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
+			request.setAttribute("pno", pno);	
+			request.setAttribute("pName", pName);
+			
+			return "customer/board/Parking_review_list";
+		}
+	}
+	
+	//주차장 후기 등록
+	@RequestMapping(value="/insertParkingReview.cu", method=RequestMethod.POST)
+	public String insertParkingReview(HttpServletRequest request, HttpServletResponse response) {
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		
+		
+		System.out.println("주차장 후기 등록서블릿 title : "+title);
+		System.out.println("주차장 후기 등록서블릿 content : "+content);
+			
+		//작성자
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String mno = Integer.toString(loginUser.getMember_no());
+		String pno = request.getParameter("pno");
+			
+		Board b = new Board();
+		b.setbTitle(title);
+		b.setbContext(content);
+		b.setMno(mno);
+		b.setPno(pno);
+			
+		System.out.println("서블릿 mno : "+mno);
+		System.out.println("서블릿pno : "+pno);
+		
+		if(loginUser == null) {
+			request.setAttribute("message", "로그인하세요");
+		}
+		int result = bs.insertParkingReview(b);
+			
+		if(result > 0) {
+			request.setAttribute("pno", pno);	
+			return "redirect:parkingReview.cu?num="+pno;
+				
+		}else {
+				
+			request.setAttribute("message", "등록 실패");
+				
+			return "common/errorPage";
+		}
+	}
 	
 	
+	//주차장 후기 수정1
+		@RequestMapping(value="/updateParkingReview.cu")
+		public String updateParkingReview(String num, String pno, Model model) {
+			int bno = Integer.parseInt(num);			
+			System.out.println("주차장 후기 수정 서블릿1 bno : "+bno);
+			
+			System.out.println("주차장 후기 수정1 pno : "+pno);
+			
+			Board b = bs.updateParkingReview(bno);
+			
+			model.addAttribute("b", b);
+			model.addAttribute("pno", pno);
+			
+			return "customer/board/Parking_review_edit";
+			
+		}
+	
+		//주차장 후기2
+		@RequestMapping(value="/updateParkingReview2.cu")
+		public String updateParkingReview(String num, String pno, String pName, String title, String content, Model model) {
+			int bno = Integer.parseInt(num);
+			System.out.println("주차장 수정 서블릿2 bno : "+bno);
+			
+			System.out.println("제목: "+title);
+			System.out.println("내용: "+content);
+			System.out.println("주차장 후기 수정2 pno: "+pno);
+			System.out.println("주차장 후기 수정2 pName : "+pName);
+			Board b = new Board();
+			b.setBno(bno);
+			b.setbTitle(title);
+			b.setbContext(content);
+			b.setPno(pno);
+			
+			int result = bs.updateParkingReview2(b);
+			System.out.println("servlet2 result : "+result);
+		
+			if(result > 0) {
+				model.addAttribute("b", b);
+				return "redirect:parkingReview.cu?num="+pno;
+			}else {
+				model.addAttribute("message", "수정 실패");
+				return "common/errorPage";
+			}
+			
+		}
+		
+		//후기 삭제
+		@RequestMapping(value="/deleteParkingReview.cu", method=RequestMethod.GET)
+		public String delteParkingReview(String num, String pno, String pName,Model model) {
+			int bno = Integer.parseInt(num);
+			System.out.println("후기 삭제 pno : "+pno);
+			int result = bs.deleteReview(bno);
+			System.out.println("후기 삭제 pName: "+pName);
+			
+			if(result > 0) {
+				model.addAttribute("pName", pName);
+				return "redirect:parkingReview.cu?num="+pno;
+			}else {
+				model.addAttribute("message", "삭제 실패");
+				return "common/errorPage";
+			}
+		}		
+		
+	//주차장 문의 수정1(상세보기)
+		@RequestMapping(value="/updateParkingQna.cu")
+		public String updateParkingQna(HttpServletRequest request, HttpServletResponse response) {
+			int bno = Integer.parseInt(request.getParameter("num"));
+			
+			System.out.println("수정 서블릿1 bno : "+bno);
+			
+			Board b = bs.updateQna(bno);
+			
+			request.setAttribute("b", b);
+			
+			return "customer/board/Parking_qna_edit";
+			
+		}		
+		
+	//주차장 수정2(등록)
+		@RequestMapping(value="/updateParkingQna2.cu")
+		public String updateParkingQna2(HttpServletRequest request, HttpServletResponse response) {
+			int bno = Integer.parseInt(request.getParameter("bno"));
+			System.out.println("수정 서블릿2 bno : "+bno);
+		
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+			
+			System.out.println("제목: "+title);
+			System.out.println("내용: "+content);
+			
+			Board b = new Board();
+			b.setBno(bno);
+			b.setbTitle(title);
+			b.setbContext(content);
+		
+			int result = bs.updateQna2(b);
+			System.out.println("servlet2 result : "+result);
+		
+			if(result > 0) {
+				return "redirect:parkingQna.cu";
+			}else {
+				request.setAttribute("message", "수정 실패");
+				return "common/errorPage";
+			}
+			
+		}		
+		
+	//주차장 문의 등록
+		@RequestMapping(value="/insertParkingQna.cu")
+		public String insertParkingQna(HttpServletRequest request, HttpServletResponse response) {
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+			String pno = request.getParameter("pno");
+			
+			System.out.println("문의 등록서블릿 title : "+title);
+			System.out.println("문의 등록서블릿 content : "+content);
+			
+			//작성자
+			HttpSession session = request.getSession();
+			Member loginUser = (Member)session.getAttribute("loginUser");
+			String mno = Integer.toString(loginUser.getMember_no());
+			
+			
+			Board b = new Board();
+			b.setbTitle(title);
+			b.setbContext(content);
+			b.setMno(mno);
+			b.setPno(pno);
+			
+			System.out.println("서블릿 mno : "+mno);
+			if(loginUser == null) {
+				request.setAttribute("message", "로그인하세요");
+			}
+			int result = bs.insertParkingQna(b);
+			
+			if(result > 0) {
+				
+				return "redirect:parkingQna.cu";
+				
+			}else {
+				
+				request.setAttribute("message", "등록 실패");
+				
+				return "common/errorPage";
+			}
+		}		
+		
+		//주차장 문의 삭제
+		@RequestMapping(value="/deleteParkingQna.cu", method=RequestMethod.GET)
+		public String deleteParkingQna(String bno) {
+			
+			
+			System.out.println("삭제 서블릿 bno : "+bno);
+			
+			int result = bs.deleteQna(Integer.parseInt(bno));
+			
+			if(result > 0) {
+				
+				return "redirect:parkingQna.cu";
+			}else {
+				
+				
+				return "common/errorPage";
+			}
+			
+		}		
+		
+		
+		
+		
 }

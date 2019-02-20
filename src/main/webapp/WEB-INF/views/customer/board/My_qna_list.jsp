@@ -35,10 +35,10 @@
 	  	<table id="listArea">
 	  		<th width="50%">작성일</th>
 	  		
-	  		<th>제목</th>
+	  		<th>제목 ${list[0].mno }</th>
 	  		<c:forEach var="b" items="${ list }">
   	
-  	 <c:if test="${ loginUser.member_name eq b.mno }"> 
+  	 <c:if test="${ loginUser.member_no eq b.mno }"> 
 	  		<tbody>
 	  		<tr>
 	  		<td>${ b.createDate }</td>

@@ -14,46 +14,70 @@
 				class="tim-icons icon-chart-bar-32"></i>
 				<p>메인 페이지</p>
 		</a></li>
-		<li class=" "><a  href="selectExchangeMoney.ad"> <i
-				class="tim-icons icon-coins"></i>
+		<!-- <li class=" "><a class="nav-link dropdown-toggle" href=""
+			id="navbarDropdownMenuLink" data-toggle="dropdown"
+			aria-haspopup="true" aria-expanded="false"> <i
+				class="tim-icons icon-atom"></i>
+				<p>
+					환전/환불
+					관리&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b
+						style="font-size: 15px">▽</b>
+				</p>
+		</a>
+			<div align="right" class="dropdown-menu dropdown-black"
+				style="width: 100%;" aria-labelledby="navbarDropdownMenuLink">
+				<a class="dropdown-item" href="selectExchangeMoney.ad">환전 관리</a> <a
+					class="dropdown-item" href="selectExchangeMoney.ad">환불 관리</a>
+			</div></li> -->
+			
+			<li class=" "><a href="selectExchangeMoney.ad"> <i
+				class="tim-icons icon-chart-bar-32"></i>
 				<p>환전/환불 관리</p>
 		</a></li>
 		<li><a class="nav-link dropdown-toggle" href=""
 			id="navbarDropdownMenuLink" data-toggle="dropdown"
 			aria-haspopup="true" aria-expanded="false"> <i
 				class="tim-icons icon-atom"></i>
-				<p>사업자 관리&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b
+				<p>
+					사업자
+					관리&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b
 						style="font-size: 15px">▽</b>
 				</p>
 		</a>
-			<div align="right" class="dropdown-menu dropdown-black" style="width: 100%;"
-				aria-labelledby="navbarDropdownMenuLink">
+			<div align="right" class="dropdown-menu dropdown-black"
+				style="width: 100%;" aria-labelledby="navbarDropdownMenuLink">
 				<a class="dropdown-item" href="selectCEOList.ad">사업자 조회</a> <a
 					class="dropdown-item" href="selectParkingLotList.ad">주차장 관리</a> <a
-					class="dropdown-item" href="selectCouponCertification.ad">쿠폰 관리</a> <a
-					class="dropdown-item" href="statisticsCEO.ad">통계</a>
+					class="dropdown-item" href="selectCouponCertification.ad">쿠폰 관리</a>
+				<a class="dropdown-item" href="selectStatisticsCEO.ad">통계</a>
 			</div></li>
 		<li><a class="nav-link dropdown-toggle" href=""
 			id="navbarDropdownMenuLink" data-toggle="dropdown"
-			aria-haspopup="true" aria-expanded="false"> <i class="tim-icons icon-satisfied"></i>
-				<p>사용자 관리&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b
+			aria-haspopup="true" aria-expanded="false"> <i
+				class="tim-icons icon-satisfied"></i>
+				<p>
+					사용자
+					관리&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b
 						style="font-size: 15px">▽</b>
 				</p>
 		</a>
-			<div align="right" class="dropdown-menu dropdown-black" style="width: 100%;"
-				aria-labelledby="navbarDropdownMenuLink">
+			<div align="right" class="dropdown-menu dropdown-black"
+				style="width: 100%;" aria-labelledby="navbarDropdownMenuLink">
 				<a class="dropdown-item" href="selectCustomerList.ad">사용자 조회</a> <a
 					class="dropdown-item" href="selectStatisticsCustomer.ad">통계</a>
 			</div></li>
 		<li><a class="nav-link dropdown-toggle" href=""
 			id="navbarDropdownMenuLink" data-toggle="dropdown"
-			aria-haspopup="true" aria-expanded="false"> <i class="tim-icons icon-single-copy-04"></i>
-				<p>게시판 관리&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b
+			aria-haspopup="true" aria-expanded="false"> <i
+				class="tim-icons icon-single-copy-04"></i>
+				<p>
+					게시판
+					관리&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b
 						style="font-size: 15px">▽</b>
 				</p>
 		</a>
-			<div align="right" class="dropdown-menu dropdown-black" style="width: 100%;"
-				aria-labelledby="navbarDropdownMenuLink">
+			<div align="right" class="dropdown-menu dropdown-black"
+				style="width: 100%;" aria-labelledby="navbarDropdownMenuLink">
 				<a class="dropdown-item" href="selectBoardQnA.ad">문의 게시판</a> <a
 					class="dropdown-item" href="selectBoardReview.ad">후기 게시판</a><a
 					class="dropdown-item" href="selectFilter.ad">필터설정</a>
@@ -85,8 +109,9 @@
 			<div class="collapse navbar-collapse" id="navigation">
 				<ul class="navbar-nav ml-auto">
 					<li class="search-bar input-group">
-						<button class="btn btn-link" id="search-button" onclick="location.href='adminLogout.ad'" style="color: gray;">
-							<i class="tim-icons icon-button-power" ></i>&nbsp;&nbsp;LogOut <span
+						<button class="btn btn-link" id="search-button"
+							onclick="location.href='adminLogout.ad'" style="color: gray;">
+							<i class="tim-icons icon-button-power"></i>&nbsp;&nbsp;LogOut <span
 								class="d-lg-none d-md-block"></span>
 						</button>
 					</li>

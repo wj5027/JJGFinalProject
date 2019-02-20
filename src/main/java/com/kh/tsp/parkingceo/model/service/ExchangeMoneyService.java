@@ -12,6 +12,8 @@ public interface ExchangeMoneyService {
 
 	Member selectCheckMember(Member m);
 
+	void insertOilList(ExchangeMoneyVo ev);
+
 
 
 }

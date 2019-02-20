@@ -12,6 +12,7 @@ import com.kh.tsp.admin.model.exception.CouponListException;
 import com.kh.tsp.admin.model.exception.ExchangeMoneyException;
 import com.kh.tsp.admin.model.exception.SelectBoardListException;
 import com.kh.tsp.admin.model.vo.ExchangeMoneyAdmin;
+import com.kh.tsp.admin.model.vo.OilListAdmin;
 import com.kh.tsp.common.PageInfo;
 import com.kh.tsp.customer.model.vo.Board;
 
@@ -149,306 +150,67 @@ public class ExchangeMoneyAdminDaoImpl  implements ExchangeMoneyAdminDao{
 		return list;
 	}
 
-	/*// 문의 게시판 수
+	// 반송사유 입력 완료 시 오일 +
 	@Override
-	public int getListCount(SqlSessionTemplate sqlSession) throws SelectBoardListException {
-		int listCount = sqlSession.selectOne("BoardAdmin.getListCount");
-		System.out.println("문의 게시판 수 : "+listCount);
-		if(listCount <=0) {
-			throw new SelectBoardListException("문의 게시판 수 조회 실패!");
-		}
-		return listCount;
-	}
-
-	// 문의 게시판 전체 리스트
-	@Override
-	public ArrayList<Board> selectBoardQnAList(SqlSessionTemplate sqlSession, PageInfo pi) throws SelectBoardListException {
-		ArrayList<Board> list = null;
-		int offset = (pi.getCurrentPage()-1)* pi.getLimit();	
+	public int updateAddOil(SqlSessionTemplate sqlSession, ExchangeMoneyAdmin em)
+			throws ExchangeMoneyException {
 		
-		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
-		list = (ArrayList)sqlSession.selectList("BoardAdmin.selectBoardQnAList", null, rowBounds);
-		System.out.println("문의 게시판 전체 리스트 : "+list);
-		if(list == null) {
-			throw new SelectBoardListException("문의 게시판 전체 리스트 조회 실패");
-		}
-		return list;
-	}
-
-	// 문의 게시판 삭제
-	@Override
-	public int deleteBoardQnA(SqlSessionTemplate sqlSession, Board b) throws SelectBoardListException {
-
-		int boardNo = b.getBno();
-		System.out.println("boardNo : "+boardNo);
-		
-		int result = sqlSession.update("BoardAdmin.deleteBoardQnA", boardNo);
-		System.out.println("result(DAO 삭제) : "+result);
+		int result = sqlSession.update("ExchangeMoneyAdmin.updateAddOil", em);
 		
 		if(result<=0) {
-			throw new SelectBoardListException("문의 게시판 삭제 실패!");
+			throw new ExchangeMoneyException("반송사유 입력 완료 시 오일 + 실패!");
 		}
 		return result;
 	}
 
-	// 문의 게시판 복구
+	// 승인버튼 (결제취소) - 환불진행중
 	@Override
-	public int updateRecoverBoardQnA(SqlSessionTemplate sqlSession, Board b) throws SelectBoardListException {
-
-		int boardNo = b.getBno();
-		System.out.println("boardNo : "+boardNo);
+	public int insertConfirmRefundMoney(SqlSessionTemplate sqlSession, OilListAdmin oa) throws ExchangeMoneyException {
 		
-		int result = sqlSession.update("BoardAdmin.updateRecoverBoardQnA", boardNo);
-		System.out.println("result(DAO 복구) : "+result);
+		int result = sqlSession.insert("ExchangeMoneyAdmin.insertConfirmRefundMoney", oa);
 		
 		if(result<=0) {
-			throw new SelectBoardListException("문의 게시판 복구 실패!");
+			throw new ExchangeMoneyException("반송사유 입력 완료 시 오일 + 실패!");
 		}
 		return result;
 	}
 
-	// 문의 게시판 검색 수
+	// 승인버튼 (환전) - 환전진행중
 	@Override
-	public int getSearchListCount(SqlSessionTemplate sqlSession, String selectStatus, String mId, String bTitle, String today,
-			String startDate, String endDate) throws SelectBoardListException {
-
-		Map<String, Object> hmap = new HashMap<String, Object>();
-
-		hmap.put("selectStatus", selectStatus);
-		hmap.put("mId", mId);
-		hmap.put("bTitle", bTitle);
-		hmap.put("today", today);
-		hmap.put("startDate", startDate);
-		hmap.put("endDate", endDate);
+	public int insertConfirmExchangeMoney(SqlSessionTemplate sqlSession, OilListAdmin oa)
+			throws ExchangeMoneyException {
 		
-		int listCount = sqlSession.selectOne("BoardAdmin.getSearchListCount", hmap);
-		System.out.println("listCount DAO : "+listCount);
-		return listCount;
-	}
-
-	// 문의 게시판 검색 리스트
-	@Override
-	public ArrayList<Board> selectSearchBoardQnAList(SqlSessionTemplate sqlSession, PageInfo pi, String selectStatus, String mId,
-			String bTitle, String today, String startDate, String endDate) throws SelectBoardListException {
-		
-		ArrayList<Board> list = null;
-		
-		int offset = (pi.getCurrentPage()-1)* pi.getLimit();			
-		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
-
-		System.out.println("selectStatus DAO: "+selectStatus);
-		System.out.println("mId DAO: "+mId);
-		System.out.println("bTitle DAO: "+bTitle);
-		System.out.println("today DAO: "+today);
-		System.out.println("startDate DAO: "+startDate);
-		System.out.println("endDate DAO: "+endDate);
-		
-		Map<String, Object> hmap = new HashMap();
-
-		hmap.put("selectStatus", selectStatus);
-		hmap.put("mId", mId);
-		hmap.put("bTitle", bTitle);
-		hmap.put("today", today);
-		hmap.put("startDate", startDate);
-		hmap.put("endDate", endDate);
-		
-		list = (ArrayList)sqlSession.selectList("BoardAdmin.selectSearchBoardQnAList", hmap, rowBounds);
-		
-		System.out.println("DAO list : "+list);
-
-		return list;
-	}
-
-	// 문의 게시판 답변
-	@Override
-	public Board answerBoardQnA(SqlSessionTemplate sqlSession, Board b) throws SelectBoardListException {
-
-		int bno = b.getBno();
-		System.out.println("bno : "+bno);
-		
-		b = sqlSession.selectOne("BoardAdmin.answerBoardQnA", bno);
-		System.out.println("result(DAO 문의 게시판 답변) : "+b);
-		
-		if(b==null) {
-			throw new SelectBoardListException("특정 문의 게시판 불러오가 실패!");
-		}
-		return b;
-	}
-
-	// 답변 작성
-	@Override
-	public int insertAnswerBoard(SqlSessionTemplate sqlSession, String bno, String mno, String textareaId) throws SelectBoardListException {
-
-		Map<String, Object> hmap = new HashMap();
-
-		hmap.put("bno", bno);
-		hmap.put("mno", mno);
-		hmap.put("textareaId", textareaId);
-		
-		int result = sqlSession.insert("BoardAdmin.insertAnswerBoard", hmap);
+		int result = sqlSession.insert("ExchangeMoneyAdmin.insertConfirmExchangeMoney", oa);
 		
 		if(result<=0) {
-			throw new SelectBoardListException("문의 게시판 답변 작성 실패!");
+			throw new ExchangeMoneyException("반송사유 입력 완료 시 오일 + 실패!");
 		}
 		return result;
 	}
 
-	
-	// 답변 수정
+	// 반송버튼 (환불취소) - 환불진행중
 	@Override
-	public int updateAnswerBoard(SqlSessionTemplate sqlSession, String updateTextareaId,
-			String replyNo) throws SelectBoardListException {
-
-		Map<String, Object> hmap = new HashMap();
-
-		hmap.put("updateTextareaId", updateTextareaId);
-		hmap.put("replyNo", Integer.parseInt(replyNo));
+	public int insertCancelRefundMoney(SqlSessionTemplate sqlSession, OilListAdmin oa) throws ExchangeMoneyException {
 		
-		int result = sqlSession.update("BoardAdmin.updateAnswerBoard", hmap);
+		int result = sqlSession.insert("ExchangeMoneyAdmin.insertCancelRefundMoney", oa);
 		
 		if(result<=0) {
-			throw new SelectBoardListException("문의 게시판 답변 수정 실패!");
+			throw new ExchangeMoneyException("반송사유 입력 완료 시 오일 + 실패!");
 		}
 		return result;
 	}
 
-	
-	
-	
-
-	// 후기 게시판 수
+	// 반송버튼 (환전취소) - 환전진행중
 	@Override
-	public int getReviewListCount(SqlSessionTemplate sqlSession) throws SelectBoardListException {
-		int listCount = sqlSession.selectOne("BoardAdmin.getReviewListCount");
-		System.out.println("후기 게시판 수 : "+listCount);
-		if(listCount <=0) {
-			throw new SelectBoardListException("후기 게시판 수 조회 실패!");
-		}
-		return listCount;
-	}
-
-	// 후기 게시판 전체 리스트
-	@Override
-	public ArrayList<Board> selectBoardReviewList(SqlSessionTemplate sqlSession, PageInfo pi)
-			throws SelectBoardListException {
-		ArrayList<Board> list = null;
-		int offset = (pi.getCurrentPage()-1)* pi.getLimit();	
+	public int insertCancelExchangeMoney(SqlSessionTemplate sqlSession, OilListAdmin oa) throws ExchangeMoneyException {
 		
-		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
-		list = (ArrayList)sqlSession.selectList("BoardAdmin.selectBoardReviewList", null, rowBounds);
-		System.out.println("후기 게시판 전체 리스트 : "+list);
-		if(list == null) {
-			throw new SelectBoardListException("후기 게시판 전체 리스트 조회 실패");
-		}
-		return list;
-	}
-
-	// 후기 게시판 답변 ajax
-	@Override
-	public Board detailBoardReview(SqlSessionTemplate sqlSession, Board b) throws SelectBoardListException {
-
-		int bno = b.getBno();
-		System.out.println("bno : "+bno);
-		
-		b = sqlSession.selectOne("BoardAdmin.detailBoardReview", bno);
-		System.out.println("result(DAO 후기 게시판 답변) : "+b);
-		
-		if(b==null) {
-			throw new SelectBoardListException("특정 후기 게시판 불러오가 실패!");
-		}
-		return b;
-	}
-
-	// 후기 게시판 삭제
-	@Override
-	public int deleteBoardReview(SqlSessionTemplate sqlSession, Board b) throws SelectBoardListException {
-
-		int boardNo = b.getBno();
-		System.out.println("boardNo : "+boardNo);
-		
-		int result = sqlSession.update("BoardAdmin.deleteBoardReview", boardNo);
-		System.out.println("result(DAO 삭제) : "+result);
+		int result = sqlSession.insert("ExchangeMoneyAdmin.insertCancelExchangeMoney", oa);
 		
 		if(result<=0) {
-			throw new SelectBoardListException("후기 게시판 삭제 실패!");
+			throw new ExchangeMoneyException("반송사유 입력 완료 시 오일 + 실패!");
 		}
 		return result;
 	}
-
-	// 후기 게시판 복구
-	@Override
-	public int updateRecoverBoardReview(SqlSessionTemplate sqlSession, Board b) throws SelectBoardListException {
-
-		int boardNo = b.getBno();
-		System.out.println("boardNo : "+boardNo);
-		
-		int result = sqlSession.update("BoardAdmin.updateRecoverBoardReview", boardNo);
-		System.out.println("result(DAO 복구) : "+result);
-		
-		if(result<=0) {
-			throw new SelectBoardListException("후기 게시판 복구 실패!");
-		}
-		return result;
-	}
-
-	// 후기 게시판 검색 수
-	@Override
-	public int getSearchReviewListCount(SqlSessionTemplate sqlSession, String selectStatus, String mId,
-			String parkingName, String bTitle, String today, String startDate, String endDate)
-			throws SelectBoardListException {
-
-		Map<String, Object> hmap = new HashMap<String, Object>();
-
-		hmap.put("selectStatus", selectStatus);
-		hmap.put("mId", mId);
-		hmap.put("parkingName", parkingName);
-		hmap.put("bTitle", bTitle);
-		hmap.put("today", today);
-		hmap.put("startDate", startDate);
-		hmap.put("endDate", endDate);
-		
-		int listCount = sqlSession.selectOne("BoardAdmin.getSearchReviewListCount", hmap);
-		System.out.println("listCount DAO : "+listCount);
-		return listCount;
-	}
-
-	// 후기 게시판 검색 결과
-	@Override
-	public ArrayList<Board> selectSearchBoardReviewList(SqlSessionTemplate sqlSession, PageInfo pi, String selectStatus,
-			String mId, String parkingName, String bTitle, String today, String startDate, String endDate)
-			throws SelectBoardListException {
-		
-		ArrayList<Board> list = null;
-		
-		int offset = (pi.getCurrentPage()-1)* pi.getLimit();			
-		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
-
-		System.out.println("selectStatus DAO: "+selectStatus);
-		System.out.println("mId DAO: "+mId);
-		System.out.println("parkingName DAO: "+parkingName);
-		System.out.println("bTitle DAO: "+bTitle);
-		System.out.println("today DAO: "+today);
-		System.out.println("startDate DAO: "+startDate);
-		System.out.println("endDate DAO: "+endDate);
-		
-		Map<String, Object> hmap = new HashMap();
-
-		hmap.put("selectStatus", selectStatus);
-		hmap.put("mId", mId);
-		hmap.put("parkingName", parkingName);
-		hmap.put("bTitle", bTitle);
-		hmap.put("today", today);
-		hmap.put("startDate", startDate);
-		hmap.put("endDate", endDate);
-		
-		list = (ArrayList)sqlSession.selectList("BoardAdmin.selectSearchBoardReviewList", hmap, rowBounds);
-		
-		System.out.println("DAO list : "+list);
-
-		return list;
-	}*/
-	
-
 
 
 }

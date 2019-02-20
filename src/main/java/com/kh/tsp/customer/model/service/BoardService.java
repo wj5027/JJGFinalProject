@@ -60,9 +60,25 @@ public interface BoardService {
 	//페이징 된 문의 목록
 	ArrayList<Board> selectQnaList(PageInfo pi);
 	//주차장 문의 게시판 목록(페이징처리)
-	ArrayList<Board> selectParkingQnaList(PageInfo pi);
+	ArrayList<Board> selectParkingQnaList(PageInfo pi, String pno);
 	//주차장 문의 상세보기
 	Board selectOneParkingQna(int bno);
+	//주차장 후기 게시판 목록(페이징처리)
+	ArrayList<Board> selectParkingReviewList(PageInfo pi, String pno);
+	//주차장 후기 상세보기
+	Board selectOneParkingReview(int bno);
+	//주차장 후기 등록
+	int insertParkingReview(Board b);
+	//주차장 후기 수정1
+	Board updateParkingReview(int bno);
+	//주차장 후기 수정2
+	int updateParkingReview2(Board b);
+	//주차장 문의 전체 게시글 수
+	int getParkingQnaListCount(String pno);
+	//주차장 후기 전체 게시글 수
+	int getReviewListCount(String pno);
+	//주차장 문의 등록
+	int insertParkingQna(Board b);
 	
 	
 	

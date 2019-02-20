@@ -131,6 +131,7 @@ public class CustomerDaoImpl  implements CustomerDao{
 	}
 
 	
+	
 	// 사용자 통계 리스트 수
 	@Override
 	public int getStatisticsListCount(SqlSessionTemplate sqlSession) throws CustomerSelectListException {

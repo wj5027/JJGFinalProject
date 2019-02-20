@@ -69,14 +69,29 @@ public class CustomerBoardDetail {
 		int bno = Integer.parseInt(request.getParameter("num"));
 		System.out.println("문의상세보기 서블릿 bno: "+bno);
 		
+		String pno = request.getParameter("pno");
 		
-	
+		System.out.println("주차장문의상세보기 pno : "+pno);
 		Board b = bs.selectOneParkingQna(bno); 
 		
 		request.setAttribute("b", b);
 	
-		return "customer/board/My_parking_qna_detail";
+		return "customer/board/Parking_qna_detail";
 	}
 	
+	//주차장 후기 상세보기	
+	@RequestMapping(value="parkingReviewDetail.cu", method=RequestMethod.GET)
+	public String ParkingReviewDetail(HttpServletRequest request, HttpServletResponse response) {
+		int bno = Integer.parseInt(request.getParameter("num"));
+		System.out.println("주차장 후기상세보기 서블릿 bno: "+bno);
+		
+		String pno = request.getParameter("pno");		
+		System.out.println("주차장문의상세보기 pno : "+pno);
 	
+		Board b = bs.selectOneParkingReview(bno); 
+		
+		request.setAttribute("b", b);
+		request.setAttribute("pno", pno);
+		return "customer/board/Parking_review_detail";
+	}
 }

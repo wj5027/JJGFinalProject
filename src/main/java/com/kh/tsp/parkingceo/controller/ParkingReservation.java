@@ -20,19 +20,22 @@ import com.kh.tsp.parkingceo.model.service.ParkingService;
 import com.kh.tsp.parkingceo.model.service.PromotionService;
 
 @Controller
-public class ParkingDetailList {
+public class ParkingReservation {
+	
+	@Autowired
+	private PromotionService promotion;
 	
 	@Autowired
 	private ParkingService ps;
-	@Autowired
-	private PromotionService promotion;
 
-	public ParkingDetailList() {
+	public ParkingReservation() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	@RequestMapping(value="/goParkingDetailListPage.pc", method=RequestMethod.GET)
-	public String parkingDetailListPage(HttpSession session,Model model) {
+	
+	@RequestMapping(value="/parkingceoReservation.pc",method=RequestMethod.GET)
+	public String parkingReservationPage(HttpSession session,Model model) {
+		
 		Member m = (Member)session.getAttribute("loginUser");		
 		try {
 			//현재 보유중인 주차장 검색
@@ -42,38 +45,40 @@ public class ParkingDetailList {
 			model.addAttribute("message", "주차장 조회 실패!");
 			return "common/errorPage";
 		}
-		return "parkingceo/parking/ParkingDetailPage";
+		return "parkingceo/parking/ParkingReveration";
 	}
 	
 	
-	@RequestMapping(value="/searchParkingDetail.pc" , method=RequestMethod.POST)
-	public ModelAndView searchParkingDetailList (@RequestParam String currentPage,@RequestParam String btnValue,
-			@RequestParam String inOutputSelectBox,@RequestParam String parkingSelectBox,ModelAndView mv,HttpSession session) {
+	@RequestMapping(value="/searchParkingReservation.pc",method=RequestMethod.POST)
+	public ModelAndView selectSearchParkingReservation(HttpSession session,ModelAndView mv, @RequestParam String btnValue,
+			@RequestParam String parkingSelectBox,@RequestParam String reverationSelectBox,@RequestParam String currentPage) {
 		
-		//현재 사용자 객체 변수
-		Member m = (Member)session.getAttribute("loginUser");
+		//Mybtis로 조회할 값 Hashmap 생성
+		HashMap<String, Object> selectHmap = new HashMap<String, Object>();
+		selectHmap.put("btnValue", Integer.parseInt(btnValue));
+		selectHmap.put("parking_no", parkingSelectBox);
 		
-		
-		//현재 페이지 변수
 		int resultCurrentPage = 1;
-		
 		if(currentPage != null) {
-			resultCurrentPage = Integer.parseInt(currentPage);
+			resultCurrentPage = Integer.parseInt(currentPage);		
 		}
+
 		
 		try {
-			int listCount = ps.selectSearchParkingDetailListCount(inOutputSelectBox,parkingSelectBox,btnValue);
+			int listCount = ps.elctSearchParkingReservationListCount(selectHmap,reverationSelectBox);
 			ParkingCeoPageInfo pi = ParkingCeoPagination.getPageInfo(resultCurrentPage, listCount);
-			HashMap<String, Object> hmap = ps.selectSearchParkingDetailList(inOutputSelectBox,pi,parkingSelectBox,btnValue);
+			HashMap<String, Object> hmap = ps.selctSearchParkingReservation(pi,selectHmap,reverationSelectBox);
 			mv.addObject("pi", pi);
 			mv.addObject("hmap", hmap);
+			
 		}catch(Exception e) {
-			mv.addObject("message", "입출차 조회에 실패했습니다.");
+			mv.addObject("message", "예약 내역 조회 실패");
 			mv.setViewName("jsonView");
 			return mv;
 		}
 		mv.setViewName("jsonView");
 		return mv;
 	}
+	
 
 }

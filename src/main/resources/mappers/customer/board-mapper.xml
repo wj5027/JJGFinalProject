@@ -41,7 +41,7 @@
   		<result property="modifyDate" column="MODIFED_DATE"/>
   		<result property="bType" column="BOARD_TYPE"/>
   		<result property="status" column="STATUS"/>
-  		<result property="mno" column="MEMBER_NAME"/>
+  		<result property="mno" column="MEMBER_NO"/>
   		<result property="pno" column="PARKING_NO"/>
   		
   	</resultMap>
@@ -89,6 +89,22 @@
   		<result property="pno" column="PARKING_NAME"/>
   		
   	</resultMap>
+  	
+  	<!-- 주차장문의(사업자문의) 목록  -->
+  	<resultMap type="com.kh.tsp.customer.model.vo.Board" id="parkingQnaListSet">
+  		<id property="bno" column="BOARD_NO"/>
+  		<result property="bTitle" column="BOARD_TITLE"/>
+  		<result property="bContext" column="BOARD_CONTEXT"/>
+  		<result property="bViews" column="BOARD_VIEWS"/>
+  		<result property="createDate" column="CREATION_DATE"/>
+  		<result property="modifyDate" column="MODIFED_DATE"/>
+  		<result property="bType" column="BOARD_TYPE"/>
+  		<result property="status" column="STATUS"/>
+  		<result property="mno" column="MEMBER_NO"/>
+  		<result property="pno" column="PARKING_NAME"/>
+  		
+  	</resultMap>
+
   	
   	<!-- 공지사항 게시물 목록 조회용 쿼리문 -->
   	<select id="boardList" resultMap="boardListSet">
@@ -156,8 +172,8 @@
   		SELECT * FROM BOARD B
   		JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
   		WHERE B.STATUS = 'Y'  		
-        AND B.BOARD_TYPE = '관리자문의'
-        OR B.BOARD_TYPE = '사업자문의'
+        AND (B.BOARD_TYPE = '관리자문의'
+        OR B.BOARD_TYPE = '사업자문의')
   		ORDER BY BOARD_NO DESC
   	</select>
   	
@@ -168,7 +184,7 @@
   		0, SYSDATE, null, '관리자문의', 'Y', #{mno}, null)
   	</insert>
   	
-  	<!-- 문의 상세보기 쿼리문 -->
+  	<!-- 내 문의 상세보기 쿼리문 -->
   	<select id="selectOneQna" parameterType="_int" resultMap="qnaList">
   		SELECT *
   		FROM BOARD B
@@ -177,7 +193,7 @@
   		AND B.STATUS = 'Y'
   	</select>
   	
-  	<!-- 문의 수정1 쿼리문 -->
+  	<!-- 내 문의 수정1 쿼리문 -->
   	
   	<select id="updateQna" parameterType="_int" resultMap="qnaList">
   		SELECT *
@@ -187,7 +203,7 @@
   		AND B.STATUS = 'Y'
   	</select>
   	
-  	<!-- 문의 수정2 쿼리문 -->
+  	<!-- 내 문의 수정2 쿼리문 -->
   	<update id="updateQna2" parameterType="Board">
   		UPDATE BOARD
   		SET BOARD_TITLE = #{bTitle}, BOARD_CONTEXT = #{bContext}
@@ -196,7 +212,7 @@
   		
   	</update>
   	
-  	<!-- 문의 삭제 쿼리문 -->
+  	<!-- 내 문의 삭제 쿼리문 -->
   	<update id="deleteQna" parameterType="_int">
   		UPDATE BOARD
   		SET STATUS = 'N'
@@ -276,7 +292,7 @@
   		AND BOARD_TYPE = '공지'
   	</select>
   	
-  	<!-- 문의 전체 게시글 수 조회용 쿼리문 -->
+  	<!-- 내 문의 전체 게시글 수 조회용 쿼리문 -->
   	<select id="selectQnaListCount" resultType="_int">
   		SELECT COUNT(*)
   		FROM BOARD
@@ -286,24 +302,100 @@
   	</select>
   	
   	<!-- 주차장 문의 게시물 목록 조회용 쿼리문 -->
-  	<select id="selectParkingQnaList" resultMap="boardListSet">
+  	<select id="selectParkingQnaList" resultMap="parkingQnaListSet" parameterType="String">
   		SELECT *
   		FROM BOARD B
   		JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
+  		JOIN PARKING P ON(B.PARKING_NO = P.PARKING_NO)
   		WHERE B.STATUS = 'Y'
   		AND B.BOARD_TYPE = '사업자문의'
+  		AND B.PARKING_NO = #{pno}
   		ORDER BY BOARD_NO DESC
   	</select>
   	
   	<!-- 주차장 문의 게시물 상세보기 -->
-  	<select id="selectOneParkingQna" parameterType="_int" resultMap="reviewListSet">
+  	<select id="selectOneParkingQna" parameterType="_int" resultMap="qnaList">
   		SELECT *
   		FROM BOARD B
   		JOIN MEMBER M ON (B.MEMBER_NO = M.MEMBER_NO)
-  		JOIN PARKING P ON(B.PARKING_NO = P.PARKING_NO) 
   		WHERE B.BOARD_NO = #{bno}
   		AND B.BOARD_TYPE = '사업자문의'
   		AND B.STATUS = 'Y'
   	</select>
   	
+  	<!-- 주차장 후기 목록 -->
+  	<select id="selectParkingReviewList" resultMap="reviewListSet" parameterType="String">
+  		SELECT *
+  		FROM BOARD B
+  		JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
+  		JOIN PARKING P ON(B.PARKING_NO = P.PARKING_NO)
+  		WHERE B.STATUS = 'Y'
+  		AND B.PARKING_NO = #{pno}
+  		AND B.BOARD_TYPE = '후기'
+  		ORDER BY BOARD_NO DESC
+  	</select>
+  	
+  	<!-- 주차장 후기 상세보기 -->  	
+  	<select id="selectOneParkingReview" parameterType="_int" resultMap="reviewListSet">
+  		SELECT *
+  		FROM BOARD B
+  		JOIN MEMBER M ON (B.MEMBER_NO = M.MEMBER_NO)
+  		JOIN PARKING P ON(B.PARKING_NO = P.PARKING_NO) 
+  		WHERE B.BOARD_NO = #{bno}
+  		AND B.BOARD_TYPE = '후기'
+  		AND B.STATUS = 'Y'
+  	</select>
+  	
+  	<!-- 주차장 후기 등록  -->
+  	<insert id="insertParkingReview" parameterType="Board">
+  		INSERT INTO BOARD
+  		VALUES(BNO_SEQ.NEXTVAL, #{bTitle}, #{bContext}, 
+  		0, SYSDATE, null, '후기', 'Y', #{mno}, #{pno})
+  	</insert>
+  	
+  	<!-- 주차장 수정1(상세보기) -->  	
+  	<select id="updateParkingReview" parameterType="_int" resultMap="reviewListSet">
+  		SELECT *
+  		FROM BOARD B
+  		JOIN MEMBER M ON (B.MEMBER_NO = M.MEMBER_NO)
+  		JOIN PARKING P ON(B.PARKING_NO = P.PARKING_NO) 
+  		WHERE B.BOARD_NO = #{bno}
+  		AND B.BOARD_TYPE = '후기'
+  		AND B.STATUS = 'Y'
+  	</select>
+  	
+  	<!-- 주차장 후기 수정2 쿼리문 -->
+  	<update id="updateParkingReview2" parameterType="Board">
+  		UPDATE BOARD
+  		SET BOARD_TITLE = #{bTitle}, BOARD_CONTEXT = #{bContext}
+  		WHERE BOARD_NO = #{bno}
+  		AND BOARD_TYPE = '후기'
+  		AND STATUS = 'Y'
+  		
+  	</update>
+  	  	
+  	<!-- 주차장 문의 전체 게시글 수 조회 -->
+  	<select id="selectParkingQnaListCount" resultType="_int" parameterType="String" >
+  		SELECT COUNT(*)
+  		FROM BOARD
+  		WHERE STATUS='Y'
+  		AND BOARD_TYPE = '사업자문의'
+  		AND PARKING_NO = #{pno}
+  	</select>  	
+  	
+  	<!-- 주차장 후기 전체 게시글 수 조회 -->
+  	<select id="selectParkingReviewListCount" resultType="_int" parameterType="String">
+  		SELECT COUNT(*)
+  		FROM BOARD
+  		WHERE STATUS='Y'
+  		AND PARKING_NO = #{pno}
+  		AND BOARD_TYPE = '후기'
+  	</select>
+  	
+  	<!-- 사업자 문의(주차장 문의) 등록 -->
+  	<insert id="insertParkingQna" parameterType="Board">
+  		INSERT INTO BOARD
+  		VALUES(BNO_SEQ.NEXTVAL, #{bTitle}, #{bContext}, 
+  		0, SYSDATE, null, '사업자문의', 'Y', #{mno}, #{pno})
+  	</insert>
   </mapper>
