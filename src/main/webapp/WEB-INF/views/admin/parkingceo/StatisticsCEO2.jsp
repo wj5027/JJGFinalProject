@@ -60,10 +60,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 						<div class="col-md-12" height="500px">
 							<div class="card ">
 								<div class="card-header">
-									<h4 class="card-title">충전 검색</h4>
+									<h4 class="card-title">환전 검색</h4>
 								</div>
 								
-								<form id="formList" method="POST" action="selectSearchStatisticsCustomerList.ad">
+								<form id="formList" method="POST" action="selectSearchStatisticsCEOList.ad">
 									<div class="card-body">
 										<div class="table-responsive" style="overflow: hidden;">
 											<table class="table tablesorter " id="">
@@ -200,11 +200,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 															<td class="text-center">0</td>
 														</c:if>
 														<c:if test="${!empty s.oil}">
-															<c:if test="${s.oilListType == '충전'}">
-																<td class="text-center">${s.oil}</td>
-															</c:if>
-															<c:if test="${s.oilListType == '결제취소'}">
-																<td class="text-center">-${s.oil}</td>
+															<c:if test="${s.oilListType == '환전'}">
+																<td class="text-center" class="oilChart">${s.oil}</td>
 															</c:if>
 														</c:if>
 														<td class="text-center">${s.oilListDate}</td>
@@ -224,7 +221,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 											<!-- 첫번째 페이지 -->
 											<c:if test="${pi.currentPage != 1}">
-												<c:url var="blistFirst" value="selectSearchStatisticsCustomerList.ad">
+												<c:url var="blistFirst" value="selectSearchStatisticsCEOList.ad">
 													<c:param name="currentPage" value="1" />
 													<c:param name="selectStatus" value="${selectStatus}" />
 													<c:param name="memberId" value="${memberId}" />
@@ -247,7 +244,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 													class="btn btn-info animation-on-hover btn-sm"><</button>
 											</c:if>
 											<c:if test="${pi.currentPage > 1}">
-												<c:url var="blistBack" value="/selectSearchStatisticsCustomerList.ad">
+												<c:url var="blistBack" value="/selectSearchStatisticsCEOList.ad">
 													<c:param name="currentPage" value="${pi.currentPage-1}" />
 													<c:param name="selectStatus" value="${selectStatus}" />
 													<c:param name="memberId" value="${memberId}" />
@@ -269,7 +266,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 														class="btn btn-info animation-on-hover btn-sm">${p}</button>
 												</c:if>
 												<c:if test="${p ne pi.currentPage}">
-													<c:url var="blistCheck" value="selectSearchStatisticsCustomerList.ad">
+													<c:url var="blistCheck" value="selectSearchStatisticsCEOList.ad">
 														<c:param name="currentPage" value="${p}" />
 													<c:param name="selectStatus" value="${selectStatus}" />
 													<c:param name="memberId" value="${memberId}" />
@@ -289,7 +286,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 													class="btn btn-info animation-on-hover btn-sm">></button>
 											</c:if>
 											<c:if test="${pi.currentPage < pi.maxPage}">
-												<c:url var="blistEnd" value="selectSearchStatisticsCustomerList.ad">
+												<c:url var="blistEnd" value="selectSearchStatisticsCEOList.ad">
 													<c:param name="currentPage" value="${pi.currentPage+1}" />
 													<c:param name="selectStatus" value="${selectStatus}" />
 													<c:param name="memberId" value="${memberId}" />
@@ -305,7 +302,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 											<!-- 끝 페이지 -->
 											<c:if test="${pi.currentPage != pi.maxPage}">
-												<c:url var="blistEnd2" value="selectSearchStatisticsCustomerList.ad">
+												<c:url var="blistEnd2" value="selectSearchStatisticsCEOList.ad">
 													<c:param name="currentPage" value="${pi.maxPage}" />
 													<c:param name="selectStatus" value="${selectStatus}" />
 													<c:param name="memberId" value="${memberId}" />
@@ -334,7 +331,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 					<div class="card" style="height: 350px; width: 100%;">
 						<div class="card-header">
 							<h4 class="card-title">
-								충전 통계 그래프 (총 매출: <p style="display: inline;">${sum}</p> 원)
+								환전 통계 그래프 (총 환전 금액: <p style="display: inline;">${sum}</p> 원)
 							</h4>
 							<div align="right">
 								<button onclick="selectStatisticsMonth();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
@@ -528,7 +525,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 		<script>
 			function selectStatisticsMonth() {
 				$.ajax({
-					url:"selectStatisticsMonth.ad",
+					url:"selectStatisticsMonth2.ad",
 					type:"get",
 					success:function(data){
 						$("#lineChartExample").show();
@@ -641,7 +638,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 		<script>
 			function selectStatistics7Days() {
 				$.ajax({
-					url:"selectStatistics7Day.ad",
+					url:"selectStatistics7Day2.ad",
 					type:"get",
 					success:function(data){
 						$("#lineChartExample").hide();
@@ -751,7 +748,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 		<script>
 			function selectStatisticsToday() {
 				$.ajax({
-					url:"selectStatisticsToday.ad",
+					url:"selectStatisticsToday2.ad",
 					type:"get",
 					success:function(data){
 						$("#lineChartExample").hide();

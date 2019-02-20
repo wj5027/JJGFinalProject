@@ -180,6 +180,12 @@ public class CustomerPayment {
 		
 		int result = cms.intsertRequestRefund(requesthmap);
 		
+		if (result > 0) {
+			result = 0;
+			
+			result = cms.updateRequestRefund(requesthmap);
+		}
+		
 		return result;
     }
 	

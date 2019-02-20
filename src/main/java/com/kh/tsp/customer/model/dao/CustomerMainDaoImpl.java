@@ -94,6 +94,11 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 		
 		return hmap;
 	}
+	
+	@Override
+	public int selectSearchTextCount(SqlSessionTemplate sqlSession, String keyword) {
+		return sqlSession.selectOne("selectSearchTextCount", keyword);
+	}
 
 	@Override
 	public ArrayList<Reservation> selectShowReserv(SqlSessionTemplate sqlSession, Member member, PageInfo pi) {
@@ -249,6 +254,7 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 	}
 
 	@Override
+
 	public ArrayList<String> selectfavorites(SqlSessionTemplate sqlSession, int mno) {
 		return (ArrayList)sqlSession.selectList("Member.selectfavorites",mno);
 	}
@@ -268,6 +274,10 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 		hmap.put("mno", mno);
 		hmap.put("pno",pno);
 		return sqlSession.delete("Member.deletefavorite",hmap);
+
+	public int updateRequestRefund(SqlSessionTemplate sqlSession, HashMap<String, String> requesthmap) {
+		return sqlSession.update("Member.updateRequestRefund", requesthmap);
+
 	}
 	
 

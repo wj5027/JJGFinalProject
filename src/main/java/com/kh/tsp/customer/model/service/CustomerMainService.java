@@ -84,6 +84,9 @@ public interface CustomerMainService {
 	int deletefavorite(int mno, String pno);
 
 
+	int updateRequestRefund(HashMap<String, String> requesthmap);
+
+
 	
 	
 }

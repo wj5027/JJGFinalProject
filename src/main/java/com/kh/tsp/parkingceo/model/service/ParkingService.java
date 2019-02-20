@@ -17,15 +17,22 @@ public interface ParkingService {
 
 	HashMap<String, Object> selectNoteList(String selectBox, ParkingCeoPageInfo pi, Member m);
 
-	int selectSearchParkingDetailListCount(String inOutputSelectBox, String parkingSelectBox);
+	int selectSearchParkingDetailListCount(String inOutputSelectBox, String parkingSelectBox, String btnValue);
 
-	HashMap<String, Object> selectSearchParkingDetailList(String selectBox, ParkingCeoPageInfo pi,String parkingSelectBox);
+	HashMap<String, Object> selectSearchParkingDetailList(String selectBox, ParkingCeoPageInfo pi,String parkingSelectBox, String btnValue);
 
 	void insertParkingOne(ParkingCeoVo parking, ArrayList<ParkingCeoAttachmentVo> attachList);
 
 	HashMap<String, Object> selectSearchParkingOne(ParkingCeoVo parking);
 
 	void insertExchangeParking(ParkingCeoVo parking, ArrayList<ParkingCeoAttachmentVo> attachList);
+
+	int elctSearchParkingReservationListCount(HashMap<String, Object> selectHmap, String reverationSelectBox);
+
+	HashMap<String, Object> selctSearchParkingReservation(ParkingCeoPageInfo pi,
+			HashMap<String, Object> selectHmap, String reverationSelectBox);
+
+
 
 	
 

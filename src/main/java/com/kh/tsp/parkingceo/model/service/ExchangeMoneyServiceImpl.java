@@ -36,6 +36,11 @@ public class ExchangeMoneyServiceImpl implements ExchangeMoneyService {
 		return loginUser;
 	}
 
+	@Override
+	public void insertOilList(ExchangeMoneyVo ev) {
+		emd.insertOilList(sqlSession,ev);
+	}
+
 
 
 	

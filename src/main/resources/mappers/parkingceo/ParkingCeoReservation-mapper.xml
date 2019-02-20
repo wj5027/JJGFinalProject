@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="ParkingCeoReservation">
+  
+  <select id="selectResAllListCount" parameterType="hashmap" resultType="_int">
+  	SELECT COUNT(*) FROM PARKING_RESERVATION
+	WHERE PARKING_NO = #{parking_no}
+	AND STATUS IN ('Y','승인','취소','완료','거절')
+	<if test="btnValue == 1">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE +1]]>
+	</if>
+	<if test="btnValue == 7">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 7]]>
+	</if>
+	<if test="btnValue == 30">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 30]]>
+	</if>
+	<if test="btnValue == 90">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 90]]>
+	</if>
+	<if test="btnValue == 180">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 180]]>
+	</if>
+	<if test="btnValue == 365">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 365]]>
+	</if>
+  </select>
+  
+    <select id="selectResOkListCount" parameterType="hashmap" resultType="_int">
+  	SELECT COUNT(*) FROM PARKING_RESERVATION
+	WHERE PARKING_NO = #{parking_no}
+	AND STATUS = '승인'
+	<if test="btnValue == 1">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE +1]]>
+	</if>
+	<if test="btnValue == 7">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 7]]>
+	</if>
+	<if test="btnValue == 30">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 30]]>
+	</if>
+	<if test="btnValue == 90">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 90]]>
+	</if>
+	<if test="btnValue == 180">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 180]]>
+	</if>
+	<if test="btnValue == 365">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 365]]>
+	</if>
+  </select>
+  
+    <select id="selectResReadyListCount" parameterType="hashmap" resultType="_int">
+  	SELECT COUNT(*) FROM PARKING_RESERVATION
+	WHERE PARKING_NO = #{parking_no}
+	AND STATUS = 'Y'
+	<if test="btnValue == 1">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE +1]]>
+	</if>
+	<if test="btnValue == 7">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 7]]>
+	</if>
+	<if test="btnValue == 30">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 30]]>
+	</if>
+	<if test="btnValue == 90">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 90]]>
+	</if>
+	<if test="btnValue == 180">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 180]]>
+	</if>
+	<if test="btnValue == 365">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 365]]>
+	</if>
+  </select>
+  
+    <select id="selectResCancelListCount" parameterType="hashmap" resultType="_int">
+  	SELECT COUNT(*) FROM PARKING_RESERVATION
+	WHERE PARKING_NO = #{parking_no}
+	AND STATUS = '취소'
+	<if test="btnValue == 1">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE +1]]>
+	</if>
+	<if test="btnValue == 7">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 7]]>
+	</if>
+	<if test="btnValue == 30">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 30]]>
+	</if>
+	<if test="btnValue == 90">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 90]]>
+	</if>
+	<if test="btnValue == 180">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 180]]>
+	</if>
+	<if test="btnValue == 365">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 365]]>
+	</if>
+  </select>
+  
+    <select id="selectResCompleteListCount" parameterType="hashmap" resultType="_int">
+  	SELECT COUNT(*) FROM PARKING_RESERVATION
+	WHERE PARKING_NO = #{parking_no}
+	AND STATUS = '완료'
+	<if test="btnValue == 1">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE +1]]>
+	</if>
+	<if test="btnValue == 7">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 7]]>
+	</if>
+	<if test="btnValue == 30">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 30]]>
+	</if>
+	<if test="btnValue == 90">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 90]]>
+	</if>
+	<if test="btnValue == 180">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 180]]>
+	</if>
+	<if test="btnValue == 365">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 365]]>
+	</if>
+  </select>
+  
+    <select id="selectResSelfCancelListCount" parameterType="hashmap" resultType="_int">
+  	SELECT COUNT(*) FROM PARKING_RESERVATION
+	WHERE PARKING_NO = #{parking_no}
+	AND STATUS = '거절'
+	<if test="btnValue == 1">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE +1]]>
+	</if>
+	<if test="btnValue == 7">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 7]]>
+	</if>
+	<if test="btnValue == 30">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 30]]>
+	</if>
+	<if test="btnValue == 90">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 90]]>
+	</if>
+	<if test="btnValue == 180">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 180]]>
+	</if>
+	<if test="btnValue == 365">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 365]]>
+	</if>
+  </select>
+  
+  <select id="selectResAllList" parameterType="hashmap" resultType="hashmap">
+  	SELECT PR.RES_NO,PR.RES_REQUEST_DATE,PR.RES_DATE,PR.RES_APPLY_DATE,PR.STATUS,PR.CAR_NO,PR.CANCEL_REASON,M.MEMBER_ID,M.MEMBER_NAME,M.PHONE FROM PARKING_RESERVATION PR
+	JOIN MEMBER M ON(PR.MEMBER_NO = M.MEMBER_NO)
+	WHERE PR.PARKING_NO = #{parking_no}
+	AND PR.STATUS IN ('Y','승인','취소','완료','거절')
+	<if test="btnValue == 1">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE +1]]>
+	</if>
+	<if test="btnValue == 7">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 7]]>
+	</if>
+	<if test="btnValue == 30">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 30]]>
+	</if>
+	<if test="btnValue == 90">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 90]]>
+	</if>
+	<if test="btnValue == 180">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 180]]>
+	</if>
+	<if test="btnValue == 365">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 365]]>
+	</if>
+  </select>
+  
+  <select id="selectResOkList" parameterType="hashmap" resultType="hashmap">
+  	SELECT PR.RES_NO,PR.RES_REQUEST_DATE,PR.RES_DATE,PR.RES_APPLY_DATE,PR.STATUS,PR.CAR_NO,PR.CANCEL_REASON,M.MEMBER_ID,M.MEMBER_NAME,M.PHONE FROM PARKING_RESERVATION PR
+	JOIN MEMBER M ON(PR.MEMBER_NO = M.MEMBER_NO)
+	WHERE PR.PARKING_NO = #{parking_no}
+	AND PR.STATUS = '승인'
+	<if test="btnValue == 1">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE +1]]>
+	</if>
+	<if test="btnValue == 7">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 7]]>
+	</if>
+	<if test="btnValue == 30">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 30]]>
+	</if>
+	<if test="btnValue == 90">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 90]]>
+	</if>
+	<if test="btnValue == 180">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 180]]>
+	</if>
+	<if test="btnValue == 365">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 365]]>
+	</if>
+  </select>
+  
+  <select id="selectResReadyList" parameterType="hashmap" resultType="hashmap">
+  	SELECT PR.RES_NO,PR.RES_REQUEST_DATE,PR.RES_DATE,PR.RES_APPLY_DATE,PR.STATUS,PR.CAR_NO,PR.CANCEL_REASON,M.MEMBER_ID,M.MEMBER_NAME,M.PHONE FROM PARKING_RESERVATION PR
+	JOIN MEMBER M ON(PR.MEMBER_NO = M.MEMBER_NO)
+	WHERE PR.PARKING_NO = #{parking_no}
+	AND PR.STATUS = 'Y'
+	<if test="btnValue == 1">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE +1]]>
+	</if>
+	<if test="btnValue == 7">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 7]]>
+	</if>
+	<if test="btnValue == 30">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 30]]>
+	</if>
+	<if test="btnValue == 90">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 90]]>
+	</if>
+	<if test="btnValue == 180">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 180]]>
+	</if>
+	<if test="btnValue == 365">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 365]]>
+	</if>
+  </select>
+  
+  <select id="selectResCancelList" parameterType="hashmap" resultType="hashmap">
+  	SELECT PR.RES_NO,PR.RES_REQUEST_DATE,PR.RES_DATE,PR.RES_APPLY_DATE,PR.STATUS,PR.CAR_NO,PR.CANCEL_REASON,M.MEMBER_ID,M.MEMBER_NAME,M.PHONE FROM PARKING_RESERVATION PR
+	JOIN MEMBER M ON(PR.MEMBER_NO = M.MEMBER_NO)
+	WHERE PR.PARKING_NO = #{parking_no}
+	AND PR.STATUS = '취소'
+	<if test="btnValue == 1">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE +1]]>
+	</if>
+	<if test="btnValue == 7">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 7]]>
+	</if>
+	<if test="btnValue == 30">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 30]]>
+	</if>
+	<if test="btnValue == 90">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 90]]>
+	</if>
+	<if test="btnValue == 180">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 180]]>
+	</if>
+	<if test="btnValue == 365">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 365]]>
+	</if>
+  </select>
+  
+  <select id="selectResCompleteList" parameterType="hashmap" resultType="hashmap">
+  	SELECT PR.RES_NO,PR.RES_REQUEST_DATE,PR.RES_DATE,PR.RES_APPLY_DATE,PR.STATUS,PR.CAR_NO,PR.CANCEL_REASON,M.MEMBER_ID,M.MEMBER_NAME,M.PHONE FROM PARKING_RESERVATION PR
+	JOIN MEMBER M ON(PR.MEMBER_NO = M.MEMBER_NO)
+	WHERE PR.PARKING_NO = #{parking_no}
+	AND PR.STATUS = '완료' 
+	<if test="btnValue == 1">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE +1]]>
+	</if>
+	<if test="btnValue == 7">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 7]]>
+	</if>
+	<if test="btnValue == 30">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 30]]>
+	</if>
+	<if test="btnValue == 90">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 90]]>
+	</if>
+	<if test="btnValue == 180">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 180]]>
+	</if>
+	<if test="btnValue == 365">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 365]]>
+	</if>
+  </select>
+  
+  <select id="selectResSelfCancelList" parameterType="hashmap" resultType="hashmap">
+  	SELECT PR.RES_NO,PR.RES_REQUEST_DATE,PR.RES_DATE,PR.RES_APPLY_DATE,PR.STATUS,PR.CAR_NO,PR.CANCEL_REASON,M.MEMBER_ID,M.MEMBER_NAME,M.PHONE FROM PARKING_RESERVATION PR
+	JOIN MEMBER M ON(PR.MEMBER_NO = M.MEMBER_NO)
+	WHERE PR.PARKING_NO = #{parking_no}
+	AND PR.STATUS = '거절'
+	<if test="btnValue == 1">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE +1]]>
+	</if>
+	<if test="btnValue == 7">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 7]]>
+	</if>
+	<if test="btnValue == 30">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 30]]>
+	</if>
+	<if test="btnValue == 90">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 90]]>
+	</if>
+	<if test="btnValue == 180">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 180]]>
+	</if>
+	<if test="btnValue == 365">
+	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 365]]>
+	</if>
+  </select>
+  
+  
+
+  
+  </mapper>

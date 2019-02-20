@@ -42,10 +42,12 @@ public class ExchangeMoney {
 		Member m = (Member)session.getAttribute("loginUser");
 		ev.setMember_no(m.getMember_no());
 		ev.setStatus("진행중");
-		ev.setCash(ev.getOil());
+		ev.setCash((int)(ev.getOil()*0.9));
 		try {
 			//환전 신청 내역 삽입
 			es.insertExchangeMoney(ev);
+			//오일 내역 삽입
+			es.insertOilList(ev);
 			//환전 신청 완료 후 사업자 오일 변경
 			es.updateMemberExchangeMoney(ev);
 			// 오일 변경후 사업자 데이터 조회 및 session 변경

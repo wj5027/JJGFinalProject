@@ -39,16 +39,20 @@
               통계보기  
             </a>
 	        <div align="right" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-	          <a class="dropdown-item" onclick="goOilStatisticsPage();" style="cursor: pointer;">오일 관리하기</a>
-	          <a class="dropdown-item" onclick="goParkingListStatisticsPage();" style="cursor: pointer;">입출차 내역</a>
-	          <a class="dropdown-item" onclick="goBestPakerStatisticsPage();" style="cursor: pointer;">베스트 파커</a>
+	          <a class="dropdown-item" onclick="goOilStatisticsPage();" style="cursor: pointer;">오일 통계</a>
+	          <a class="dropdown-item" onclick="goParkingListStatisticsPage();" style="cursor: pointer;">입/출차 통계</a>
+	          <a class="dropdown-item" onclick="goBestPakerStatisticsPage();" style="cursor: pointer;">베스트 파커 통계</a>
 	        </div>
           </li>
           <li>
-            <a onclick="goParkingDetailListPage();">
-              <i class="tim-icons icon-single-02"></i>
-              입/출차 내역
+          	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             <i class="tim-icons icon-single-02"></i>
+              내역보기  
             </a>
+	        <div align="right" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	          <a class="dropdown-item" onclick="goParkingDetailListPage();" style="cursor: pointer;">입/출차 내역</a>
+	          <a class="dropdown-item" onclick="goReservationPage();" style="cursor: pointer;">예약 내역</a>
+	        </div>
           </li>
           <li>
             <a onclick="goPromotionPage();">
