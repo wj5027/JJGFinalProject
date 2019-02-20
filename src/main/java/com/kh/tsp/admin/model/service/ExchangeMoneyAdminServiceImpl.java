@@ -11,6 +11,7 @@ import com.kh.tsp.admin.model.dao.ExchangeMoneyAdminDao;
 import com.kh.tsp.admin.model.exception.ExchangeMoneyException;
 import com.kh.tsp.admin.model.exception.SelectBoardListException;
 import com.kh.tsp.admin.model.vo.ExchangeMoneyAdmin;
+import com.kh.tsp.admin.model.vo.OilListAdmin;
 import com.kh.tsp.common.PageInfo;
 import com.kh.tsp.customer.model.vo.Board;
 
@@ -81,123 +82,39 @@ public class ExchangeMoneyAdminServiceImpl implements ExchangeMoneyAdminService{
 		return list;
 	}
 
-/*	// 문의 게시판 수
+	// 반송사유 입력 완료 시 오일 +
 	@Override
-	public int getListCount() throws SelectBoardListException {
-		int listCount = bd.getListCount(sqlSession);
-		return listCount;
-	}
-
-	// 문의 게시판 전체 리스트
-	@Override
-	public ArrayList<Board> selectBoardQnAList(PageInfo pi) throws SelectBoardListException {
-		ArrayList<Board> list = bd.selectBoardQnAList(sqlSession,pi);
-		return list;
-	}
-
-	// 문의 게시판 삭제
-	@Override
-	public int deleteBoardQnA(Board b) throws SelectBoardListException {
-		int result = bd.deleteBoardQnA(sqlSession, b);
+	public int updateAddOil(ExchangeMoneyAdmin em) throws ExchangeMoneyException {
+		int result = emd.updateAddOil(sqlSession, em);
 		return result;
 	}
 
-	// 문의 게시판 복구
+	// 승인버튼 (결제취소) - 환불진행중
 	@Override
-	public int updateRecoverBoardQnA(Board b) throws SelectBoardListException {
-		int result = bd.updateRecoverBoardQnA(sqlSession, b);
+	public int insertConfirmRefundMoney(OilListAdmin oa) throws ExchangeMoneyException {
+		int result = emd.insertConfirmRefundMoney(sqlSession, oa);
 		return result;
 	}
 
-	// 문의 게시판 검색 수
+	// 승인버튼 (환전) - 환전진행중
 	@Override
-	public int getSearchListCount(String selectStatus, String mId, String bTitle, String today, String startDate, String endDate) throws SelectBoardListException {
-		int listCount = bd.getSearchListCount(sqlSession, selectStatus, mId, bTitle, today, startDate, endDate);
-		return listCount;
-	}
-
-	// 문의 게시판 검색 리스트
-	@Override
-	public ArrayList<Board> selectSearchBoardQnAList(PageInfo pi, String selectStatus, String mId, String bTitle, String today,
-			String startDate, String endDate) throws SelectBoardListException {
-		ArrayList<Board> list = bd.selectSearchBoardQnAList(sqlSession, pi, selectStatus, mId, bTitle, today, startDate, endDate);
-		return list;
-	}
-
-	// 문의 게시판 답변
-	@Override
-	public Board answerBoardQnA(Board b) throws SelectBoardListException {
-		b = bd.answerBoardQnA(sqlSession, b);
-		return b;
-	}
-
-	// 답변 작성
-	@Override
-	public int insertAnswerBoard(String bno, String mno, String textareaId) throws SelectBoardListException {
-		int result = bd.insertAnswerBoard(sqlSession, bno, mno, textareaId);
+	public int insertConfirmExchangeMoney(OilListAdmin oa) throws ExchangeMoneyException {
+		int result = emd.insertConfirmExchangeMoney(sqlSession, oa);
 		return result;
 	}
 
-	// 답변 수정
+	// 반송버튼 (환불취소) - 환불진행중
 	@Override
-	public int updateAnswerBoard(String updateTextareaId, String replyNo) throws SelectBoardListException {
-	int result = bd.updateAnswerBoard(sqlSession, updateTextareaId, replyNo);
-	return result;
-	}
-
-	
-	
-	
-	// 후기 게시판 수
-	@Override
-	public int getReviewListCount() throws SelectBoardListException {
-		int listCount = bd.getReviewListCount(sqlSession);
-		return listCount;
-	}
-
-	// 후기 게시판 전체 리스트
-	@Override
-	public ArrayList<Board> selectBoardReviewList(PageInfo pi) throws SelectBoardListException {
-		ArrayList<Board> list = bd.selectBoardReviewList(sqlSession,pi);
-		return list;
-	}
-
-	// 후기 게시판 답변 ajax
-	@Override
-	public Board detailBoardReview(Board b) throws SelectBoardListException {
-		b = bd.detailBoardReview(sqlSession, b);
-		return b;
-	}
-
-	// 후기 게시판 삭제
-	@Override
-	public int deleteBoardReview(Board b) throws SelectBoardListException {
-		int result = bd.deleteBoardReview(sqlSession, b);
+	public int insertCancelRefundMoney(OilListAdmin oa) throws ExchangeMoneyException {
+		int result = emd.insertCancelRefundMoney(sqlSession, oa);
 		return result;
 	}
 
-	// 후기 게시판 복구
+	// 반송버튼 (환전취소) - 환전진행중
 	@Override
-	public int updateRecoverBoardReview(Board b) throws SelectBoardListException {
-		int result = bd.updateRecoverBoardReview(sqlSession, b);
+	public int insertCancelExchangeMoney(OilListAdmin oa) throws ExchangeMoneyException {
+		int result = emd.insertCancelExchangeMoney(sqlSession, oa);
 		return result;
 	}
-
-	// 후기 게시판 검색 수
-	@Override
-	public int getSearchReviewListCount(String selectStatus, String mId, String parkingName, String bTitle,
-			String today, String startDate, String endDate) throws SelectBoardListException {
-		int listCount = bd.getSearchReviewListCount(sqlSession, selectStatus, mId, parkingName, bTitle, today, startDate, endDate);
-		return listCount;
-	}
-
-	// 후기 게시판 검색 결과
-	@Override
-	public ArrayList<Board> selectSearchBoardReviewList(PageInfo pi, String selectStatus, String mId,
-			String parkingName, String bTitle, String today, String startDate, String endDate)
-			throws SelectBoardListException {
-		ArrayList<Board> list = bd.selectSearchBoardReviewList(sqlSession, pi, selectStatus, mId, parkingName, bTitle, today, startDate, endDate);
-		return list;
-	}*/
 
 }

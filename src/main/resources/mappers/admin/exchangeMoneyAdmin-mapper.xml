@@ -70,6 +70,13 @@
 		INNER JOIN MEMBER M ON (M.MEMBER_NO = E.MEMBER_NO)
 		WHERE EXCHANGE_NO = #{exchangeNo}
   	</select>
+  	
+  	<!-- 반송사유 입력 완료 시 오일 + -->
+  	<update id="updateAddOil"  parameterType="ExchangeMoneyAdmin">
+  		UPDATE MEMBER
+		SET OIL = OIL + #{oil}
+		WHERE MEMBER_NO = #{memberNo}
+  	</update>
   	 	
   	<!-- 환전 환불 검색 수 -->
   	<select id="getSearchListCount" resultType="_int" parameterType="java.util.Map">
@@ -173,5 +180,26 @@
 		</if>
 		ORDER BY EXCHANGE_NO DESC
   	</select>
+  	
+  	<!-- 승인버튼 (결제취소) - 환불진행중 -->
+  	<insert id="insertConfirmRefundMoney" parameterType="OilListAdmin">
+  		INSERT INTO OIL_LIST VALUES (OIL_LIST_SEQ.NEXTVAL, '결제취소', SYSDATE, #{oil}, #{memberNo}, NULL, NULL, NULL, NULL)
+  	</insert>
+  	
+  	<!-- 승인버튼 (환전) - 환전진행중 -->
+  	<insert id="insertConfirmExchangeMoney" parameterType="OilListAdmin">
+  		INSERT INTO OIL_LIST VALUES (OIL_LIST_SEQ.NEXTVAL, '환전', SYSDATE, #{oil}, #{memberNo}, NULL, NULL, NULL, NULL)
+  	</insert>
+  	
+  	<!-- 반송버튼 (환불취소) - 환불진행중 -->
+  	<insert id="insertCancelRefundMoney" parameterType="OilListAdmin">
+  		INSERT INTO OIL_LIST VALUES (OIL_LIST_SEQ.NEXTVAL, '환불취소', SYSDATE, #{oil}, #{memberNo}, NULL, NULL, NULL, NULL)
+  	</insert>
+  	
+  	<!-- 반송버튼 (환전취소) - 환전진행중 -->
+  	<insert id="insertCancelExchangeMoney" parameterType="OilListAdmin">
+  		INSERT INTO OIL_LIST VALUES (OIL_LIST_SEQ.NEXTVAL, '환전취소', SYSDATE, #{oil}, #{memberNo}, NULL, NULL, NULL, NULL)
+  	</insert>
+  	
   	
   </mapper>

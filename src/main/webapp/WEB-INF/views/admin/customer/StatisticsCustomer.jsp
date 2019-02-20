@@ -60,7 +60,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 						<div class="col-md-12" height="500px">
 							<div class="card ">
 								<div class="card-header">
-									<h4 class="card-title">충전 통계 검색</h4>
+									<h4 class="card-title">충전 검색</h4>
 								</div>
 								
 								<form id="formList" method="POST" action="selectSearchStatisticsCustomerList.ad">

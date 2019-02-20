@@ -173,8 +173,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 											<thead class=" text-primary">
 												<tr>
 													<th class="text-center">번호</th>
+													<th class="text-center">회원 구분</th>
 													<th>아이디</th>
 													<th class="text-center">신청 오일</th>
+													<th class="text-center">신청 금액</th>
 													<th class="text-center">신청일</th>
 													<th>예금주</th>
 													<th class="text-center">은행</th>
@@ -185,13 +187,21 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 											<tbody>
 												<c:forEach var="e" items="${list}" varStatus="varstatus">
 													<tr class="listAreaTr">
-														<td class="text-center">${e.exchangeNo}</td>
+														<td class="text-center">${e.exchangeNo}</td>														
+														<c:if test="${e.memberType=='U'}">
+															<td class="text-center">사용자</td>		
+														</c:if>												
+														<c:if test="${e.memberType=='B'}">
+															<td class="text-center">사업자</td>		
+														</c:if>
 														<td>${e.memberId}</td>
 														<td class="text-center">${e.oil}</td>
+														<td class="text-center">${e.cash}</td>
 														<td class="text-center">${e.applicationDate}</td>
 														<td>${e.accountHolder}</td>
 														<td class="text-center">${e.applicationBank}</td>
 														<td>${e.applicationAccountNumber}</td>
+														<td class="memberNoHide">${e.memberNo}</td>
 														
 														<c:if test="${e.status=='환전진행중'}">
 															<td class="text-center">
@@ -224,6 +234,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 																	class="btn btn-default animation-on-hover btn-sm" onclick="cancelReasonDetail()">반송 완료</button>																
 															</td>
 														</c:if>
+														<td class="statusHide">${e.status}</td>
 													</tr>
 												</c:forEach>													
 											</tbody>
@@ -345,23 +356,30 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 		<script>
 			$(function () {
 				exchangeNo=0;
+				oil=0;
+				memberNo=0;
+				$(".memberNoHide").hide();
+				$(".statusHide").hide();
 				
 				/* hover 되었을 때 */
 				$(".listAreaTr").mouseenter(function () {
-					for (var i = 0; i < 8; i++) {
+					for (var i = 0; i < 11; i++) {
 						$(this).children().eq(i).css({"background":"rgb(28, 28, 38)", "cursor":"pointer"});	
 						exchangeNo = $(this).children().eq(0).text();	
+						oil = $(this).children().eq(3).text();
+						memberNo = $(this).children().eq(9).text();
+						status = $(this).children().eq(11).text();
 					}	
 				/* hover 해제 되었을 때 */	
 				}).mouseout(function () {	
-					for (var i = 0; i < 8; i++) {
+					for (var i = 0; i < 11; i++) {
 						$(this).children().eq(i).css({"background":"rgb(39, 41, 61)"});	
 					}
 				});
 	
 				/* 리스트 행 클릭 */
 				for (var i = 0; i < 5; i++) {
-					for (var j = 0; j < 7; j++) {
+					for (var j = 0; j < 10; j++) {
 						$(".listAreaTr").eq(i).children().eq(j).click(function () {
 							$("#clickModal").click();	
 							console.log(exchangeNo)	
@@ -372,7 +390,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 								type:"get",
 								data:{exchangeNo:exchangeNo},
 								success:function(data){
-									console.log(data.exchangeNo)
+
 									$select = $("#ajaxModalTable");
 									$("#ajaxModalTable").empty(); 
 									
@@ -391,6 +409,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 									$select.append('<tr>'
 														+'<td>신청 오일</td>'
 														+'<td>'+data.oil+'</td>'
+														+'</tr>');
+									$select.append('<tr>'
+														+'<td>신청 금액</td>'
+														+'<td>'+data.cash+'</td>'
 														+'</tr>');
 									$select.append('<tr>'
 														+'<td>신청일</td>'
@@ -510,7 +532,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 			$(function() {
 				$("#deleteExchangeMoney").click(function() {
 					var cancelReason = $("#cancelReason").val();
-					location.href = 'deleteExchangeMoney.ad?exchangeNo='+exchangeNo+'&cancelReason='+cancelReason;
+					location.href = 'deleteExchangeMoney.ad?exchangeNo='+exchangeNo+'&cancelReason='+cancelReason+'&oil='+oil+'&memberNo='+memberNo+'&status='+status;
 				});
 			});
 		</script>
@@ -559,7 +581,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 		<script>
 			$(function () {
 				$("#updateExchange").click(function () {
-					location.href='updateRefundExchangeMoney.ad?exchangeNo='+exchangeNo;
+					location.href='updateRefundExchangeMoney.ad?exchangeNo='+exchangeNo+'&oil='+oil+'&memberNo='+memberNo+'&status='+status;
 				});
 			});
 		</script>
@@ -636,7 +658,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 		<script>
 			$(function () {
 				$("#updateRefund").click(function () {					
-					location.href='updateRefundExchangeMoney.ad?exchangeNo='+exchangeNo;
+					location.href='updateRefundExchangeMoney.ad?exchangeNo='+exchangeNo+'&oil='+oil+'&memberNo='+memberNo+'&status='+status;
 				});
 			});
 		</script>
