@@ -597,8 +597,8 @@
 	  
   $(function(){
 	 $("#qna").click(function(){
-		
-		 location.href="./parkingQna.cu";
+		//console.log();
+		 //location.href="./parkingQna.cu";
 	
 	 });
   });	 
