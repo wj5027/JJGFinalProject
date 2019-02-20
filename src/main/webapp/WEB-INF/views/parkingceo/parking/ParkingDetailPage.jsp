@@ -181,6 +181,10 @@
 		location.href="parkingceoLogin.pc";	
 	}
 	
+	function goReservationPage(){
+		location.href="parkingceoReservation.pc";
+	}
+	
 	
 	//페이징 처리할 변수
 	var currentPage = 1;

@@ -42,7 +42,7 @@ public class ExchangeMoney {
 		Member m = (Member)session.getAttribute("loginUser");
 		ev.setMember_no(m.getMember_no());
 		ev.setStatus("진행중");
-		ev.setCash(ev.getOil());
+		ev.setCash((int)(ev.getOil()*0.9));
 		try {
 			//환전 신청 내역 삽입
 			es.insertExchangeMoney(ev);

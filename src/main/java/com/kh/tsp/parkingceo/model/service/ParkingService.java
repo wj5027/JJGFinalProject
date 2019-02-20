@@ -27,6 +27,13 @@ public interface ParkingService {
 
 	void insertExchangeParking(ParkingCeoVo parking, ArrayList<ParkingCeoAttachmentVo> attachList);
 
+	int elctSearchParkingReservationListCount(HashMap<String, Object> selectHmap, String reverationSelectBox);
+
+	ArrayList<HashMap<String, Object>> selctSearchParkingReservation(ParkingCeoPageInfo pi,
+			HashMap<String, Object> selectHmap, String reverationSelectBox);
+
+
+
 	
 
 }

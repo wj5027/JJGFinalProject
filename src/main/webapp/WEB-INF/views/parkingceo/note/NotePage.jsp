@@ -167,6 +167,10 @@
 		location.href="parkingceoLogin.pc";	
 	}
 	
+	function goReservationPage(){
+		location.href="parkingceoReservation.pc";
+	}
+	
 	
 	
 	//페이징 처리할 변수 선언 및 기간 변수 선언
@@ -366,7 +370,7 @@
 						
 						//페이징
 						$pageTr = $('<tr>');
-						$pageTh = $("<th colspan='6'>");
+						$pageTh = $("<th colspan='7'>");
 						$pageUl = $('<ul class="pagination pagination-lg justify-content-center">');
 						$previousLi = $('<li class="page-item">');
 						$previousA = $('<a class="page-link" onclick="firstPageMove(' +1+')" aria-label="Previous">');
@@ -593,9 +597,13 @@
 						$application_dayTd = $("<td>").text((1900+data.hmap.list[i].APPLICATION_DATE.year)+"년 "
 								+data.hmap.list[i].APPLICATION_DATE.month+"월 "
 								+data.hmap.list[i].APPLICATION_DATE.date+"일");
-						$approval_dayTd = $("<td>").text((1900+data.hmap.list[i].APPROVAL_DATE.year)+"년 "
-								+data.hmap.list[i].APPROVAL_DATE.month+"월 "
-								+data.hmap.list[i].APPROVAL_DATE.date+"일");
+						if(data.hmap.list[i].hasOwnProperty('APPROVAL_DATE') == false){
+							$approval_dayTd = $("<td>").text("");
+						}else{
+							$approval_dayTd = $("<td>").text((1900+data.hmap.list[i].APPROVAL_DATE.year)+"년 "
+									+data.hmap.list[i].APPROVAL_DATE.month+"월 "
+									+data.hmap.list[i].APPROVAL_DATE.date+"일");
+						}
 						$account_holderTd = $("<td>").text(data.hmap.list[i].ACCOUNT_HOLDER);
 						$bankTd = $("<td>").text(data.hmap.list[i].ACCOUNT_HOLDER);
 						$account_numberTd = $("<td>").text(data.hmap.list[i].ACCOUNT_HOLDER);

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.tsp.common.ParkingCeoPageInfo;
 import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.parkingceo.model.dao.ParkingDao;
+import com.kh.tsp.parkingceo.model.dao.ParkingReservationDao;
 import com.kh.tsp.parkingceo.model.vo.ParkingCeoAttachmentVo;
 import com.kh.tsp.parkingceo.model.vo.ParkingCeoParkingListVo;
 import com.kh.tsp.parkingceo.model.vo.ParkingCeoVo;
@@ -21,6 +22,8 @@ public class ParkingServiceImpl implements ParkingService{
 	private SqlSessionTemplate sqlSession;
 	@Autowired
 	private ParkingDao pd;
+	@Autowired
+	private ParkingReservationDao prd;
 
 	public ParkingServiceImpl() {
 		// TODO Auto-generated constructor stub
@@ -187,6 +190,30 @@ public class ParkingServiceImpl implements ParkingService{
 		}
 		
 	}
+
+	@Override
+	public int elctSearchParkingReservationListCount(HashMap<String, Object> selectHmap, String reverationSelectBox) {
+		
+		switch (reverationSelectBox) {
+		case "":
+			
+			break;
+
+		default:
+			break;
+		}
+		
+		return 0;
+	}
+
+	@Override
+	public ArrayList<HashMap<String, Object>> selctSearchParkingReservation(ParkingCeoPageInfo pi,
+			HashMap<String, Object> selectHmap, String reverationSelectBox) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 	
 	
 }
