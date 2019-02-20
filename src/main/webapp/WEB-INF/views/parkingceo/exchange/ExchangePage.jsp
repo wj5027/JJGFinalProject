@@ -332,7 +332,7 @@
 				<input type="hidden" name="hiddenChangeName" id="hiddenChangeName1">
 				<input type="hidden" name="hiddenChangeName" id="hiddenChangeName2">
 				<input type="hidden" name="hiddenChangeName" id="hiddenChangeName3">
-								
+				<input type="hidden" name="hiddenParkingNo" id="hiddenParkingNo">		
 		    </form>
 		  </div>
 		</div>
@@ -464,11 +464,12 @@ function parkingceoLogin(){
     });
 	
 	
-	
+	var ParkingNo = "";
 	
 	function selectParking(){
 		//주차장 번호 값 조회
 		var parkingSelectBox = $("#inputGroupSelect01 option:selected").val();
+		ParkingNo = parkingSelectBox;
 		//주차장값이 none일 때 
 		if(parkingSelectBox == 'none'){
 			var modalText = $("<b>").text("주차장이 없습니다 등록해주세요.");
@@ -589,7 +590,8 @@ function parkingceoLogin(){
 	function exchangeParking(){
 		//각 데이터 정규식 표현 진행
 		
-		
+		//주차장 번호 삽입
+		$("#hiddenParkingNo").val(ParkingNo);
 		
  		//주차장명 값 및 정규표현식
 		parking_name = $("#parkingName").val();

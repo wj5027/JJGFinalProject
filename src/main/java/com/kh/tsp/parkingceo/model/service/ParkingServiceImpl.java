@@ -169,6 +169,24 @@ public class ParkingServiceImpl implements ParkingService{
 		}
 		return hmap;
 	}
+
+	@Override
+	public void insertExchangeParking(ParkingCeoVo parking, ArrayList<ParkingCeoAttachmentVo> attachList) {
+		//주차장 리스트 테이블 등록
+		pd.insertPakringListOne(sqlSession,parking);
+		//주차장 리스트 번호 조회
+		int parkingListNo = pd.selectParkingListNo(sqlSession);
+		
+		
+		for(int i = 0 ; i < attachList.size(); i ++) {
+			//주차장 리스트 번호 넣기
+			attachList.get(i).setParking_list_no(parkingListNo);
+			attachList.get(i).setParking_no(parking.getParkingNo());
+			//파일 리스트 테이블 등록
+			pd.insertAttachment(sqlSession,attachList.get(i));
+		}
+		
+	}
 	
 	
 }
