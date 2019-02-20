@@ -28,7 +28,7 @@
 		  <div class="col-md-12" height="500px">
             <div class="card ">
               <div class="card-header">
-                <h3 class="card-title" align="center">주차장 문의</h3>
+                <h3 class="card-title" align="center">[${pName}]주차장 문의</h3>
                 <hr style="border: solid 1px white;">
               <div align="center">
   	
@@ -45,7 +45,6 @@
 	  		<td><input type="hidden" id="bno" name="bno" value="${b.bno}">${ b.bTitle }</td>
 	  	
 	  		</tr>
-	  		
   	</c:forEach>
 	  		</tbody>
 	  	</table>
@@ -111,16 +110,17 @@
 		  <div class="col-md-12" height="500px">
             <div class="card ">
               <div class="card-header">
-                <h3 class="card-title" align="center">주차장 문의 작성</h3>
+                <h3 class="card-title" align="center">[${ pName }]주차장 문의 작성</h3>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
-                <form action="insertQna.cu" method="post">
+                <form action="insertParkingQna.cu" method="post">
                   <table class="table tablesorter " id="">
                     <tbody>
                     <tr>
                     	<td>주차장 명</td>
-                    	<td></td>
+                    	<td><input type="text" class="form-control" id="" name="pno" value="${ list[0].pno }">
+                    	<input type="hidden" value=""></td>
                     </tr>
                     <tr>
                     	<td>작성자</td>
@@ -156,6 +156,15 @@
       </div>
       
 <script>
+
+$(function(){
+
+    $("#insertQna").click(function(){
+    		$(".content").hide();
+    		$(".insertContent").show();
+    	});
+});
+
 $(function(){
 	  $("#listArea td").mouseenter(function(){
 		  $(this).parent().css({"color":"black", "cursor":"pointer"});

@@ -60,9 +60,25 @@ public interface BoardDao {
 	//페이징 처리 된 문의 목록 조회
 	ArrayList<Board> selectQnaList(SqlSessionTemplate sqlSession, PageInfo pi);
 	//페이징 처리 된 주차장 문의 목록 조회
-	ArrayList<Board> selectParkingQnaList(SqlSessionTemplate sqlSession, PageInfo pi);
+	ArrayList<Board> selectParkingQnaList(SqlSessionTemplate sqlSession, PageInfo pi, String pno);
 	//주차장 문의 상세보기
 	Board selectOneParkingQna(SqlSessionTemplate sqlSession, int bno);
+	//페이징 처리 된 주차장 후기 목록
+	ArrayList<Board> selectParkingReviewList(SqlSessionTemplate sqlSession, PageInfo pi, String pno);
+	//주차장 후기 상세보기
+	Board selectOneParkingReview(SqlSessionTemplate sqlSession, int bno);
+	//주차장 후기 등록
+	int insertParkingReview(SqlSessionTemplate sqlSession, Board b);
+	//주차장 후기 수정1
+	Board updateParkingReview(SqlSessionTemplate sqlSession, int bno);
+	//주차장 후기 수정2
+	int updateParkingReview2(SqlSessionTemplate sqlSession, Board b);
+	//주차장 문의 전체게시글 수
+	int getParkingQnaListCount(SqlSessionTemplate sqlSession, String pno);
+	//주차장 후기 전체게시글 수
+	int getParkingReviewListCount(SqlSessionTemplate sqlSession, String pno);
+	//주차장 문의 등록
+	int insertParkingQna(SqlSessionTemplate sqlSession, Board b);
 	
 	
 	

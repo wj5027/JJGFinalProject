@@ -26,47 +26,46 @@
 		  <div class="col-md-12" height="500px">
             <div class="card ">
               <div class="card-header">
-                <h3 class="card-title" align="center">[]주차장 문의</h3>
+                <h3 class="card-title" align="center">[${b.pno }]주차장 후기</h3>
                 <hr style="border: solid 1px white;">
-              		
               		<table width="100%" border="0" cellpadding="0" cellspacing="0">
 			<!-- BOARD TITLE -->
 			
-			<tr height="20" >
-				<td width="50px">작성자</td>
-				<td>${ b.mno }</td>
-			</tr>
-			<tr ><!-- BOARD CONTENTS -->
-				
-				<td>제목</td>
-				<td><input type="hidden" name="bno" value="${ b.bno }">${ b.bTitle }</td>
-			</tr>
 			
+			<tr height="20"><!-- BOARD CONTENTS -->
+				<td width="70px">작성자</td>
+				<td>${ b.mno }</td>
+				
+			</tr>
+			<tr>
+				<td>주차장 명</td>
+				<td><input type="hidden" id="pno" name="pno" value="${pno}">
+				<input type="hidden" id="pName" name="pName" value="${b.pno}">
+				${ b.pno }</td>
+			</tr>
+			<tr>
+				<td>제목</td>
+				<td><input type="hidden" id="num" name="num" value="${ b.bno }">${ b.bTitle }</td>
+			</tr>
 			<tr height="200">
-				<td  valign="top">내용</td>
+				<td valign="top" >내용</td>
 				<td valign="top" >${ b.bContext }</td>
 			</tr>
 			
-			
-			</table>
-			
-			<table width="100%" border="0" cellpadding="0" cellspacing="0">
-			
 			<tr>
-				<td width="60px">댓글&nbsp;</td>
-				<td   colspan="2">댓글내용　　　　　　　　　</td>
-				
-				<td>&nbsp;<button float="right" class="btn btn-info btn-sm">등록</button></td>
+			<td><td>
 			</tr>
-			</table>
 			
-			
-				<div align="center">	
+			<tr><!-- BOARD BUTTONS -->
+				<td colspan="5" align="center">
+					
 					<button id="editBtn" class="btn btn-info btn-sm">수정</button>&nbsp;
 					<button id="deleteBtn" class="btn btn-info btn-sm">삭제</button>&nbsp;					
 					<button id="goToList" class="btn btn-info btn-sm">목록</button>&nbsp;					
-				</div>
-		
+				
+				</td>
+			</tr>
+		</table>
 		<br>
 		<br>
 		<br>
@@ -79,23 +78,33 @@
 <script>
 	$(function(){
 		$("#editBtn").click(function(){
-			var num = $("input[name='bno']").val();
+			var num = $("input[name='num']").val();
 			console.log(num);
-			location.href="./updateParkingQna.cu?num="+num;
+			var pno = $("#pno").val();
+			
+			location.href="./updateParkingReview.cu?num="+num+"&pno="+pno;
 		});
 	});
 	
 	  $(function(){
 		$("#deleteBtn").click(function(){
-		  	 var bno = $("input[name='bno']").val();
-			console.log(bno);   
-			location.href="./deleteParkingQna.cu?bno="+bno;
+		  	 var num = $("input[name='num']").val();
+		  	 var pno = $("#pno").val();
+		  	 var pName = $("#pName").val();
+			console.log(num);   
+			console.log(pName);
+			
+			alert("해당 글이 삭제되었습니다.");
+			location.href="./deleteParkingReview.cu?num="+num+"&pno="+pno+"&pName="+pName;
 		});
 	});  
 	
 	$(function(){
 		$("#goToList").click(function(){
-			location.href="./parkingQna.cu";
+			var pno = $("#pno").val();
+			var pName = $("#pName").val();
+			
+			location.href="./parkingReview.cu?num="+pno+"&pName="+pName;
 		});
 	});
 </script>	

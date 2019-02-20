@@ -29,11 +29,20 @@
 		  <div class="col-md-12" height="500px">
             <div class="card ">
               <div class="card-header">
-                <h3 class="card-title" align="center">내 후기</h3>
-                <!-- <hr style="border: solid 1px white;"> -->
+           <c:if test="${ list ne null }">
+                  <h3 class="card-title" align="center">[${list[0].pno }]주차장 후기</h3>
+              	
+             </c:if> 	
+              <c:if test="${ pName ne null }">
+               <h3 class="card-title" align="center">[${pName}]주차장 후기</h3>
+                
+              </c:if> 
+              <c:if test="${ b ne null }">               
+                 <h3 class="card-title" align="center">[${ b.pno }]주차장 후기</h3>
+              </c:if> 
+               
               <div align="center">
-<!--    <a href="./customerNoticeDetail.cu">쿠폰행사안내</a><h5>2019/01/25</h5>
- -->   
+  
    <hr style="border: solid 1px white;">
    
    
@@ -41,10 +50,10 @@
    		<th width="30%">작성일</th>
    		<th width="40%">제목</th>
    		<th>주차장 명</th>
-   		${list }
+   		
    		<c:forEach var="b" items="${ list }">
    		
-   		<c:if test="${ loginUser.member_no eq b.mno }">
+   		
    		<tbody>
    		<tr>
    			<td>${ b.createDate }</td>
@@ -54,11 +63,10 @@
    		</tr>
    		
    		<!-- <hr style="border: solid 1px white;"> -->
-   		   </c:if>
+   		 
    		   </c:forEach>
    		</tbody>
    	</table>
-   		<%-- <a href="./customerNoticeDetail.cu" >${ b.bTitle }<intput type="hidden" name="bno" value="${ b.bno }"></a><h5>${ b.createDate }</h5> --%>
    		
    
    
@@ -66,9 +74,9 @@
     </div>
        </div>
        
-       <!-- <div align="center">
-       <button id="insertReview" class="btn btn-info btn-sm">작성</button>
-       </div> -->
+       <div align="center">
+       <button type="button" id="insertReview" class="btn btn-info btn-sm">작성</button>
+       </div>
               <div class="card-body">
                 <div class="table-responsive">
                 
@@ -78,7 +86,7 @@
 				[이전] &nbsp;
 			</c:if>
 			<c:if test="${ pi.currentPage > 1 }">
-				<c:url var="blistBack" value="/review.cu">
+				<c:url var="blistBack" value="/parkingReview.cu">
 					<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
 				</c:url>
 				<a href="${ blistBack }">[이전]</a> &nbsp; 
@@ -89,7 +97,7 @@
 					<font color="lightgrey" size="4">[${p}]</font>
 				</c:if>
 				<c:if test="${ p ne pi.currentPage }">
-					<c:url var="blistCheck" value="review.cu">
+					<c:url var="blistCheck" value="parkingReview.cu">
 						<c:param name="currentPage" value="${p}"/>
 					</c:url>
 					<a href="${ blistCheck }">${p}</a>
@@ -100,7 +108,7 @@
 				&nbsp; [다음]
 			</c:if>
 			<c:if test="${ pi.currentPage < pi.maxPage }">
-				<c:url var="blistEnd" value="review.cu">
+				<c:url var="blistEnd" value="parkingReview.cu">
 					<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
 				</c:url>
 				
@@ -118,17 +126,32 @@
 	<br>
 	<br>
 	<br>
-	 <div class="insertContent">
+	<div class="insertContent">
         <div class="row">
 		  <div class="col-md-12" height="500px">
             <div class="card ">
               <div class="card-header">
-                <h3 class="card-title" align="center">후기 작성</h3>
+             
+                 <c:if test="${ list ne null }">
+                  <h3 class="card-title" align="center">[${list[0].pno }]주차장 후기</h3>
+              	
+             </c:if> 	
+              <c:if test="${ pName ne null }">
+               <h3 class="card-title" align="center">[${pName}]주차장 후기</h3>
+                
+              </c:if> 
+              <c:if test="${ b ne null }">               
+                 <h3 class="card-title" align="center">[${ b.pno }]주차장 후기</h3>
+              </c:if> 
+            
+                
+              
+              
               </div>
               <div class="card-body">
                 <div class="table-responsive">
-                <form action="insertReview.cu" method="post">
-                  <table class="table tablesorter " id="listArea">
+                <form action="insertParkingReview.cu" method="post">
+                  <table class="table tablesorter " >
                     <tbody>
                        
                       <tr>
@@ -140,8 +163,19 @@
                       <tr>
                       	<td>주차장 명</td>
                       	<td>
-                      		<input type="text" class="form-control" name="pno" placeholder="주차장명을 입력하세요">
+                      		<c:if test="${ list ne null }">
+                      			<input type="text" class="form-control" name="pName" value="${list[0].pno }" readonly>
+                      			<input type="hidden" id="pno" name="pno" value="${ pno }">
+                      		</c:if>
+                      		<c:if test="${ pName ne null }">
+                      			<input type="text" class="form-control" name="pName" value="${ pName }" readonly>
                       		
+                      			<input type="hidden" id="pno" name="pno" value="${ pno }">
+                      		</c:if>
+                      		<c:if test="${ b ne null }">
+                      			<input type="text" class="form-control" name="pName" value="${b.pno }" readonly>
+                      			<input type="hidden" id="pno" name="pno" value="${ pno }">
+                      		</c:if>
                       	</td>
                       </tr>
                       <tr>
@@ -154,7 +188,7 @@
                       <tr>
                       	<td></td>
                       	<td style="padding-left: 30%">
-                      		<button  class="btn btn-info btn-sm">등록</button>
+                      		<button type="subtmit" class="btn btn-info btn-sm">등록</button>
                       	</td>
                       </tr> 
                                        
@@ -167,7 +201,7 @@
           </div>
         </div>
       </div>
- 
+
 <script>
    $(function(){
        $("#insertReview").click(function(){
@@ -188,9 +222,11 @@
 			
 			var num = $(this).find("#num").val();
 			console.log(num);
+			var pno = $("#pno").val();
+			console.log(pno);
 			
 			
-			location.href="./reviewDetail.cu?num="+num;
+			location.href="./parkingReviewDetail.cu?num="+num+"&pno="+pno;
 		});
 	});
  
