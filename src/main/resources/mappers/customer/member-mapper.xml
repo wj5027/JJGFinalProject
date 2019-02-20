@@ -446,6 +446,15 @@
 				#{ application_account_number })
 	</insert>
 	
+	<!--즐겨찾기 찾기  -->
+	<select id="selectfavorites" resultType="String" parameterType="int">
+	
+	SELECT PARKING_NO 
+	FROM FAVORITES
+	 WHERE MEMBER_NO=#{mno}
+	
+	</select>
+	
 	<!-- 네이버 아이디 유무 확인 -->
 	<select id="chkNaver"  resultMap="MemberResultSet2" parameterType="String">
 		SELECT * FROM
@@ -466,4 +475,17 @@
 		INSERT INTO parking_reservation (res_no, res_apply_date, res_date, status, member_no, parking_no, car_no)
 		VALUES (RES_NO_SEQ.NEXTVAL, SYSDATE, TO_DATE('${ stringResDate }','mm-dd-yyyy hh24:mi'), 'Y', ${ memberNo }, ${ parkingNo }, '${ carNo }')
 	</insert>
+	
+	
+	<!--즐겨찾기 등록 -->
+	<insert id="insertfavorite" parameterType="Hashmap">
+	INSERT INTO FAVORITES VALUES (FAVORITES_SEQ.NEXTVAL,'${pno}',${mno})
+	</insert>
+	<delete id="deletefavorite" parameterType="Hashmap">
+	DELETE FROM FAVORITES
+	WHERE PARKING_NO='${pno}'
+	AND MEMBER_NO=${mno}
+	</delete>
+	
+	
 </mapper>

@@ -20,12 +20,10 @@
  	<c:if test="${ empty loginUser }">
  	<script type='text/javascript'>
  	
- 	
  	</script>
 	</c:if>
 	<c:if test="${ !empty loginUser }">
 	<script type='text/javascript'>
-	
 	
 	
 	</script>
@@ -43,16 +41,15 @@
 	          <div id="daumMap" style=" height: 100%; width: 100%; position: fixed; top: 54px; left: 0px; background-color: rgb(229, 227, 223);" >
 	          </div>
 	          </div>
-	          
-	          <div style="position:absolute; width: 100px;height: 200px;z-index:100000000;top: 7%;left: 72%;">
-	          <br>
-	          <div id="" style="margin:1px; background-color:white; border-radius: 10px;">
-	          <span align="center" style="margin:2px; color:black; font-size:0.5em;"><img src='resources/common/img/greenMarker.png' width="25px" height="25px"> &nbsp;<b>2000원 이하</b></span>
-	          <span align="center" style="margin:2px; color:black; font-size:0.5em;"><img src='resources/common/img/blueMarker.png' width="25px" height="25px"> &nbsp;<b>2000~4000</b></span>
-	          <span align="center" style="margin:2px; color:black; font-size:0.5em;"><img src='resources/common/img/yellowMarker.png' width="25px" height="25px"> &nbsp;<b>4000~8000</b></span>
-	          <span align="center" style="margin:2px; color:black; font-size:0.5em;"><img src='resources/common/img/pinkMarker.png' width="25px" height="25px"> &nbsp;<b>8000원 이상</b></span>
-	          <span align="center" style="margin:2px; color:black; font-size:0.5em;"><img src='resources/common/img/muni.png' width="25px" height="25px"> &nbsp;<b>관리자에게 문의</b></span>
-	           <span align="center" style="margin:2px; color:black; font-size:0.5em;"><img src='resources/common/img/freeparking.png' width="25px" height="25px"> &nbsp;<b>무료</b></span>
+	          <div align="right" style="position:absolute; width: 100px;height: 200px;z-index:100000000;top: 9%;left: 72%;">
+	          <button id="bttn" align="right" style="background-color:white; color:black; border-radius:7px; font-size:1.5em" onclick="togglebtn()">>></button>
+	          <div align="left" id="explaindiv" style="margin:1px; background-color:white; border-radius: 10px;">
+	          <span align="center" style="margin:2px; color:black; font-size:0.7em;"><img src='resources/common/img/greenMarker.png' width="25px" height="25px"> &nbsp;<b>2000원 이하</b></span>
+	          <span align="center" style="margin:2px; color:black; font-size:0.7em;"><img src='resources/common/img/blueMarker.png' width="25px" height="25px"> &nbsp;<b>2000~4000</b></span>
+	          <span align="center" style="margin:2px; color:black; font-size:0.7em;"><img src='resources/common/img/yellowMarker.png' width="25px" height="25px"> &nbsp;<b>4000~8000</b></span>
+	          <span align="center" style="margin:2px; color:black; font-size:0.7em;"><img src='resources/common/img/pinkMarker.png' width="25px" height="25px"> &nbsp;<b>8000원 이상</b></span>
+	          <span align="center" style="margin:2px; color:black; font-size:0.7em;"><img src='resources/common/img/muni.png' width="25px" height="25px"> &nbsp;<b>관리자에게 문의</b></span>
+	           <span align="center" style="margin:2px; color:black; font-size:0.7em;"><img src='resources/common/img/freeparking.png' width="25px" height="25px"> &nbsp;<b>무료</b></span>
 	          </div>
 	          </div>
 	         
@@ -68,16 +65,21 @@
 			          <table class="table tablesorter " style="margin-bottom: 0px;">
 			            <tbody id="STTResult">
 			                  <tr>
-			                  <td align="left" colspan="5">-주차장명 <br> <b id="pname"></b></td>
+			                  <input id="pno" type="hidden" value="">
+			                  <td align="left" colspan="5">- 주차장명 <br> <b style="font-size:1.5em;" id="pname"></b></td>
 			                  <td align="right" colspan="6" style="padding:0px">총자리:<span id="allseat" style="display:inline">150</span><br><span style="color:red">남은자리:<span id="extraseat" style="display:inline">100</span></span></td>
 			                  </tr>
 			                  <tr ><td colspan="12" style="padding:0px"><hr></td></tr>
 			                  <tr>
-			                  <td colspan="3"><img src="resources/common/img/pinkMarker.png" width="100px" height="100px" style="border:1px solid black;"/></td>
-			                  <td colspan="7">
-			                   				  <span id="paddr"></span><br>
-			                  				  <b>주차요금 </b>: 30분 ,<span id="price"></span>원<br>
-			                  				  <b>운영시간</b> : <span id="time"></span>
+			                  <td colspan="3" lowspan="2"><img src="resources/common/img/pinkMarker.png" width="100px" height="100px" style="border:1px solid black;"/></td>
+			                  <td colspan="9">
+			                   				  <b>- 주소 :</b><span id="paddr"></span><br>
+			                  				  <b>- 주차요금 </b>: 30분 ,<span id="price"></span>원<br>
+			                  				  
+			                  				  <b>- 운영시간</b><br>
+			                  				        &emsp;   평  일 : <span id="time"></span><br>
+			                  				       &emsp;   토요일 : <span id="stime"></span><br>
+			                  				       &emsp;   공휴일 : <span id="gtime"></span>
 			                  </td>
 			                  </tr>
 			                  <tr>
@@ -93,7 +95,18 @@
 			                  	</c:if>
 			                  	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 			                  </td>
-			                  <td align="center" colspan="3"><button type="button" class="btn btn-sm  " data-dismiss="modal">즐겨찾기</button></td>
+			                  <td align="center" colspan="3">
+			                  
+			                  <c:if test="${ empty loginUser }">
+			                  <button  type="button" class="btn btn-sm " data-dismiss="modal" disabled>즐겨찾기</button>
+			                  	</c:if>
+			                  	<c:if test="${ !empty loginUser }">
+			                  	<button id="favorite_btn" type="button" class="btn btn-sm  " data-dismiss="modal" onclick="favoriteReg()">즐겨찾기</button>
+			                  	</c:if>
+			                  
+			                  
+			                  
+			                  </td>
 			                  </tr>
 			                  <tr>
 
@@ -216,7 +229,81 @@
 	           
 	           
            <!--@@@@@@@@@@@@@@@@@@@@@2모달과 버튼  -->
+           
+           
+           
+           
+           
            <script type='text/javascript'>
+           
+           		var fla=1;
+           		function togglebtn(){
+           			console.log($("#bttn").text());
+           			if(fla==1){
+           				$("#bttn").text("  <<  ");
+           				$("#explaindiv").hide();
+           				fla=0;
+/*            				$("#explaindiv").attr('style','visibility:visible'); */
+           			}
+           			else{
+           				$("#bttn").text("  >>  ");
+           				$("#explaindiv").show();
+           				fla=1;
+           				/* $("#explaindiv").attr('style','visibility:hidden'); */
+           			}
+           			
+           		}
+           		
+           		
+           		function favoriteReg(){
+           			var ppno= $("#pno").val();
+           			var mno ="${loginUser.member_no}";
+           			if($("#favorite_btn").text()=="즐겨찾기"){
+           		 	$.ajax({
+						url:"insertfavorite.cu",
+						type:"post",
+						data:{mno:mno,pno:ppno}, 
+						success:function(data){
+							if(data==1){
+								console.log("결과는 무엇일까요?"+data)
+								$("#favorite_btn").text("즐겨찾기 해제");
+								alert("즐겨찾기 등록 성공!");
+							}else{
+								alert("즐겨찾기 등록 실패!");
+							}
+						
+						},error:function(status){
+							console.log(status);
+						}
+					 }); 
+           			}else{
+           				console.log("즐겨찾기 해제일때 찍히는 콘솔");
+           			 	$.ajax({
+    						url:"deletefavorite.cu",
+    						type:"post",
+    						data:{mno:mno,pno:ppno}, 
+    						success:function(data){
+    							if(data==1){
+    								console.log("결과는 무엇일까요?"+data)
+    								$("#favorite_btn").text("즐겨찾기");
+    								alert("즐겨찾기 해제 성공!");
+    							}else{
+    							}
+    						
+    						},error:function(status){
+    							console.log(status);
+    						}
+    					 });
+           			}
+           			
+           		}
+           
+           
+           
+           
+           
+           
+           
 		       	/* @@@@@@@@@@@@@@@@@@@@@@주차장 예약 신청 버튼 띄우기 */
 		        function reservParking(parkingNo) {
 		       		
@@ -296,7 +383,7 @@
 				    console.log("지오로케이션사용");
 				    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
 				    navigator.geolocation.watchPosition(function(position) {
-				        console.log("움직였당"+count);
+				        console.log("움직였음."+count);
 				        var lat = position.coords.latitude, // 위도
 				            lon = position.coords.longitude; // 경도
 				        console.log(lat+","+lon);
@@ -331,10 +418,6 @@
 		           var addr =null;
 		           
 				 	 function navi(){
-				 		    console.log(ppname);
-				 		    console.log(addr);
-				 		 	console.log(Number(latt));
-				 		 	console.log(Number(loo));
 				 		 	
 					         Kakao.Navi.start({
 					        	 name: ppname,
@@ -348,6 +431,13 @@
 				
 				
 				var geocoder = new daum.maps.services.Geocoder();
+				
+				
+				
+				
+				
+				
+				
 				//클러스터 생성
 				 var clusterer = new daum.maps.MarkerClusterer({
 				        map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
@@ -356,15 +446,223 @@
 				        minLevel: 8 // 클러스터 할 최소 지도 레벨 
 				    });
 				
-			 
-				
-				// 지도가 이동, 확대, 축소로 인해 지도영역이 변경되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
+			// 지도가 이동, 확대, 축소로 인해 지도영역이 변경되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
 				 daum.maps.event.addListener(map, 'tilesloaded',selectnearParking);
-					  
 				
-			
-					 function selectnearParking() {
-						
+       		 function selectnearParking() {
+				//로그인되었으면 즐겨찾기 찾아와서 즐겨찾기 마커 등록
+				 if("${! empty loginUser }"=="true"){
+						 
+						 var mno="${loginUser.member_no}";
+					 $.ajax({
+						        url:"selectfavorites.cu",
+						        type:'GET',
+						        data: {member_no:mno},
+						        success:function(data){
+						        	var favorites=data.favoritesP;
+									
+						        	////////////////
+						 /* 	현재 지도 영역 구하기. */
+						 	var bounds = map.getBounds();
+						 	  // 영역정보의 남서쪽 정보를 얻어옵니다 
+						    var swLatlng = bounds.getSouthWest();//x0,y1
+						    // 영역정보의 북동쪽 정보를 얻어옵니다 
+						    var neLatlng = bounds.getNorthEast();//x1,y0
+						    
+						    var x0=Number(swLatlng.getLat());
+						    var x1=Number(neLatlng.getLat());
+						    var y0=Number(swLatlng.getLng());
+						    var y1=Number(neLatlng.getLng());
+						    
+						    
+						   if(zoomlevel<7){
+							   var markers=[];
+								 clusterer.clear();
+							$.ajax({
+								url:"getnearParkings.cu",
+								type:"get",
+								data:{x0:x0,x1:x1,y0:y0,y1:y1}, 
+								success:function(data){
+								 	for(t in data.parkings){
+								 		var pno=data.parkings[t].parking_NO;
+										var lat =data.parkings[t].latitude;
+										var lon =data.parkings[t].longitude;
+										var type =data.parkings[t].operate_TYPE;
+										var name =data.parkings[t].parking_NAME;
+										var ntime = Number(data.parkings[t].parking_NTIME);//기본시간
+										var nprice =Number(data.parkings[t].parking_NPRICE);//기본시간요금
+										var atime=Number(data.parkings[t].parking_ATIME);//추가시간
+										var aprice=Number(data.parkings[t].parking_APRICE);//추가시간요금
+										var pinfo=data.parkings[t].price_INFO;//유료or무료
+										var favoriteOX=0;
+										var img=null;
+										
+										var allfair=0;
+										
+										var Platlng =new daum.maps.LatLng(lat, lon);
+										
+										if(pinfo=="유료"&&ntime>0){
+											
+										if(atime>0){	
+										 if(ntime>30){
+											 var em=Number(ntime/30);
+											 allfair=Number(nprice/em);
+										 }else{
+											 var emptytime=Number(30-ntime);
+											 var afairtime=Number(emptytime/atime);
+											 var afair=Number(afairtime*aprice);
+											 allfair=Number(nprice+afair);
+										 }
+										}
+										else{
+											if(ntime>30){
+												 var em=Number(ntime/30);
+												 allfair=Number(nprice/em);
+												 
+											 }else{
+												 var em2 =Number(30/ntime);
+												 allfair=Number(em2*nprice);
+												 
+											 }
+											
+										}
+										}else{
+											if(pinfo=="무료"){
+												img='resources/common/img/freeparking.png';
+											}
+											 else if(atime>0){
+												 if(atime>30){
+													 var em=Number(atime/30);
+													 allfair=Number(aprice/em);
+													 
+												 }else{
+												// var emptytime=Number(30-ntime);
+												//	 var afairtime=Number(emptytime/ntime);
+												//	 var afair=Number(afairtime*nprice);
+												//	 allfair=Number(nprice+afair); 
+													 var em2 =Number(30/atime);
+													 allfair=Number(em2*aprice);
+												 }
+												 
+											 } 
+											else{
+												img='resources/common/img/muni.png';
+											}
+										}
+										
+										if((0<allfair) && (2000>=allfair)){
+											 img='resources/common/img/greenMarker.png';
+											}else if((2000<=allfair) && (4000>=allfair)){
+											 img='resources/common/img/blueMarker.png';
+											}else if((4000<=allfair) && (8000>=allfair)){
+												img='resources/common/img/yellowMarker.png';
+											}else if(allfair>=8000){
+												img='resources/common/img/pinkMarker.png';
+											}
+											else{
+												/*  img='resources/common/img/muni.png';  */
+											}
+										
+										if(img==null){
+											img='resources/common/img/muni.png';
+										}
+										
+									   for(var f in favorites)
+										   {
+										   		if(favorites[f]==pno){
+										   			console.log(favoriteOX+"즐겨찾기주차장");
+										   			img='resources/common/img/favorite_on.png';
+										   			favoriteOX=1;
+										   		}
+										   }
+										
+										
+										
+										
+										var parkingImgPath =img, // 마커이미지의 주소입니다    
+									    imageSize = new daum.maps.Size(30, 30), // 마커이미지의 크기입니다
+									    imageOption = {offset: new daum.maps.Point(30, 30)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+									    var parkingImg = new daum.maps.MarkerImage(parkingImgPath, imageSize, imageOption);
+										//마커객체 생성
+										var marker2= new daum.maps.Marker({
+								            position:new daum.maps.LatLng(lat, lon),
+									 		image:parkingImg
+								        });
+										if(favoriteOX==1){
+											var Fmarker= new daum.maps.Marker({
+									            position:new daum.maps.LatLng(lat, lon),
+										 		image:parkingImg,
+										 		map:map
+									        });
+											
+							 	    	}else{
+							 	    		var marker2= new daum.maps.Marker({
+									            position:new daum.maps.LatLng(lat, lon),
+										 		image:parkingImg
+									        });
+							 	    	}
+										
+										daum.maps.event.addListener(marker2, 'click',makeclickListener(map,marker2,data.parkings[t],allfair,favoriteOX));
+									
+								
+								 		markers.push(marker2);
+								 		
+								 		 
+								 	}
+								 	
+								 	
+								 	//로그인 시 마커 클릭했을떄 이벤트 등록
+								 	function makeclickListener(map, marker, parking,price,favoriteOX) {
+								 	    return function() {
+								 	    	/*  pname allseat extraseat */
+								 	    	$("#pno").val(parking.parking_NO);
+								 	    	$("#detailparking").click();
+								 	    	console.log(parking);
+								 	    	ppname=parking.parking_NAME;
+								 	    	addr =parking.address;
+								 	    	 latt=parking.latitude;
+								 	    	loo=parking.longitude;
+								 	    	$("#pname").text(parking.parking_NAME);
+								 	    	$("#allseat").text(parking.parking_SIZE);
+								 	    	$("#extraseat").text(parking.left_SIZE);
+								 	    	$("#price").text(Number(price));
+								 	    	$("#time").text(parking.weekday_STIME+"~ 익일:"+parking.weekday_ETIME);
+								 	    	$("#paddr").text(addr);
+								 	    	$("#stime").text(parking.sat_STIME+"~ 익일:"+parking.sat_ETIME);
+								 	    	$("#gtime").text(parking.holiday_STIME+"~ 익일:"+parking.holiday_ETIME);
+								 	    	
+								 	    	
+								 	    	if(favoriteOX==1){
+								 	    		console.log("즐겨찾기된 주차장이다.");
+								 	    		$("#favorite_btn").text("즐겨찾기 해제");
+								 	    	}else{
+								 	    		$("#favorite_btn").text("즐겨찾기");
+								 	    	}
+								 	 
+								 	    	
+								 	    	
+								 	    	 
+								 	    };
+								 	}
+							 clusterer.addMarkers(markers);
+							
+									},error:function(status){
+									console.log(status);
+								}
+							 });
+						 }
+						        	
+						        	
+						        	
+						        },
+						        error:function(jqXHR, textStatus, errorThrown){
+						            alert("에러 발생~~" + textStatus + " : " + errorThrown);
+						        }
+						    }); 
+					 
+					 }
+					 if("${ empty loginUser }"=="true"){
+					 console.log("로그인정보 x");
 						 /* 	현재 지도 영역 구하기. */
 						 	var bounds = map.getBounds();
 						 	  // 영역정보의 남서쪽 정보를 얻어옵니다 
@@ -491,7 +789,8 @@
 								 	}
 								 	
 								 	
-								 	//마커 클릭했을떄 이벤트 등록
+								 	
+								 	//노로그인 마커 클릭했을떄 이벤트 등록
 								 	function makeclickListener(map, marker, parking,price) {
 								 	    return function() {
 								 	    	/*  pname allseat extraseat */
@@ -520,20 +819,16 @@
 									console.log(status);
 								}
 							 });
-						 }
 					 }
-				
-						
-				
-				
-				
-				
+					 
+					 
+					 }
+					 }
 				
 			</script>
 		
 			  
 			     
-          </div>
   
  
  

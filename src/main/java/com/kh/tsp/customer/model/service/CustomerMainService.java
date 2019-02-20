@@ -77,6 +77,13 @@ public interface CustomerMainService {
 
 	int selectReservCount(Member member);
 
+	ArrayList<String> selectfavorites(int mno);
+
+	int insertfavorite(int mno, String pno);
+
+	int deletefavorite(int mno, String pno);
+
+
 	
 	
 }

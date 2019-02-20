@@ -1,5 +1,6 @@
 package com.kh.tsp.customer.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -145,8 +146,7 @@ public class CustomerMain {
 		}
 	}*/
 	
-	
-	//4. @ResponseBody를 이용한 ajax
+	//좌표안에 주차장 찾기
 	@RequestMapping(value="getnearParkings.cu")
 	public @ResponseBody HashMap<String, Object> getnearParkings(@RequestParam String x0,@RequestParam String x1,@RequestParam String y0,@RequestParam String y1,HttpServletResponse response) {
 		
@@ -173,6 +173,61 @@ public class CustomerMain {
 		
 			return hmap;
 		}
+	//즐겨찾기 찾기
+	@RequestMapping(value="selectfavorites.cu")
+public @ResponseBody HashMap<String, Object> selectfavorites(@RequestParam String member_no,HttpServletResponse response) {
+		
+		int mno =Integer.parseInt(member_no);
+		ArrayList<String> favoritesP=cms.selectfavorites(mno);
+		System.out.println(favoritesP);
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("favoritesP", favoritesP);
+		
+			return hmap;
+		}
+	
+	
+	//즐찾 등록
+	@RequestMapping(value="insertfavorite.cu", method=RequestMethod.POST)
+	public void insertfavorite(@RequestParam int mno,String pno,HttpServletResponse response) {
+			System.out.println("mno : "+mno);
+			System.out.println("pno :"+pno);
+			
+			
+			int result =cms.insertfavorite(mno,pno);
+			
+			System.out.println(result);
+			
+		
+		try {
+			response.getWriter().print(result);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	//즐찾 해제 
+	@RequestMapping(value="deletefavorite.cu", method=RequestMethod.POST)
+	public void deletefavorite(@RequestParam int mno,String pno,HttpServletResponse response) {
+			System.out.println("mno : "+mno);
+			System.out.println("pno :"+pno);
+			
+			
+			int result =cms.deletefavorite(mno,pno);
+			
+			System.out.println(result);
+			
+		
+		try {
+			response.getWriter().print(result);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	
 	
 	//카카오톡 로그인
 	@RequestMapping(value="kakao.cu", method=RequestMethod.POST)
@@ -413,7 +468,9 @@ public class CustomerMain {
 		
 		
 		return "redirect:customer_loginPage.cu";
+	
 	}
-    
+
+	
 	
 }

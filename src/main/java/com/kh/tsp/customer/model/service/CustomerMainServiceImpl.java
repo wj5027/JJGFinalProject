@@ -219,6 +219,22 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 	public int insertRequestReserve(Reservation reservInfo) {
 		return cmd.insertRequestReserve(sqlSession, reservInfo);
 	}
+
+	@Override
+	public ArrayList<String> selectfavorites(int mno) {
+		return cmd.selectfavorites(sqlSession, mno);
+	}
+
+	@Override
+	public int insertfavorite(int mno, String pno) {
+		return cmd.insertfavorite(sqlSession,mno,pno);
+	}
+
+	@Override
+	public int deletefavorite(int mno, String pno) {
+		return cmd.deletefavorite(sqlSession,mno,pno);
+	}
+
 	
 	
 }

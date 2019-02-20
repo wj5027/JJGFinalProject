@@ -247,6 +247,28 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 	public int insertRequestReserve(SqlSessionTemplate sqlSession, Reservation reservInfo) {
 		return sqlSession.insert("Member.insertRequestReserve", reservInfo);
 	}
+
+	@Override
+	public ArrayList<String> selectfavorites(SqlSessionTemplate sqlSession, int mno) {
+		return (ArrayList)sqlSession.selectList("Member.selectfavorites",mno);
+	}
+
+	@Override
+	public int insertfavorite(SqlSessionTemplate sqlSession, int mno, String pno) {
+		HashMap<String,Object> hmap =new HashMap();
+		hmap.put("mno", mno);
+		hmap.put("pno",pno);
+		return sqlSession.insert("Member.insertfavorite",hmap);
+
+	}
+
+	@Override
+	public int deletefavorite(SqlSessionTemplate sqlSession, int mno, String pno) {
+		HashMap<String,Object> hmap =new HashMap();
+		hmap.put("mno", mno);
+		hmap.put("pno",pno);
+		return sqlSession.delete("Member.deletefavorite",hmap);
+	}
 	
 
 }
