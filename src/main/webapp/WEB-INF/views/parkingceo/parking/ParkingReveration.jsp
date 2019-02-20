@@ -192,11 +192,11 @@
 	//페이징 처리할 변수
 	var currentPage = 1;
 	//기본 버튼값 초기화
-	var vtnValue = 90;
+	var btnValue = 90;
 	
 	//기간 버튼을 눌렀을때 값 변경 메소드
 	function chkBtnValue(data){
-		vtnValue = data;
+		btnValue = data;
 		
 	}
 	
@@ -209,11 +209,936 @@
 			url:"searchParkingReservation.pc",
 			type:"post",
 			data:{currentPage:currentPage,
-				vtnValue:vtnValue,
+				btnValue:btnValue,
 				parkingSelectBox:parkingSelectBox,
 				reverationSelectBox:reverationSelectBox},
 			success : function(data){
 				console.log(data);
+				
+				//thead 설정
+				$theadId = $("#theadId");
+				$theadId.html('');
+				$tbodyId = $("#tbodyId");
+				$tbodyId.html('');
+				$tfootId = $("#tfootId");
+				$tfootId.html('');
+				$theadTr = $("<tr>");
+				
+				
+				if(data.hmap.listType == 'resAll'){
+					//전체 데이터 호출
+					//thead th 설정
+					$res_noTh = $("<th>").text("예약 번호");
+					$res_idTh = $("<th>").text("예약자 아이디");
+					$res_nameTh = $("<th>").text("예약자명");
+					$res_phoneTh = $("<th>").text("휴대폰 번호");
+					$res_carNoTh = $("<th>").text("차량번호");
+					$res_request_dateTh = $("<th>").text("예약 신청 시간")
+					$res_dateTh = $("<th>").text("주차장 예약 시작 시간");
+					$res_apply_dateTh = $("<th>").text("예약 승인 시간");
+					$res_statusTh = $("<th>").text("상태");
+					$res_cancel_reasonTh = $("<th>").text("사업자 취소 사유");
+					
+					$theadTr.append($res_noTh);
+					$theadTr.append($res_idTh);
+					$theadTr.append($res_nameTh);
+					$theadTr.append($res_phoneTh);
+					$theadTr.append($res_carNoTh);
+					$theadTr.append($res_request_dateTh);
+					$theadTr.append($res_dateTh);
+					$theadTr.append($res_apply_dateTh);
+					$theadTr.append($res_statusTh);
+					$theadTr.append($res_cancel_reasonTh);
+					
+					$theadId.append($theadTr);
+					
+					//tbody 설정
+					
+					for(var i in data.hmap.list){
+						$tbodyTr = $("<tr>");
+						
+						$res_noTd = $("<td>").text(data.hmap.list[i].RES_NO);
+						$res_idTd = $("<td>").text(data.hmap.list[i].MEMBER_ID);
+						$res_nameTd = $("<td>").text(data.hmap.list[i].MEMBER_NAME);
+						$res_phoneTd = $("<td>").text(data.hmap.list[i].PHONE);
+						$res_carNoTd = $("<td>").text(data.hmap.list[i].CAR_NO);
+						$res_request_dateTd = $("<td>").text((1900+data.hmap.list[i].RES_REQUEST_DATE.year)+"년 "
+								+(data.hmap.list[i].RES_REQUEST_DATE.month+1)+"월 "+
+								data.hmap.list[i].RES_REQUEST_DATE.date + "일 " +
+								data.hmap.list[i].RES_REQUEST_DATE.hours+"시 " +
+								data.hmap.list[i].RES_REQUEST_DATE.minutes+"분");
+						$res_dateTd = $("<td>").text((1900+data.hmap.list[i].RES_DATE.year)+"년 "
+								+(data.hmap.list[i].RES_DATE.month+1)+"월 "+
+								data.hmap.list[i].RES_DATE.date + "일 " +
+								data.hmap.list[i].RES_DATE.hours+"시 " +
+								data.hmap.list[i].RES_DATE.minutes+"분");
+						if(data.hmap.list[i].hasOwnProperty('RES_APPLY_DATE') == false){
+							$res_apply_dateTd = $("<td>").text("미승인");
+						}else{
+							$res_apply_dateTd = $("<td>").text((1900+data.hmap.list[i].RES_APPLY_DATE.year)+"년 "
+									+(data.hmap.list[i].RES_APPLY_DATE.month+1)+"월 "+
+									data.hmap.list[i].RES_APPLY_DATE.date + "일 " +
+									data.hmap.list[i].RES_APPLY_DATE.hours+"시 " +
+									data.hmap.list[i].RES_APPLY_DATE.minutes+"분");
+						}
+						$res_statusTd = $("<td>").text(data.hmap.list[i].STATUS);
+						if(data.hmap.list[i].hasOwnProperty('CANCEL_REASON') == false){
+							$res_cancel_reasonTd = $("<td>").text("사유 없음");
+						}else{
+							$res_cancel_reasonTd = $("<td>").text(data.hmap.list[i].CANCEL_REASON);							
+						}
+						
+						$tbodyTr.append($res_noTd);
+						$tbodyTr.append($res_idTd);
+						$tbodyTr.append($res_nameTd);
+						$tbodyTr.append($res_phoneTd);
+						$tbodyTr.append($res_carNoTd);
+						$tbodyTr.append($res_request_dateTd);
+						$tbodyTr.append($res_dateTd);
+						$tbodyTr.append($res_apply_dateTd);
+						$tbodyTr.append($res_statusTd);
+						$tbodyTr.append($res_cancel_reasonTd);
+						
+						$tbodyId.append($tbodyTr); 
+					}
+					
+					//페이징
+					
+					if(data.pi.listCount != 0){
+						$pageTr = $('<tr>');
+						$pageTh = $("<th colspan='10'>");
+						$pageUl = $('<ul class="pagination pagination-lg justify-content-center">');
+						$previousLi = $('<li class="page-item">');
+						$previousA = $('<a class="page-link" onclick="firstPageMove(' +1+')" aria-label="Previous">');
+						$previousHidden = $('<span aria-hidden="true">').text('<<');
+						$previousSrOnly = $('<span class="sr-only">').text('Previous');
+						
+						$previousA.append($previousHidden);
+						$previousA.append($previousSrOnly);
+						$previousLi.append($previousA);
+						$pageUl.append($previousLi);
+						
+						if(data.pi.currentPage <= 1){
+							$leftIconDisableLi = $('<li class="page-item">');
+							$leftAtag = $('<a class="page-link">').text("<");
+							$leftIconDisableLi.append($leftAtag);
+							$pageUl.append($leftIconDisableLi);
+						}else{
+							currentPage = (data.pi.currentPage-1);
+							$leftIconAbleLi = $('<li class="page-item">');
+							$leftAtag2 = $('<a class="page-link" onclick="beforePageMove('+currentPage+')">').text("<");
+							$leftIconAbleLi.append($leftAtag2);
+							$pageUl.append($leftIconAbleLi);
+						}
+						
+						for(var i = data.pi.startPage ; i <= data.pi.endPage; i++){
+							if(i == data.pi.currentPage){
+								$currentIconAbleLi = $('<li class="page-item">');
+								$currentAtag = $('<a class="page-link">').text(i);
+								$currentIconAbleLi.append($currentAtag);
+								$pageUl.append($currentIconAbleLi);
+							}else{
+								$currentIconAbleLi2 = $('<li class="page-item">');
+								$currentAtag2 = $('<a class="page-link" onclick="onePageMove('+ i +')">').text(i);
+								$currentIconAbleLi2.append($currentAtag2);
+								$pageUl.append($currentIconAbleLi2);
+							}
+						}				
+						
+						if(data.pi.currentPage >= data.pi.maxPage){
+							$rightIconDisableLi = $('<li class="page-item">');
+							$rightAtag = $('<a class="page-link">').text(">");
+							$rightIconDisableLi.append($rightAtag);
+							$pageUl.append($rightIconDisableLi);
+						}else{
+							currentPage = (data.pi.currentPage+1);
+							$rightIconAbleLi = $('<li class="page-item">');
+							$rightAtag2 = $('<a class="page-link" onclick="nextPageMove('+currentPage+')">').text(">");
+							$rightIconAbleLi.append($rightAtag2);
+							$pageUl.append($rightIconAbleLi);
+						}					
+
+						$nextLi = $('<li class="page-item">');
+						$nextA = $('<a class="page-link" onclick="lastPageMove(' +data.pi.maxPage	+')" aria-label="Next">');
+						$nextHidden = $('<span aria-hidden="true">').text('>>');
+						$nextSrOnly = $('<span class="sr-only">').text('Next');
+						
+						$nextA.append($nextHidden);
+						$nextA.append($nextSrOnly);
+						$nextLi.append($nextA);
+						$pageUl.append($nextLi);
+						$pageTh.append($pageUl);
+						$pageTr.append($pageTh);
+						
+						$tfootId.append($pageTr);
+						
+						
+					}
+					
+					
+				}else if (data.hmap.listType == 'resOkay'){
+					//예약 승인 되었을시
+					
+					//thead th 설정
+					$res_noTh = $("<th>").text("예약 번호");
+					$res_idTh = $("<th>").text("예약자 아이디");
+					$res_nameTh = $("<th>").text("예약자명");
+					$res_phoneTh = $("<th>").text("휴대폰 번호");
+					$res_carNoTh = $("<th>").text("차량번호");
+					$res_request_dateTh = $("<th>").text("예약 신청 시간")
+					$res_dateTh = $("<th>").text("주차장 예약 시작 시간");
+					$res_apply_dateTh = $("<th>").text("예약 승인 시간");
+					$res_statusTh = $("<th>").text("상태");
+					$res_cancel_reasonTh = $("<th>").text("사업자 취소 사유");
+					
+					$theadTr.append($res_noTh);
+					$theadTr.append($res_idTh);
+					$theadTr.append($res_nameTh);
+					$theadTr.append($res_phoneTh);
+					$theadTr.append($res_carNoTh);
+					$theadTr.append($res_request_dateTh);
+					$theadTr.append($res_dateTh);
+					$theadTr.append($res_apply_dateTh);
+					$theadTr.append($res_statusTh);
+					$theadTr.append($res_cancel_reasonTh);
+					
+					$theadId.append($theadTr);
+					
+					//tbody 설정
+					
+					for(var i in data.hmap.list){
+						$tbodyTr = $("<tr>");
+						
+						$res_noTd = $("<td>").text(data.hmap.list[i].RES_NO);
+						$res_idTd = $("<td>").text(data.hmap.list[i].MEMBER_ID);
+						$res_nameTd = $("<td>").text(data.hmap.list[i].MEMBER_NAME);
+						$res_phoneTd = $("<td>").text(data.hmap.list[i].PHONE);
+						$res_carNoTd = $("<td>").text(data.hmap.list[i].CAR_NO);
+						$res_request_dateTd = $("<td>").text((1900+data.hmap.list[i].RES_REQUEST_DATE.year)+"년 "
+								+(data.hmap.list[i].RES_REQUEST_DATE.month+1)+"월 "+
+								data.hmap.list[i].RES_REQUEST_DATE.date + "일 " +
+								data.hmap.list[i].RES_REQUEST_DATE.hours+"시 " +
+								data.hmap.list[i].RES_REQUEST_DATE.minutes+"분");
+						$res_dateTd = $("<td>").text((1900+data.hmap.list[i].RES_DATE.year)+"년 "
+								+(data.hmap.list[i].RES_DATE.month+1)+"월 "+
+								data.hmap.list[i].RES_DATE.date + "일 " +
+								data.hmap.list[i].RES_DATE.hours+"시 " +
+								data.hmap.list[i].RES_DATE.minutes+"분");
+						if(data.hmap.list[i].hasOwnProperty('RES_APPLY_DATE') == false){
+							$res_apply_dateTd = $("<td>").text("미승인");
+						}else{
+							$res_apply_dateTd = $("<td>").text((1900+data.hmap.list[i].RES_APPLY_DATE.year)+"년 "
+									+(data.hmap.list[i].RES_APPLY_DATE.month+1)+"월 "+
+									data.hmap.list[i].RES_APPLY_DATE.date + "일 " +
+									data.hmap.list[i].RES_APPLY_DATE.hours+"시 " +
+									data.hmap.list[i].RES_APPLY_DATE.minutes+"분");
+						}
+						$res_statusTd = $("<td>").text(data.hmap.list[i].STATUS);
+						if(data.hmap.list[i].hasOwnProperty('CANCEL_REASON') == false){
+							$res_cancel_reasonTd = $("<td>").text("사유 없음");
+						}else{
+							$res_cancel_reasonTd = $("<td>").text(data.hmap.list[i].CANCEL_REASON);							
+						}
+						
+						$tbodyTr.append($res_noTd);
+						$tbodyTr.append($res_idTd);
+						$tbodyTr.append($res_nameTd);
+						$tbodyTr.append($res_phoneTd);
+						$tbodyTr.append($res_carNoTd);
+						$tbodyTr.append($res_request_dateTd);
+						$tbodyTr.append($res_dateTd);
+						$tbodyTr.append($res_apply_dateTd);
+						$tbodyTr.append($res_statusTd);
+						$tbodyTr.append($res_cancel_reasonTd);
+						
+						$tbodyId.append($tbodyTr); 
+					}
+					
+					//페이징
+					
+					if(data.pi.listCount != 0){
+						$pageTr = $('<tr>');
+						$pageTh = $("<th colspan='10'>");
+						$pageUl = $('<ul class="pagination pagination-lg justify-content-center">');
+						$previousLi = $('<li class="page-item">');
+						$previousA = $('<a class="page-link" onclick="firstPageMove(' +1+')" aria-label="Previous">');
+						$previousHidden = $('<span aria-hidden="true">').text('<<');
+						$previousSrOnly = $('<span class="sr-only">').text('Previous');
+						
+						$previousA.append($previousHidden);
+						$previousA.append($previousSrOnly);
+						$previousLi.append($previousA);
+						$pageUl.append($previousLi);
+						
+						if(data.pi.currentPage <= 1){
+							$leftIconDisableLi = $('<li class="page-item">');
+							$leftAtag = $('<a class="page-link">').text("<");
+							$leftIconDisableLi.append($leftAtag);
+							$pageUl.append($leftIconDisableLi);
+						}else{
+							currentPage = (data.pi.currentPage-1);
+							$leftIconAbleLi = $('<li class="page-item">');
+							$leftAtag2 = $('<a class="page-link" onclick="beforePageMove('+currentPage+')">').text("<");
+							$leftIconAbleLi.append($leftAtag2);
+							$pageUl.append($leftIconAbleLi);
+						}
+						
+						for(var i = data.pi.startPage ; i <= data.pi.endPage; i++){
+							if(i == data.pi.currentPage){
+								$currentIconAbleLi = $('<li class="page-item">');
+								$currentAtag = $('<a class="page-link">').text(i);
+								$currentIconAbleLi.append($currentAtag);
+								$pageUl.append($currentIconAbleLi);
+							}else{
+								$currentIconAbleLi2 = $('<li class="page-item">');
+								$currentAtag2 = $('<a class="page-link" onclick="onePageMove('+ i +')">').text(i);
+								$currentIconAbleLi2.append($currentAtag2);
+								$pageUl.append($currentIconAbleLi2);
+							}
+						}				
+						
+						if(data.pi.currentPage >= data.pi.maxPage){
+							$rightIconDisableLi = $('<li class="page-item">');
+							$rightAtag = $('<a class="page-link">').text(">");
+							$rightIconDisableLi.append($rightAtag);
+							$pageUl.append($rightIconDisableLi);
+						}else{
+							currentPage = (data.pi.currentPage+1);
+							$rightIconAbleLi = $('<li class="page-item">');
+							$rightAtag2 = $('<a class="page-link" onclick="nextPageMove('+currentPage+')">').text(">");
+							$rightIconAbleLi.append($rightAtag2);
+							$pageUl.append($rightIconAbleLi);
+						}					
+
+						$nextLi = $('<li class="page-item">');
+						$nextA = $('<a class="page-link" onclick="lastPageMove(' +data.pi.maxPage	+')" aria-label="Next">');
+						$nextHidden = $('<span aria-hidden="true">').text('>>');
+						$nextSrOnly = $('<span class="sr-only">').text('Next');
+						
+						$nextA.append($nextHidden);
+						$nextA.append($nextSrOnly);
+						$nextLi.append($nextA);
+						$pageUl.append($nextLi);
+						$pageTh.append($pageUl);
+						$pageTr.append($pageTh);
+						
+						$tfootId.append($pageTr);
+						
+						
+					}
+					
+					
+				}else if(data.hmap.listType == 'resReady'){
+					//예약 승인 대기중일시
+					
+					//thead th 설정
+					$res_noTh = $("<th>").text("예약 번호");
+					$res_idTh = $("<th>").text("예약자 아이디");
+					$res_nameTh = $("<th>").text("예약자명");
+					$res_phoneTh = $("<th>").text("휴대폰 번호");
+					$res_carNoTh = $("<th>").text("차량번호");
+					$res_request_dateTh = $("<th>").text("예약 신청 시간")
+					$res_dateTh = $("<th>").text("주차장 예약 시작 시간");
+					$res_apply_dateTh = $("<th>").text("예약 승인 시간");
+					$res_statusTh = $("<th>").text("상태");
+					$res_cancel_reasonTh = $("<th>").text("사업자 취소 사유");
+					
+					$theadTr.append($res_noTh);
+					$theadTr.append($res_idTh);
+					$theadTr.append($res_nameTh);
+					$theadTr.append($res_phoneTh);
+					$theadTr.append($res_carNoTh);
+					$theadTr.append($res_request_dateTh);
+					$theadTr.append($res_dateTh);
+					$theadTr.append($res_apply_dateTh);
+					$theadTr.append($res_statusTh);
+					$theadTr.append($res_cancel_reasonTh);
+					
+					$theadId.append($theadTr);
+					
+					//tbody 설정
+					
+					for(var i in data.hmap.list){
+						$tbodyTr = $("<tr>");
+						
+						$res_noTd = $("<td>").text(data.hmap.list[i].RES_NO);
+						$res_idTd = $("<td>").text(data.hmap.list[i].MEMBER_ID);
+						$res_nameTd = $("<td>").text(data.hmap.list[i].MEMBER_NAME);
+						$res_phoneTd = $("<td>").text(data.hmap.list[i].PHONE);
+						$res_carNoTd = $("<td>").text(data.hmap.list[i].CAR_NO);
+						$res_request_dateTd = $("<td>").text((1900+data.hmap.list[i].RES_REQUEST_DATE.year)+"년 "
+								+(data.hmap.list[i].RES_REQUEST_DATE.month+1)+"월 "+
+								data.hmap.list[i].RES_REQUEST_DATE.date + "일 " +
+								data.hmap.list[i].RES_REQUEST_DATE.hours+"시 " +
+								data.hmap.list[i].RES_REQUEST_DATE.minutes+"분");
+						$res_dateTd = $("<td>").text((1900+data.hmap.list[i].RES_DATE.year)+"년 "
+								+(data.hmap.list[i].RES_DATE.month+1)+"월 "+
+								data.hmap.list[i].RES_DATE.date + "일 " +
+								data.hmap.list[i].RES_DATE.hours+"시 " +
+								data.hmap.list[i].RES_DATE.minutes+"분");
+						if(data.hmap.list[i].hasOwnProperty('RES_APPLY_DATE') == false){
+							$res_apply_dateTd = $("<td>").text("미승인");
+						}else{
+							$res_apply_dateTd = $("<td>").text((1900+data.hmap.list[i].RES_APPLY_DATE.year)+"년 "
+									+(data.hmap.list[i].RES_APPLY_DATE.month+1)+"월 "+
+									data.hmap.list[i].RES_APPLY_DATE.date + "일 " +
+									data.hmap.list[i].RES_APPLY_DATE.hours+"시 " +
+									data.hmap.list[i].RES_APPLY_DATE.minutes+"분");
+						}
+						$res_statusTd = $("<td>").text(data.hmap.list[i].STATUS);
+						if(data.hmap.list[i].hasOwnProperty('CANCEL_REASON') == false){
+							$res_cancel_reasonTd = $("<td>").text("사유 없음");
+						}else{
+							$res_cancel_reasonTd = $("<td>").text(data.hmap.list[i].CANCEL_REASON);							
+						}
+						
+						$tbodyTr.append($res_noTd);
+						$tbodyTr.append($res_idTd);
+						$tbodyTr.append($res_nameTd);
+						$tbodyTr.append($res_phoneTd);
+						$tbodyTr.append($res_carNoTd);
+						$tbodyTr.append($res_request_dateTd);
+						$tbodyTr.append($res_dateTd);
+						$tbodyTr.append($res_apply_dateTd);
+						$tbodyTr.append($res_statusTd);
+						$tbodyTr.append($res_cancel_reasonTd);
+						
+						$tbodyId.append($tbodyTr); 
+					}
+					
+					//페이징
+					
+					if(data.pi.listCount != 0){
+						$pageTr = $('<tr>');
+						$pageTh = $("<th colspan='10'>");
+						$pageUl = $('<ul class="pagination pagination-lg justify-content-center">');
+						$previousLi = $('<li class="page-item">');
+						$previousA = $('<a class="page-link" onclick="firstPageMove(' +1+')" aria-label="Previous">');
+						$previousHidden = $('<span aria-hidden="true">').text('<<');
+						$previousSrOnly = $('<span class="sr-only">').text('Previous');
+						
+						$previousA.append($previousHidden);
+						$previousA.append($previousSrOnly);
+						$previousLi.append($previousA);
+						$pageUl.append($previousLi);
+						
+						if(data.pi.currentPage <= 1){
+							$leftIconDisableLi = $('<li class="page-item">');
+							$leftAtag = $('<a class="page-link">').text("<");
+							$leftIconDisableLi.append($leftAtag);
+							$pageUl.append($leftIconDisableLi);
+						}else{
+							currentPage = (data.pi.currentPage-1);
+							$leftIconAbleLi = $('<li class="page-item">');
+							$leftAtag2 = $('<a class="page-link" onclick="beforePageMove('+currentPage+')">').text("<");
+							$leftIconAbleLi.append($leftAtag2);
+							$pageUl.append($leftIconAbleLi);
+						}
+						
+						for(var i = data.pi.startPage ; i <= data.pi.endPage; i++){
+							if(i == data.pi.currentPage){
+								$currentIconAbleLi = $('<li class="page-item">');
+								$currentAtag = $('<a class="page-link">').text(i);
+								$currentIconAbleLi.append($currentAtag);
+								$pageUl.append($currentIconAbleLi);
+							}else{
+								$currentIconAbleLi2 = $('<li class="page-item">');
+								$currentAtag2 = $('<a class="page-link" onclick="onePageMove('+ i +')">').text(i);
+								$currentIconAbleLi2.append($currentAtag2);
+								$pageUl.append($currentIconAbleLi2);
+							}
+						}				
+						
+						if(data.pi.currentPage >= data.pi.maxPage){
+							$rightIconDisableLi = $('<li class="page-item">');
+							$rightAtag = $('<a class="page-link">').text(">");
+							$rightIconDisableLi.append($rightAtag);
+							$pageUl.append($rightIconDisableLi);
+						}else{
+							currentPage = (data.pi.currentPage+1);
+							$rightIconAbleLi = $('<li class="page-item">');
+							$rightAtag2 = $('<a class="page-link" onclick="nextPageMove('+currentPage+')">').text(">");
+							$rightIconAbleLi.append($rightAtag2);
+							$pageUl.append($rightIconAbleLi);
+						}					
+
+						$nextLi = $('<li class="page-item">');
+						$nextA = $('<a class="page-link" onclick="lastPageMove(' +data.pi.maxPage	+')" aria-label="Next">');
+						$nextHidden = $('<span aria-hidden="true">').text('>>');
+						$nextSrOnly = $('<span class="sr-only">').text('Next');
+						
+						$nextA.append($nextHidden);
+						$nextA.append($nextSrOnly);
+						$nextLi.append($nextA);
+						$pageUl.append($nextLi);
+						$pageTh.append($pageUl);
+						$pageTr.append($pageTh);
+						
+						$tfootId.append($pageTr);
+						
+						
+					}
+					
+					
+				}else if(data.hmap.listType == 'resCancel'){
+					//사업자 사유로 취소했을시
+					
+					//thead th 설정
+					$res_noTh = $("<th>").text("예약 번호");
+					$res_idTh = $("<th>").text("예약자 아이디");
+					$res_nameTh = $("<th>").text("예약자명");
+					$res_phoneTh = $("<th>").text("휴대폰 번호");
+					$res_carNoTh = $("<th>").text("차량번호");
+					$res_request_dateTh = $("<th>").text("예약 신청 시간")
+					$res_dateTh = $("<th>").text("주차장 예약 시작 시간");
+					$res_apply_dateTh = $("<th>").text("예약 승인 시간");
+					$res_statusTh = $("<th>").text("상태");
+					$res_cancel_reasonTh = $("<th>").text("사업자 취소 사유");
+					
+					$theadTr.append($res_noTh);
+					$theadTr.append($res_idTh);
+					$theadTr.append($res_nameTh);
+					$theadTr.append($res_phoneTh);
+					$theadTr.append($res_carNoTh);
+					$theadTr.append($res_request_dateTh);
+					$theadTr.append($res_dateTh);
+					$theadTr.append($res_apply_dateTh);
+					$theadTr.append($res_statusTh);
+					$theadTr.append($res_cancel_reasonTh);
+					
+					$theadId.append($theadTr);
+					
+					//tbody 설정
+					
+					for(var i in data.hmap.list){
+						$tbodyTr = $("<tr>");
+						
+						$res_noTd = $("<td>").text(data.hmap.list[i].RES_NO);
+						$res_idTd = $("<td>").text(data.hmap.list[i].MEMBER_ID);
+						$res_nameTd = $("<td>").text(data.hmap.list[i].MEMBER_NAME);
+						$res_phoneTd = $("<td>").text(data.hmap.list[i].PHONE);
+						$res_carNoTd = $("<td>").text(data.hmap.list[i].CAR_NO);
+						$res_request_dateTd = $("<td>").text((1900+data.hmap.list[i].RES_REQUEST_DATE.year)+"년 "
+								+(data.hmap.list[i].RES_REQUEST_DATE.month+1)+"월 "+
+								data.hmap.list[i].RES_REQUEST_DATE.date + "일 " +
+								data.hmap.list[i].RES_REQUEST_DATE.hours+"시 " +
+								data.hmap.list[i].RES_REQUEST_DATE.minutes+"분");
+						$res_dateTd = $("<td>").text((1900+data.hmap.list[i].RES_DATE.year)+"년 "
+								+(data.hmap.list[i].RES_DATE.month+1)+"월 "+
+								data.hmap.list[i].RES_DATE.date + "일 " +
+								data.hmap.list[i].RES_DATE.hours+"시 " +
+								data.hmap.list[i].RES_DATE.minutes+"분");
+						if(data.hmap.list[i].hasOwnProperty('RES_APPLY_DATE') == false){
+							$res_apply_dateTd = $("<td>").text("미승인");
+						}else{
+							$res_apply_dateTd = $("<td>").text((1900+data.hmap.list[i].RES_APPLY_DATE.year)+"년 "
+									+(data.hmap.list[i].RES_APPLY_DATE.month+1)+"월 "+
+									data.hmap.list[i].RES_APPLY_DATE.date + "일 " +
+									data.hmap.list[i].RES_APPLY_DATE.hours+"시 " +
+									data.hmap.list[i].RES_APPLY_DATE.minutes+"분");
+						}
+						$res_statusTd = $("<td>").text(data.hmap.list[i].STATUS);
+						if(data.hmap.list[i].hasOwnProperty('CANCEL_REASON') == false){
+							$res_cancel_reasonTd = $("<td>").text("사유 없음");
+						}else{
+							$res_cancel_reasonTd = $("<td>").text(data.hmap.list[i].CANCEL_REASON);							
+						}
+						
+						$tbodyTr.append($res_noTd);
+						$tbodyTr.append($res_idTd);
+						$tbodyTr.append($res_nameTd);
+						$tbodyTr.append($res_phoneTd);
+						$tbodyTr.append($res_carNoTd);
+						$tbodyTr.append($res_request_dateTd);
+						$tbodyTr.append($res_dateTd);
+						$tbodyTr.append($res_apply_dateTd);
+						$tbodyTr.append($res_statusTd);
+						$tbodyTr.append($res_cancel_reasonTd);
+						
+						$tbodyId.append($tbodyTr); 
+					}
+					
+					//페이징
+					
+					if(data.pi.listCount != 0){
+						$pageTr = $('<tr>');
+						$pageTh = $("<th colspan='10'>");
+						$pageUl = $('<ul class="pagination pagination-lg justify-content-center">');
+						$previousLi = $('<li class="page-item">');
+						$previousA = $('<a class="page-link" onclick="firstPageMove(' +1+')" aria-label="Previous">');
+						$previousHidden = $('<span aria-hidden="true">').text('<<');
+						$previousSrOnly = $('<span class="sr-only">').text('Previous');
+						
+						$previousA.append($previousHidden);
+						$previousA.append($previousSrOnly);
+						$previousLi.append($previousA);
+						$pageUl.append($previousLi);
+						
+						if(data.pi.currentPage <= 1){
+							$leftIconDisableLi = $('<li class="page-item">');
+							$leftAtag = $('<a class="page-link">').text("<");
+							$leftIconDisableLi.append($leftAtag);
+							$pageUl.append($leftIconDisableLi);
+						}else{
+							currentPage = (data.pi.currentPage-1);
+							$leftIconAbleLi = $('<li class="page-item">');
+							$leftAtag2 = $('<a class="page-link" onclick="beforePageMove('+currentPage+')">').text("<");
+							$leftIconAbleLi.append($leftAtag2);
+							$pageUl.append($leftIconAbleLi);
+						}
+						
+						for(var i = data.pi.startPage ; i <= data.pi.endPage; i++){
+							if(i == data.pi.currentPage){
+								$currentIconAbleLi = $('<li class="page-item">');
+								$currentAtag = $('<a class="page-link">').text(i);
+								$currentIconAbleLi.append($currentAtag);
+								$pageUl.append($currentIconAbleLi);
+							}else{
+								$currentIconAbleLi2 = $('<li class="page-item">');
+								$currentAtag2 = $('<a class="page-link" onclick="onePageMove('+ i +')">').text(i);
+								$currentIconAbleLi2.append($currentAtag2);
+								$pageUl.append($currentIconAbleLi2);
+							}
+						}				
+						
+						if(data.pi.currentPage >= data.pi.maxPage){
+							$rightIconDisableLi = $('<li class="page-item">');
+							$rightAtag = $('<a class="page-link">').text(">");
+							$rightIconDisableLi.append($rightAtag);
+							$pageUl.append($rightIconDisableLi);
+						}else{
+							currentPage = (data.pi.currentPage+1);
+							$rightIconAbleLi = $('<li class="page-item">');
+							$rightAtag2 = $('<a class="page-link" onclick="nextPageMove('+currentPage+')">').text(">");
+							$rightIconAbleLi.append($rightAtag2);
+							$pageUl.append($rightIconAbleLi);
+						}					
+
+						$nextLi = $('<li class="page-item">');
+						$nextA = $('<a class="page-link" onclick="lastPageMove(' +data.pi.maxPage	+')" aria-label="Next">');
+						$nextHidden = $('<span aria-hidden="true">').text('>>');
+						$nextSrOnly = $('<span class="sr-only">').text('Next');
+						
+						$nextA.append($nextHidden);
+						$nextA.append($nextSrOnly);
+						$nextLi.append($nextA);
+						$pageUl.append($nextLi);
+						$pageTh.append($pageUl);
+						$pageTr.append($pageTh);
+						
+						$tfootId.append($pageTr);
+						
+						
+					}
+					
+					
+				}else if(data.hmap.listType == 'resComplete'){
+					//예약회원이 입차했을시
+					
+					//thead th 설정
+					$res_noTh = $("<th>").text("예약 번호");
+					$res_idTh = $("<th>").text("예약자 아이디");
+					$res_nameTh = $("<th>").text("예약자명");
+					$res_phoneTh = $("<th>").text("휴대폰 번호");
+					$res_carNoTh = $("<th>").text("차량번호");
+					$res_request_dateTh = $("<th>").text("예약 신청 시간")
+					$res_dateTh = $("<th>").text("주차장 예약 시작 시간");
+					$res_apply_dateTh = $("<th>").text("예약 승인 시간");
+					$res_statusTh = $("<th>").text("상태");
+					$res_cancel_reasonTh = $("<th>").text("사업자 취소 사유");
+					
+					$theadTr.append($res_noTh);
+					$theadTr.append($res_idTh);
+					$theadTr.append($res_nameTh);
+					$theadTr.append($res_phoneTh);
+					$theadTr.append($res_carNoTh);
+					$theadTr.append($res_request_dateTh);
+					$theadTr.append($res_dateTh);
+					$theadTr.append($res_apply_dateTh);
+					$theadTr.append($res_statusTh);
+					$theadTr.append($res_cancel_reasonTh);
+					
+					$theadId.append($theadTr);
+					
+					//tbody 설정
+					
+					for(var i in data.hmap.list){
+						$tbodyTr = $("<tr>");
+						
+						$res_noTd = $("<td>").text(data.hmap.list[i].RES_NO);
+						$res_idTd = $("<td>").text(data.hmap.list[i].MEMBER_ID);
+						$res_nameTd = $("<td>").text(data.hmap.list[i].MEMBER_NAME);
+						$res_phoneTd = $("<td>").text(data.hmap.list[i].PHONE);
+						$res_carNoTd = $("<td>").text(data.hmap.list[i].CAR_NO);
+						$res_request_dateTd = $("<td>").text((1900+data.hmap.list[i].RES_REQUEST_DATE.year)+"년 "
+								+(data.hmap.list[i].RES_REQUEST_DATE.month+1)+"월 "+
+								data.hmap.list[i].RES_REQUEST_DATE.date + "일 " +
+								data.hmap.list[i].RES_REQUEST_DATE.hours+"시 " +
+								data.hmap.list[i].RES_REQUEST_DATE.minutes+"분");
+						$res_dateTd = $("<td>").text((1900+data.hmap.list[i].RES_DATE.year)+"년 "
+								+(data.hmap.list[i].RES_DATE.month+1)+"월 "+
+								data.hmap.list[i].RES_DATE.date + "일 " +
+								data.hmap.list[i].RES_DATE.hours+"시 " +
+								data.hmap.list[i].RES_DATE.minutes+"분");
+						if(data.hmap.list[i].hasOwnProperty('RES_APPLY_DATE') == false){
+							$res_apply_dateTd = $("<td>").text("미승인");
+						}else{
+							$res_apply_dateTd = $("<td>").text((1900+data.hmap.list[i].RES_APPLY_DATE.year)+"년 "
+									+(data.hmap.list[i].RES_APPLY_DATE.month+1)+"월 "+
+									data.hmap.list[i].RES_APPLY_DATE.date + "일 " +
+									data.hmap.list[i].RES_APPLY_DATE.hours+"시 " +
+									data.hmap.list[i].RES_APPLY_DATE.minutes+"분");
+						}
+						$res_statusTd = $("<td>").text(data.hmap.list[i].STATUS);
+						if(data.hmap.list[i].hasOwnProperty('CANCEL_REASON') == false){
+							$res_cancel_reasonTd = $("<td>").text("사유 없음");
+						}else{
+							$res_cancel_reasonTd = $("<td>").text(data.hmap.list[i].CANCEL_REASON);							
+						}
+						
+						$tbodyTr.append($res_noTd);
+						$tbodyTr.append($res_idTd);
+						$tbodyTr.append($res_nameTd);
+						$tbodyTr.append($res_phoneTd);
+						$tbodyTr.append($res_carNoTd);
+						$tbodyTr.append($res_request_dateTd);
+						$tbodyTr.append($res_dateTd);
+						$tbodyTr.append($res_apply_dateTd);
+						$tbodyTr.append($res_statusTd);
+						$tbodyTr.append($res_cancel_reasonTd);
+						
+						$tbodyId.append($tbodyTr); 
+					}
+					
+					//페이징
+					
+					if(data.pi.listCount != 0){
+						$pageTr = $('<tr>');
+						$pageTh = $("<th colspan='10'>");
+						$pageUl = $('<ul class="pagination pagination-lg justify-content-center">');
+						$previousLi = $('<li class="page-item">');
+						$previousA = $('<a class="page-link" onclick="firstPageMove(' +1+')" aria-label="Previous">');
+						$previousHidden = $('<span aria-hidden="true">').text('<<');
+						$previousSrOnly = $('<span class="sr-only">').text('Previous');
+						
+						$previousA.append($previousHidden);
+						$previousA.append($previousSrOnly);
+						$previousLi.append($previousA);
+						$pageUl.append($previousLi);
+						
+						if(data.pi.currentPage <= 1){
+							$leftIconDisableLi = $('<li class="page-item">');
+							$leftAtag = $('<a class="page-link">').text("<");
+							$leftIconDisableLi.append($leftAtag);
+							$pageUl.append($leftIconDisableLi);
+						}else{
+							currentPage = (data.pi.currentPage-1);
+							$leftIconAbleLi = $('<li class="page-item">');
+							$leftAtag2 = $('<a class="page-link" onclick="beforePageMove('+currentPage+')">').text("<");
+							$leftIconAbleLi.append($leftAtag2);
+							$pageUl.append($leftIconAbleLi);
+						}
+						
+						for(var i = data.pi.startPage ; i <= data.pi.endPage; i++){
+							if(i == data.pi.currentPage){
+								$currentIconAbleLi = $('<li class="page-item">');
+								$currentAtag = $('<a class="page-link">').text(i);
+								$currentIconAbleLi.append($currentAtag);
+								$pageUl.append($currentIconAbleLi);
+							}else{
+								$currentIconAbleLi2 = $('<li class="page-item">');
+								$currentAtag2 = $('<a class="page-link" onclick="onePageMove('+ i +')">').text(i);
+								$currentIconAbleLi2.append($currentAtag2);
+								$pageUl.append($currentIconAbleLi2);
+							}
+						}				
+						
+						if(data.pi.currentPage >= data.pi.maxPage){
+							$rightIconDisableLi = $('<li class="page-item">');
+							$rightAtag = $('<a class="page-link">').text(">");
+							$rightIconDisableLi.append($rightAtag);
+							$pageUl.append($rightIconDisableLi);
+						}else{
+							currentPage = (data.pi.currentPage+1);
+							$rightIconAbleLi = $('<li class="page-item">');
+							$rightAtag2 = $('<a class="page-link" onclick="nextPageMove('+currentPage+')">').text(">");
+							$rightIconAbleLi.append($rightAtag2);
+							$pageUl.append($rightIconAbleLi);
+						}					
+
+						$nextLi = $('<li class="page-item">');
+						$nextA = $('<a class="page-link" onclick="lastPageMove(' +data.pi.maxPage	+')" aria-label="Next">');
+						$nextHidden = $('<span aria-hidden="true">').text('>>');
+						$nextSrOnly = $('<span class="sr-only">').text('Next');
+						
+						$nextA.append($nextHidden);
+						$nextA.append($nextSrOnly);
+						$nextLi.append($nextA);
+						$pageUl.append($nextLi);
+						$pageTh.append($pageUl);
+						$pageTr.append($pageTh);
+						
+						$tfootId.append($pageTr);
+						
+						
+					}
+					
+					
+				}else{
+					//사용자 취소일시
+					
+					//thead th 설정
+					$res_noTh = $("<th>").text("예약 번호");
+					$res_idTh = $("<th>").text("예약자 아이디");
+					$res_nameTh = $("<th>").text("예약자명");
+					$res_phoneTh = $("<th>").text("휴대폰 번호");
+					$res_carNoTh = $("<th>").text("차량번호");
+					$res_request_dateTh = $("<th>").text("예약 신청 시간")
+					$res_dateTh = $("<th>").text("주차장 예약 시작 시간");
+					$res_apply_dateTh = $("<th>").text("예약 승인 시간");
+					$res_statusTh = $("<th>").text("상태");
+					$res_cancel_reasonTh = $("<th>").text("사업자 취소 사유");
+					
+					$theadTr.append($res_noTh);
+					$theadTr.append($res_idTh);
+					$theadTr.append($res_nameTh);
+					$theadTr.append($res_phoneTh);
+					$theadTr.append($res_carNoTh);
+					$theadTr.append($res_request_dateTh);
+					$theadTr.append($res_dateTh);
+					$theadTr.append($res_apply_dateTh);
+					$theadTr.append($res_statusTh);
+					$theadTr.append($res_cancel_reasonTh);
+					
+					$theadId.append($theadTr);
+					
+					//tbody 설정
+					
+					for(var i in data.hmap.list){
+						$tbodyTr = $("<tr>");
+						
+						$res_noTd = $("<td>").text(data.hmap.list[i].RES_NO);
+						$res_idTd = $("<td>").text(data.hmap.list[i].MEMBER_ID);
+						$res_nameTd = $("<td>").text(data.hmap.list[i].MEMBER_NAME);
+						$res_phoneTd = $("<td>").text(data.hmap.list[i].PHONE);
+						$res_carNoTd = $("<td>").text(data.hmap.list[i].CAR_NO);
+						$res_request_dateTd = $("<td>").text((1900+data.hmap.list[i].RES_REQUEST_DATE.year)+"년 "
+								+(data.hmap.list[i].RES_REQUEST_DATE.month+1)+"월 "+
+								data.hmap.list[i].RES_REQUEST_DATE.date + "일 " +
+								data.hmap.list[i].RES_REQUEST_DATE.hours+"시 " +
+								data.hmap.list[i].RES_REQUEST_DATE.minutes+"분");
+						$res_dateTd = $("<td>").text((1900+data.hmap.list[i].RES_DATE.year)+"년 "
+								+(data.hmap.list[i].RES_DATE.month+1)+"월 "+
+								data.hmap.list[i].RES_DATE.date + "일 " +
+								data.hmap.list[i].RES_DATE.hours+"시 " +
+								data.hmap.list[i].RES_DATE.minutes+"분");
+						if(data.hmap.list[i].hasOwnProperty('RES_APPLY_DATE') == false){
+							$res_apply_dateTd = $("<td>").text("미승인");
+						}else{
+							$res_apply_dateTd = $("<td>").text((1900+data.hmap.list[i].RES_APPLY_DATE.year)+"년 "
+									+(data.hmap.list[i].RES_APPLY_DATE.month+1)+"월 "+
+									data.hmap.list[i].RES_APPLY_DATE.date + "일 " +
+									data.hmap.list[i].RES_APPLY_DATE.hours+"시 " +
+									data.hmap.list[i].RES_APPLY_DATE.minutes+"분");
+						}
+						$res_statusTd = $("<td>").text(data.hmap.list[i].STATUS);
+						if(data.hmap.list[i].hasOwnProperty('CANCEL_REASON') == false){
+							$res_cancel_reasonTd = $("<td>").text("사유 없음");
+						}else{
+							$res_cancel_reasonTd = $("<td>").text(data.hmap.list[i].CANCEL_REASON);							
+						}
+						
+						$tbodyTr.append($res_noTd);
+						$tbodyTr.append($res_idTd);
+						$tbodyTr.append($res_nameTd);
+						$tbodyTr.append($res_phoneTd);
+						$tbodyTr.append($res_carNoTd);
+						$tbodyTr.append($res_request_dateTd);
+						$tbodyTr.append($res_dateTd);
+						$tbodyTr.append($res_apply_dateTd);
+						$tbodyTr.append($res_statusTd);
+						$tbodyTr.append($res_cancel_reasonTd);
+						
+						$tbodyId.append($tbodyTr); 
+					}
+					
+					//페이징
+					
+					if(data.pi.listCount != 0){
+						$pageTr = $('<tr>');
+						$pageTh = $("<th colspan='10'>");
+						$pageUl = $('<ul class="pagination pagination-lg justify-content-center">');
+						$previousLi = $('<li class="page-item">');
+						$previousA = $('<a class="page-link" onclick="firstPageMove(' +1+')" aria-label="Previous">');
+						$previousHidden = $('<span aria-hidden="true">').text('<<');
+						$previousSrOnly = $('<span class="sr-only">').text('Previous');
+						
+						$previousA.append($previousHidden);
+						$previousA.append($previousSrOnly);
+						$previousLi.append($previousA);
+						$pageUl.append($previousLi);
+						
+						if(data.pi.currentPage <= 1){
+							$leftIconDisableLi = $('<li class="page-item">');
+							$leftAtag = $('<a class="page-link">').text("<");
+							$leftIconDisableLi.append($leftAtag);
+							$pageUl.append($leftIconDisableLi);
+						}else{
+							currentPage = (data.pi.currentPage-1);
+							$leftIconAbleLi = $('<li class="page-item">');
+							$leftAtag2 = $('<a class="page-link" onclick="beforePageMove('+currentPage+')">').text("<");
+							$leftIconAbleLi.append($leftAtag2);
+							$pageUl.append($leftIconAbleLi);
+						}
+						
+						for(var i = data.pi.startPage ; i <= data.pi.endPage; i++){
+							if(i == data.pi.currentPage){
+								$currentIconAbleLi = $('<li class="page-item">');
+								$currentAtag = $('<a class="page-link">').text(i);
+								$currentIconAbleLi.append($currentAtag);
+								$pageUl.append($currentIconAbleLi);
+							}else{
+								$currentIconAbleLi2 = $('<li class="page-item">');
+								$currentAtag2 = $('<a class="page-link" onclick="onePageMove('+ i +')">').text(i);
+								$currentIconAbleLi2.append($currentAtag2);
+								$pageUl.append($currentIconAbleLi2);
+							}
+						}				
+						
+						if(data.pi.currentPage >= data.pi.maxPage){
+							$rightIconDisableLi = $('<li class="page-item">');
+							$rightAtag = $('<a class="page-link">').text(">");
+							$rightIconDisableLi.append($rightAtag);
+							$pageUl.append($rightIconDisableLi);
+						}else{
+							currentPage = (data.pi.currentPage+1);
+							$rightIconAbleLi = $('<li class="page-item">');
+							$rightAtag2 = $('<a class="page-link" onclick="nextPageMove('+currentPage+')">').text(">");
+							$rightIconAbleLi.append($rightAtag2);
+							$pageUl.append($rightIconAbleLi);
+						}					
+
+						$nextLi = $('<li class="page-item">');
+						$nextA = $('<a class="page-link" onclick="lastPageMove(' +data.pi.maxPage	+')" aria-label="Next">');
+						$nextHidden = $('<span aria-hidden="true">').text('>>');
+						$nextSrOnly = $('<span class="sr-only">').text('Next');
+						
+						$nextA.append($nextHidden);
+						$nextA.append($nextSrOnly);
+						$nextLi.append($nextA);
+						$pageUl.append($nextLi);
+						$pageTh.append($pageUl);
+						$pageTr.append($pageTh);
+						
+						$tfootId.append($pageTr);
+						
+						
+					}
+					
+					
+				}
+				
+				
 			},
 			error : function(data){
 				console.log("데이터 통신 실패");

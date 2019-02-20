@@ -44,6 +44,7 @@
 	<mapper resource="mappers/parkingceo/ExchangeMoney-mapper.xml"/>
 	<mapper resource="mappers/parkingceo/ParkingCeoNote-mapper.xml"/>
 	<mapper resource="mappers/parkingceo/ParkingCeoDetail-mapper.xml"/>
+	<mapper resource="mappers/parkingceo/ParkingCeoReservation-mapper.xml"/>
 </mappers>
 
 

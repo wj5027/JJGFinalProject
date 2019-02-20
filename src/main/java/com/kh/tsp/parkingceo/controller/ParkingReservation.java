@@ -50,31 +50,33 @@ public class ParkingReservation {
 	
 	
 	@RequestMapping(value="/searchParkingReservation.pc",method=RequestMethod.POST)
-	public ModelAndView selectSearchParkingReservation(HttpSession session,ModelAndView mv, @RequestParam String vtnValue,
+	public ModelAndView selectSearchParkingReservation(HttpSession session,ModelAndView mv, @RequestParam String btnValue,
 			@RequestParam String parkingSelectBox,@RequestParam String reverationSelectBox,@RequestParam String currentPage) {
 		
 		//Mybtis로 조회할 값 Hashmap 생성
 		HashMap<String, Object> selectHmap = new HashMap<String, Object>();
-		selectHmap.put("vtnValue", vtnValue);
-		selectHmap.put("parkingSelectBox", parkingSelectBox);
-		selectHmap.put("reverationSelectBox", reverationSelectBox);
+		selectHmap.put("btnValue", Integer.parseInt(btnValue));
+		selectHmap.put("parking_no", parkingSelectBox);
 		
 		int resultCurrentPage = 1;
 		if(currentPage != null) {
 			resultCurrentPage = Integer.parseInt(currentPage);		
 		}
-		
+
 		
 		try {
 			int listCount = ps.elctSearchParkingReservationListCount(selectHmap,reverationSelectBox);
 			ParkingCeoPageInfo pi = ParkingCeoPagination.getPageInfo(resultCurrentPage, listCount);
-			ArrayList<HashMap<String, Object>> list = ps.selctSearchParkingReservation(pi,selectHmap,reverationSelectBox);
+			HashMap<String, Object> hmap = ps.selctSearchParkingReservation(pi,selectHmap,reverationSelectBox);
 			mv.addObject("pi", pi);
-			mv.addObject("list", list);
+			mv.addObject("hmap", hmap);
+			
 		}catch(Exception e) {
 			mv.addObject("message", "예약 내역 조회 실패");
+			mv.setViewName("jsonView");
 			return mv;
 		}
+		mv.setViewName("jsonView");
 		return mv;
 	}
 	

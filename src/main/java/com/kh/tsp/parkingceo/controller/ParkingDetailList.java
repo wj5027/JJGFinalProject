@@ -47,13 +47,13 @@ public class ParkingDetailList {
 	
 	
 	@RequestMapping(value="/searchParkingDetail.pc" , method=RequestMethod.POST)
-	public ModelAndView searchParkingDetailList (@RequestParam String currentPage,@RequestParam String vtnValue,
+	public ModelAndView searchParkingDetailList (@RequestParam String currentPage,@RequestParam String btnValue,
 			@RequestParam String inOutputSelectBox,@RequestParam String parkingSelectBox,ModelAndView mv,HttpSession session) {
 		
 		//현재 사용자 객체 변수
 		Member m = (Member)session.getAttribute("loginUser");
-		//기간 버튼 데이터 담음
-		m.setBtnValue(Integer.parseInt(vtnValue));
+		
+		
 		//현재 페이지 변수
 		int resultCurrentPage = 1;
 		
@@ -62,9 +62,9 @@ public class ParkingDetailList {
 		}
 		
 		try {
-			int listCount = ps.selectSearchParkingDetailListCount(inOutputSelectBox,parkingSelectBox);
+			int listCount = ps.selectSearchParkingDetailListCount(inOutputSelectBox,parkingSelectBox,btnValue);
 			ParkingCeoPageInfo pi = ParkingCeoPagination.getPageInfo(resultCurrentPage, listCount);
-			HashMap<String, Object> hmap = ps.selectSearchParkingDetailList(inOutputSelectBox,pi,parkingSelectBox);
+			HashMap<String, Object> hmap = ps.selectSearchParkingDetailList(inOutputSelectBox,pi,parkingSelectBox,btnValue);
 			mv.addObject("pi", pi);
 			mv.addObject("hmap", hmap);
 		}catch(Exception e) {

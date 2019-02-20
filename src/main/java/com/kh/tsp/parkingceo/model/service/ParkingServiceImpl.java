@@ -51,30 +51,26 @@ public class ParkingServiceImpl implements ParkingService{
 
 	@Override
 	public HashMap<String, Object> selectNoteList(String selectBox, ParkingCeoPageInfo pi, Member m) {
-		HashMap<String, Object> hmap = null;
+		HashMap<String, Object> hmap = new HashMap<String,Object>();
 		ArrayList<HashMap<String, Object>> list = null;
 		String listType = "";
 		if(selectBox.equals("insertParkingStatus")) {
 			list = pd.selectParkingList(sqlSession,pi,m);
-			hmap = new HashMap<String, Object>();
 			listType = "selectParkingList";
 			hmap.put("list", list);
 			hmap.put("listType", listType);		
 		}else if(selectBox.equals("exchangeParkingStatus")) {
 			list = pd.selectExchangeParkingList(sqlSession,pi,m);
-			hmap = new HashMap<String, Object>();
 			listType = "selectExchangeParkingList";
 			hmap.put("list", list);
 			hmap.put("listType", listType);
 		}else if(selectBox.equals("insertCouponStatus")) {
 			list = pd.selectCouponList(sqlSession,pi,m);
-			hmap = new HashMap<String, Object>();
 			listType = "selectCouponList";
 			hmap.put("list", list);
 			hmap.put("listType", listType);
 		}else {
 			list = pd.selectExchangeMoneyList(sqlSession,pi,m);
-			hmap = new HashMap<String, Object>();
 			listType = "selectExchangeMoneyList";
 			hmap.put("list", list);
 			hmap.put("listType", listType);
@@ -83,48 +79,45 @@ public class ParkingServiceImpl implements ParkingService{
 	}
 
 	@Override
-	public int selectSearchParkingDetailListCount(String inOutputSelectBox,String parkingSelectBox) {
+	public int selectSearchParkingDetailListCount(String inOutputSelectBox,String parkingSelectBox,String btnValue) {
 		int listCount = 0;
-		HashMap<String, Object> hmap = null;
+		HashMap<String, Object> hmap = new HashMap<String,Object>();
+		hmap.put("parking_no", parkingSelectBox);
+		hmap.put("btnValue", Integer.parseInt(btnValue));
+		
+		
 		if(inOutputSelectBox.equals("inputCar")) {
-			hmap = new HashMap<String, Object>();
-			hmap.put("parking_no", parkingSelectBox);
 			listCount = pd.selectInputCarListCount(sqlSession,hmap);
 		} else if (inOutputSelectBox.equals("outputCar")) {
-			hmap = new HashMap<String, Object>();
-			hmap.put("parking_no", parkingSelectBox);
 			listCount = pd.selectOutputCarListCount(sqlSession,hmap);
 		}else {
-			hmap = new HashMap<String, Object>();
-			hmap.put("parking_no", parkingSelectBox);
 			listCount = pd.selectInputOutputCarListCount(sqlSession,hmap);
 		}
 		return listCount;
 	}
 
 	@Override
-	public HashMap<String, Object> selectSearchParkingDetailList(String selectBox, ParkingCeoPageInfo pi,String parkingSelectBox) {
-		HashMap<String, Object> daoHmap = null;
-		HashMap<String, Object>hmap = new HashMap<String, Object>();
+	public HashMap<String, Object> selectSearchParkingDetailList(String selectBox, ParkingCeoPageInfo pi,String parkingSelectBox
+			,String btnValue) {
+		HashMap<String, Object> daoHmap = new HashMap<String,Object>();
+		HashMap<String, Object>hmap = new HashMap<String,Object>();
 		ArrayList<HashMap<String, Object>> list = null;
 		String listType = "";
+		
+		daoHmap.put("parking_no", parkingSelectBox);
+		daoHmap.put("btnValue", Integer.parseInt(btnValue));
+		
 		if(selectBox.equals("inputCar")) {
-			daoHmap = new HashMap<String, Object>();
-			daoHmap.put("parking_no", parkingSelectBox);
 			listType = "inputCar";
 			list = pd.selectSearchParkingInputDetailList(sqlSession,pi,daoHmap);
 			hmap.put("listType", listType);
 			hmap.put("list", list);
 		}else if (selectBox.equals("outputCar")) {
-			daoHmap = new HashMap<String, Object>();
-			daoHmap.put("parking_no", parkingSelectBox);
 			listType = "outputCar";
 			list = pd.selectSearchParkingOutputDetailList(sqlSession,pi,daoHmap);
 			hmap.put("listType", listType);
 			hmap.put("list", list);
 		}else {
-			daoHmap = new HashMap<String, Object>();
-			daoHmap.put("parking_no", parkingSelectBox);
 			listType = "inputOutputCar";
 			list = pd.selectSearchParkingInputOutputDetailList(sqlSession,pi,daoHmap);
 			hmap.put("listType", listType);
@@ -193,24 +186,77 @@ public class ParkingServiceImpl implements ParkingService{
 
 	@Override
 	public int elctSearchParkingReservationListCount(HashMap<String, Object> selectHmap, String reverationSelectBox) {
-		
+		int listCount = 0;
 		switch (reverationSelectBox) {
-		case "":
-			
+		case "resAll":
+				listCount = prd.selectResAllListCount(sqlSession,selectHmap);
 			break;
-
-		default:
+		case "resOkay":
+				listCount = prd.selectResOkListCount(sqlSession,selectHmap);
+			break;
+		case "resReady":
+				listCount = prd.selectResReadyListCount(sqlSession,selectHmap);
+			break;
+		case "resCancel":
+				listCount = prd.selectResCancelListCount(sqlSession,selectHmap);
+			break;
+		case "resComplete":
+				listCount = prd.selectResCompleteListCount(sqlSession,selectHmap);
+			break;
+		case "resSelfCancel":
+				listCount = prd.selectResSelfCancelListCount(sqlSession,selectHmap);
 			break;
 		}
 		
-		return 0;
+		return listCount;
 	}
 
 	@Override
-	public ArrayList<HashMap<String, Object>> selctSearchParkingReservation(ParkingCeoPageInfo pi,
+	public HashMap<String, Object> selctSearchParkingReservation(ParkingCeoPageInfo pi,
 			HashMap<String, Object> selectHmap, String reverationSelectBox) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		HashMap<String, Object>hmap = new HashMap<String,Object>();
+		ArrayList<HashMap<String, Object>> list = null;
+		String listType = "";
+		switch (reverationSelectBox) {
+		case "resAll":
+				listType = "resAll"; 
+				list = prd.selectResAllList(sqlSession,selectHmap,pi);
+				hmap.put("listType", listType);
+				hmap.put("list", list);
+			break;
+		case "resOkay":
+				listType = "resOkay"; 
+				list = prd.selectResOkList(sqlSession,selectHmap,pi);
+				hmap.put("listType", listType);
+				hmap.put("list", list);
+			break;
+		case "resReady":
+				listType = "resReady"; 
+				list = prd.selectResReadyList(sqlSession,selectHmap,pi);
+				hmap.put("listType", listType);
+				hmap.put("list", list);
+			break;
+		case "resCancel":
+				listType = "resCancel"; 
+				list = prd.selectResCancelList(sqlSession,selectHmap,pi);
+				hmap.put("listType", listType);
+				hmap.put("list", list);
+			break;
+		case "resComplete":
+				listType = "resComplete"; 
+				list = prd.selectResCompleteList(sqlSession,selectHmap,pi);
+				hmap.put("listType", listType);
+				hmap.put("list", list);
+			break;
+		case "resSelfCancel":
+				listType = "resSelfCancel"; 
+				list = prd.selectResSelfCancelList(sqlSession,selectHmap,pi);
+				hmap.put("listType", listType);
+				hmap.put("list", list);
+			break;
+		}		
+		return hmap;
 	}
 
 
