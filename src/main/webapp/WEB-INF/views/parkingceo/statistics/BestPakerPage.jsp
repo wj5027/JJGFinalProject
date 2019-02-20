@@ -141,6 +141,12 @@
 		location.href="parkingceoLogin.pc";	
 	}
 	
+	function goReservationPage(){
+		location.href="parkingceoReservation.pc";
+	}
+	
+	
+	
 	gradientChartOptionsConfiguration =  {
 			  maintainAspectRatio: false,
 			  legend: {

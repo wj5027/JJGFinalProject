@@ -29,6 +29,11 @@ public class ExchangeMoneyDaoImpl implements ExchangeMoneyDao{
 		return loginUser;
 	}
 
+	@Override
+	public void insertOilList(SqlSessionTemplate sqlSession, ExchangeMoneyVo ev) {
+		sqlSession.insert("ExchangeMoney.insertOilList", ev);
+	}
+
 
 
 }

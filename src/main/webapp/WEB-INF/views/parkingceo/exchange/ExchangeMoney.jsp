@@ -98,6 +98,7 @@
 						<div style="width: 500px;">
 						본인은 환금 금액에 대해 위 계좌로 환금되는 것에 동의합니다. 타인 계좌로 환급 요청 시, 
   						 이에 대한 모든 법적 책임은 본인에게 있습니다.  위 내용에 확인하였으며, 이에 동의합니다.
+  						 지금 주차하러 갑니다의 기본 수수료는 10% 입니다.
 
 						</div>
 						</td>
@@ -215,6 +216,9 @@
 	
 	function parkingceoLogin(){
 		location.href="parkingceoLogin.pc";	
+	}
+	function goReservationPage(){
+		location.href="parkingceoReservation.pc";
 	}
 	
 	

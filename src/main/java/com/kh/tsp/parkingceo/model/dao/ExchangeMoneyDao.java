@@ -13,6 +13,8 @@ public interface ExchangeMoneyDao {
 
 	Member selectCheckMeber(SqlSessionTemplate sqlSession, Member m);
 
+	void insertOilList(SqlSessionTemplate sqlSession, ExchangeMoneyVo ev);
+
 
 
 }

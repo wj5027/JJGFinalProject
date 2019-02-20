@@ -11,4 +11,10 @@
 	<update id="updateMemberExchangeMoney">
 		UPDATE MEMBER SET OIL = OIL - #{oil} WHERE MEMBER_NO = #{member_no}
 	</update>
+	<insert id="insertOilList" parameterType="com.kh.tsp.parkingceo.model.vo.ExchangeMoneyVo">
+		INSERT INTO OIL_LIST
+		VALUES (OIL_LIST_SEQ.NEXTVAL,'환전신청 ',SYSDATE,#{oil},#{member_no},null,null,null,null)
+	</insert>
+	
+	
 </mapper>

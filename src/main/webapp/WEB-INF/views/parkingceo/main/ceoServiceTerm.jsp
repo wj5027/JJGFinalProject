@@ -336,6 +336,9 @@
 	function parkingceoLogin(){
 		location.href="parkingceoLogin.pc";	
 	}
+	function goReservationPage(){
+		location.href="parkingceoReservation.pc";
+	}
 	
 	
 	function insertParkingCeoPage(){
