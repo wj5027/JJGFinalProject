@@ -98,12 +98,13 @@
 			                  <tr>
 
 			                  <td align="center" colspan="3"><button type="button" class="btn btn-sm  " data-dismiss="modal" id="qna">문의</button></td>
-			                  <td align="center" colspan="3"><button type="button" class="btn btn-sm  " data-dismiss="modal">후기</button></td>
+			                  <td align="center" colspan="3"><button type="button" class="btn btn-sm  " data-dismiss="modal" id="review">후기</button></td>
 
 			                  <td align="center" colspan="3"><button type="button" class="btn btn-sm  " data-dismiss="modal">닫기</button></td>
 			                  <td><input type="hidden" id="member_id" name="member_id" value="">
                    				<input type="hidden" id="member_name" name="member_name" value="">
-                   	                   	<input type="hidden" id="email" name="email" value=""></td>
+                   	                   	<input type="hidden" id="email" name="email" value=""><input type="hidden" id="pno" name="pno" value="">
+                   	                   	<input type="hidden" id="pName" name="pName" value=""></td>
 			                  <td></td>
 			                  <td></td>
 			                  </tr>
@@ -509,9 +510,9 @@
 								 	    	$("#time").text(parking.weekday_STIME+"~ 익일:"+parking.weekday_ETIME);
 								 	    	$("#paddr").text(addr);
 								 	 
+								 	    	$("#pno").val(parking.parking_NO);
+								 	    	$("#pName").val(parking.parking_NAME);
 								 	    	
-								 	    	
-								 	    	 
 								 	    };
 								 	}
 							 clusterer.addMarkers(markers);
@@ -569,13 +570,26 @@
 	  
   $(function(){
 	 $("#qna").click(function(){
-		//console.log();
-		 //location.href="./parkingQna.cu";
+		 var num = $("#pno").val();
+		 console.log(num);
+		var pName = $("#pName").val();
+		console.log(pName);
+		 location.href="./parkingQna.cu?num="+num+"&pName="+pName;
 	
 	 });
   });	 
 
-  
+  $(function(){
+	 $("#review").click(function(){
+		 var num = $("#pno").val();
+		 console.log(num);
+		 var pName = $("#pName").val();
+			console.log(pName);
+		
+			location.href="./parkingReview.cu?num="+num+"&pName="+pName;
+		
+	 });
+  });
   
   
 </script>

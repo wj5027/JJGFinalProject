@@ -195,9 +195,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 	//페이징처리 된 주차장 문의 게시판 목록 조회
 	@Override
-	public ArrayList<Board> selectParkingQnaList(PageInfo pi) {
+	public ArrayList<Board> selectParkingQnaList(PageInfo pi, String pno) {
 
-		return bd.selectParkingQnaList(sqlSession, pi);
+		return bd.selectParkingQnaList(sqlSession, pi, pno);
 	}
 
 	//주차장 문의 상세보기
@@ -214,6 +214,64 @@ public class BoardServiceImpl implements BoardService {
 				
 				return b;
 		
+	}
+	//페이징 처리된 주차장 후기 목록
+	@Override
+	public ArrayList<Board> selectParkingReviewList(PageInfo pi, String pno) {
+
+		return bd.selectParkingReviewList(sqlSession, pi, pno);
+	}
+	//주차장 후기 상세보기
+	@Override
+	public Board selectOneParkingReview(int bno) {
+		Board b = null;
+		
+		//조회수 증가
+		int result = bd.updateCount(sqlSession, bno);
+				
+		if(result > 0) {
+			b = bd.selectOneParkingReview(sqlSession, bno);
+		}
+				
+		return b;
+	}
+	//주차장 후기 등록
+	@Override
+	public int insertParkingReview(Board b) {
+		System.out.println("service b : "+b);
+		
+		return bd.insertParkingReview(sqlSession, b);
+	}
+	//주차장 후기 수정1
+	@Override
+	public Board updateParkingReview(int bno) {
+
+		return bd.updateParkingReview(sqlSession, bno);
+	}
+	//주차장 후기 수정2
+	@Override
+	public int updateParkingReview2(Board b) {
+
+		return bd.updateParkingReview2(sqlSession, b);
+	}
+	//주차장 문의 게시글 전체 수
+	@Override
+	public int getParkingQnaListCount(String pno) {
+
+		return bd.getParkingQnaListCount(sqlSession, pno);
+	}
+	//주차장 후기 전체 게시글 수
+	@Override
+	public int getReviewListCount(String pno) {
+
+		return bd.getParkingReviewListCount(sqlSession, pno);
+	}
+	//주차장 문의 등록
+	@Override
+	public int insertParkingQna(Board b) {
+
+		return bd.insertParkingQna(sqlSession, b);
+
 	}
 	
 	
