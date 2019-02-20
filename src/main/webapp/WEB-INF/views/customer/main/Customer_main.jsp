@@ -127,7 +127,7 @@
 			            <tbody id="">
 			            	  <tr align="center">
 			            	  	<th style="color: white;" colspan="2">
-			            	  		ㅁㅁ 주차장 예약
+			            	  		<div id="reservName">ㅁㅁ 주차장 예약</div>
 			            	  		<input type="hidden" id="reservParkingNo" name="reservParkingNo" value="">
 			            	  	</th>
 			            	  </tr>
@@ -138,7 +138,7 @@
 			                  <tr>
 			                  	<td align="center">
 								<div class="input-group date form_date col-md-5" data-date="" data-date-format="yy년 MM d일" data-link-field="weekdayStime" data-link-format="yy년 MM d일">
-									<div style="width: 70%"><input class="form-control"  id="weekdayStime" name="selectedTime" size="16" type="text" placeholder="예약날짜"  readonly style="color: white; width: 110px; cursor: pointer !important;">
+									<div style="width: 70%"><input class="form-control"  id="selectReservDate" name="selectedTime" size="16" type="text" placeholder="예약날짜"  readonly style="color: white; width: 110px; cursor: pointer !important;">
 										<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 										<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
 									</div>
@@ -185,7 +185,7 @@
 			                  	<td align="center" style="color: white;">
 			                  		사용 될 오일 : 
 			                  	</td>
-			                  	<td align="center" style="color: white;">
+			                  	<td align="center" style="color: white;" id="reservOil">
 			                  		0000L
 			                  	</td>
 			                  </tr>
@@ -231,10 +231,15 @@
 		       	
 		       	// 주차장 예약
 		       	function requestReserve(parkingNo) {
-		       		
 		       		$("#reservParkingNo").val(parkingNo);
 		       		
-		       		$("#submitReserveRequest").submit();
+		       		console.log($("#selectReservDate").val())
+		       		if ($("#selectReservDate").val() == "") {
+						alert("날짜를 선택해주세요!")
+					} else {
+						$("#submitReserveRequest").submit();
+					}
+		       		
 		       	}
 		       	
 		       	$('.form_date').datetimepicker({
@@ -508,9 +513,10 @@
 								 	    	$("#price").text(Number(price));
 								 	    	$("#time").text(parking.weekday_STIME+"~ 익일:"+parking.weekday_ETIME);
 								 	    	$("#paddr").text(addr);
-								 	 
-								 	    	
-								 	    	
+								 	 		
+								 	    	/* 예약기능 텍스트 추가 */
+								 	    	$("#reservName").text(parking.parking_NAME + " 예약");
+								 	    	$("#reservOil").text((Number(price) * 3 ) + "L");
 								 	    	 
 								 	    };
 								 	}

@@ -151,11 +151,25 @@
 			    			// 가까운 거리 순으로 정렬하고 싶으면 DB 쿼리문에서 땡겨와야 함 END 부분은 더 이상 수정 불가능
 			    			if (sortData.length > 0) {
 			    				var boolCheck = true; // 200000 체크용
+			    				var boolCheck2 = true; // 100000이나 200000이 없을때 동작을 위한 불값
 			    				// 주차장 명 검색 결과
 			    				table.append("<tr>"
 				            	  	+ "<th colspan='2'>주차장 명 기준 검색 결과</th>"
 					            	+ "</tr>");
 			    				for (var i = 0; i < sortData.length; i++) {
+			    					if (boolCheck2) {
+			    						if (sortData[i].key >= 100000 && sortData[i].key <= 199999) {
+			    							boolCheck2 = false;
+										} else {
+			    							table.append("<tr align='center'>"
+					    		                  	+ "<td align='center' colspan='2'>검색 결과가 없습니다!</td>"
+					    			                + "</tr>");
+			    							
+											boolCheck2 = false;
+										}
+			    						
+									}
+			    					
 			    					if (boolCheck) {
 										if (sortData[i].key > 200000) {
 											boolCheck = false;
@@ -164,6 +178,7 @@
 									            	+ "</tr>");
 										}
 									}
+			    					
 			    					
 				    				if (sortData[i].value.parking_NPRICE == '0') {
 				    					table.append(
@@ -195,7 +210,7 @@
 							} else {
 								table.append(
 						            	"<tr align='center'>"
-					                  	+ "<td align='center' colspan='2'>검색 결과가 없습니다!</td>"
+					                  	+ "<td align='center' colspan='2'>검색 결과가 없거나 너무 많습니다!</td>"
 						                + "</tr>"
 				    					);
 							}
@@ -338,11 +353,25 @@ function searchVoice(keyword, type) {
     			// 가까운 거리 순으로 정렬하고 싶으면 DB 쿼리문에서 땡겨와야 함 END 부분은 더 이상 수정 불가능
     			if (sortData.length > 0) {
     				var boolCheck = true; // 200000 체크용
+    				var boolCheck2 = true; // 100000이나 200000이 없을때 동작을 위한 불값
     				// 주차장 명 검색 결과
     				table.append("<tr>"
 	            	  	+ "<th colspan='2'>주차장 명 기준 검색 결과</th>"
 		            	+ "</tr>");
     				for (var i = 0; i < sortData.length; i++) {
+    					if (boolCheck2) {
+    						if (sortData[i].key >= 100000 && sortData[i].key <= 199999) {
+    							boolCheck2 = false;
+							} else {
+    							table.append("<tr align='center'>"
+		    		                  	+ "<td align='center' colspan='2'>검색 결과가 없습니다!</td>"
+		    			                + "</tr>");
+    							
+								boolCheck2 = false;
+							}
+    						
+						}
+    					
     					if (boolCheck) {
 							if (sortData[i].key > 200000) {
 								boolCheck = false;

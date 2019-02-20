@@ -26,7 +26,8 @@ public interface CustomerMainDao {
 	HashMap<String, Parking> searchVoiceNearParking(SqlSessionTemplate sqlSession, double lat, double lon);
 
 	HashMap<String, Parking> selectSearchTextParking(SqlSessionTemplate sqlSession, String keyword);
-
+	
+	int selectSearchTextCount(SqlSessionTemplate sqlSession, String keyword);
 
 	ArrayList<Reservation> selectShowReserv(SqlSessionTemplate sqlSession, Member member, PageInfo pi);
 
@@ -80,8 +81,7 @@ public interface CustomerMainDao {
 
 	int selectReservCount(SqlSessionTemplate sqlSession, Member member);
 
-
-
-
-
+	int updateRequestRefund(SqlSessionTemplate sqlSession, HashMap<String, String> requesthmap);
+	
+	
 }

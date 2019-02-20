@@ -156,6 +156,14 @@
 		AND address LIKE '%' || #{keyword} || '%'
 	</select>
 	
+	<!-- 사용자 - 주차장 검색 갯수 조회 -->
+	<select id="selectSearchTextCount" resultType="_int" parameterType="string">
+		SELECT COUNT(*)
+		FROM PARKING
+		WHERE STATUS='Y'
+		AND (parking_name LIKE '%' || #{keyword} || '%' OR address LIKE '%' || #{keyword} || '%')
+	</select>
+	
 	<!-- 사용자 - 예약 조회 -->
 	<select id="selectReserve" resultMap="reserveResultSet" parameterType="Member">
 		SELECT r.res_no, r.res_apply_date, r.res_date, r.status, r.member_no, r.parking_no, p.parking_name, r.cancel_reason, r.car_no, TO_CHAR(r.res_date, 'RRRRMMDDHH24MI') AS RESERVETIME FROM parking_reservation r
@@ -218,10 +226,12 @@
 	<!-- 사용자 - 쿠폰 조회 -->
 	<select id="selectUserCoupon" resultMap="CustomerCoupon" parameterType="Member">
 		SELECT * FROM coupon_create cu 
-	    JOIN (SELECT * FROM coupon c JOIN coupon_request_list cr ON (c.coupon_req_no = cr.coupon_req_no)) cl
+	    JOIN (SELECT c.amount, c.coupon_no, c.coupon_req_no, c.coupon_status, c.create_date, c.parking_no, cr.coupon_start_date, cr.coupon_end_date, cr.coupon_name,
+            cr.coupon_odiscount, cr.coupon_pdiscount, cr.coupon_req_status, cr.coupon_type, cr.member_no, cr.refuse_reason, cr.remark
+        FROM coupon c JOIN coupon_request_list cr ON (c.coupon_req_no = cr.coupon_req_no)) cl
 	    ON (cu.coupon_no = cl.coupon_no)
         JOIN parking p
-        ON (cl.QCSJ_C000000000500002 = p.parking_no)
+        ON (cl.parking_no = p.parking_no)
 	    WHERE cu.member_no = #{ member_no }
 	</select>
 	
@@ -466,4 +476,11 @@
 		INSERT INTO parking_reservation (res_no, res_apply_date, res_date, status, member_no, parking_no, car_no)
 		VALUES (RES_NO_SEQ.NEXTVAL, SYSDATE, TO_DATE('${ stringResDate }','mm-dd-yyyy hh24:mi'), 'Y', ${ memberNo }, ${ parkingNo }, '${ carNo }')
 	</insert>
+	
+	<!-- 사용자 - 오일 환불 시 차감 -->
+	<update id="updateRequestRefund">
+		UPDATE member
+		SET oil = (SELECT oil FROM member WHERE member_no = (SELECT member_no FROM oil_list WHERE oil_list_no = #{ oilListNo })) - (SELECT oil FROM oil_list WHERE oil_list_no = #{ oilListNo })
+		WHERE member_no = (SELECT member_no FROM oil_list WHERE oil_list_no = #{ oilListNo })
+	</update>
 </mapper>
