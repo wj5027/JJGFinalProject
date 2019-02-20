@@ -6,6 +6,9 @@
 <head>
 <jsp:include page="/WEB-INF/views/common/bootInfo.jsp"></jsp:include>
 <style type="text/css">
+	#TabOne,#TabTwo,#TabThree,#TabFour,#TabFive{
+		display: none;
+	}
 	
 </style>
 </head>
@@ -24,7 +27,7 @@
       
       <!-- 내 주차장 검색 기능 -->
         <div class="row">
-		  <div class="col-md-12" style="height: 500px;" >
+		  <div class="col-md-12" style="height: 350px;" >
             <div class="card ">
               <div class="card-header">
                 <h4 class="card-title"> 주차장 별 간편 주차 현황</h4>
@@ -34,7 +37,7 @@
                   <table class="table tablesorter " id="">
                     <tbody>
                       <tr>
-                        <td align="center"><div style="color: white;">[고객]님의 주차장을 선택해주세요</div></td>
+                        <td align="center"><div style="color: white;">${loginUser.member_name	 }님의 주차장을 선택해주세요</div></td>
                         <td>
 						<select class="custom-select nav-link dropdown-toggle" id="inputGroupSelect02">
     						<option selected style="color: black;">주차장을 선택해주세요</option>
@@ -67,10 +70,22 @@
           <div class="col-md-12">
             <div class="card ">
               <div class="card-header">
-                <h4 class="card-title">내 주차장 현황</h4>
+                <h4 class="card-title">내 주차장 입차, 예약 신청 현황</h4>
               </div>
               <div class="card-body">
-                <div class="table-responsive"  style="overflow: hidden;">
+              
+              	   <ul class="nav nav-tabs">
+				    <li><a data-toggle="tab" href="#menu1" id="TabOne">입차 현황</a>
+				    		<button class="btn btn-info animation-on-hover" type="button" data-toggle="tab" onclick="insertParkingSystem();">입차현황</button>
+				    </li>
+				    <li><a data-toggle="tab" href="#menu2" id="TabTwo">예약신청 현황</a>
+				    		<button class="btn btn-info animation-on-hover" type="button" data-toggle="tab" onclick="resParkingSystem();">예약신청현황</button>
+				    </li>
+				  </ul>
+	<div class="tab-content">			  
+	<div id="menu1" class="tab-pane fade">
+      <!-- 일반 회원 입/출차 -->
+       <div class="table-responsive"  style="overflow: hidden;">
                   <table class="table tablesorter " id="">
                     <thead class=" text-primary">
                       <tr>
@@ -101,11 +116,53 @@
                     </tfoot>
                   </table>
                 </div>
+    </div>
+    
+    <div id="menu2" class="tab-pane fade">
+      <!-- 일반 회원 입/출차 -->
+       <div class="table-responsive"  style="overflow: hidden;">
+                  <table class="table tablesorter " id="">
+                    <thead class=" text-primary">
+                      <tr>
+                        <th>	입출차번호</th>
+                        <th>회원 ID</th>
+                        <th>회원 이름</th>
+                        <th>차량번호</th>
+                        <th>주차 시작 시간</th>
+                        <th>요금</th>
+                        <th>구분</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>asjk158</td>
+                        <td>임수철</td>
+                        <td>25-588가</td>
+                        <td>15:54</td>
+                        <td>3000</td>
+                        <td>예약/일반</td>
+                       </tr>
+                    </tbody>
+                    <tfoot>
+                    	<tr>
+                    	<th colspan="7"><div align="center"><button class="btn btn-info animation-on-hover" type="button">새로고침</button></div></th>
+                    	</tr>
+                    </tfoot>
+                  </table>
+                </div>
+    		</div>
+		</div>  
+				  
+				              
+              
+                
               </div>
             </div>
           </div>
         </div>
-      
+      <br>
+      <br>
       	<!-- 간편 입출차 시스템 -->
     <div class="col-md-12">
             <div class="card ">
@@ -114,33 +171,152 @@
               </div>
               <div class="card-body">
    <ul class="nav nav-tabs">
-    <li><a data-toggle="tab" href="#menu1">비회원</a></li>
-    <li><a data-toggle="tab" href="#menu2">일반회원</a></li>
-    <li><a data-toggle="tab" href="#menu3">예약회원</a></li>
+    <li><a data-toggle="tab" href="#menu3" id="TabThree">비회원</a>
+    		<button class="btn btn-info animation-on-hover" type="button" data-toggle="tab" onclick="nonMemberParkingSystem();">비회원</button>
+    </li>
+    <li><a data-toggle="tab" href="#menu4" id="TabFour">일반회원</a>
+    		<button class="btn btn-info animation-on-hover" type="button" data-toggle="tab" onclick="memberParkingSystem();">일반회원</button>
+    </li>
+    <li><a data-toggle="tab" href="#menu5" id="TabFive">예약회원</a>
+    		<button class="btn btn-info animation-on-hover" type="button" data-toggle="tab" onclick="resMemberParkingSystem();">예약회원</button>
+    </li>
   </ul>
 
   <div class="tab-content">
-    <div id="home" class="tab-pane fade in active">
-      <h3 >HOME</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    </div>
-    <div id="menu1" class="tab-pane fade">
-      <h3>Menu 1</h3>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-    </div>
-    <div id="menu2" class="tab-pane fade">
-      <h3>Menu 2</h3>
-      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-    </div>
     <div id="menu3" class="tab-pane fade">
-      <h3>Menu 3</h3>
-      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+      <!-- 비회원 입/출차 -->
+       <div class="table-responsive"  style="overflow: hidden;">
+                  <table class="table tablesorter " id="">
+                    <tbody>
+                    <tr>
+                    	<td colspan="2" align="center"><h3>비회원 입/출차</h3></td>
+                    </tr>
+                      <tr>
+                        <td align="center" width="500px"><div style="color: white;">현재 ${loginUser.member_name }님의 현재 주차 대수/전체 주차 대수</div></td>
+                        <td align="center">
+							100/150
+						</td>
+                      </tr>  
+                      <tr>
+                      	<td>
+                      	<div class="card" style="margin-top: 20px;">
+						    <div class="card-body">
+						      <div class="form-group has-success">
+						        <input type="text" placeholder="입차할 번호를 넣어주세요" class="form-control form-control-success" />
+						      </div>
+						    </div>
+						  </div>
+                      	</td>
+                      	<td align="center"><button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-1" type="button">입차</button></td>
+                      </tr>    
+                      <tr>
+                      	<td>
+                      	<div class="card" style="margin-top: 20px;">
+						    <div class="card-body">
+						      <div class="form-group has-success">
+						        <input type="text" placeholder="출차할 번호를 넣어주세요" class="form-control form-control-success" />
+						      </div>
+						    </div>
+						  </div>
+                      	</td>
+                      	<td align="center"><button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-2" type="button">출차</button></td>
+                      </tr>                 
+                    </tbody>
+                  </table>
+                </div>
+      
+    </div>
+    <div id="menu4" class="tab-pane fade">
+      <!-- 일반 회원 입/출차 -->
+       <div class="table-responsive"  style="overflow: hidden;">
+                  <table class="table tablesorter " id="">
+                    <tbody>
+                    <tr>
+                    	<td colspan="2" align="center"><h3>일반회원 입/출차</h3></td>
+                    </tr>
+                      <tr>
+                        <td align="center" width="500px"><div style="color: white;">현재 ${loginUser.member_name }님의 현재 주차 대수/전체 주차 대수</div></td>
+                        <td align="center">
+							100/150
+						</td>
+                      </tr>  
+                      <tr>
+                      	<td>
+                      	<div class="card" style="margin-top: 20px;">
+						    <div class="card-body">
+						      <div class="form-group has-success">
+						        <input type="text" placeholder="입차할 번호를 넣어주세요" class="form-control form-control-success" />
+						      </div>
+						    </div>
+						  </div>
+                      	</td>
+                      	<td align="center"><button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-1" type="button">입차</button></td>
+                      </tr>    
+                      <tr>
+                      	<td>
+                      	<div class="card" style="margin-top: 20px;">
+						    <div class="card-body">
+						      <div class="form-group has-success">
+						        <input type="text" placeholder="출차할 번호를 넣어주세요" class="form-control form-control-success" />
+						      </div>
+						    </div>
+						  </div>
+                      	</td>
+                      	<td align="center"><button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-2" type="button">출차</button></td>
+                      </tr>                 
+                    </tbody>
+                  </table>
+                </div>
+      
+    </div>
+    <div id="menu5" class="tab-pane fade">
+      <!-- 예약 회원 입/출차 -->
+       <div class="table-responsive"  style="overflow: hidden;">
+                  <table class="table tablesorter " id="">
+                    <tbody>
+                    <tr>
+                    	<td colspan="2" align="center"><h3>예약회원 입/출차</h3></td>
+                    </tr>
+                      <tr>
+                        <td align="center" width="500px"><div style="color: white;">현재 ${loginUser.member_name }님의 현재 주차 대수/전체 주차 대수</div></td>
+                        <td align="center">
+							100/150
+						</td>
+                      </tr>  
+                      <tr>
+                      	<td>
+                      	<div class="card" style="margin-top: 20px;">
+						    <div class="card-body">
+						      <div class="form-group has-success">
+						        <input type="text" placeholder="입차할 번호를 넣어주세요" class="form-control form-control-success" />
+						      </div>
+						    </div>
+						  </div>
+                      	</td>
+                      	<td align="center"><button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-1" type="button">입차</button></td>
+                      </tr>    
+                      <tr>
+                      	<td>
+                      	<div class="card" style="margin-top: 20px;">
+						    <div class="card-body">
+						      <div class="form-group has-success">
+						        <input type="text" placeholder="출차할 번호를 넣어주세요" class="form-control form-control-success" />
+						      </div>
+						    </div>
+						  </div>
+                      	</td>
+                      	<td align="center"><button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-2" type="button">출차</button></td>
+                      </tr>                 
+                    </tbody>
+                  </table>
+                </div>
+      
     </div>
   </div>
               
               
               
-                <div class="table-responsive"  style="overflow: hidden;">
+               <!--  <div class="table-responsive"  style="overflow: hidden;">
                   <table class="table tablesorter " id="">
                     <tbody>
                       <tr>
@@ -175,7 +351,7 @@
                       </tr>                 
                     </tbody>
                   </table>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -435,6 +611,33 @@
 	function goReservationPage(){
 		location.href="parkingceoReservation.pc";
 	}
+	
+	
+	//탭버튼 함수
+	
+	function insertParkingSystem(){
+		$("#TabOne").click();
+	}
+	function resParkingSystem(){
+		$("#TabTwo").click();
+	}
+	
+	
+	
+	function nonMemberParkingSystem(){
+		$("#TabThree").click();
+	}
+	
+	function memberParkingSystem(){
+		$("#TabFour").click();
+	}
+	
+	function resMemberParkingSystem(){
+		$("#TabFive").click();
+	}
+	
+	
+	
 	
 	
 
