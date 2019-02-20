@@ -234,10 +234,27 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 	}
 
 	@Override
+
+	public ArrayList<String> selectfavorites(int mno) {
+		return cmd.selectfavorites(sqlSession, mno);
+	}
+
+	@Override
+	public int insertfavorite(int mno, String pno) {
+		return cmd.insertfavorite(sqlSession,mno,pno);
+	}
+
+	@Override
+	public int deletefavorite(int mno, String pno) {
+		return cmd.deletefavorite(sqlSession,mno,pno);
+	}
+
+
 	public int updateRequestRefund(HashMap<String, String> requesthmap) {
 		// TODO Auto-generated method stub
 		return cmd.updateRequestRefund(sqlSession, requesthmap);
 	}
+
 	
 	
 }

@@ -81,7 +81,20 @@ public interface CustomerMainDao {
 
 	int selectReservCount(SqlSessionTemplate sqlSession, Member member);
 
+
+	ArrayList<String> selectfavorites(SqlSessionTemplate sqlSession, int mno);
+
+	int insertfavorite(SqlSessionTemplate sqlSession, int mno, String pno);
+
+	int deletefavorite(SqlSessionTemplate sqlSession, int mno, String pno);
+
+
+
+
+
+
 	int updateRequestRefund(SqlSessionTemplate sqlSession, HashMap<String, String> requesthmap);
 	
 	
+
 }
