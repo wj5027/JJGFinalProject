@@ -17,6 +17,21 @@
 <body class="">
   <div class="wrapper">
    <jsp:include page="/WEB-INF/views/customer/common/nav_customer.jsp"></jsp:include>
+ 	<c:if test="${ empty loginUser }">
+ 	<script type='text/javascript'>
+ 	
+ 	
+ 	</script>
+	</c:if>
+	<c:if test="${ !empty loginUser }">
+	<script type='text/javascript'>
+	
+	
+	
+	</script>
+	</c:if>
+ 
+ 
  
    
    
@@ -83,7 +98,7 @@
 			                  <tr>
 
 			                  <td align="center" colspan="3"><button type="button" class="btn btn-sm  " data-dismiss="modal" id="qna">문의</button></td>
-			                  <td align="center" colspan="3"><button type="button" class="btn btn-sm  " data-dismiss="modal">로드뷰</button></td>
+			                  <td align="center" colspan="3"><button type="button" class="btn btn-sm  " data-dismiss="modal">후기</button></td>
 
 			                  <td align="center" colspan="3"><button type="button" class="btn btn-sm  " data-dismiss="modal">닫기</button></td>
 			                  <td><input type="hidden" id="member_id" name="member_id" value="">
@@ -298,6 +313,8 @@
 				            
 				      });
 				}
+				
+				//@@@@@@@@@@@@@@@@@내위치 잦기@@@@@@@@@@@@@@@@@
 			    function span_myP(){
 		        	   var moveLatLon = mypositionMarker.getPosition();
 		        	    // 지도 중심을 부드럽게 이동시킵니다
@@ -306,7 +323,7 @@
 		           }
 		          
 				
-				
+				//@@@@@@@@@@@@@@@@@@@@@네비게이션@@@@@@@@@@@@@@@@@@
 				 Kakao.init('df9b4b2c505f7b6860e9e73d0c22e278');
 		           var ppname=null;
 		           var latt=null;
@@ -327,41 +344,7 @@
 					        }); 
 					    }
 				
-		/*@@@@@@@@@@@@@@@@@움직 일때 마다 내위치 마커 이동 @@@@@@@@@@@@@@@@@@@@@@@@@  */
-		 /* else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
-				    
-				    var locPosition = new daum.maps.LatLng(33.450701, 126.570667),    
-				        message = 'geolocation을 사용할수 없어요..'
-				        
-				    displayMarker(locPosition, message);
-				} */
-
-			/* 	// 지도에 마커와 인포윈도우를 표시하는 함수입니다
-				function displayMarker(locPosition, message) {
-
-				    // 마커를 생성합니다
-				    var marker = new daum.maps.Marker({  
-				        map: map, 
-				        position: locPosition
-				    }); 
-				    
-				    var iwContent = message, // 인포윈도우에 표시할 내용
-				        iwRemoveable = true;
-
-				    // 인포윈도우를 생성합니다
-				    var infowindow = new daum.maps.InfoWindow({
-				        content : iwContent,
-				        removable : iwRemoveable
-				    });
-				    
-				    // 인포윈도우를 마커위에 표시합니다 
-				    infowindow.open(map, marker);
-				    
-				    // 지도 중심좌표를 접속위치로 변경합니다
-				    map.setCenter(locPosition);      
-				}     */
 				
-			
 				
 				
 				var geocoder = new daum.maps.services.Geocoder();
@@ -525,21 +508,10 @@
 								 	    	$("#price").text(Number(price));
 								 	    	$("#time").text(parking.weekday_STIME+"~ 익일:"+parking.weekday_ETIME);
 								 	    	$("#paddr").text(addr);
-								 	   /* 		$.ajax({
-											url:"getnearParkings.cu",
-											type:"get",
-											data:{x0:x0,x1:x1,y0:y0,y1:y1}, 
-											success:function(data){
-											 
-									
-										
-												},error:function(status){
-												console.log(status);
-											}
-										 }); */
+								 	 
 								 	    	
 								 	    	
-								 	    	
+								 	    	 
 								 	    };
 								 	}
 							 clusterer.addMarkers(markers);
