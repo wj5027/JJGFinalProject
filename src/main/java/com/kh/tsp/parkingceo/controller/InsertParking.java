@@ -100,6 +100,7 @@ public class InsertParking {
 		ArrayList<MultipartFile> multipartList = new ArrayList<MultipartFile>();
 		ArrayList<String> changeNameList = new ArrayList<String>();
 		ArrayList<ParkingCeoAttachmentVo> attachList = new ArrayList<ParkingCeoAttachmentVo>();
+		ArrayList<String> extNameList = new ArrayList<String>();
 		
 		if(parkingImage1.getOriginalFilename() != "") {
 			multipartList.add(parkingImage1);			
@@ -121,6 +122,7 @@ public class InsertParking {
 					ext = originFileName.substring(originFileName.lastIndexOf("."));
 					changeName = CommonUtils.getRandomString();
 					changeNameList.add(changeName);
+					extNameList.add(ext);
 					
 					attach.setFile_path(filePath);
 					attach.setChange_name(changeName);
@@ -133,7 +135,7 @@ public class InsertParking {
 			
 			}catch (Exception e) {
 				for(int i = 0 ; i < changeNameList.size(); i ++) {
-					new File(filePath + "\\" + changeNameList.get(i) + ext).delete();					
+					new File(filePath + "\\" + changeNameList.get(i) + extNameList.get(i)).delete();					
 				}
 				return "redirect:insertParkingFailed.pc";
 			}

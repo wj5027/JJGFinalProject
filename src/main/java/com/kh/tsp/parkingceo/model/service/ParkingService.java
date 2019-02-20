@@ -25,6 +25,8 @@ public interface ParkingService {
 
 	HashMap<String, Object> selectSearchParkingOne(ParkingCeoVo parking);
 
+	void insertExchangeParking(ParkingCeoVo parking, ArrayList<ParkingCeoAttachmentVo> attachList);
+
 	
 
 }
