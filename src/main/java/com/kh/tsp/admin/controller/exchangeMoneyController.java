@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kh.tsp.admin.model.exception.ExchangeMoneyException;
 import com.kh.tsp.admin.model.service.ExchangeMoneyAdminService;
 import com.kh.tsp.admin.model.vo.ExchangeMoneyAdmin;
+import com.kh.tsp.admin.model.vo.OilListAdmin;
 import com.kh.tsp.common.PageInfo;
 import com.kh.tsp.common.Pagination;
 
@@ -83,16 +84,27 @@ public class exchangeMoneyController {
 	
 	// 환불 환전 승인
 	@RequestMapping("updateRefundExchangeMoney.ad")
-	public String updateRefundExchangeMoney(String exchangeNo, Model model){
+	public String updateRefundExchangeMoney(String exchangeNo, String status, String oil, String memberNo, Model model){
 		System.out.println("exchangeNo : "+exchangeNo);
 		
 		ExchangeMoneyAdmin em = new ExchangeMoneyAdmin();
 		em.setExchangeNo(Integer.parseInt(exchangeNo));
 		
+		OilListAdmin oa = new OilListAdmin();
+		oa.setMemberNo(Integer.parseInt(memberNo));
+		oa.setOil(Integer.parseInt(oil));
+		
 		int result=0;
 		
 		try {
 			result = ems.updateRefundExchangeMoney(em);
+			
+			if(status.equals("환불진행중")) {
+				result  =  ems.insertConfirmRefundMoney(oa);
+			}else if(status.equals("환전진행중")) {
+				result  =  ems.insertConfirmExchangeMoney(oa);
+			}
+			
 			return "redirect:selectExchangeMoney.ad";
 		} catch (ExchangeMoneyException e) {
 			model.addAttribute("msg", e.getMessage());
@@ -102,16 +114,29 @@ public class exchangeMoneyController {
 
 	// 환불 환전 반송
 	@RequestMapping("deleteExchangeMoney.ad")
-	public String deleteCoupon(String exchangeNo, String cancelReason, Model model){
+	public String deleteCoupon(String exchangeNo, String oil, String memberNo, String cancelReason, String status, Model model){
 		
 		ExchangeMoneyAdmin em = new ExchangeMoneyAdmin();
 		em.setExchangeNo(Integer.parseInt(exchangeNo));
 		em.setCancelReason(cancelReason);
+		em.setOil(Integer.parseInt(oil));
+		em.setMemberNo(Integer.parseInt(memberNo));
+		
+		OilListAdmin oa = new OilListAdmin();
+		oa.setMemberNo(Integer.parseInt(memberNo));
+		oa.setOil(Integer.parseInt(oil));
 		
 		int result=0;
-		
 		try {
 			result = ems.deleteExchangeMoney(em);
+			result = ems.updateAddOil(em);
+
+			if(status.equals("환불진행중")) {
+				result  =  ems.insertCancelRefundMoney(oa);
+			}else if(status.equals("환전진행중")) {
+				result  =  ems.insertCancelExchangeMoney(oa);
+			}
+			
 			return "redirect:selectExchangeMoney.ad";
 		} catch (ExchangeMoneyException e) {
 			model.addAttribute("msg", e.getMessage());

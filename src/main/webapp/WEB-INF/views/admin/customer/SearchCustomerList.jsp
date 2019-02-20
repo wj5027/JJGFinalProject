@@ -160,7 +160,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 													<th>이름</th>
 													<th>전화번호</th>
 													<th class="text-center">이메일</th>
-													<th class="text-center">총 충전 포인트</th>
+													<th class="text-center">총 충전 오일</th>
 													<th class="text-center">가입일</th>
 													<th class="text-center">상태</th>
 												</tr>
@@ -184,7 +184,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 															<td class="text-center">
 																<button data-toggle="modal"
 																	data-target=".bd-example-modal-lg-3"
-																	class="btn btn-warning animation-on-hover btn-sm" onclick="selectNo(${varstatus.count - 1});">회원탈퇴</button>
+																	class="btn btn-warning animation-on-hover btn-sm" onclick="selectNo(${varstatus.count - 1});">회원정지</button>
 															</td>
 														</c:if>
 														<c:if test="${cu.status == 'N'}">
