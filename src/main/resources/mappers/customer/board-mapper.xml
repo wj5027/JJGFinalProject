@@ -296,7 +296,7 @@
   	</select>
   	
   	<!-- 주차장 문의 게시물 상세보기 -->
-  	<select id="selectOneReview" parameterType="_int" resultMap="reviewListSet">
+  	<select id="selectOneParkingQna" parameterType="_int" resultMap="reviewListSet">
   		SELECT *
   		FROM BOARD B
   		JOIN MEMBER M ON (B.MEMBER_NO = M.MEMBER_NO)
