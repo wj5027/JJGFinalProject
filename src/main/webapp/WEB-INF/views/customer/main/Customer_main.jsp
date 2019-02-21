@@ -645,7 +645,9 @@
 								 	    		$("#favorite_btn").text("즐겨찾기");
 								 	    	}
 								 	 
-								 	    	
+								 	    	//게시판용
+								 	    	$("#pno").val(parking.parking_NO);
+								 	    	$("#pName").val(parking.parking_NAME);
 								 	    	
 								 	    	 
 								 	    };
@@ -820,9 +822,10 @@
 								 	    	$("#reservOil").text((Number(price) * 3 ) + "L");
 								 	    	 
 
-								 	 
+								 	    	//게시판용
 								 	    	$("#pno").val(parking.parking_NO);
 								 	    	$("#pName").val(parking.parking_NAME);
+								 	    	
 								 	    	
 
 								 	    };

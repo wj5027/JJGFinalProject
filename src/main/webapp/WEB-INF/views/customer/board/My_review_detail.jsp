@@ -84,6 +84,7 @@
 	
 	  $(function(){
 		$("#deleteBtn").click(function(){
+			alert("해당 글이 삭제되었습니다.");
 		  	 var num = $("input[name='num']").val();
 			console.log(num);   
 			location.href="./deleteReview.cu?num="+num;

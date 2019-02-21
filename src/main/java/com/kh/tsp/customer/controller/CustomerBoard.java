@@ -73,7 +73,7 @@ public class CustomerBoard {
 	}
 	
 	
-	
+	//내 후기 목록
 	@RequestMapping(value="/review.cu", method=RequestMethod.GET)
 	public String CustomerReview(Board b, Model model,HttpServletRequest request,
 			HttpServletResponse response) {
@@ -101,22 +101,20 @@ public class CustomerBoard {
 		//작성자
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
-		String mno = Integer.toString(loginUser.getMember_no());
-				
-		
-		
+		int mno = loginUser.getMember_no();
+	
 		int currentPage = 1;
 		 
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		int listCount = bs.getListCount();
-		System.out.println("후기 전체게시글 수 : "+listCount);
+		int listCount = bs.getMyReviewListCount(mno);
+		System.out.println("내 후기 전체게시글 수 : "+listCount);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
-		ArrayList<Board> list = bs.selectReviewList(pi);
-		
+		ArrayList<Board> list = bs.selectReviewList(pi, mno);
+		System.out.println("컨트롤러 list: "+list);
 
 		if(list == null) {
 			request.setAttribute("msg", "후기 목록 불러오기 실패");
@@ -126,6 +124,7 @@ public class CustomerBoard {
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 			request.setAttribute("b", b);
+			request.setAttribute("mno", mno);
 			
 			return "customer/board/My_review_list";
 		}
@@ -133,33 +132,15 @@ public class CustomerBoard {
 		
 		
 	}
-	
+	//내 문의 목록
 	@RequestMapping(value="/qna.cu", method=RequestMethod.GET)
 	public String CustomerQnA(Board b, HttpServletRequest request,
 								HttpServletResponse response) {
-		/*List<Board> list = bs.selectQnaList(b);
-		System.out.println("서블릿 list: "+list);
-		request.setAttribute("list", list);
 		
 		//작성자
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
-		if(loginUser == null) {
-			request.setAttribute("message", "로그인하세요");
-			return "common/errorPage";
-		}
-		
-		String mno = Integer.toString(loginUser.getMember_no());
-				
-		b = new Board();		
-		b.setMno(mno);
-		
-		System.out.println("servlet mno: "+mno);
-		return "customer/board/My_qna_list";*/
-		//작성자
-		HttpSession session = request.getSession();
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		String mno = Integer.toString(loginUser.getMember_no());
+		int mno = loginUser.getMember_no();
 
 		int currentPage = 1;
 				 
@@ -167,11 +148,11 @@ public class CustomerBoard {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 				
-		int listCount = bs.getQnaListCount();
+		int listCount = bs.getMyQnaListCount(mno);
 		System.out.println("문의 전체게시글 수 : "+listCount);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 				
-		ArrayList<Board> list = bs.selectQnaList(pi);
+		ArrayList<Board> list = bs.selectQnaList(pi, mno);
 				
 
 		if(list == null) {
@@ -494,12 +475,18 @@ public class CustomerBoard {
 		//주차장 번호 가져오기
 		String pno = request.getParameter("num");
 		
-		System.out.println("주차장번호: "+pno);
+		System.out.println("(주차장 문의 목록) 주차장번호: "+pno);
+		//주차장 이름 가져오기
+		String pName = request.getParameter("pName");
+		System.out.println("(주차장문의 목록)주차장이름: "+pName);
+		
 		//작성자
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		//String mno = Integer.toString(loginUser.getMember_no());
-
+		
+		
+		
 		int currentPage = 1;
 						 
 		if(request.getParameter("currentPage") != null) {
@@ -519,10 +506,13 @@ public class CustomerBoard {
 				return "common/errorPage";
 				
 			}else {
+				
+				
 				request.setAttribute("loginUser", loginUser);
 				request.setAttribute("list", list);
 				request.setAttribute("pi", pi);
-				
+				request.setAttribute("pno", pno);	
+				request.setAttribute("pName", pName);
 				
 				return "customer/board/Parking_qna_list";
 			}
@@ -681,43 +671,50 @@ public class CustomerBoard {
 		
 	//주차장 문의 수정1(상세보기)
 		@RequestMapping(value="/updateParkingQna.cu")
-		public String updateParkingQna(HttpServletRequest request, HttpServletResponse response) {
+		public String updateParkingQna(String num, String pno, HttpServletRequest request, HttpServletResponse response) {
 			int bno = Integer.parseInt(request.getParameter("num"));
 			
-			System.out.println("수정 서블릿1 bno : "+bno);
+			System.out.println("주차장 문의 수정 서블릿1 bno : "+bno);
 			
-			Board b = bs.updateQna(bno);
+			Board b = bs.updateParkingQna(bno);
 			
 			request.setAttribute("b", b);
+			request.setAttribute("pno", pno);
 			
 			return "customer/board/Parking_qna_edit";
 			
 		}		
 		
-	//주차장 수정2(등록)
+	//주차장 문의 수정2(등록)
 		@RequestMapping(value="/updateParkingQna2.cu")
-		public String updateParkingQna2(HttpServletRequest request, HttpServletResponse response) {
+		public String updateParkingQna2(String num, String pno, String pName, HttpServletRequest request, HttpServletResponse response) {
 			int bno = Integer.parseInt(request.getParameter("bno"));
-			System.out.println("수정 서블릿2 bno : "+bno);
+			System.out.println("주차장 수정 서블릿2 bno : "+bno);
 		
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
 			
 			System.out.println("제목: "+title);
 			System.out.println("내용: "+content);
+			System.out.println("주차장 후기 수정2 pno: "+pno);
+			System.out.println("주차장 후기 수정2 pName : "+pName);
 			
 			Board b = new Board();
 			b.setBno(bno);
 			b.setbTitle(title);
 			b.setbContext(content);
-		
-			int result = bs.updateQna2(b);
+			b.setPno(pno);
+			
+			int result = bs.updateParkingQna2(b);
 			System.out.println("servlet2 result : "+result);
 		
 			if(result > 0) {
-				return "redirect:parkingQna.cu";
+				request.setAttribute("b", b);
+				
+				return "redirect:parkingQna.cu?num="+pno;
 			}else {
 				request.setAttribute("message", "수정 실패");
+				
 				return "common/errorPage";
 			}
 			
@@ -730,8 +727,8 @@ public class CustomerBoard {
 			String content = request.getParameter("content");
 			String pno = request.getParameter("pno");
 			
-			System.out.println("문의 등록서블릿 title : "+title);
-			System.out.println("문의 등록서블릿 content : "+content);
+			System.out.println("주차장 문의 등록서블릿 title : "+title);
+			System.out.println("주차장 문의 등록서블릿 content : "+content);
 			
 			//작성자
 			HttpSession session = request.getSession();
@@ -745,15 +742,19 @@ public class CustomerBoard {
 			b.setMno(mno);
 			b.setPno(pno);
 			
-			System.out.println("서블릿 mno : "+mno);
+			System.out.println("주차장문의 등록 서블릿 mno : "+mno);
+			System.out.println("주차장문의 등록 서블릿 pno : "+pno);
+			
 			if(loginUser == null) {
 				request.setAttribute("message", "로그인하세요");
 			}
 			int result = bs.insertParkingQna(b);
 			
 			if(result > 0) {
+				request.setAttribute("pno", pno);	
+				request.setAttribute("b", b);
 				
-				return "redirect:parkingQna.cu";
+				return "redirect:parkingQna.cu?num="+pno;
 				
 			}else {
 				
@@ -765,18 +766,21 @@ public class CustomerBoard {
 		
 		//주차장 문의 삭제
 		@RequestMapping(value="/deleteParkingQna.cu", method=RequestMethod.GET)
-		public String deleteParkingQna(String bno) {
+		public String deleteParkingQna(String bno, String pno, String pName,Model model) {
 			
 			
 			System.out.println("삭제 서블릿 bno : "+bno);
+			System.out.println("주차장 문의 삭제 pName: "+pName);
 			
 			int result = bs.deleteQna(Integer.parseInt(bno));
 			
 			if(result > 0) {
+				model.addAttribute("pName", pName);
 				
-				return "redirect:parkingQna.cu";
+				return "redirect:parkingQna.cu?num="+pno;
 			}else {
 				
+				model.addAttribute("message", "삭제 실패!");
 				
 				return "common/errorPage";
 			}

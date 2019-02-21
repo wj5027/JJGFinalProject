@@ -51,13 +51,17 @@
 			</table>
 			
 			<table width="100%" border="0" cellpadding="0" cellspacing="0">
+			<c:forEach var="r" items="${ reply }">
 			
+			<tbody>
 			<tr>
 				<td width="60px">댓글&nbsp;</td>
-				<td   colspan="2">댓글내용　　　　　　　　　</td>
+				<td   colspan="2">${ r.context }　　　　　　　　　</td>
 				
-				<td>&nbsp;<button float="right" class="btn btn-info btn-sm">등록</button></td>
+				<!-- <td>&nbsp;<button float="right" class="btn btn-info btn-sm">등록</button></td> -->
 			</tr>
+			</tbody>
+			</c:forEach>
 			</table>
 			
 			

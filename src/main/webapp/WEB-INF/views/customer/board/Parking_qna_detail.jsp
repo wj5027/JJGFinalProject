@@ -26,7 +26,20 @@
 		  <div class="col-md-12" height="500px">
             <div class="card ">
               <div class="card-header">
-                <h3 class="card-title" align="center">[]주차장 문의</h3>
+               <c:choose>
+              	<c:when test="${ list ne null }">
+              		<h3 class="card-title" align="center">[${list[0].pno }]주차장 문의</h3>              		
+   				</c:when>
+   				<c:when test="${ pName ne ' ' }">
+   					<h3 class="card-title" align="center">[${pName}]주차장 문의</h3>
+   				</c:when>
+   				<c:when test="${ b ne null }">
+   					<h3 class="card-title" align="center">[${ b.pno }]주차장 문의</h3>   					
+   				</c:when>
+   				<c:otherwise>
+   					주차장 문의
+   				</c:otherwise>
+              </c:choose>
                 <hr style="border: solid 1px white;">
               		
               		<table width="100%" border="0" cellpadding="0" cellspacing="0">
@@ -39,7 +52,14 @@
 			<tr ><!-- BOARD CONTENTS -->
 				
 				<td>제목</td>
-				<td><input type="hidden" name="bno" value="${ b.bno }">${ b.bTitle }</td>
+				<td>
+				<input type="hidden" name="bno" value="${ b.bno }">
+				<input type="hidden" id="pno" name="pno" value="${pno}">
+				<input type="hidden" id="pName" name="pName" value="${b.pno}">
+				
+				${ b.bTitle }
+				
+				</td>
 			</tr>
 			
 			<tr height="200">
@@ -56,7 +76,7 @@
 				<td width="60px">댓글&nbsp;</td>
 				<td   colspan="2">댓글내용　　　　　　　　　</td>
 				
-				<td>&nbsp;<button float="right" class="btn btn-info btn-sm">등록</button></td>
+				<!-- <td>&nbsp;<button float="right" class="btn btn-info btn-sm">등록</button></td> -->
 			</tr>
 			</table>
 			
@@ -81,21 +101,32 @@
 		$("#editBtn").click(function(){
 			var num = $("input[name='bno']").val();
 			console.log(num);
-			location.href="./updateParkingQna.cu?num="+num;
+			
+			var pno = $("#pno").val();
+			
+			location.href="./updateParkingQna.cu?num="+num+"&pno="+pno;
 		});
 	});
 	
 	  $(function(){
 		$("#deleteBtn").click(function(){
-		  	 var bno = $("input[name='bno']").val();
-			console.log(bno);   
-			location.href="./deleteParkingQna.cu?bno="+bno;
+		  	var bno = $("input[name='bno']").val();
+				console.log(bno);   
+			var pno = $("#pno").val();
+		  	var pName = $("#pName").val();
+			
+		  	alert("해당 글이 삭제되었습니다.");
+		  	
+		  	location.href="./deleteParkingQna.cu?bno="+bno+"&pno="+pno+"&pName="+pName;
 		});
 	});  
 	
 	$(function(){
 		$("#goToList").click(function(){
-			location.href="./parkingQna.cu";
+			var pno = $("#pno").val();
+			var pName = $("#pName").val();
+			
+			location.href="./parkingQna.cu?num="+pno+"&pName="+pName;
 		});
 	});
 </script>	
