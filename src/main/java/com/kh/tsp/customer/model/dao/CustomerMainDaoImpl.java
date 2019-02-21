@@ -274,6 +274,7 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 		hmap.put("mno", mno);
 		hmap.put("pno",pno);
 		return sqlSession.delete("Member.deletefavorite",hmap);
+	}
 
 	public int updateRequestRefund(SqlSessionTemplate sqlSession, HashMap<String, String> requesthmap) {
 		return sqlSession.update("Member.updateRequestRefund", requesthmap);
