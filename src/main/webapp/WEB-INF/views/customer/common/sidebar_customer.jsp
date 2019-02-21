@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-	<div class="sidebar" style="background: rgb(49, 49, 49) !important; margin-top:50px; width:150px; font-size:0.7em;">
+	<div class="sidebar" style="background: rgb(49, 49, 49) !important; margin-top:0px; width:260px; font-size:0.7em;">
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red"
     -->

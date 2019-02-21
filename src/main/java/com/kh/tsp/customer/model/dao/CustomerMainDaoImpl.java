@@ -15,7 +15,9 @@ import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.customer.model.vo.OilList;
 import com.kh.tsp.customer.model.vo.Parking;
 import com.kh.tsp.customer.model.vo.Points;
-import com.kh.tsp.customer.model.vo.Reservation;;
+import com.kh.tsp.customer.model.vo.Reservation;
+import com.kh.tsp.parkingceo.model.vo.ParkingCeoAttachmentVo;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;;
 
 @Repository
 public class CustomerMainDaoImpl implements CustomerMainDao {
@@ -279,6 +281,11 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 	public int updateRequestRefund(SqlSessionTemplate sqlSession, HashMap<String, String> requesthmap) {
 		return sqlSession.update("Member.updateRequestRefund", requesthmap);
 
+	}
+
+	@Override
+	public ArrayList<ParkingCeoAttachmentVo> selectParkingImg(SqlSessionTemplate sqlSession, String pno) {
+		return (ArrayList)sqlSession.selectList("Member.selectParkingImg", pno);
 	}
 	
 
