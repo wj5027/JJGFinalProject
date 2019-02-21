@@ -1,16 +1,12 @@
 package com.kh.tsp.customer.controller;
 
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,14 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.kh.tsp.common.OilPagination;
 import com.kh.tsp.common.PageInfo;
 import com.kh.tsp.common.ReservPagination;
 import com.kh.tsp.customer.model.service.CustomerMainService;
 import com.kh.tsp.customer.model.vo.ChargeOil;
 import com.kh.tsp.customer.model.vo.Member;
-import com.kh.tsp.customer.model.vo.OilList;
-import com.kh.tsp.customer.model.vo.Parking;
 import com.kh.tsp.customer.model.vo.Reservation;
 
 @SessionAttributes("loginUser")
@@ -171,9 +164,10 @@ public class CustomerPayment {
     }
 	
 	@RequestMapping("requestRefund.cu")
-	public @ResponseBody int intsertRequestRefund(@RequestParam int oilListNo, @RequestParam String accountHolder, @RequestParam String Application_bank, @RequestParam String application_account_number, HttpSession session) {
+	public @ResponseBody int intsertRequestRefund(@RequestParam int memberNo, @RequestParam int refundOil, @RequestParam String accountHolder, @RequestParam String Application_bank, @RequestParam String application_account_number, HttpSession session) {
 		HashMap<String, String> requesthmap = new HashMap<String, String>();
-		requesthmap.put("oilListNo", "" + oilListNo);
+		requesthmap.put("memberNo", "" + memberNo);
+		requesthmap.put("refundOil", "" + refundOil);
 		requesthmap.put("accountHolder", accountHolder);
 		requesthmap.put("Application_bank", Application_bank);
 		requesthmap.put("application_account_number", application_account_number);
@@ -184,6 +178,12 @@ public class CustomerPayment {
 			result = 0;
 			
 			result = cms.updateRequestRefund(requesthmap);
+			
+			if (result > 0) {
+				result = 0;
+				
+				result = cms.insertOilListRefund(requesthmap);
+			}
 		}
 		
 		return result;

@@ -1,6 +1,5 @@
 package com.kh.tsp.customer.model.service;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -215,8 +214,19 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 	public int intsertRequestRefund(HashMap<String, String> requesthmap) {
 		return cmd.intsertRequestRefund(sqlSession, requesthmap);
 	}
+	
+	@Override
+	public int updateRequestRefund(HashMap<String, String> requesthmap) {
+		return cmd.updateRequestRefund(sqlSession, requesthmap);
+	}
+
+	@Override
+	public int insertOilListRefund(HashMap<String, String> requesthmap) {
+		// TODO Auto-generated method stub
+		return cmd.insertOilListRefund(sqlSession, requesthmap);
+	}
   
-  @Override
+	@Override
 	public Member chkNaver(String member_id) {
 		return cmd.chkNaver(sqlSession, member_id);
 	}
@@ -248,13 +258,6 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 	public int deletefavorite(int mno, String pno) {
 		return cmd.deletefavorite(sqlSession,mno,pno);
 	}
-
-
-	public int updateRequestRefund(HashMap<String, String> requesthmap) {
-		// TODO Auto-generated method stub
-		return cmd.updateRequestRefund(sqlSession, requesthmap);
-	}
-
 	
 	
 }

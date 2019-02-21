@@ -86,6 +86,8 @@ public interface CustomerMainService {
 
 	int updateRequestRefund(HashMap<String, String> requesthmap);
 
+	int insertOilListRefund(HashMap<String, String> requesthmap);
+
 
 	
 	

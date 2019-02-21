@@ -128,6 +128,7 @@
 			    </div>
 			  </div>
 			</div>
+            <!--@@@@@@@@@@@@@@@@@@@@@2모달과 버튼  -->
 	           
 	           
 	        <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 예약 신청 모달 -->
@@ -143,6 +144,7 @@
 			            	  	<th style="color: white;" colspan="2">
 			            	  		<div id="reservName">ㅁㅁ 주차장 예약</div>
 			            	  		<input type="hidden" id="reservParkingNo" name="reservParkingNo" value="">
+			            	  		<input type="hidden" id="coopParkingYN" value="">
 			            	  	</th>
 			            	  </tr>
 			            	  <tr align="center">
@@ -200,7 +202,7 @@
 			                  		사용 될 오일 : 
 			                  	</td>
 			                  	<td align="center" style="color: white;" id="reservOil">
-			                  		0000L
+			                  		0L
 			                  	</td>
 			                  </tr>
 			                  <tr>
@@ -227,9 +229,7 @@
 			  </div>
 			</div>
 		  <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-	           
-	           
-           <!--@@@@@@@@@@@@@@@@@@@@@2모달과 버튼  -->
+
            
            
            
@@ -308,26 +308,43 @@
 		       	/* @@@@@@@@@@@@@@@@@@@@@@주차장 예약 신청 버튼 띄우기 */
 		        function reservParking(parkingNo) {
 		       		
-		       		$("#requestButton").html("");
+		       		/* if (Number($("#reservOil").text().split("L")[0]) > 0 && $("#coopParkingYN").val() == 'Y') { */
+		       			$("#requestButton").html("");
+			       		
+			       		$("#requestButton").append("<button type='button' class='btn btn-default' data-dismiss='modal' onclick=''>닫기</button>");
+			       		$("#requestButton").append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+			       		$("#requestButton").append("<button type='button' class='btn btn-default' data-dismiss='modal' onclick='requestReserve(" + parkingNo + ")'>신청</button>");
+			       		
+			       		$("#clickRequestReserve").click();
+					/* } else {
+						alert("제휴 주차장이 아닙니다!")
+					} */
 		       		
-		       		$("#requestButton").append("<button type='button' class='btn btn-default' data-dismiss='modal' onclick=''>닫기</button>");
-		       		$("#requestButton").append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
-		       		$("#requestButton").append("<button type='button' class='btn btn-default' data-dismiss='modal' onclick='requestReserve(" + parkingNo + ")'>신청</button>");
-		       		
-		       		$("#clickRequestReserve").click();
 		       	}
 		       	
 		       	// 주차장 예약
 		       	function requestReserve(parkingNo) {
 		       		$("#reservParkingNo").val(parkingNo);
 		       		
-		       		console.log($("#selectReservDate").val())
-		       		if ($("#selectReservDate").val() == "") {
-						alert("날짜를 선택해주세요!")
-					} else {
-						$("#submitReserveRequest").submit();
-					}
+		       		var today = new Date();
+		       		var dd = today.getDate();
+		       		var mm = today.getMonth()+1;
+		       		var yyyy = today.getFullYear();
 		       		
+		       		if ($("#selectReservDate").val() == "") {
+						alert("날짜를 선택해주세요!");
+					} else {
+						var selday = $("#selectReservDate").val();
+			       		var sy = Number(selday.split(" ")[0].split("년")[0]) + 2000;
+			       		var sm = Number(selday.split(" ")[1].split("월")[0]);
+			       		var sd = Number(selday.split(" ")[2].split("일")[0]);
+			       		
+			       		if (sy >= yyyy && sm >= mm && sd >= dd) {
+			       			$("#submitReserveRequest").submit();
+						} else {
+							alert("지난 시간은 선택할 수 없습니다!");
+						}
+					}
 		       	}
 		       	
 		       	$('.form_date').datetimepicker({
@@ -645,7 +662,9 @@
 								 	    		$("#favorite_btn").text("즐겨찾기");
 								 	    	}
 								 	 
-								 	    	
+								 	    	/* 예약기능 텍스트 추가 */
+								 	    	$("#reservName").text(parking.parking_NAME + " 예약");
+								 	    	$("#reservOil").text((Number(price) * 3 ) + "L");
 								 	    	
 								 	    	 
 								 	    };

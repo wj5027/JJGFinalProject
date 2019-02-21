@@ -42,6 +42,7 @@
 							  <div class="dropdown-menu">
 							  	<a class="dropdown-item" onclick="OilChargeList()">오일 충전 내역</a>
 							    <a class="dropdown-item" onclick="OilUseList()">사용내역</a>
+							    <a class="dropdown-item" onclick="OilRefundList()">오일 환불</a>
 							  </div>
 							  </div>
 							</div>
@@ -99,7 +100,11 @@
 		  <div align="center" style="width: 100%" id="listBtn">
 		  	<button class="btn btn-info animation-on-hover" type="button" onclick="changeTableList()">오일충전</button>
 		  </div>
+		  <div align="center" style="width: 100%; display: none;" id="listRefundBtn">
+		  	<button class="btn btn-info animation-on-hover" type="button" onclick="changeTableRefund()">환불</button>
+		  </div>
 		  </c:if>
+		  <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 테이블 경계선 -->
 		  <div class="col-md-12" height="500px" id="payTable" style="display: none;">
           <div class="card ">
           <div class="card-header">
@@ -144,9 +149,63 @@
 							<br><br><br>
 							<div style="text-align: left;">
 								<p style="color: red;">미사용 오일 환불 안내</p><br>
-								- 결제일로부터 3일 이내 승인취소 가능<br>
-								- 일괄 PG사 수수료 5% 제외 후 요청 후 관리자 승인을 통해 7일 이내 계좌입금 처리<br>
-								- 보유한 오일이 환불할 오일보다 부족하다면 환불이 불가능합니다.
+								- 일부 PG사 수수료 5% 제외 후 요청 후 관리자 승인을 통해 7일 이내 계좌입금 처리<br>
+								- 환불 시 보유한 오일이 환불할 오일보다 부족하다면 환불이 불가능합니다.
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		  </div>
+		  </div>
+		  </div>
+		  <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 테이블 경계선 -->
+		  <div class="col-md-12" height="500px" id="refundTable" style="display: none;">
+          <div class="card ">
+          <div class="card-header">
+          	<h4 class="card-title">환불</h4>
+          </div>
+          <div class="card-body" style="padding-bottom: 0px;">
+			<table class="table tablesorter ">
+				<tbody align="center">
+					<tr>
+						<td colspan="2" style="text-align: left;"><b>내 오일</b></td>
+						<td colspan="2"><b></b></td>
+						<td colspan="2"style="text-align: right;"><b><fmt:formatNumber value="${ loginUser.oil }" groupingUsed="true"></fmt:formatNumber>L</b></td>
+					</tr>
+					<tr id="showRefundView" style="display: none;">
+						<td colspan="2" style="text-align: left;"><b>환불 할 오일</b></td>
+						<td colspan="2"><b></b></td>
+						<td colspan="2"style="text-align: right;" id="selectedRefundView"><b>0L</b></td>
+					</tr>
+					
+					<tr>
+						<td colspan="6">
+							<div>
+							  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							  	오일 선택
+							  </button>
+							  
+							  <div class="dropdown-menu">
+							    <a class="dropdown-item" onclick="selecteOil(3300)">3,300L</a>
+							    <a class="dropdown-item" onclick="selecteOil(5500)">5,500L</a>
+							    <a class="dropdown-item" onclick="selecteOil(11000)">11,000L</a>
+							    <a class="dropdown-item" onclick="selecteOil(33000)">33,000L</a>
+							  </div>
+							</div>
+							<br>
+							<div id="showSelectedOil">
+								
+							</div>
+							<br>
+							<button class="btn btn-info animation-on-hover" type="button" onclick="backTableList()">취소</button>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<button class='btn btn-info animation-on-hover' data-toggle='modal' onclick="refundNo(${ loginUser.member_no }, ${ loginUser.oil })" data-target='.cancle_pay'>환불신청</button>
+							<br><br><br>
+							<div style="text-align: left;">
+								<p style="color: red;">미사용 오일 환불 안내</p><br>
+								- 일부 PG사 수수료 5% 제외 후 요청 후 관리자 승인을 통해 7일 이내 계좌입금 처리<br>
+								- 환불 시 보유한 오일이 환불할 오일보다 부족하다면 환불이 불가능합니다.
 							</div>
 						</td>
 					</tr>
@@ -167,8 +226,6 @@
 			            <tbody id="ShowRefundModal">
 			                  <tr>
 			                  	<td align="center"><br><br>
-			                  		결제한지 3일 이내이고<br>
-			                  		포인트를 가지고 있어 환불이 가능합니다.<br>
 			                  		환불할 포인트는 1000 입니다.<br><br>
 			                  		정말로 환불 하시겠습니까?
 			                  	<br><br><br></td>
@@ -176,7 +233,7 @@
 			                  <tr><td align="center">
 			                  	<button type="button" class="btn btn-default" data-dismiss="modal" onclick="">취소</button>
 			                  	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			                  	<button type="button" class="btn btn-default" data-dismiss="modal" onclick=";">환불</button>
+			                  	<button type="button" class="btn btn-default" data-dismiss="modal" onclick="requestRefund()">환불</button>
 			                  </td></tr>      
 			            </tbody>
 			          </table>
@@ -201,6 +258,8 @@
 			                  		정상적으로 신청되었습니다.
 			                  		<br><br>
 			                  		7일 안에 관리자의 승인을 거처 환불이 됩니다.
+			                  		<br><br>
+			                  		그 동안 신청한 포인트는 사용을 할 수 없습니다.
 			                  	<br><br>
 			                  	</td>
 			                  </tr>
@@ -240,19 +299,30 @@
 		$("#listTable").css("display", "none");
 		$("#listTable2").css("display", "none");
 		$("#listBtn").css("display", "none");
+		$("#listRefundBtn").css("display", "none");
 		$("#payTable").css("display", "inline-block");
+	}
+	function changeTableRefund() {
+		$("#listTable").css("display", "none");
+		$("#listTable2").css("display", "none");
+		$("#listBtn").css("display", "none");
+		$("#listRefundBtn").css("display", "none");
+		$("#refundTable").css("display", "inline-block");
 	}
 	function backTableList() {
 		$("#listTable").css("display", "inline-block");
 		$("#listTable2").css("display", "inline-block");
 		$("#listBtn").css("display", "inline-block");
+		$("#listRefundBtn").css("display", "none");
 		$("#payTable").css("display", "none");
+		$("#refundTable").css("display", "none");
 	}
 	var IMP = window.IMP; // 생략가능
 	IMP.init('imp31619485'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 
 	var selectedPay = 0;
 	var chargeOil = 0;
+	var selectedOil = 0;
 	
 	function selecteMoney(select) {
 		selectedPay = select;
@@ -266,6 +336,22 @@
 		$("#showChargeView").css("display", "");
 		
 		$("#selectedChargeView").html("<b>" + (selectedPay / 1000) + ",000" + "원</b>")
+		
+	}
+	
+	function selecteOil(select) {
+		selectedOil = select;
+		if (select > 9999) {
+			$("#selectedRefundView").html((selectedOil / 1000) + ",000L");
+		} else {
+			if (select == 3300) {
+				$("#selectedRefundView").html("3,300L");
+			} else {
+				$("#selectedRefundView").html("5,500L");
+			}
+		}
+		
+		$("#showRefundView").css("display", "");
 		
 	}
 	
@@ -304,6 +390,12 @@
 		selectedListInfo = "사용";
 	}
 	
+	function OilRefundList() {
+		$("#selectedOilView").html("환불 내역");
+		
+		selectedListInfo = "환불";
+	}
+	
 	function searchList(pageNo) {
 		var startTime = $("#setStartTime").val()
 		var endTime = $("#setEndTime").val();
@@ -317,6 +409,9 @@
 					success:function(data){
 						if (selectedListInfo == '충전') {
 							$("#selectOilView").html("");
+							
+							$("#listRefundBtn").css("display", "none");
+							$("#listBtn").css("display", "inline-block");
 							
 							$("#selectOilView").append("<tr>"
 															+ "<th>"
@@ -340,7 +435,7 @@
 												+ data[i].oilListType
 												+ "</td>"
 												+ "<td>"
-												+ "+" + data[i].oil + "L" + " <button class='btn btn-info btn-sm' data-toggle='modal' data-target='.cancle_pay' onclick='refundNo(" + data[i].oilListNo + ");'>환불</button>"
+												+ "+" + data[i].oil + "L"
 												+ "<td>"
 												+ "</tr>");
 									} else {
@@ -372,8 +467,11 @@
 								}
 
 							}
-						} else {
+						} else if(selectedListInfo == '사용') {
 							$("#selectOilView").html("");
+							
+							$("#listRefundBtn").css("display", "none");
+							$("#listBtn").css("display", "inline-block");
 							
 							$("#selectOilView").append("<tr>"
 															+ "<th>"
@@ -422,6 +520,36 @@
 																	+ "</tr>");
 								}
 							}
+						} else { // 날짜 선택 환불 검색
+							$("#selectOilView").html("");
+							
+							$("#listRefundBtn").css("display", "inline-block");
+							$("#listBtn").css("display", "none");
+							
+							$("#selectOilView").append("<tr>"
+													+ "<th>"
+													+ "날짜"
+													+ "</th>"
+													+ "<th>"
+													+ "분류"
+													+ "</th>"
+													+ "<th>"
+													+ "오일"
+													+ "</th>"
+													+ "</tr>");
+							for (var i = 0; i < data.length; i++) {
+								$("#selectOilView").append("<tr>"
+										+ "<td>"
+										+ (new Date(data[i].oilListDate).getYear() - 100) + "년 " + (new Date(data[i].oilListDate).getMonth() + 1) + "월 " + new Date(data[i].oilListDate).getDate() + "일"
+										+ "</td>"
+										+ "<td>"
+										+ data[i].oilListType
+										+ "</td>"
+										+ "<td>"
+										+ data[i].oil + "L"
+										+ "<td>"
+										+ "</tr>");
+							}
 						}
 						// 페이징 Ajax
 						$.ajax({
@@ -465,7 +593,7 @@
 			} else {
 				alert("마지막 날짜를 올바르게 입력해주세요!")
 			}
-		} else {
+		} else { // 날짜 선택하지 않은 검색
 			$.ajax({
 				url:"searchOilList.cu",
 				type:"post",
@@ -474,6 +602,9 @@
 					var newDate = new Date();
 					if (selectedListInfo == '충전') {
 						$("#selectOilView").html("");
+						
+						$("#listRefundBtn").css("display", "none");
+						$("#listBtn").css("display", "inline-block");
 						
 						$("#selectOilView").append("<tr>"
 														+ "<th>"
@@ -497,7 +628,7 @@
 											+ data[i].oilListType
 											+ "</td>"
 											+ "<td>"
-											+ "+" + data[i].oil + "L" + " <button class='btn btn-info btn-sm' data-toggle='modal' data-target='.cancle_pay' onclick='refundNo(" + data[i].oilListNo + ", " + "${ loginUser.oil }" + ", " + data[i].oil + ");'>환불</button>"
+											+ "+" + data[i].oil + "L"
 											+ "<td>"
 											+ "</tr>");
 								} else {
@@ -531,8 +662,11 @@
 							}
 
 						}
-					} else {
+					} else if (selectedListInfo == '사용'){
 						$("#selectOilView").html("");
+						
+						$("#listRefundBtn").css("display", "none");
+						$("#listBtn").css("display", "inline-block");
 						
 						$("#selectOilView").append("<tr>"
 														+ "<th>"
@@ -580,6 +714,36 @@
 																+ "<td>"
 																+ "</tr>");
 							}
+						}
+					} else { // 환불일 때
+						$("#selectOilView").html("");
+						
+						$("#listRefundBtn").css("display", "inline-block");
+						$("#listBtn").css("display", "none");
+						
+						$("#selectOilView").append("<tr>"
+													+ "<th>"
+													+ "날짜"
+													+ "</th>"
+													+ "<th>"
+													+ "분류"
+													+ "</th>"
+													+ "<th>"
+													+ "오일"
+													+ "</th>"
+												+ "</tr>");
+						for (var i = 0; i < data.length; i++) {
+							$("#selectOilView").append("<tr>"
+									+ "<td>"
+									+ (new Date(data[i].oilListDate).getYear() - 100) + "년 " + (new Date(data[i].oilListDate).getMonth() + 1) + "월 " + new Date(data[i].oilListDate).getDate() + "일"
+									+ "</td>"
+									+ "<td>"
+									+ data[i].oilListType
+									+ "</td>"
+									+ "<td>"
+									+ data[i].oil + "L"
+									+ "<td>"
+									+ "</tr>");
 						}
 					}
 					// 페이징 Ajax
@@ -658,12 +822,11 @@
 </script>
 <script type="text/javascript">
 	// 환불 신청
-	function refundNo(oilListNo, possesOil, refundOil) {
+	function refundNo(memberNo, possesOil) {
 		$("#ShowRefundModal").html("");
-		
+		var refundOil = selectedOil;
 		if (possesOil > refundOil) {
 			$("#ShowRefundModal").append("<tr><td align='center' colspan='2'>"
-									+ "결제한지 3일 이내이고<br>"
 									+ "포인트를 " + possesOil + "L 가지고 있습니다.<br>"
 									+ "환불할 포인트는 " + refundOil +" 입니다.<br>"
 									+ "아래 내용을 입력하고 신청하기를 눌러주세요!</td></tr>"
@@ -685,11 +848,10 @@
 									+ "<tr><td align='center' colspan='2'>"
 									+ "<button type='button' class='btn btn-default' data-dismiss='modal' onclick=''>취소</button>"
 									+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-									+ "<button type='button' class='btn btn-default' data-dismiss='modal' onclick='requestRefund(" + oilListNo + ")'>환불 신청</button>"
+									+ "<button type='button' class='btn btn-default' data-dismiss='modal' onclick='requestRefund(" + memberNo + ", " + refundOil + ")'>환불 신청</button>"
 									+ "</td></tr>");
 		} else {
 			$("#ShowRefundModal").append("<tr><td align='center'><br><br>"
-									+ "결제한지 3일 이내이지만<br>"
 									+ "현재 포인트가 " + possesOil + "L 이므로 환불이 불가능합니다.<br>"
 									+ "환불에 필요한 포인트는 " + refundOil +" 입니다.<br><br>"
 									+ "<br></td></tr>"
@@ -699,7 +861,7 @@
 		}
 		
 	}
-	function requestRefund(oilListNo) {
+	function requestRefund(memberNo, refundOil) {
 		var accountHolder = $("#accountHolder").val();
 		var Application_bank = $("#selectionBank").val();
 		var application_account_number = $("#accountNumber").val();
@@ -710,7 +872,7 @@
 			$.ajax({
 				url:"requestRefund.cu",
 				type:"post",
-				data:{oilListNo:oilListNo, accountHolder:accountHolder, Application_bank:Application_bank, application_account_number:application_account_number},
+				data:{memberNo:memberNo, refundOil:refundOil, accountHolder:accountHolder, Application_bank:Application_bank, application_account_number:application_account_number},
 				success:function(data){
 					if (data > 0) {
 						$("#clickRefundResult").click();
