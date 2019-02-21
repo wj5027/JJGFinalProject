@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ParkingMain">
+	  	<resultMap type="com.kh.tsp.parkingceo.model.vo.ParkingCeoParkingListVo" id="ParkingResultSet3">
+			<id property="parkingListNo" column="PARKING_LIST_NO"/>
+			<result property="parkingListName" column="PARKING_LIST_NAME"/>
+			<result property="parkingListOperateType" column="PARKING_LIST_OPERATE_TYPE"/>
+			<result property="parkingListParkingSize" column="PARKING_LIST_PARKING_SIZE"/>
+			<result property="parkingListOpenDays" column="PARKING_LIST_OPEN_DAYS"/>
+			<result property="parkingListWeekdayStime" column="PARKING_LIST_WEEKDAY_STIME"/>
+			<result property="parkingListWeekdayEtime" column="PARKING_LIST_WEEKDAY_ETIME"/>
+			<result property="parkingListSatStime" column="PARKING_LIST_SAT_STIME"/>
+			<result property="parkingListSatEtime" column="PARKING_LIST_SAT_ETIME"/>
+			<result property="parkingListHollydayStime" column="PARKING_LIST_HOLIDAY_STIME"/>
+			<result property="parkingListHollydayEtime" column="PARKING_LIST_HOLIDAY_ETIME"/>
+			<result property="parkingListPriceInfo" column="PARKING_LIST_PRICE_INFO"/>
+			<result property="parkingListParkingNtime" column="PARKING_LIST_NTIME"/>	
+			<result property="parkingListParkingNprice" column="PARKING_LIST_NPRICE"/>
+			<result property="parkingListParkingAtime" column="PARKING_LIST_ATIME"/>
+			<result property="parkingListParkingAprice" column="PARKING_LIST_APRICE"/>
+			<result property="parkingListPayType" column="PARKING_LIST_PAY_TYPE"/>
+			<result property="parkingListStatus" column="PARKING_LIST_STATUS"/>
+			<result property="memberNo" column="MEMBER_NO"/>
+			<result property="parkingNo" column="PARKING_NO"/>
+			<result property="parkingListReason" column="PARKING_LIST_REASON"/>
+			<result property="modifyDate" column="MODIFY_DATE"/>
+	</resultMap>
+
+	<select id="selectListCountInsertParkingSystemList" parameterType="hashmap" resultType="_int">
+		SELECT COUNT(*) FROM ENTRY_EXIT_LIST EEL
+		LEFT JOIN MEMBER M ON (EEL.MEMBER_NO = M.MEMBER_NO)
+		LEFT JOIN PARKING P ON(EEL.PARKING_NO = P.PARKING_NO)
+		WHERE EEL.STATUS = '입차'
+		AND P.PARKING_NO = #{parking_no}
+	</select>
+
+	<select id="selectSearchInsertParkingSystemList" parameterType="hashmap" resultType="hashmap">
+		SELECT M.MEMBER_ID,M.MEMBER_NAME,M.PHONE,EEL.CAR_NO,EEL.START_TIME,EEL.HOURS,EEL.END_TIME,EEL.STATUS,FEE,EEL.EE_TYPE,EEL.RES_NO FROM ENTRY_EXIT_LIST EEL
+		LEFT JOIN MEMBER M ON (EEL.MEMBER_NO = M.MEMBER_NO)
+		LEFT JOIN PARKING P ON(EEL.PARKING_NO = P.PARKING_NO)
+		WHERE EEL.STATUS = '입차'
+		AND P.PARKING_NO = #{parking_no}
+	</select>
+	
+	<select id="selectListCountResParkingList" parameterType="hashmap" resultType="_int">
+		SELECT COUNT(*) FROM PARKING_RESERVATION
+		WHERE PARKING_NO = #{parking_no}
+		AND STATUS = 'Y'
+	</select>
+	
+	
+	<select id="selectSearchResParkingList" parameterType="hashmap" resultType="hashmap">
+		SELECT PR.RES_NO,PR.RES_REQUEST_DATE,PR.RES_DATE,PR.STATUS,PR.CAR_NO,M.MEMBER_ID,M.MEMBER_NAME,M.PHONE FROM PARKING_RESERVATION PR
+		JOIN MEMBER M ON(PR.MEMBER_NO = M.MEMBER_NO)
+		WHERE PR.PARKING_NO = #{parking_no}
+		AND PR.STATUS = 'Y'
+	</select>
+	
+	<update id="updateResComplete" parameterType="_int">
+		UPDATE PARKING_RESERVATION SET STATUS = '승인' WHERE RES_NO = #{completeResNo}
+	</update>
+	
+	<update id="updateResCancel1" parameterType="_int">
+		UPDATE PARKING_RESERVATION SET STATUS = '취소' WHERE RES_NO = #{completeResNo}
+	</update>
+	
+	<update id="updateResCancel2" parameterType="hashmap">
+		UPDATE PARKING_RESERVATION SET STATUS = '취소', CANCEL_REASON = #{resCancelText} WHERE RES_NO = #{completeResNo}
+	</update>
+	
+</mapper>
+
+
+	
+	

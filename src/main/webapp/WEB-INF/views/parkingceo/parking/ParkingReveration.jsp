@@ -61,7 +61,7 @@
     						<option value="resReady" style="color: black;">승인대기</option>
     						<option value="resCancel" style="color: black;">승인거절</option>
     						<option value="resComplete" style="color: black;">입차완료</option>
-    						<option value="resSelfCancel" style="color: black;">본인취소</option>
+    						<option value="resSelfCancel" style="color: black;">본인취소</option> 
   						</select>
 						</td>
                       </tr>
@@ -255,6 +255,19 @@
 					//tbody 설정
 					
 					for(var i in data.hmap.list){
+						
+						//status 값 변경
+						
+						if(data.hmap.list[i].STATUS == 'Y'){
+							data.hmap.list[i].STATUS = '승인대기';
+						}else if(data.hmap.list[i].STATUS == '취소'){
+							data.hmap.list[i].STATUS = '승인거절';
+						}else if(data.hmap.list[i].STATUS == '완료'){
+							data.hmap.list[i].STATUS = '입차완료';
+						}else if(data.hmap.list[i].STATUS == '거절'){
+							data.hmap.list[i].STATUS = '본인취소';
+						}
+						
 						$tbodyTr = $("<tr>");
 						
 						$res_noTd = $("<td>").text(data.hmap.list[i].RES_NO);
@@ -407,6 +420,19 @@
 					//tbody 설정
 					
 					for(var i in data.hmap.list){
+						
+						//status 값 변경
+						
+						if(data.hmap.list[i].STATUS == 'Y'){
+							data.hmap.list[i].STATUS = '승인대기';
+						}else if(data.hmap.list[i].STATUS == '취소'){
+							data.hmap.list[i].STATUS = '승인거절';
+						}else if(data.hmap.list[i].STATUS == '완료'){
+							data.hmap.list[i].STATUS = '입차완료';
+						}else if(data.hmap.list[i].STATUS == '거절'){
+							data.hmap.list[i].STATUS = '본인취소';
+						}
+						
 						$tbodyTr = $("<tr>");
 						
 						$res_noTd = $("<td>").text(data.hmap.list[i].RES_NO);
@@ -559,6 +585,19 @@
 					//tbody 설정
 					
 					for(var i in data.hmap.list){
+						
+						//status 값 변경
+						
+						if(data.hmap.list[i].STATUS == 'Y'){
+							data.hmap.list[i].STATUS = '승인대기';
+						}else if(data.hmap.list[i].STATUS == '취소'){
+							data.hmap.list[i].STATUS = '승인거절';
+						}else if(data.hmap.list[i].STATUS == '완료'){
+							data.hmap.list[i].STATUS = '입차완료';
+						}else if(data.hmap.list[i].STATUS == '거절'){
+							data.hmap.list[i].STATUS = '본인취소';
+						}
+						
 						$tbodyTr = $("<tr>");
 						
 						$res_noTd = $("<td>").text(data.hmap.list[i].RES_NO);
@@ -711,6 +750,19 @@
 					//tbody 설정
 					
 					for(var i in data.hmap.list){
+						
+						//status 값 변경
+						
+						if(data.hmap.list[i].STATUS == 'Y'){
+							data.hmap.list[i].STATUS = '승인대기';
+						}else if(data.hmap.list[i].STATUS == '취소'){
+							data.hmap.list[i].STATUS = '승인거절';
+						}else if(data.hmap.list[i].STATUS == '완료'){
+							data.hmap.list[i].STATUS = '입차완료';
+						}else if(data.hmap.list[i].STATUS == '거절'){
+							data.hmap.list[i].STATUS = '본인취소';
+						}
+						
 						$tbodyTr = $("<tr>");
 						
 						$res_noTd = $("<td>").text(data.hmap.list[i].RES_NO);
@@ -863,6 +915,19 @@
 					//tbody 설정
 					
 					for(var i in data.hmap.list){
+						
+						//status 값 변경
+						
+						if(data.hmap.list[i].STATUS == 'Y'){
+							data.hmap.list[i].STATUS = '승인대기';
+						}else if(data.hmap.list[i].STATUS == '취소'){
+							data.hmap.list[i].STATUS = '승인거절';
+						}else if(data.hmap.list[i].STATUS == '완료'){
+							data.hmap.list[i].STATUS = '입차완료';
+						}else if(data.hmap.list[i].STATUS == '거절'){
+							data.hmap.list[i].STATUS = '본인취소';
+						}
+						
 						$tbodyTr = $("<tr>");
 						
 						$res_noTd = $("<td>").text(data.hmap.list[i].RES_NO);
@@ -1015,6 +1080,20 @@
 					//tbody 설정
 					
 					for(var i in data.hmap.list){
+						
+						//status 값 변경
+						
+						if(data.hmap.list[i].STATUS == 'Y'){
+							data.hmap.list[i].STATUS = '승인대기';
+						}else if(data.hmap.list[i].STATUS == '취소'){
+							data.hmap.list[i].STATUS = '승인거절';
+						}else if(data.hmap.list[i].STATUS == '완료'){
+							data.hmap.list[i].STATUS = '입차완료';
+						}else if(data.hmap.list[i].STATUS == '거절'){
+							data.hmap.list[i].STATUS = '본인취소';
+						}
+						
+						
 						$tbodyTr = $("<tr>");
 						
 						$res_noTd = $("<td>").text(data.hmap.list[i].RES_NO);
