@@ -719,9 +719,15 @@
 								 	    		$("#favorite_btn").text("즐겨찾기");
 								 	    	}
 								 	 
+
+								 	    	//게시판용
+								 	    	$("#pno").val(parking.parking_NO);
+								 	    	$("#pName").val(parking.parking_NAME);
+
 								 	    	/* 예약기능 텍스트 추가 */
 								 	    	$("#reservName").text(parking.parking_NAME + " 예약");
 								 	    	$("#reservOil").text((Number(price) * 3 ) + "L");
+
 								 	    	
 								 	    	 
 								 	    };
@@ -896,9 +902,14 @@
 								 	    	/* 예약기능 텍스트 추가 */
 								 	    	$("#reservName").text(parking.parking_NAME + " 예약");
 								 	    	$("#reservOil").text((Number(price) * 3 ) + "L");
-								 	 
+
+								 	    	 
+
+								 	    	//게시판용
+
 								 	    	$("#pno").val(parking.parking_NO);
 								 	    	$("#pName").val(parking.parking_NAME);
+								 	    	
 								 	    	
 
 								 	    };

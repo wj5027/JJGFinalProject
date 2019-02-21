@@ -12,6 +12,7 @@ import com.kh.tsp.common.PageInfo;
 import com.kh.tsp.customer.model.dao.BoardDao;
 import com.kh.tsp.customer.model.exception.BoardSelectListException;
 import com.kh.tsp.customer.model.vo.Board;
+import com.kh.tsp.customer.model.vo.Reply;
 
 
 @Service
@@ -165,9 +166,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 	//페이징 처리 된 후기 목록
 	@Override
-	public ArrayList<Board> selectReviewList(PageInfo pi) {
+	public ArrayList<Board> selectReviewList(PageInfo pi, int mno) {
 
-		return bd.selectReviewList(sqlSession, pi);
+		return bd.selectReviewList(sqlSession, pi, mno);
 	}
 	//공지 게시글 수 조회
 	@Override
@@ -187,11 +188,11 @@ public class BoardServiceImpl implements BoardService {
 
 		return bd.getQnaListCount(sqlSession);
 	}
-	//페이징 된 문의 목록 조회
+	//페이징 된 내 문의 목록 조회
 	@Override
-	public ArrayList<Board> selectQnaList(PageInfo pi) {
+	public ArrayList<Board> selectQnaList(PageInfo pi, int mno) {
 		
-		return bd.selectQnaList(sqlSession, pi);
+		return bd.selectQnaList(sqlSession, pi, mno);
 	}
 	//페이징처리 된 주차장 문의 게시판 목록 조회
 	@Override
@@ -273,6 +274,43 @@ public class BoardServiceImpl implements BoardService {
 		return bd.insertParkingQna(sqlSession, b);
 
 	}
+	//내 후기 전체 게시글 수
+	@Override
+	public int getMyReviewListCount(int mno) {
+
+		return bd.getMyReviewListCount(sqlSession, mno);
+	}
+	//내 문의 전체 게시글 수
+	@Override
+	public int getMyQnaListCount(int mno) {
+
+		return bd.getMyQnaListCount(sqlSession, mno);
+	}
+	//주차장 문의 수정1(상세보기)
+	@Override
+	public Board updateParkingQna(int bno) {
+
+		return  bd.updateParkingQna(sqlSession, bno);
+	}
+	//주차장 문의 수정2(등록)
+	@Override
+	public int updateParkingQna2(Board b) {
+
+		return bd.updateParkingQna2(sqlSession, b);
+	}
+	//댓글
+	@Override
+	public ArrayList<Reply> selectReply(int bno) {
+
+		return bd.selectReply(sqlSession, bno);
+	}
+	//사업자문의(주차장문의)댓글
+	@Override
+	public ArrayList<Reply> selectParkingReply(int bno) {
+
+		return bd.selectParkingReply(sqlSession, bno);
+	}
+	
 	
 	
 	

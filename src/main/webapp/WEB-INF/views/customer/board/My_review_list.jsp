@@ -41,10 +41,10 @@
    		<th width="30%">작성일</th>
    		<th width="40%">제목</th>
    		<th>주차장 명</th>
-   		${list }
+   		
    		<c:forEach var="b" items="${ list }">
    		
-   		<c:if test="${ loginUser.member_no eq b.mno }">
+   		
    		<tbody>
    		<tr>
    			<td>${ b.createDate }</td>
@@ -54,7 +54,7 @@
    		</tr>
    		
    		<!-- <hr style="border: solid 1px white;"> -->
-   		   </c:if>
+   		  
    		   </c:forEach>
    		</tbody>
    	</table>

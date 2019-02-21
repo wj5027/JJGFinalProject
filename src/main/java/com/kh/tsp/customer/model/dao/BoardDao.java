@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.tsp.common.PageInfo;
 import com.kh.tsp.customer.model.vo.Board;
+import com.kh.tsp.customer.model.vo.Reply;
 
 public interface BoardDao {
 	//공지사항 리스트
@@ -50,7 +51,7 @@ public interface BoardDao {
 	//후기 전체 게시글 수 조회
 	int getListCount(SqlSessionTemplate sqlSession);
 	//페이징 된 후기 목록 조회
-	ArrayList<Board> selectReviewList(SqlSessionTemplate sqlSession, PageInfo pi);
+	ArrayList<Board> selectReviewList(SqlSessionTemplate sqlSession, PageInfo pi, int mno);
 	//공지 전체 게시글 수 조회
 	int getNoticeListCount(SqlSessionTemplate sqlSession);
 	//페이징 처리 된 공지 목록 조회
@@ -58,7 +59,7 @@ public interface BoardDao {
 	//문의 전체 게시글 수 조회
 	int getQnaListCount(SqlSessionTemplate sqlSession);
 	//페이징 처리 된 문의 목록 조회
-	ArrayList<Board> selectQnaList(SqlSessionTemplate sqlSession, PageInfo pi);
+	ArrayList<Board> selectQnaList(SqlSessionTemplate sqlSession, PageInfo pi, int mno);
 	//페이징 처리 된 주차장 문의 목록 조회
 	ArrayList<Board> selectParkingQnaList(SqlSessionTemplate sqlSession, PageInfo pi, String pno);
 	//주차장 문의 상세보기
@@ -79,6 +80,20 @@ public interface BoardDao {
 	int getParkingReviewListCount(SqlSessionTemplate sqlSession, String pno);
 	//주차장 문의 등록
 	int insertParkingQna(SqlSessionTemplate sqlSession, Board b);
+	//내 후기 전체 게시글 수
+	int getMyReviewListCount(SqlSessionTemplate sqlSession, int mno);
+	//내 문의 전체 게시글 수
+	int getMyQnaListCount(SqlSessionTemplate sqlSession, int mno);
+	//주차장 문의 수정1
+	Board updateParkingQna(SqlSessionTemplate sqlSession, int bno);
+	//주차장 문의 수정2
+	int updateParkingQna2(SqlSessionTemplate sqlSession, Board b);
+	//관리자문의 댓글
+	ArrayList<Reply> selectReply(SqlSessionTemplate sqlSession, int bno);
+	//주차장문의 댓글
+	ArrayList<Reply> selectParkingReply(SqlSessionTemplate sqlSession, int bno);
+	
+	
 	
 	
 	

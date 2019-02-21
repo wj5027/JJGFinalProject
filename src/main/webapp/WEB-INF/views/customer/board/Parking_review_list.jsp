@@ -29,17 +29,21 @@
 		  <div class="col-md-12" height="500px">
             <div class="card ">
               <div class="card-header">
-           <c:if test="${ list ne null }">
-                  <h3 class="card-title" align="center">[${list[0].pno }]주차장 후기</h3>
-              	
-             </c:if> 	
-              <c:if test="${ pName ne null }">
-               <h3 class="card-title" align="center">[${pName}]주차장 후기</h3>
-                
-              </c:if> 
-              <c:if test="${ b ne null }">               
-                 <h3 class="card-title" align="center">[${ b.pno }]주차장 후기</h3>
-              </c:if> 
+             
+            <c:choose>
+              	<c:when test="${ list.size()>0 }">
+              		<h3 class="card-title" align="center">[${list[0].pno }]주차장 후기</h3>              		
+   				</c:when>
+   				<c:when test="${ not empty pName }">
+   					<h3 class="card-title" align="center">[${pName}]주차장 후기</h3>
+   				</c:when>
+   				<c:when test="${ b ne null }">
+   					<h3 class="card-title" align="center">[${ b.pno }]주차장 후기</h3>   					
+   				</c:when>
+   				<c:otherwise>
+   					주차장 후기
+   				</c:otherwise>
+              </c:choose>
                
               <div align="center">
   
@@ -132,17 +136,20 @@
             <div class="card ">
               <div class="card-header">
              
-                 <c:if test="${ list ne null }">
-                  <h3 class="card-title" align="center">[${list[0].pno }]주차장 후기</h3>
-              	
-             </c:if> 	
-              <c:if test="${ pName ne null }">
-               <h3 class="card-title" align="center">[${pName}]주차장 후기</h3>
-                
-              </c:if> 
-              <c:if test="${ b ne null }">               
-                 <h3 class="card-title" align="center">[${ b.pno }]주차장 후기</h3>
-              </c:if> 
+                 <c:choose>
+              	<c:when test="${ list.size()>0 }">
+              		<h3 class="card-title" align="center">[${list[0].pno }]주차장 문의</h3>              		
+   				</c:when>
+   				<c:when test="${ pName ne '' }">
+   					<h3 class="card-title" align="center">[${pName}]주차장 문의</h3>
+   				</c:when>
+   				<c:when test="${ b ne null }">
+   					<h3 class="card-title" align="center">[${ b.pno }]주차장 문의</h3>   					
+   				</c:when>
+   				<c:otherwise>
+   					주차장 문의
+   				</c:otherwise>
+              </c:choose>
             
                 
               
@@ -163,19 +170,20 @@
                       <tr>
                       	<td>주차장 명</td>
                       	<td>
-                      		<c:if test="${ list ne null }">
-                      			<input type="text" class="form-control" name="pName" value="${list[0].pno }" readonly>
-                      			<input type="hidden" id="pno" name="pno" value="${ pno }">
-                      		</c:if>
-                      		<c:if test="${ pName ne null }">
-                      			<input type="text" class="form-control" name="pName" value="${ pName }" readonly>
-                      		
-                      			<input type="hidden" id="pno" name="pno" value="${ pno }">
-                      		</c:if>
-                      		<c:if test="${ b ne null }">
-                      			<input type="text" class="form-control" name="pName" value="${b.pno }" readonly>
-                      			<input type="hidden" id="pno" name="pno" value="${ pno }">
-                      		</c:if>
+                      		<c:choose>
+              	<c:when test="${ list.size()>0 }">
+					<input type="text" class="form-control" name="pName" value="${list[0].pno }" readonly>
+                    <input type="hidden" id="pno" name="pno" value="${ pno }">   				</c:when>
+   				<c:when test="${ pName ne null }">
+					<input type="text" class="form-control" name="pName" value="${ pName }" readonly>                      		
+                    <input type="hidden" id="pno" name="pno" value="${ pno }">   				</c:when>
+   				<c:when test="${ b ne null }">
+					<input type="text" class="form-control" name="pName" value="${b.pno }" readonly>
+                    <input type="hidden" id="pno" name="pno" value="${ pno }">   				</c:when>
+   				<c:otherwise>
+   					주차장 후기 작성
+   				</c:otherwise>
+              </c:choose>
                       	</td>
                       </tr>
                       <tr>

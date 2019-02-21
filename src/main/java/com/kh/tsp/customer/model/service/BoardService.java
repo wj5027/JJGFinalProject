@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import com.kh.tsp.common.PageInfo;
 import com.kh.tsp.customer.model.exception.BoardSelectListException;
 import com.kh.tsp.customer.model.vo.Board;
+import com.kh.tsp.customer.model.vo.Reply;
 
 public interface BoardService {
 	//공지사항 리스트
@@ -50,7 +51,7 @@ public interface BoardService {
 	//후기 전체 게시물 수 
 	int getListCount();
 	//후기 목록
-	ArrayList<Board> selectReviewList(PageInfo pi);
+	ArrayList<Board> selectReviewList(PageInfo pi, int mno);
 	//공지 전체 게시글 수 조회
 	int getNoticeListCount();
 	//공지 목록 
@@ -58,7 +59,7 @@ public interface BoardService {
 	//문의 전체 게시글 수 조회
 	int getQnaListCount();
 	//페이징 된 문의 목록
-	ArrayList<Board> selectQnaList(PageInfo pi);
+	ArrayList<Board> selectQnaList(PageInfo pi, int mno);
 	//주차장 문의 게시판 목록(페이징처리)
 	ArrayList<Board> selectParkingQnaList(PageInfo pi, String pno);
 	//주차장 문의 상세보기
@@ -79,6 +80,19 @@ public interface BoardService {
 	int getReviewListCount(String pno);
 	//주차장 문의 등록
 	int insertParkingQna(Board b);
+	//내 후기 전체 게시글 수
+	int getMyReviewListCount(int mno);
+	//내 문의 전체 게시글 수
+	int getMyQnaListCount(int mno);
+	//주차장 문의 수정1
+	Board updateParkingQna(int bno);
+	//주차장 문의 수정2
+	int updateParkingQna2(Board b);
+	//관리자문의(내문의) 댓글
+	ArrayList<Reply> selectReply(int bno);
+	//사업자문의(주차장문의) 댓글
+	ArrayList<Reply> selectParkingReply(int bno);
+	
 	
 	
 	

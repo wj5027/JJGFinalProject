@@ -28,7 +28,7 @@
 		  <div class="col-md-12" height="500px">
             <div class="card ">
               <div class="card-header">
-                <h3 class="card-title" align="center">[]주차장 문의 수정</h3>
+                <h3 class="card-title" align="center">[${b.pno }]주차장 문의 수정</h3>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
@@ -39,7 +39,10 @@
                         <td width="50px">제목</td>
                         <td>                       
                         	<input type="hidden" name="bno" value="${ b.bno }">           
+                  			<input type="hidden" name="pno" value="${ pno }">
+                  			
                   			<input type="text" class="form-control" name="title" value="${ b.bTitle }">
+                     
                         </td>
                       </tr>  
                       <tr>

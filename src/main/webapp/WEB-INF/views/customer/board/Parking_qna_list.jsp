@@ -28,7 +28,21 @@
 		  <div class="col-md-12" height="500px">
             <div class="card ">
               <div class="card-header">
-                <h3 class="card-title" align="center">[${pName}]주차장 문의</h3>
+              <c:choose>
+              	<c:when test="${ list.size()>0 }">
+              		<h3 class="card-title" align="center">[${list[0].pno }]주차장 문의</h3>              		
+   				</c:when>
+   				<c:when test="${ pName ne '' }">
+   					<h3 class="card-title" align="center">[${pName}]주차장 문의</h3>
+   				</c:when>
+   				<c:when test="${ b ne null }">
+   					<h3 class="card-title" align="center">[${ b.pno }]주차장 문의</h3>   					
+   				</c:when>
+   				<c:otherwise>
+   					주차장 문의
+   				</c:otherwise>
+              </c:choose>
+               
                 <hr style="border: solid 1px white;">
               <div align="center">
   	
@@ -110,8 +124,20 @@
 		  <div class="col-md-12" height="500px">
             <div class="card ">
               <div class="card-header">
-                <h3 class="card-title" align="center">[${ pName }]주차장 문의 작성</h3>
-              </div>
+			   <c:choose>
+              	<c:when test="${ list.size()>0 }">
+              		<h3 class="card-title" align="center">[${list[0].pno }]주차장 문의</h3>              		
+   				</c:when>
+   				<c:when test="${ pName ne null }">
+   					<h3 class="card-title" align="center">[${pName}]주차장 문의</h3>
+   				</c:when>
+   				<c:when test="${ b ne null }">
+   					<h3 class="card-title" align="center">[${ b.pno }]주차장 문의</h3>   					
+   				</c:when>
+   				<c:otherwise>
+   					주차장 후기
+   				</c:otherwise>
+              </c:choose>              </div>
               <div class="card-body">
                 <div class="table-responsive">
                 <form action="insertParkingQna.cu" method="post">
@@ -119,8 +145,22 @@
                     <tbody>
                     <tr>
                     	<td>주차장 명</td>
-                    	<td><input type="text" class="form-control" id="" name="pno" value="${ list[0].pno }">
-                    	<input type="hidden" value=""></td>
+                    	<td>
+                    <c:choose>
+              	<c:when test="${ list ne null }">
+					<input type="text" class="form-control" name="pName" value="${list[0].pno }" readonly>
+                    <input type="hidden" id="pno" name="pno" value="${ pno }">   				</c:when>
+   				<c:when test="${ pName ne null }">
+					<input type="text" class="form-control" name="pName" value="${ pName }" readonly>                      		
+                    <input type="hidden" id="pno" name="pno" value="${ pno }">   				</c:when>
+   				<c:when test="${ b ne null }">
+					<input type="text" class="form-control" name="pName" value="${b.pno }" readonly>
+                    <input type="hidden" id="pno" name="pno" value="${ pno }">   				</c:when>
+   				<c:otherwise>
+   					주차장 문의 작성
+   				</c:otherwise>
+              </c:choose>
+                    	</td>
                     </tr>
                     <tr>
                     	<td>작성자</td>
@@ -174,8 +214,11 @@ $(function(){
 
 	  }).click(function(){
 		  var num = $(this).find("#bno").val();
-		  console.log(num);
-		location.href="./parkingQnaDetail.cu?num="+num;  
+		  console.log(num);		  
+		  var pno = $("#pno").val();
+			console.log(pno);
+			
+		location.href="./parkingQnaDetail.cu?num="+num+"&pno="+pno;  
 	  });
  });
 

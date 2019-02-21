@@ -33,19 +33,21 @@
               <div align="center">
   	
 	  	<table id="listArea">
-	  		<th width="50%">작성일</th>
-	  		
-	  		<th>제목 ${list[0].mno }</th>
+	  		<th width="100px">문의분류</th>
+	  		<th width="130px">작성일</th>
+	  		<%-- ${list[0].mno } --%>
+	  		<th>제목 </th>
 	  		<c:forEach var="b" items="${ list }">
   	
-  	 <c:if test="${ loginUser.member_no eq b.mno }"> 
+  
 	  		<tbody>
 	  		<tr>
+	  		<td>${ b.bType }</td>
 	  		<td>${ b.createDate }</td>
 	  		<td><input type="hidden" id="bno" name="bno" value="${b.bno}">${ b.bTitle }</td>
 	  	
 	  		</tr>
-	  		</c:if> 
+	  		
   	</c:forEach>
 	  		</tbody>
 	  	</table>
@@ -111,6 +113,8 @@
             <div class="card ">
               <div class="card-header">
                 <h3 class="card-title" align="center">내 문의 작성</h3>
+                <h5 align="center">※관리자에게 문의만 가능합니다. </h5>
+                <h5 align="center">주차장(사업자)문의는 해당 주차장문의 페이지에서 작성해주세요.</h5>
               </div>
               <div class="card-body">
                 <div class="table-responsive">

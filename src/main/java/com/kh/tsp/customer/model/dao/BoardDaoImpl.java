@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import com.kh.tsp.common.PageInfo;
 import com.kh.tsp.customer.model.exception.BoardSelectListException;
 import com.kh.tsp.customer.model.vo.Board;
+import com.kh.tsp.customer.model.vo.Reply;
 
 @Repository
 public class BoardDaoImpl implements BoardDao{
@@ -142,7 +143,7 @@ public class BoardDaoImpl implements BoardDao{
 	}
 	//페이징 처리 된 후기 목록 조회
 	@Override
-	public ArrayList<Board> selectReviewList(SqlSessionTemplate sqlSession, PageInfo pi) {
+	public ArrayList<Board> selectReviewList(SqlSessionTemplate sqlSession, PageInfo pi, int mno) {
 		ArrayList<Board> list = null;
 		
 		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
@@ -150,7 +151,7 @@ public class BoardDaoImpl implements BoardDao{
 
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
-		return (ArrayList)sqlSession.selectList("Board.selectReviewList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("Board.selectReviewList", mno, rowBounds);
 	}
 	//공지 전체 게시글 수 조회
 	@Override
@@ -177,14 +178,14 @@ public class BoardDaoImpl implements BoardDao{
 	}
 	//페이징 처리 된 문의 목록 조회
 	@Override
-	public ArrayList<Board> selectQnaList(SqlSessionTemplate sqlSession, PageInfo pi) {
+	public ArrayList<Board> selectQnaList(SqlSessionTemplate sqlSession, PageInfo pi, int mno) {
 		ArrayList<Board> list = null;
 		
 		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
 
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
-		return (ArrayList)sqlSession.selectList("Board.selectQnaList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("Board.selectQnaList", mno, rowBounds);
 	}
 
 	//페이징 처리된 주차장 문의 게시판 목록 조회
@@ -262,6 +263,44 @@ public class BoardDaoImpl implements BoardDao{
 		
 		return sqlSession.insert("Board.insertParkingQna", b);
 	}
+	//내 후기 전체 게시글 수
+	@Override
+	public int getMyReviewListCount(SqlSessionTemplate sqlSession, int mno) {
+
+		return sqlSession.selectOne("Board.selectMyReviewListCount", mno);
+	}
+	//내 문의 전체 게시글 수
+	@Override
+	public int getMyQnaListCount(SqlSessionTemplate sqlSession, int mno) {
+
+		return sqlSession.selectOne("Board.selectMyQnaListCount", mno);
+	}
+	//주차장 문의 수정2
+	@Override
+	public Board updateParkingQna(SqlSessionTemplate sqlSession, int bno) {
+
+		return sqlSession.selectOne("Board.updateParkingQna", bno);
+	}
+	//주차장 문의 수정2
+	@Override
+	public int updateParkingQna2(SqlSessionTemplate sqlSession, Board b) {
+
+		return sqlSession.update("Board.updateParkingQna2", b);
+	}
+	//댓글
+	@Override
+	public ArrayList<Reply> selectReply(SqlSessionTemplate sqlSession, int bno) {
+
+		return (ArrayList)sqlSession.selectList("Board.selectReply", bno);
+	}
+	//주차장문의(사업자문의) 댓글
+	@Override
+	public ArrayList<Reply> selectParkingReply(SqlSessionTemplate sqlSession, int bno) {
+
+		return (ArrayList)sqlSession.selectList("Board.selectParkingReply", bno);
+	}
+	
+	
 	
 	
 	
