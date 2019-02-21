@@ -34,6 +34,7 @@
 	<mapper resource="mappers/admin/exchangeMoneyAdmin-mapper.xml"/>
   	<mapper resource="mappers/admin/parkingListAdmin-mapper.xml"/>
   	<mapper resource="mappers/admin/filter-mapper.xml"/>
+  	<mapper resource="mappers/admin/main-mapper.xml"/>
 
 	<mapper resource="mappers/customer/member-mapper.xml"/>
 	<mapper resource="mappers/customer/board-mapper.xml"/>
