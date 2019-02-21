@@ -842,6 +842,7 @@
 				$res_request_dateTh = $("<th>").text("예약일")
 				$res_dateTh = $("<th>").text("주차장 예약 시작일");
 				$res_statusTh = $("<th>").text("예약 상태");
+				$res_btnTh= $("<th>").text("승인/반송");
 				
 				$theadTr.append($res_noTh);
 				$theadTr.append($member_idTh);
@@ -851,7 +852,7 @@
 				$theadTr.append($res_request_dateTh);
 				$theadTr.append($res_dateTh);
 				$theadTr.append($res_statusTh);
-				
+				$theadTr.append($res_btnTh);
 				
 				$theadId.append($theadTr);
 				
@@ -859,6 +860,8 @@
 				//tbody 설정
 				for(var i in data.list){
 					$tbodyTr = $("<tr>");
+					
+					
 					
 					//상태 값 변경
 					if(data.list[i].STATUS == 'Y'){
@@ -868,7 +871,7 @@
 					var requestResDate = new Date(data.list[i].RES_REQUEST_DATE);
 					var resDate = new Date(data.list[i].RES_DATE)
 					
-					$res_noTd = $("<td>").text(data.list[i].RES_NO);
+					$res_noTd = $("<td id='selectNo'>").text(data.list[i].RES_NO);
 					$res_idTd = $("<td>").text(data.list[i].MEMBER_ID);
 					$res_nameTd = $("<td>").text(data.list[i].MEMBER_NAME);
 					$res_phoneTd = $("<td>").text(data.list[i].PHONE);
@@ -886,6 +889,13 @@
 							resDate.getMinutes()+"분 "+
 							resDate.getSeconds()+"초");
 					$res_statusTd = $("<td>").text(data.list[i].STATUS);
+					$res_btnTd = $('<td id="resBtn">');
+					$completeBtn = $('<button class="btn btn-info animation-on-hover btn-sm" onclick="resComplete('+data.list[i].RES_NO+');">').text('승인');
+					$cancelBtn = $('<button class="btn btn-warning animation-on-hover btn-sm" onclick="resCancel('+data.list[i].RES_NO+');">').text('반송');
+					
+					$res_btnTd.append($completeBtn);
+					$res_btnTd.append($cancelBtn);
+					
 					
 					$tbodyTr.append($res_noTd);
 					$tbodyTr.append($res_idTd);
@@ -895,13 +905,15 @@
 					$tbodyTr.append($res_request_dateTd);
 					$tbodyTr.append($res_dateTd);
 					$tbodyTr.append($res_statusTd);
+					$tbodyTr.append($res_btnTd);
+					
 					
 					$tbodyId.append($tbodyTr); 
 				}
 				
 				if(data.pi.listCount != 0){
 					$pageTr = $('<tr>');
-					$pageTh = $("<th colspan='8'>");
+					$pageTh = $("<th colspan='9'>");
 					$pageUl = $('<ul class="pagination pagination-lg justify-content-center">');
 					$previousLi = $('<li class="page-item">');
 					$previousA = $('<a class="page-link" onclick="resFirstPageMove(' +1+')" aria-label="Previous">');
@@ -984,6 +996,7 @@
 				}
 				
 				
+				
 			},
 			error:function(data){
 				console.log("데이터 통신 실패");
@@ -1008,6 +1021,14 @@
 		}
 		function resLastPageMove(data){
 			resParkingSystem(data);		
+		}
+		
+		function resComplete(data){
+			alert(data);
+		}
+		
+		function resComplete(data){
+			alert(data);
 		}
 	 
 	 
