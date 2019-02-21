@@ -19,6 +19,14 @@ public interface ParkingMainDao {
 	ArrayList<HashMap<String, Object>> selectSearchResParkingList(SqlSessionTemplate sqlSession,
 			HashMap<String, Object> selectParkingBox, ParkingCeoPageInfo pi);
 
+	void updateResComplete(SqlSessionTemplate sqlSession, int completeResNo);
+
+	void updateResCancel(SqlSessionTemplate sqlSession, int completeResNo);
+
+	void updateResCancel(SqlSessionTemplate sqlSession, int completeResNo, String resCancelText);
+
+
+
 
 
 }

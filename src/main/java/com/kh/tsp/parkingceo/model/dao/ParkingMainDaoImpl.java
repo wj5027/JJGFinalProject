@@ -43,6 +43,26 @@ public class ParkingMainDaoImpl implements ParkingMainDao {
 		return (ArrayList)sqlSession.selectList("ParkingMain.selectSearchResParkingList", selectParkingBox, rowbounds);
 	}
 
+	@Override
+	public void updateResComplete(SqlSessionTemplate sqlSession, int completeResNo) {
+		sqlSession.update("ParkingMain.updateResComplete", completeResNo);
+	}
+
+	@Override
+	public void updateResCancel(SqlSessionTemplate sqlSession, int completeResNo) {
+		sqlSession.update("ParkingMain.updateResCancel1", completeResNo);
+	}
+
+	@Override
+	public void updateResCancel(SqlSessionTemplate sqlSession, int completeResNo, String resCancelText) {
+		HashMap<String, Object> hmap = new HashMap<String,Object>();
+		hmap.put("completeResNo", completeResNo);
+		hmap.put("resCancelText", resCancelText);
+		sqlSession.update("ParkingMain.updateResCancel2", hmap);
+	}
+
+
+
 
 
 }

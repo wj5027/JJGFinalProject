@@ -11,6 +11,10 @@
 		display: none;
 	}
 	
+	#hiddenButton{
+		display: none;
+	}
+	
 </style>
 </head>
 
@@ -521,6 +525,50 @@
     </div>
     
     
+         <div class="modal fade bd-example-modal-lg-7" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="background: rgb(39,41,61);">
+    <div class="modal-body">
+                     <div class="table-responsive"  style="overflow: hidden;">
+                  <table class="table tablesorter " id="">
+                    <tbody>
+						<tr><td align="center"><b>예약을 승인합니다. 확실하십니까?</b></td></tr>
+						<tr><td align="center"><button class="btn btn-info animation-on-hover" onclick="updateResComplete();" type="button">확인</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button></td></tr>          
+      			</tbody>
+      		</table>
+      	</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+       <div class="modal fade bd-example-modal-lg-8" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="background: rgb(39,41,61);">
+    <div class="modal-body">
+                     <div class="table-responsive"  style="overflow: hidden;">
+                  <table class="table tablesorter " id="">
+                    <tbody>
+						<tr><td align="center"><b>예약을 반송합니다. 확실하십니까?</b></td></tr>
+						<tr><td><input type="text" placeholder="반송 사유를 입력해주세요" class="form-control form-control-success" id="resCancelText" /></td></tr>
+						<tr><td align="center"><button class="btn btn-info animation-on-hover" onclick="updateResCancel();" type="button">확인</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button></td></tr>         
+      			</tbody>
+      		</table>
+      	</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    
+    
+    <div id="hiddenButton">
+<button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-7" type="button" id="modalBtn">모달버튼</button>
+<button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-8" type="button" id="modalBtn2">모달버튼2</button>
+</div>   
     
     
   </div>
@@ -991,12 +1039,8 @@
                 	//새로고침 동적 이벤트 구현
                 	$("#resParkingStatusRefresh").on('click',function(){
                 		resParkingSystem(1);	
-                	});
-					
+                	});			
 				}
-				
-				
-				
 			},
 			error:function(data){
 				console.log("데이터 통신 실패");
@@ -1023,12 +1067,56 @@
 			resParkingSystem(data);		
 		}
 		
+		//승인,반송 함수
+		var completeResNo = 0;
 		function resComplete(data){
-			alert(data);
+			$("#modalBtn").click();
+			completeResNo = data;
 		}
 		
-		function resComplete(data){
-			alert(data);
+		function resCancel(data){
+			$("#modalBtn2").click();
+			completeResNo = data;
+		}
+		
+		//승인 업데이트,반송 업데이트 함수
+		function updateResComplete(){
+			console.log(completeResNo);
+			
+			$.ajax({
+				url:"updateResComplete.pc",
+				type:"post",
+				data:{completeResNo:completeResNo},
+				success:function(data){
+					if(data.message != '예약 업데이트 실패'){
+						location.reload();
+					}
+				},
+				error:function(data){
+					console.log("데이터 전송 실패");
+				}
+			});
+			
+		}
+		
+		function updateResCancel(){
+			var resCancelText = $("#resCancelText").val();
+			
+			$.ajax({
+				url:"updateResCancel.pc",
+				type:"post",
+				data:{completeResNo:completeResNo,resCancelText:resCancelText},
+				success:function(data){
+					if(data.message != '반송 업데이트 실패'){
+						location.reload();
+					}
+					console.log(data);
+				},
+				error:function(data){
+					console.log("데이터 전송 실패");
+				}
+			});
+			
 		}
 	 
 	 
@@ -1048,10 +1136,7 @@
 	
 	
 	
-	//입차 현황 새로고침 버튼
-	function insertParkingStatusRefresh(){
-		
-	}	
+
 	
 	
 

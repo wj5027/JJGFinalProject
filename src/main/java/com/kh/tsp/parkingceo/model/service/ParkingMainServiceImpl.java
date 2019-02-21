@@ -50,6 +50,23 @@ public class ParkingMainServiceImpl implements ParkingMainService {
 	}
 
 
+	@Override
+	public void updateResComplete(int completeResNo) {
+		pmd.updateResComplete(sqlSession,completeResNo);
+	}
+
+
+	@Override
+	public void updateResCancel(int completeResNo, String resCancelText) {
+		if(resCancelText == "") {
+			pmd.updateResCancel(sqlSession,completeResNo);
+		}else {
+			pmd.updateResCancel(sqlSession,completeResNo,resCancelText);
+		}
+		
+	}
+
+
 
 	
 

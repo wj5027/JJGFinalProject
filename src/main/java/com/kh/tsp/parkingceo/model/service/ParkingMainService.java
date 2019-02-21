@@ -16,6 +16,10 @@ public interface ParkingMainService {
 
 	ArrayList<HashMap<String, Object>> selectSearchResParkingList(HashMap<String, Object> mybatisHmap, ParkingCeoPageInfo pi);
 
+	void updateResComplete(int parseInt);
+
+	void updateResCancel(int parseInt, String resCancelText);
+
 
 
 }

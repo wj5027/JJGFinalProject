@@ -130,7 +130,7 @@ public class ParkingCeoMain {
 	}
 	
 	//예약 현황 메소드
-	@RequestMapping(value="/searchResParkingSystem.pc")
+	@RequestMapping(value="/searchResParkingSystem.pc",method=RequestMethod.POST)
 	public @ResponseBody HashMap<String, Object> searchResParkingSystem(@RequestParam String selectParkingBox
 			,ModelAndView mv,@RequestParam String currentPage){
 		
@@ -153,6 +153,38 @@ public class ParkingCeoMain {
 			return ajaxHmap;
 		}
 		return ajaxHmap;
+	}
+	
+	
+	@RequestMapping(value="updateResComplete.pc",method=RequestMethod.POST)
+	public ModelAndView updateResComplete(@RequestParam String completeResNo,ModelAndView mv) {
+		
+		try {
+			pms.updateResComplete(Integer.parseInt(completeResNo));
+		}catch(Exception e) {
+			mv.addObject("message", "예약 업데이트 실패");
+			mv.setViewName("jsonView");
+			return mv;
+		}
+		mv.addObject("message", "예약 업데이트 성공");
+		mv.setViewName("jsonView");
+		return mv;
+	}
+	
+	
+	@RequestMapping(value="updateResCancel.pc",method=RequestMethod.POST)
+	public ModelAndView updateResCancel(@RequestParam String completeResNo,@RequestParam String resCancelText,ModelAndView mv) {
+		
+		try {
+			pms.updateResCancel(Integer.parseInt(completeResNo),resCancelText);
+		}catch(Exception e) {
+			mv.addObject("message", "반송 업데이트 실패");
+			mv.setViewName("jsonView");
+			return mv;
+		}
+		mv.addObject("message", "반송 업데이트 성공");
+		mv.setViewName("jsonView");
+		return mv;
 	}
 
 }

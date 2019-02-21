@@ -59,6 +59,17 @@
 		AND PR.STATUS = 'Y'
 	</select>
 	
+	<update id="updateResComplete" parameterType="_int">
+		UPDATE PARKING_RESERVATION SET STATUS = '승인' WHERE RES_NO = #{completeResNo}
+	</update>
+	
+	<update id="updateResCancel1" parameterType="_int">
+		UPDATE PARKING_RESERVATION SET STATUS = '취소' WHERE RES_NO = #{completeResNo}
+	</update>
+	
+	<update id="updateResCancel2" parameterType="hashmap">
+		UPDATE PARKING_RESERVATION SET STATUS = '취소', CANCEL_REASON = #{resCancelText} WHERE RES_NO = #{completeResNo}
+	</update>
 	
 </mapper>
 
