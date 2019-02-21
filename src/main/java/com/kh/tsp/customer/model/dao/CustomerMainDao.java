@@ -96,7 +96,11 @@ public interface CustomerMainDao {
 
 	int updateRequestRefund(SqlSessionTemplate sqlSession, HashMap<String, String> requesthmap);
 
+
+	int insertOilListRefund(SqlSessionTemplate sqlSession, HashMap<String, String> requesthmap);
+
 	ArrayList<ParkingCeoAttachmentVo> selectParkingImg(SqlSessionTemplate sqlSession, String pno);
+
 	
 	
 
