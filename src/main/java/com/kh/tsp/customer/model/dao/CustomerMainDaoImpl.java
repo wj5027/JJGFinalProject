@@ -1,6 +1,5 @@
 package com.kh.tsp.customer.model.dao;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -15,7 +14,9 @@ import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.customer.model.vo.OilList;
 import com.kh.tsp.customer.model.vo.Parking;
 import com.kh.tsp.customer.model.vo.Points;
-import com.kh.tsp.customer.model.vo.Reservation;;
+import com.kh.tsp.customer.model.vo.Reservation;
+import com.kh.tsp.parkingceo.model.vo.ParkingCeoAttachmentVo;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;;
 
 @Repository
 public class CustomerMainDaoImpl implements CustomerMainDao {
@@ -225,13 +226,29 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 
 	@Override
 	public int getOilListCount(SqlSessionTemplate sqlSession, OilList searchInfo) {
-		return sqlSession.selectOne("Member.getOilListCount", searchInfo);
+		Integer result = sqlSession.selectOne("Member.getOilListCount", searchInfo);
+		
+		if (result == null) {
+			result = 0;
+		}
+		
+		return result;
 	}
 
 
 	@Override
 	public int intsertRequestRefund(SqlSessionTemplate sqlSession, HashMap<String, String> requesthmap) {
 		return sqlSession.insert("Member.intsertRequestRefund", requesthmap);
+	}
+	
+	@Override
+	public int updateRequestRefund(SqlSessionTemplate sqlSession, HashMap<String, String> requesthmap) {
+		return sqlSession.update("Member.updateRequestRefund", requesthmap);
+	}
+	
+	@Override
+	public int insertOilListRefund(SqlSessionTemplate sqlSession, HashMap<String, String> requesthmap) {
+		return sqlSession.insert("Member.insertOilListRefund", requesthmap);
 	}
   
 	//네이버 아이디 유무 확인
@@ -276,10 +293,17 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 		return sqlSession.delete("Member.deletefavorite",hmap);
 	}
 
+  @
 	public int updateRequestRefund(SqlSessionTemplate sqlSession, HashMap<String, String> requesthmap) {
 		return sqlSession.update("Member.updateRequestRefund", requesthmap);
 
 	}
-	
 
+	@Override
+	public ArrayList<ParkingCeoAttachmentVo> selectParkingImg(SqlSessionTemplate sqlSession, String pno) {
+		return (ArrayList)sqlSession.selectList("Member.selectParkingImg", pno);
+	}
+
+	
+	
 }

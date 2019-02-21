@@ -35,14 +35,17 @@
    
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=85185db0fc452125ec8070a4279f67bb&libraries=services,clusterer,drawing"></script>
     <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-    
-     <!--  <div class="row"> -->
+    		<!--@@@@@@@@@@@@@@@@@@@@@지도 띄우기@@@@@@@@@@@@@@@@@@@@@@@@@  -->
             <div class="map" style="position: relative;height: 90%; width: 90%;">
 	          <div id="daumMap" style=" height: 100%; width: 100%; position: fixed; top: 54px; left: 0px; background-color: rgb(229, 227, 223);" >
 	          </div>
 	          </div>
-	          <div align="right" style="position:absolute; width: 100px;height: 200px;z-index:100000000;top: 9%;left: 72%;">
-	          <button id="bttn" align="right" style="background-color:white; color:black; border-radius:7px; font-size:1.5em" onclick="togglebtn()">>></button>
+	          
+	          
+	          
+	          <!--@@@@@@@@@@@@@@@@@@@@@@@@@@@설명 div@@@@@@@@@@@@@@@@@@@@@@@@  -->
+	          <div align="right" style="position:absolute; width: 100px;height: 200px;z-index:100000000;top: 11%;left: 72%;">
+	          <button id="bttn" align="right" style="background-color:white; color:black; border-radius:10px; border:0.5px solid black; font-size:1.5em" onclick="togglebtn()">></button>
 	          <div align="left" id="explaindiv" style="margin:1px; background-color:white; border-radius: 10px;">
 	          <span align="center" style="margin:2px; color:black; font-size:0.7em;"><img src='resources/common/img/greenMarker.png' width="25px" height="25px"> &nbsp;<b>2000원 이하</b></span>
 	          <span align="center" style="margin:2px; color:black; font-size:0.7em;"><img src='resources/common/img/blueMarker.png' width="25px" height="25px"> &nbsp;<b>2000~4000</b></span>
@@ -55,10 +58,10 @@
 	         
 	      
 	          
-	          <!--@@@@@@@@@@@@@@@@@@@@@2모달과 버튼  -->
+	          <!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@상세보기 모달@@@@@@@@@@@@@@@@@@@@@@@@@  -->
 	           <button id="detailparking" class="btn btn-link" data-toggle="modal" data-target=".bd-detail-modal-lg-6"></button>
 	              <div class="modal fade bd-detail-modal-lg-6" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-			 	  <div class="modal-dialog modal-lg" style="font-size: 0.7em; margin-top:130px;">
+			 	  <div class="modal-dialog modal-lg" style="font-size: 0.7em; margin-top:80px;">
 			    <div class="modal-content" style="background: white; color:black;">
 			      <div class="modal-body1" style="padding-bottom: 0px;">
 			        <div class="table-responsive" id="voiceSize" style="overflow: auto; padding-bottom: 0px;  ">
@@ -71,7 +74,7 @@
 			                  </tr>
 			                  <tr ><td colspan="12" style="padding:0px"><hr></td></tr>
 			                  <tr>
-			                  <td colspan="3" lowspan="2"><img src="resources/common/img/pinkMarker.png" width="100px" height="100px" style="border:1px solid black;"/></td>
+			                  <td colspan="3" lowspan="2"><img id="pimg1" src="resources/common/img/noimage.gif" width="100px" height="100px" style="border:1px solid black;" onclick="onparkingImgs()"/></td>
 			                  <td colspan="9">
 			                   				  <b>- 주소 :</b><span id="paddr"></span><br>
 			                  				  <b>- 주차요금 </b>: 30분 ,<span id="price"></span>원<br>
@@ -85,7 +88,7 @@
 			                  <tr>
 			                  <td align="center" colspan="3"><button type="button" class="btn btn-sm  " data-dismiss="modal" onclick="navi()">길찾기</button></td>
 			                  <td align="center" colspan="3">
-			                  	<!-- @@@@@@@@@@@@@@@@@@@@@@주차장 예약 신청 버튼 -->
+			                  	<!-- @@@@@@@@@@@@@@@@@@@@@@주차장 예약 신청 버튼@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 			                  	<c:if test="${ empty loginUser }">
 			                  		<button type="button" class="btn btn-sm " data-dismiss="modal" onclick="reservParking(1)" disabled>예약하기</button>
 			                  	</c:if>
@@ -95,18 +98,18 @@
 			                  	</c:if>
 			                  	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 			                  </td>
-			                  <td align="center" colspan="3">
 			                  
+			                  <!--@@@@@@@@@@@@@@@@@즐겨찾기@@@@@@@@@@@@@@@@@@@@@@@ -->
+			                  <td align="center" colspan="3">
+			                  <!--  -->
 			                  <c:if test="${ empty loginUser }">
 			                  <button  type="button" class="btn btn-sm " data-dismiss="modal" disabled>즐겨찾기</button>
 			                  	</c:if>
 			                  	<c:if test="${ !empty loginUser }">
 			                  	<button id="favorite_btn" type="button" class="btn btn-sm  " data-dismiss="modal" onclick="favoriteReg()">즐겨찾기</button>
 			                  	</c:if>
-			                  
-			                  
-			                  
 			                  </td>
+			                    <!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 			                  </tr>
 			                  <tr>
 
@@ -128,6 +131,7 @@
 			    </div>
 			  </div>
 			</div>
+            <!--@@@@@@@@@@@@@@@@@@@@@2모달과 버튼  -->
 	           
 	           
 	        <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 예약 신청 모달 -->
@@ -143,6 +147,7 @@
 			            	  	<th style="color: white;" colspan="2">
 			            	  		<div id="reservName">ㅁㅁ 주차장 예약</div>
 			            	  		<input type="hidden" id="reservParkingNo" name="reservParkingNo" value="">
+			            	  		<input type="hidden" id="coopParkingYN" value="">
 			            	  	</th>
 			            	  </tr>
 			            	  <tr align="center">
@@ -200,7 +205,7 @@
 			                  		사용 될 오일 : 
 			                  	</td>
 			                  	<td align="center" style="color: white;" id="reservOil">
-			                  		0000L
+			                  		0L
 			                  	</td>
 			                  </tr>
 			                  <tr>
@@ -227,27 +232,81 @@
 			  </div>
 			</div>
 		  <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+
 	           
 	           
-           <!--@@@@@@@@@@@@@@@@@@@@@2모달과 버튼  -->
-           
+		<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@사진 띄위기 모달@@@@@@@@@@@@@@@@@@@@@@@@@@@2  -->
+		<button id="onparkingImgsbtn" class="btn btn-link" data-toggle="modal" data-target=".bd-imgs-modal-lg-5"></button>
+	              <div class="modal fade bd-imgs-modal-lg-5" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			 	  <div class="modal-dialog modal-lg" style="font-size: 0.7em; margin-top:0px; width:300px;">
+			    <div class="modal-content" style="background: white; color:black;">
+			      <div class="modal-body1" style="padding-bottom: 0px;">
+			        <div class="table-responsive" id="voiceSize" style="overflow: auto; padding-bottom: 0px;  ">
+			          <table class="table tablesorter " style="margin-bottom: 0px;">
+			 			<tbody align="center">
+			 			<tr>
+			 			<td>
+			 			<img id="pimg2" src="resources/common/img/noimage.gif" width="300px" height="150px" style="border:1px solid black;" />
+			 			</td>
+			 			</tr>
+			 			<br/>
+			 			<tr>
+			 			<td>
+			 			<img id="pimg3" src="resources/common/img/noimage.gif" width="300px" height="150px" style="border:1px solid black;" />
+			 			</td>
+			 			</tr>
+			 			<br/>
+			 			<tr>
+			 			<td>
+			 			<img id="pimg4" src="resources/common/img/noimage.gif" width="300px" height="150px" style="border:1px solid black;" o/>
+			 			</td>
+			 			</tr>
+			 			<tr>
+			 			  <td align="center" colspan="3"><button type="button" class="btn btn-sm  " data-dismiss="modal">닫기</button></td>
+			 			  </tr>
+			            </tbody>
+			          </table>
+			        </div>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			
+			<!--@@@@@@@@@@@@@@@@@@@@@@사진띄우기 모달@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  -->           
+
            
            
            
            
            <script type='text/javascript'>
            
+           //사진 클릭시 사진 보여주기 함수
+           
+           function onparkingImgs(){
+        	   $("#onparkingImgsbtn").click();
+        	   
+        	   
+        	   
+        	   
+        	   
+           }
+           
+           
+           
+           
+           
+           
+           //설명창 토글 버튼 함수
            		var fla=1;
            		function togglebtn(){
-           			console.log($("#bttn").text());
            			if(fla==1){
-           				$("#bttn").text("  <<  ");
+           				$("#bttn").text("<");
            				$("#explaindiv").hide();
            				fla=0;
 /*            				$("#explaindiv").attr('style','visibility:visible'); */
            			}
            			else{
-           				$("#bttn").text("  >>  ");
+           				$("#bttn").text(">");
            				$("#explaindiv").show();
            				fla=1;
            				/* $("#explaindiv").attr('style','visibility:hidden'); */
@@ -255,7 +314,7 @@
            			
            		}
            		
-           		
+           		//즐겨찾기 등록 버튼 함수
            		function favoriteReg(){
            			var ppno= $("#pno").val();
            			var mno ="${loginUser.member_no}";
@@ -266,7 +325,6 @@
 						data:{mno:mno,pno:ppno}, 
 						success:function(data){
 							if(data==1){
-								console.log("결과는 무엇일까요?"+data)
 								$("#favorite_btn").text("즐겨찾기 해제");
 								alert("즐겨찾기 등록 성공!");
 							}else{
@@ -278,14 +336,12 @@
 						}
 					 }); 
            			}else{
-           				console.log("즐겨찾기 해제일때 찍히는 콘솔");
            			 	$.ajax({
     						url:"deletefavorite.cu",
     						type:"post",
     						data:{mno:mno,pno:ppno}, 
     						success:function(data){
     							if(data==1){
-    								console.log("결과는 무엇일까요?"+data)
     								$("#favorite_btn").text("즐겨찾기");
     								alert("즐겨찾기 해제 성공!");
     							}else{
@@ -308,26 +364,45 @@
 		       	/* @@@@@@@@@@@@@@@@@@@@@@주차장 예약 신청 버튼 띄우기 */
 		        function reservParking(parkingNo) {
 		       		
-		       		$("#requestButton").html("");
+		       		/* if (Number($("#reservOil").text().split("L")[0]) > 0 && $("#coopParkingYN").val() == 'Y') { */
+		       			$("#requestButton").html("");
+			       		
+			       		$("#requestButton").append("<button type='button' class='btn btn-default' data-dismiss='modal' onclick=''>닫기</button>");
+			       		$("#requestButton").append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+			       		$("#requestButton").append("<button type='button' class='btn btn-default' data-dismiss='modal' onclick='requestReserve(" + parkingNo + ")'>신청</button>");
+			       		
+			       		$("#clickRequestReserve").click();
+					/* } else {
+						alert("제휴 주차장이 아닙니다!")
+					} */
 		       		
-		       		$("#requestButton").append("<button type='button' class='btn btn-default' data-dismiss='modal' onclick=''>닫기</button>");
-		       		$("#requestButton").append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
-		       		$("#requestButton").append("<button type='button' class='btn btn-default' data-dismiss='modal' onclick='requestReserve(" + parkingNo + ")'>신청</button>");
-		       		
-		       		$("#clickRequestReserve").click();
 		       	}
 		       	
 		       	// 주차장 예약
 		       	function requestReserve(parkingNo) {
 		       		$("#reservParkingNo").val(parkingNo);
 		       		
-		       		console.log($("#selectReservDate").val())
-		       		if ($("#selectReservDate").val() == "") {
-						alert("날짜를 선택해주세요!")
-					} else {
-						$("#submitReserveRequest").submit();
-					}
+
+		       		var today = new Date();
+		       		var dd = today.getDate();
+		       		var mm = today.getMonth()+1;
+		       		var yyyy = today.getFullYear();
 		       		
+
+		       		if ($("#selectReservDate").val() == "") {
+						alert("날짜를 선택해주세요!");
+					} else {
+						var selday = $("#selectReservDate").val();
+			       		var sy = Number(selday.split(" ")[0].split("년")[0]) + 2000;
+			       		var sm = Number(selday.split(" ")[1].split("월")[0]);
+			       		var sd = Number(selday.split(" ")[2].split("일")[0]);
+			       		
+			       		if (sy >= yyyy && sm >= mm && sd >= dd) {
+			       			$("#submitReserveRequest").submit();
+						} else {
+							alert("지난 시간은 선택할 수 없습니다!");
+						}
+					}
 		       	}
 		       	
 		       	$('.form_date').datetimepicker({
@@ -576,7 +651,6 @@
 									   for(var f in favorites)
 										   {
 										   		if(favorites[f]==pno){
-										   			console.log(favoriteOX+"즐겨찾기주차장");
 										   			img='resources/common/img/favorite_on.png';
 										   			favoriteOX=1;
 										   		}
@@ -636,18 +710,24 @@
 								 	    	$("#paddr").text(addr);
 								 	    	$("#stime").text(parking.sat_STIME+"~ 익일:"+parking.sat_ETIME);
 								 	    	$("#gtime").text(parking.holiday_STIME+"~ 익일:"+parking.holiday_ETIME);
-								 	    	
+								 	    	//이미지 불러오는 함수
+								 	    	selectParkingImg(parking.parking_NO);
 								 	    	
 								 	    	if(favoriteOX==1){
-								 	    		console.log("즐겨찾기된 주차장이다.");
 								 	    		$("#favorite_btn").text("즐겨찾기 해제");
 								 	    	}else{
 								 	    		$("#favorite_btn").text("즐겨찾기");
 								 	    	}
 								 	 
+
 								 	    	//게시판용
 								 	    	$("#pno").val(parking.parking_NO);
 								 	    	$("#pName").val(parking.parking_NAME);
+
+								 	    	/* 예약기능 텍스트 추가 */
+								 	    	$("#reservName").text(parking.parking_NAME + " 예약");
+								 	    	$("#reservOil").text((Number(price) * 3 ) + "L");
+
 								 	    	
 								 	    	 
 								 	    };
@@ -670,7 +750,6 @@
 					 
 					 }
 					 if("${ empty loginUser }"=="true"){
-					 console.log("로그인정보 x");
 						 /* 	현재 지도 영역 구하기. */
 						 	var bounds = map.getBounds();
 						 	  // 영역정보의 남서쪽 정보를 얻어옵니다 
@@ -787,7 +866,6 @@
 									 		image:parkingImg
 								        }); 
 										
-										console.log(allfair);
 										daum.maps.event.addListener(marker2, 'click',makeclickListener(map,marker2,data.parkings[t],allfair));
 									
 								
@@ -804,6 +882,7 @@
 								 	    	/*  pname allseat extraseat */
 								 	    	$("#detailparking").click();
 								 	    	console.log(parking);
+								 	    	
 								 	    	ppname=parking.parking_NAME;
 								 	    	addr =parking.address;
 								 	    	 latt=parking.latitude;
@@ -811,18 +890,23 @@
 								 	    	$("#pname").text(parking.parking_NAME);
 								 	    	$("#allseat").text(parking.parking_SIZE);
 								 	    	$("#extraseat").text(parking.left_SIZE);
-								 	    	console.log(price);
-								 	    	$("#price").text(Number(price));
+								 	    	$("#price").text(parseInt(price));
 								 	    	$("#time").text(parking.weekday_STIME+"~ 익일:"+parking.weekday_ETIME);
 								 	    	$("#paddr").text(addr);
-
+								 	    	//이미지 불러오는 함수
+								 	    	selectParkingImg(parking.parking_NO);
+								 	    	
+								 	  	 	$("#stime").text(parking.sat_STIME+"~ 익일:"+parking.sat_ETIME);
+							 	    		$("#gtime").text(parking.holiday_STIME+"~ 익일:"+parking.holiday_ETIME);
 								 	 		
 								 	    	/* 예약기능 텍스트 추가 */
 								 	    	$("#reservName").text(parking.parking_NAME + " 예약");
 								 	    	$("#reservOil").text((Number(price) * 3 ) + "L");
+
 								 	    	 
 
 								 	    	//게시판용
+
 								 	    	$("#pno").val(parking.parking_NO);
 								 	    	$("#pName").val(parking.parking_NAME);
 								 	    	
@@ -841,6 +925,70 @@
 					 
 					 }
 					 }
+       		 
+       		 
+       		 
+       		 //마커를 클릭했을 떄 이미지 불러오는 함수
+       		 
+       		 function selectParkingImg(pno){
+       			$.ajax({
+       			           url: "selectParkingImg.cu",
+       			           type: "POST",
+       			           data: {pno:pno},
+       			           success: function(data){
+       			        	   console.log("주차장 사진");
+       			        	   console.log(data);
+       			        	 $("#pimg1").attr("src","resources/common/img/noimage.gif");
+       			        	 $("#pimg2").attr("src","resources/common/img/noimage.gif");
+       			        	 $("#pimg3").attr("src","resources/common/img/noimage.gif");
+       			        	 $("#pimg4").attr("src","resources/common/img/noimage.gif");
+       			        	   for(f in data.att){
+       			        		   if(data.att[f].file_level==1){
+       			        		   var hwak=data.att[f].origin_name.split(".")[1];
+       			        		   $("#pimg1").attr("src","resources/common/parkingImage/"+data.att[f].change_name+"."+hwak);
+       			        		   $("#pimg2").attr("src","resources/common/parkingImage/"+data.att[f].change_name+"."+hwak);
+       			        		   }
+       			        		   if(data.att[f].file_level==2){
+       			        			 var hwak=data.att[f].origin_name.split(".")[1];
+       			        			$("#pimg3").attr("src","resources/common/parkingImage/"+data.att[f].change_name+"."+hwak);
+       			        		   }
+       			        		if(data.att[f].file_level==3){
+       			        		 	var hwak=data.att[f].origin_name.split(".")[1];
+       			        			$("#pimg4").attr("src","resources/common/parkingImage/"+data.att[f].change_name+"."+hwak);
+       			        		   }
+       			        	   }
+       			                         
+       			           },error:function(status){
+							console.log(status);
+						}
+       			      });
+
+
+       			 
+       			 
+       			 
+       			 
+       		 }
+       		 
+       		 
+       		 
+       		 
+       		 
+       		 
+       		 
+       		 
+       		 
+       		 
+       		 
+       		 
+       		 
+       		 
+       		 
+       		 
+       		 
+       		 
+       		 
+       		 
 				
 			</script>
 		
@@ -850,8 +998,144 @@
  
  
  <!--@@@@@@@@@@@@@@@@@@@@@@@@@@@사이드바 자리입니다.  -->
+ <!--@@@@@@@@@@@@@@@@@@@사이드바@@@@@@@@@@@@@@@@@@@@@@@@@  -->
  
- <jsp:include page="/WEB-INF/views/customer/common/sidebar_customer.jsp"></jsp:include>
+<%--  <jsp:include page="/WEB-INF/views/customer/common/sidebar_customer.jsp"></jsp:include> --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	<div class="sidebar" style="background: rgb(49, 49, 49) !important; margin-top:50px; width:150px; font-size:0.7em;">
+      <!--
+        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red"
+    -->
+      <div class="sidebar-wrapper" style="overflow: hidden; z-index:10000;">
+        <div class="logo">
+        
+        
+        
+          <br>
+          <br>
+          
+          <!-- <a id="userId" href="javascript:void(0)" class="simple-text logo-mini">
+           	송현영
+          </a> -->
+          <div style="color:white;">
+          <c:if test="${ empty loginUser }">
+          	  <button class="btn btn-info btn-sm" onclick="location.href='customer_loginPage.cu'" style="font-size:0.7em;">로그인</button>
+          </c:if>
+          </div>
+          <c:if test="${ !empty loginUser }">
+          <div style="color:white;">
+		      <span id="userId" >
+		           ${ loginUser.member_name }
+	          </span>
+	          <span>님 환영합니다.</span>
+	          </div>
+	          <div style="font-size: 1em;color: wheat;">
+	           <span>현재 보유오일 :</span>
+	          <span id="oilmount">${ loginUser.oil }</span>
+	          </div>
+          </c:if>
+          
+          
+          <!-- <a href="javascript:void(0)" class="simple-text logo-normal">
+         	님 환영합니다.
+          </a> -->
+          <c:if test="${ empty loginUser }">
+              
+          </c:if>
+          <c:if test="${ !empty loginUser }">
+			  <!--정보수정  -->
+	          <button class="btn btn-link" id="search-button" onclick="location.href='customerInfo.cu'" style="color: gray; font-size:0.7em; "><i class="tim-icons icon-badge"></i>&nbsp;&nbsp;내정보수정
+	                  <span class="d-lg-none d-md-block"></span>
+	          </button>
+	          <!--로그아웃  -->
+	          <button class="btn btn-link" id="search-button" onclick="location.href='customerLogOut.cu'" style="color: gray; font-size:0.7em;"><i class="tim-icons icon-button-power"></i>&nbsp;&nbsp;로그아웃
+	                  <span class="d-lg-none d-md-block"></span>
+	          </button>
+          </c:if>
+          
+         
+          
+        </div>
+        <ul class="nav">
+          <li style="font-size:0.7em;" >
+            <a href="./coupon.cu">
+              <i class="tim-icons icon-chart-bar-32"></i>
+            	쿠폰함
+            </a>
+          </li>
+          <li style="font-size:0.7em;">
+            <a href="./oil.cu">
+              <i class="tim-icons icon-atom"></i>
+              	오일
+            </a>
+          </li>
+          <li style="font-size:0.7em;">
+            <a href="./reserv.cu">
+              <i class="tim-icons icon-satisfied"></i>
+              	예약내역
+            </a>
+          </li>
+          <li style="font-size:0.7em;">
+            <a href="./customer.cu">
+              <i class="tim-icons icon-single-copy-04"></i>
+             	 지도
+            </a>
+          </li> 
+          <li style="font-size:0.7em;">
+          <a href="./customerNotice.cu">
+              <i class="tim-icons icon-single-copy-04"></i>
+              	공지사항
+            </a>
+          </li>
+           <li style="font-size:0.7em;">
+          <a href="./review.cu">
+              <i class="tim-icons icon-single-copy-04"></i>
+              	내 후기
+            </a>
+          </li>  
+           <li style="font-size:0.7em;">
+          <a href="./qna.cu">
+              <i class="tim-icons icon-single-copy-04"></i>
+              	내 문의
+            </a>
+          </li>           
+        </ul>
+        <script>
+        $(function(){
+         $(".nav").children("li").mouseover(function(){
+        	 $(this).attr("class","active");
+        	 $(this).css("background","gray");
+        	 
+         }).mouseout(function(){
+        	 $(this).attr("class","null");
+        	 $(this).css("background","rgb(49,49,49)");
+         })
+        	
+        });
+        
+        </script>
+      </div>
+    </div>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  -->
 </body>
  <script type="text/javascript">
 	//네이버 로그인

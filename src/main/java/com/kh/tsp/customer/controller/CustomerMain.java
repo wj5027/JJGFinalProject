@@ -24,6 +24,7 @@ import com.kh.tsp.customer.model.service.CustomerMainService;
 import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.customer.model.vo.Parking;
 import com.kh.tsp.customer.model.vo.Points;
+import com.kh.tsp.parkingceo.model.vo.ParkingCeoAttachmentVo;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -225,6 +226,34 @@ public @ResponseBody HashMap<String, Object> selectfavorites(@RequestParam Strin
 		}
 		
 	}
+	
+	
+	//주차장 번호로 이미지 찾아오기.
+	
+	
+	@RequestMapping(value="selectParkingImg.cu")
+	public @ResponseBody HashMap<String, Object> selectParkingImg(@RequestParam String pno,HttpServletResponse response) {
+		
+		System.out.println(pno);
+		ArrayList<ParkingCeoAttachmentVo> att =null;
+		
+		att =cms.selectParkingImg(pno);
+		
+		
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("att", att);
+		
+		return hmap;
+		
+		}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
