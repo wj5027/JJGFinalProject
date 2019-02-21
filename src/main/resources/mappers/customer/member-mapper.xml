@@ -115,6 +115,25 @@
 			<result property="parkingName" column="PARKING_NAME"/>
 	</resultMap>
 	
+
+	<resultMap type="com.kh.tsp.parkingceo.model.vo.ParkingCeoAttachmentVo" id="ParkingCeoAttachmentVo">
+			<id property="fid" column="FID"/>
+			<result property="bid" column="BID"/>
+			<result property="origin_name" column="ORIGIN_NAME"/>
+			<result property="change_name" column="CHANGE_NAME"/>
+			<result property="file_path" column="FILE_PATH"/>
+			<result property="upload_date" column="UPLOAD_DATE"/>
+			<result property="file_level" column="FILE_LEVEL"/>
+			<result property="status" column="STATUS"/>
+			<result property="parking_no" column="PARKING_NO"/>
+			<result property="board_no" column="BOARD_NO"/>
+			<result property="parking_list_no" column="PARKING_LIST_NO"/>
+	</resultMap>
+	
+	
+	
+	
+	
 	<select id="selectCheckMember" resultMap="MemberResultSet" parameterType="Member">
 		SELECT * 
 		FROM MEMBER
@@ -512,6 +531,13 @@
 	FROM FAVORITES
 	 WHERE MEMBER_NO=#{mno}
 	
+	</select>
+	<!--사진 찾아오기  -->
+	<select id="selectParkingImg" resultMap="ParkingCeoAttachmentVo" parameterType="String">
+	SELECT *
+	FROM ATTACHMENT
+	WHERE PARKING_NO=#{pno}
+	AND STATUS='Y'
 	</select>
 	
 	<!-- 네이버 아이디 유무 확인 -->

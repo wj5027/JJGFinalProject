@@ -58,7 +58,7 @@
 *::before,
 *::after {
 	/*현영수정  */
- /*  box-sizing: border-box; */
+  box-sizing: border-box; 
 }
 
 html {

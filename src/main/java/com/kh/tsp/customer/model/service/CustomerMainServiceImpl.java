@@ -19,6 +19,7 @@ import com.kh.tsp.customer.model.vo.OilList;
 import com.kh.tsp.customer.model.vo.Parking;
 import com.kh.tsp.customer.model.vo.Points;
 import com.kh.tsp.customer.model.vo.Reservation;
+import com.kh.tsp.parkingceo.model.vo.ParkingCeoAttachmentVo;
 
 @Service
 public class CustomerMainServiceImpl implements CustomerMainService {
@@ -258,6 +259,20 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 	public int deletefavorite(int mno, String pno) {
 		return cmd.deletefavorite(sqlSession,mno,pno);
 	}
+
+
+
+	public int updateRequestRefund(HashMap<String, String> requesthmap) {
+		// TODO Auto-generated method stub
+		return cmd.updateRequestRefund(sqlSession, requesthmap);
+	}
+
+	@Override
+	public ArrayList<ParkingCeoAttachmentVo> selectParkingImg(String pno) {
+		// TODO Auto-generated method stub
+		return  cmd.selectParkingImg(sqlSession, pno);
+	}
+
 	
 	
 }

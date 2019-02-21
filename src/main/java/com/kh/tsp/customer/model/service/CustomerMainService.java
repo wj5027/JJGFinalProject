@@ -14,6 +14,7 @@ import com.kh.tsp.customer.model.vo.OilList;
 import com.kh.tsp.customer.model.vo.Parking;
 import com.kh.tsp.customer.model.vo.Points;
 import com.kh.tsp.customer.model.vo.Reservation;
+import com.kh.tsp.parkingceo.model.vo.ParkingCeoAttachmentVo;
 
 public interface CustomerMainService {
 
@@ -86,7 +87,11 @@ public interface CustomerMainService {
 
 	int updateRequestRefund(HashMap<String, String> requesthmap);
 
+
 	int insertOilListRefund(HashMap<String, String> requesthmap);
+
+	ArrayList<ParkingCeoAttachmentVo> selectParkingImg(String pno);
+
 
 
 	
