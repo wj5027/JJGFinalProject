@@ -179,8 +179,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 													<th class="text-center">내역번호</th>
 													<th class="text-center">사용자 아이디</th>
 													<th class="text-center">사용자명</th>
-													<th class="text-center">충전/환불 포인트</th>
-													<th class="text-center">충전/환불 날짜</th>
+													<th class="text-center">환전 포인트</th>
+													<th class="text-center">환전 날짜</th>
 													<th class="text-center">회원 상태</th>
 												</tr>
 											</thead>
@@ -284,28 +284,30 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 								</div>
 							</div>
 						</div>
-					</div>
 	
-					<!-- 그래프 -->
-					<div class="card" style="height: 350px; width: 100%;">
-						<div class="card-header">
-							<h4 class="card-title">
-								환전 통계 그래프 (총 환전 금액: <p style="display: inline;">${sum}</p> 원)
-							</h4>
-							<div align="right">
-								<button onclick="selectStatisticsMonth();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
-								<button onclick="selectStatistics7Days();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
-								<button onclick="selectStatisticsToday();" class="btn btn-default animation-on-hover btn-sm">최근 24시간</button>				
-								<div id="ajaxGraph"></div>
+						<!-- 그래프 -->
+						<div class="col-md-12">
+							<div class="card" style="height: 350px; width: 100%;">
+								<div class="card-header">
+									<h4 class="card-title">
+										환전 통계 그래프 (총 환전 금액: <p style="display: inline;">${sum}</p> 원)
+									</h4>
+									<div align="right">
+										<button onclick="selectStatisticsMonth();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
+										<button onclick="selectStatistics7Days();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
+										<button onclick="selectStatisticsToday();" class="btn btn-default animation-on-hover btn-sm">최근 24시간</button>				
+										<div id="ajaxGraph"></div>
+									</div>
+								</div>
+								<div class="card-body">
+									<canvas id="lineChartExample"></canvas>
+									<canvas id="lineChartExample2"></canvas>
+									<canvas id="lineChartExample3"></canvas>
+								</div>
 							</div>
 						</div>
-						<div class="card-body">
-							<canvas id="lineChartExample"></canvas>
-							<canvas id="lineChartExample2"></canvas>
-							<canvas id="lineChartExample3"></canvas>
-						</div>
+						<!-- 그래프 끝 -->
 					</div>
-					<!-- 그래프 끝 -->
 				</div>
 	
 				<!-- footer_admin -->

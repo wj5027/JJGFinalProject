@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="MainAdmin">
+  	<resultMap type="com.kh.tsp.admin.model.vo.DateAdmin" id="DateAdminResultSet">
+			<result property="jan" column="JAN"/>
+			<result property="feb" column="FEB"/>
+			<result property="mar" column="MAR"/>
+			<result property="apr" column="APR"/>
+			<result property="may" column="MAY"/>
+			<result property="jun" column="JUN"/>
+			<result property="jul" column="JUL"/>
+			<result property="aug" column="AUG"/>
+			<result property="sep" column="SEP"/>
+			<result property="oct" column="OCT"/>
+			<result property="nov" column="NOV"/>
+			<result property="dec" column="DEC"/>		
+			
+			<result property="dayZero" column="DAYZERO"/>		
+			<result property="dayOne" column="DAYONE"/>	
+			<result property="dayTwo" column="DAYTWO"/>	
+			<result property="dayThree" column="DAYTHREE"/>	
+			<result property="dayFour" column="DAYFOUR"/>	
+			<result property="dayFive" column="DAYFIVE"/>	
+			<result property="daySix" column="DAYSIX"/>	
+			<result property="daySeven" column="DAYSEVEN"/>	
+			
+			<result property="time01" column="TIME01"/>	
+			<result property="time02" column="TIME02"/>
+			<result property="time03" column="TIME03"/>
+			<result property="time04" column="TIME04"/>
+			<result property="time05" column="TIME05"/>
+			<result property="time06" column="TIME06"/>
+			<result property="time07" column="TIME07"/>
+			<result property="time08" column="TIME08"/>
+			<result property="time09" column="TIME09"/>
+			<result property="time10" column="TIME10"/>
+			<result property="time11" column="TIME11"/>
+			<result property="time12" column="TIME12"/>	
+			
+			<result property="time13" column="TIME13"/>	
+			<result property="time14" column="TIME14"/>	
+			<result property="time15" column="TIME15"/>	
+			<result property="time16" column="TIME16"/>	
+			<result property="time17" column="TIME17"/>	
+			<result property="time18" column="TIME18"/>	
+			<result property="time19" column="TIME19"/>	
+			<result property="time20" column="TIME20"/>	
+			<result property="time21" column="TIME21"/>	
+			<result property="time22" column="TIME22"/>	
+			<result property="time23" column="TIME23"/>	
+			<result property="time24" column="TIME24"/>	
+	</resultMap>
+  
+  	<!-- 올해 사용자 회원가입 수 -->
+  	<select id="selectCustomerSignUpMonth" resultMap="DateAdminResultSet">		
+		SELECT  (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE MEMBER_TYPE='U' AND TO_CHAR(ENROLL_DATE, 'YYMM')='1901') AS JAN,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE MEMBER_TYPE='U' AND TO_CHAR(ENROLL_DATE, 'YYMM')='1902') AS FEB,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE MEMBER_TYPE='U' AND TO_CHAR(ENROLL_DATE, 'YYMM')='1903') AS MAR,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE MEMBER_TYPE='U' AND TO_CHAR(ENROLL_DATE, 'YYMM')='1904') AS APR,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE MEMBER_TYPE='U' AND TO_CHAR(ENROLL_DATE, 'YYMM')='1905') AS MAY,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE MEMBER_TYPE='U' AND TO_CHAR(ENROLL_DATE, 'YYMM')='1906') AS JUN,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE MEMBER_TYPE='U' AND TO_CHAR(ENROLL_DATE, 'YYMM')='1907') AS JUL,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE MEMBER_TYPE='U' AND TO_CHAR(ENROLL_DATE, 'YYMM')='1908') AS AUG,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE MEMBER_TYPE='U' AND TO_CHAR(ENROLL_DATE, 'YYMM')='1909') AS SEP,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE MEMBER_TYPE='U' AND TO_CHAR(ENROLL_DATE, 'YYMM')='1910') AS OCT,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE MEMBER_TYPE='U' AND TO_CHAR(ENROLL_DATE, 'YYMM')='1911') AS NOV,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE MEMBER_TYPE='U' AND TO_CHAR(ENROLL_DATE, 'YYMM')='1912') AS DEC
+		FROM DUAL
+  	</select>
+  	
+  	<!-- 최근 7일 사용자 회원가입 수 -->
+  	<select id="selectCustomerSignUp7Days" resultMap="DateAdminResultSet">		
+		SELECT  (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(ENROLL_DATE, 'YYYYMMDD')) = 0 AND MEMBER_TYPE='U') AS DAYZERO,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(ENROLL_DATE, 'YYYYMMDD')) = 1 AND MEMBER_TYPE='U') AS DAYONE,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(ENROLL_DATE, 'YYYYMMDD')) = 2 AND MEMBER_TYPE='U') AS DAYTWO,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(ENROLL_DATE, 'YYYYMMDD')) = 3 AND MEMBER_TYPE='U') AS DAYTHREE,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(ENROLL_DATE, 'YYYYMMDD')) = 4 AND MEMBER_TYPE='U') AS DAYFOUR,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(ENROLL_DATE, 'YYYYMMDD')) = 5 AND MEMBER_TYPE='U') AS DAYFIVE,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(ENROLL_DATE, 'YYYYMMDD')) = 6 AND MEMBER_TYPE='U') AS DAYSIX,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(ENROLL_DATE, 'YYYYMMDD')) = 7 AND MEMBER_TYPE='U') AS DAYSEVEN
+		FROM DUAL
+  	</select>
+  
+  	<!-- 올해 사업자 회원가입 수 -->
+  	<select id="selectCEOSignUpMonth" resultMap="DateAdminResultSet">		
+		SELECT  (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE MEMBER_TYPE='B' AND TO_CHAR(ENROLL_DATE, 'YYMM')='1901') AS JAN,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE MEMBER_TYPE='B' AND TO_CHAR(ENROLL_DATE, 'YYMM')='1902') AS FEB,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE MEMBER_TYPE='B' AND TO_CHAR(ENROLL_DATE, 'YYMM')='1903') AS MAR,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE MEMBER_TYPE='B' AND TO_CHAR(ENROLL_DATE, 'YYMM')='1904') AS APR,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE MEMBER_TYPE='B' AND TO_CHAR(ENROLL_DATE, 'YYMM')='1905') AS MAY,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE MEMBER_TYPE='B' AND TO_CHAR(ENROLL_DATE, 'YYMM')='1906') AS JUN,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE MEMBER_TYPE='B' AND TO_CHAR(ENROLL_DATE, 'YYMM')='1907') AS JUL,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE MEMBER_TYPE='B' AND TO_CHAR(ENROLL_DATE, 'YYMM')='1908') AS AUG,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE MEMBER_TYPE='B' AND TO_CHAR(ENROLL_DATE, 'YYMM')='1909') AS SEP,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE MEMBER_TYPE='B' AND TO_CHAR(ENROLL_DATE, 'YYMM')='1910') AS OCT,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE MEMBER_TYPE='B' AND TO_CHAR(ENROLL_DATE, 'YYMM')='1911') AS NOV,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE MEMBER_TYPE='B' AND TO_CHAR(ENROLL_DATE, 'YYMM')='1912') AS DEC
+		FROM DUAL
+  	</select>
+  	
+  	<!-- 최근 7일 사업자 회원가입 수 -->
+  	<select id="selectCEOSignUp7Days" resultMap="DateAdminResultSet">		
+		SELECT  (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(ENROLL_DATE, 'YYYYMMDD')) = 0 AND MEMBER_TYPE='B') AS DAYZERO,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(ENROLL_DATE, 'YYYYMMDD')) = 1 AND MEMBER_TYPE='B') AS DAYONE,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(ENROLL_DATE, 'YYYYMMDD')) = 2 AND MEMBER_TYPE='B') AS DAYTWO,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(ENROLL_DATE, 'YYYYMMDD')) = 3 AND MEMBER_TYPE='B') AS DAYTHREE,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(ENROLL_DATE, 'YYYYMMDD')) = 4 AND MEMBER_TYPE='B') AS DAYFOUR,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(ENROLL_DATE, 'YYYYMMDD')) = 5 AND MEMBER_TYPE='B') AS DAYFIVE,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(ENROLL_DATE, 'YYYYMMDD')) = 6 AND MEMBER_TYPE='B') AS DAYSIX,
+		            (SELECT NVL(COUNT(*),0) FROM MEMBER WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(ENROLL_DATE, 'YYYYMMDD')) = 7 AND MEMBER_TYPE='B') AS DAYSEVEN
+		FROM DUAL
+  	</select>
+  	
+  	
+  	
+  </mapper>

@@ -18,93 +18,132 @@
 			<!-- 그래프 시작 -->
 			<div class="content">
 				<div class="row">
-					<div class="col-lg-4">
+					<div class="col-lg-5">
 						<div class="card card-chart">
 							<div class="card-header">
-								<h5 class="card-category">전체 사업자 회원가입 수</h5>
+								<h5 class="card-category">사용자 회원가입 현황</h5>
 								<h3 class="card-title">
-									<i class="tim-icons icon-bell-55 text-primary"></i> 763,215
+									<i class="tim-icons icon-send" style="color: #39acf4"></i>
+									<p id="ajaxGraph1" style="display: inline-block;"></p>
 								</h3>
+									<div align="right">
+										<button onclick="selectCustomerSignUpMonth();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
+										<button onclick="selectCustomerSignUp7Days();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
+									</div>
+							</div>
+							<div class="card-body">
+								<div class="chart-area">
+									<canvas id="selectCustomerSignUpMonth"></canvas>
+									<canvas id="selectCustomerSignUp7Days"></canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-5">
+						<div class="card card-chart">
+							<div class="card-header">
+								<h5 class="card-category">사업자 회원가입 현황</h5>
+								<h3 class="card-title">
+									<i class="tim-icons icon-attach-87" style="color: #ff7373"></i>
+									<p id="ajaxGraph2" style="display: inline-block;"></p>
+								</h3>
+									<div align="right">
+										<button onclick="selectCEOSignUpMonth();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
+										<button onclick="selectCEOSignUp7Days();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
+									</div>
+							</div>
+							<div class="card-body">
+								<div class="chart-area">
+									<canvas id="selectCEOSignUpMonth"></canvas>
+									<canvas id="selectCEOSignUp7Days"></canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-5">
+						<div class="card card-chart">
+							<div class="card-header">
+								<h5 class="card-category">게시판 등록 수</h5>
+								<h3 class="card-title">
+									<i class="tim-icons icon-bell-55" style="color: #39acf4"></i>
+									<p id="ajaxGraph3" style="display: inline-block;"></p>
+								</h3>
+									<div align="right">
+										<button onclick="" class="btn btn-default animation-on-hover btn-sm">월별</button>				
+										<button onclick="" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
+									</div>
 							</div>
 							<div class="card-body">
 								<div class="chart-area">
 									<canvas id="chartLinePurple"></canvas>
+<%-- 									<canvas id="lineChartExample2"></canvas> --%>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-4">
+					<div class="col-lg-5">
 						<div class="card card-chart">
 							<div class="card-header">
-								<h5 class="card-category">월별 사업자 회원가입 수</h5>
+								<h5 class="card-category">회원 주차장 예약 건수</h5>
 								<h3 class="card-title">
-									<i class="tim-icons icon-delivery-fast text-info"></i> 3,500€
+									<i class="tim-icons icon-support-17" style="color: #ff7373"></i> 
+									<p id="ajaxGraph4" style="display: inline-block;"></p>
 								</h3>
+									<div align="right">
+										<button onclick="" class="btn btn-default animation-on-hover btn-sm">월별</button>				
+										<button onclick="" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
+									</div>
 							</div>
 							<div class="card-body">
 								<div class="chart-area">
-									<canvas id="CountryChart"></canvas>
+									<canvas id="chartLinePurple"></canvas>
+<%-- 									<canvas id="lineChartExample2"></canvas> --%>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-4">
+					<div class="col-lg-5">
 						<div class="card card-chart">
 							<div class="card-header">
-								<h5 class="card-category">오늘 사업자 회원가입 수</h5>
+								<h5 class="card-category">환전</h5>
 								<h3 class="card-title">
-									<i class="tim-icons icon-send text-success"></i> 12,100K
+									<i class="tim-icons icon-planet" style="color: #39acf4"></i>
+									<p id="ajaxGraph5" style="display: inline-block;"></p>
 								</h3>
+									<div align="right">
+										<button onclick="selectStatisticsMonth2();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
+										<button onclick="selectStatistics7Days2();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
+										<button onclick="selectStatisticsToday2();" class="btn btn-default animation-on-hover btn-sm">최근 24시간</button>				
+									</div>
 							</div>
 							<div class="card-body">
 								<div class="chart-area">
-									<canvas id="chartLineGreen"></canvas>
+									<canvas id="selectStatisticsMonth2"></canvas>
+									<canvas id="selectStatistics7Days2"></canvas>
+									<canvas id="selectStatisticsToday2"></canvas>
 								</div>
 							</div>
 						</div>
 					</div>
-					<!-- 아래 세 줄 -->
-					<div class="col-lg-4">
+					<div class="col-lg-5">
 						<div class="card card-chart">
 							<div class="card-header">
-								<h5 class="card-category">전체 사용자 예약 건수</h5>
+								<h5 class="card-category">환불</h5>
 								<h3 class="card-title">
-									<i class="tim-icons icon-bell-55 text-primary"></i> 763,215
+									<i class="tim-icons icon-spaceship" style="color: #ff7373;"></i>
+									<p id="ajaxGraph6" style="display: inline-block;"></p>
 								</h3>
+									<div align="right">
+										<button onclick="selectStatisticsMonth();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
+										<button onclick="selectStatistics7Days();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
+										<button onclick="selectStatisticsToday();" class="btn btn-default animation-on-hover btn-sm">최근 24시간</button>		
+									</div>
 							</div>
 							<div class="card-body">
 								<div class="chart-area">
-									<canvas id="chartLinePurple2"></canvas>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-4">
-						<div class="card card-chart">
-							<div class="card-header">
-								<h5 class="card-category">월별 사용자 예약 건수</h5>
-								<h3 class="card-title">
-									<i class="tim-icons icon-delivery-fast text-info"></i> 3,500€
-								</h3>
-							</div>
-							<div class="card-body">
-								<div class="chart-area">
-									<canvas id="CountryChart2"></canvas>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-4">
-						<div class="card card-chart">
-							<div class="card-header">
-								<h5 class="card-category">오늘 사용자 예약 건수</h5>
-								<h3 class="card-title">
-									<i class="tim-icons icon-send text-success"></i> 12,100K
-								</h3>
-							</div>
-							<div class="card-body">
-								<div class="chart-area">
-									<canvas id="chartLineGreen2"></canvas>
+									<canvas id="selectStatisticsMonth"></canvas>
+									<canvas id="selectStatistics7Days"></canvas>
+									<canvas id="selectStatisticsToday"></canvas>
 								</div>
 							</div>
 						</div>
@@ -154,8 +193,7 @@
 							</div>
 						</div>
 					</div>
-					<!-- 테이블 끝 -->
-					
+					<!-- 테이블 끝 -->					
 				</div>
 			</div>
 
@@ -164,6 +202,1611 @@
 			<!-- END footer_admin -->
 		</div>
 	</div>
+	
+	
+	<!-- 111111111111111111111111 사용자 회원가입 현황 1111111111111111111111111111111 -->	
+	<!-- 메인 사용자 회원가입 -->
+	<script>
+		$(function () {
 
+			$.ajax({
+				url:"selectCustomerSignUpMonth.ad",
+				type:"get",
+				success:function(data){
+					$("#selectCustomerSignUpMonth").show();
+					$("#selectCustomerSignUp7Days").hide();
+					
+					$("#ajaxGraph1").empty();
+					var sum = parseInt(data.jan) + parseInt(data.feb) + parseInt(data.mar)
+								+ parseInt(data.apr) + parseInt(data.may) + parseInt(data.jun) 
+								+ parseInt(data.jul) + parseInt(data.aug) +parseInt(data.sep)
+								+ parseInt(data.oct) + parseInt(data.nov) + parseInt(data.dec)
+					$("#ajaxGraph1").append('<div align="left">올해 사용자 회원가입 수 : '+sum+'명</div>');
+					
+					gradientChartOptionsConfiguration = {
+							maintainAspectRatio : false,
+							legend : {
+								display : false
+							},
+				
+							tooltips : {
+								backgroundColor : '#fff',
+// 								titleFontColor : '#333',
+								bodyFontColor : '#666',
+								bodySpacing : 4,
+								xPadding : 12,
+								mode : "nearest",
+								intersect : 0,
+								position : "nearest"
+							},
+							responsive : true,
+							scales : {
+								yAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(29,140,248,0.0)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										suggestedMin : 0,
+										suggestedMax : 10,	// y축
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ],
+				
+								xAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(220,53,69,0.1)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ]
+							}
+						};
+				
+						var ctx = document.getElementById("selectCustomerSignUpMonth").getContext("2d");
+				
+						var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+				
+						gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
+						gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+						gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+				
+						var chartData = [data.jan, data.feb, data.mar, data.apr,
+												data.may, data.jun, data.jul, data.aug,
+												data.sep, data.oct, data.nov, data.dec];
+						
+						var data = {
+							labels : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월',
+									'10월', '11월', '12월' ],
+							datasets : [ {
+								label : "인원:",
+								fill : true,
+								backgroundColor : gradientStroke,
+								borderColor : '#39acf4',
+								borderWidth : 2,
+								borderDash : [],
+								borderDashOffset : 0.0,
+								pointBackgroundColor : '#39acf4',
+								pointBorderColor : 'rgba(255,255,255,0)',
+								pointHoverBackgroundColor : '#39acf4',
+								pointBorderWidth : 20,
+								pointHoverRadius : 4,
+								pointHoverBorderWidth : 15,
+								pointRadius : 4,
+								data : chartData
+							} ]
+						};
+				
+						var myChart = new Chart(ctx, {
+							type : 'line',
+							data : data,
+							options : gradientChartOptionsConfiguration
+						});
+				},error:function(status){
+					console.log(status);
+				}
+			});
+		});
+	</script>
+	<!-- 메인 사용자 회원가입 끝 -->
+	
+	<!-- 사용자 회원가입 올해 -->
+	<script>
+		function selectCustomerSignUpMonth() {
+
+			$.ajax({
+				url:"selectCustomerSignUpMonth.ad",
+				type:"get",
+				success:function(data){
+					$("#selectCustomerSignUpMonth").show();
+					$("#selectCustomerSignUp7Days").hide();
+					
+					$("#ajaxGraph1").empty();
+					var sum = parseInt(data.jan) + parseInt(data.feb) + parseInt(data.mar)
+								+ parseInt(data.apr) + parseInt(data.may) + parseInt(data.jun) 
+								+ parseInt(data.jul) + parseInt(data.aug) +parseInt(data.sep)
+								+ parseInt(data.oct) + parseInt(data.nov) + parseInt(data.dec)
+					$("#ajaxGraph1").append('<div align="left">올해 사용자 회원가입 수 : '+sum+'명</div>');
+					
+					gradientChartOptionsConfiguration = {
+							maintainAspectRatio : false,
+							legend : {
+								display : false
+							},
+				
+							tooltips : {
+								backgroundColor : '#fff',
+// 								titleFontColor : '#333',
+								bodyFontColor : '#666',
+								bodySpacing : 4,
+								xPadding : 12,
+								mode : "nearest",
+								intersect : 0,
+								position : "nearest"
+							},
+							responsive : true,
+							scales : {
+								yAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(29,140,248,0.0)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										suggestedMin : 0,
+										suggestedMax : 10,	// y축
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ],
+				
+								xAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(220,53,69,0.1)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ]
+							}
+						};
+				
+						var ctx = document.getElementById("selectCustomerSignUpMonth").getContext("2d");
+				
+						var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+				
+						gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
+						gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+						gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+				
+						var chartData = [data.jan, data.feb, data.mar, data.apr,
+												data.may, data.jun, data.jul, data.aug,
+												data.sep, data.oct, data.nov, data.dec];
+						
+						var data = {
+							labels : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월',
+									'10월', '11월', '12월' ],
+							datasets : [ {
+								label : "인원:",
+								fill : true,
+								backgroundColor : gradientStroke,
+								borderColor : '#39acf4',
+								borderWidth : 2,
+								borderDash : [],
+								borderDashOffset : 0.0,
+								pointBackgroundColor : '#39acf4',
+								pointBorderColor : 'rgba(255,255,255,0)',
+								pointHoverBackgroundColor : '#39acf4',
+								pointBorderWidth : 20,
+								pointHoverRadius : 4,
+								pointHoverBorderWidth : 15,
+								pointRadius : 4,
+								data : chartData
+							} ]
+						};
+				
+						var myChart = new Chart(ctx, {
+							type : 'line',
+							data : data,
+							options : gradientChartOptionsConfiguration
+						});
+				},error:function(status){
+					console.log(status);
+				}
+			});
+		}
+	</script>
+	<!-- 사용자 회원가입 올해 끝 -->
+	
+	<!-- 사용자 회원가입 최근 7일 -->	
+	<script>
+		function selectCustomerSignUp7Days() {
+
+			$.ajax({
+				url:"selectCustomerSignUp7Days.ad",
+				type:"get",
+				success:function(data){
+					$("#selectCustomerSignUpMonth").hide();
+					$("#selectCustomerSignUp7Days").show();
+					
+					$("#ajaxGraph1").empty();
+					var sum = parseInt(data.dayZero) + parseInt(data.dayOne) + parseInt(data.dayTwo)
+					+ parseInt(data.dayThree) + parseInt(data.dayFour) + parseInt(data.dayFive) 
+					+ parseInt(data.daySix) + parseInt(data.daySeven)
+					$("#ajaxGraph1").append('<div align="left">최근 7일 사용자 회원가입 수 : '+sum+'명</div>');
+					
+					gradientChartOptionsConfiguration = {
+							maintainAspectRatio : false,
+							legend : {
+								display : false
+							},
+				
+							tooltips : {
+								backgroundColor : '#fff',
+// 								titleFontColor : '#333',
+								bodyFontColor : '#666',
+								bodySpacing : 4,
+								xPadding : 12,
+								mode : "nearest",
+								intersect : 0,
+								position : "nearest"
+							},
+							responsive : true,
+							scales : {
+								yAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(29,140,248,0.0)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										suggestedMin : 0,
+										suggestedMax : 10,	// y축
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ],
+				
+								xAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(220,53,69,0.1)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ]
+							}
+						};
+				
+						var ctx = document.getElementById("selectCustomerSignUp7Days").getContext("2d");
+				
+						var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+				
+						gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
+						gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+						gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+				
+						var chartData = [data.dayZero, data.dayOne, data.dayTwo, data.dayThree,
+												data.dayFour, data.dayFive, data.daySix, data.daySeven];
+						
+						var data = {
+							labels : [ '오늘', '1일전', '2일전', '3일전', '4일전', '5일전', '6일전', '7일전'],
+							datasets : [ {
+								label : "인원:",
+								fill : true,
+								backgroundColor : gradientStroke,
+								borderColor : '#39acf4',
+								borderWidth : 2,
+								borderDash : [],
+								borderDashOffset : 0.0,
+								pointBackgroundColor : '#39acf4',
+								pointBorderColor : 'rgba(255,255,255,0)',
+								pointHoverBackgroundColor : '#39acf4',
+								pointBorderWidth : 20,
+								pointHoverRadius : 4,
+								pointHoverBorderWidth : 15,
+								pointRadius : 4,
+								data : chartData
+							} ]
+						};
+				
+						var myChart = new Chart(ctx, {
+							type : 'line',
+							data : data,
+							options : gradientChartOptionsConfiguration
+						});
+				},error:function(status){
+					console.log(status);
+				}
+			});
+		}
+	</script>
+	<!-- 사용자 회원가입 최근 7일 끝 -->
+	<!-- 111111111111111111111111 사용자 회원가입 현황 끝 1111111111111111111111111111111 -->	
+	
+	<!-- 222222222222222222222222 사업자 회원가입 현황 22222222222222222222222222222222 -->	
+	<!-- 메인 사업자 회원가입 -->
+	<script>
+		$(function () {
+
+			$.ajax({
+				url:"selectCEOSignUpMonth.ad",
+				type:"get",
+				success:function(data){
+					$("#selectCEOSignUpMonth").show();
+					$("#selectCEOSignUp7Days").hide();
+					
+					$("#ajaxGraph2").empty();
+					var sum = parseInt(data.jan) + parseInt(data.feb) + parseInt(data.mar)
+								+ parseInt(data.apr) + parseInt(data.may) + parseInt(data.jun) 
+								+ parseInt(data.jul) + parseInt(data.aug) +parseInt(data.sep)
+								+ parseInt(data.oct) + parseInt(data.nov) + parseInt(data.dec)
+					$("#ajaxGraph2").append('<div align="left">올해 사업자 회원가입 수 : '+sum+'명</div>');
+					
+					gradientChartOptionsConfiguration = {
+							maintainAspectRatio : false,
+							legend : {
+								display : false
+							},
+				
+							tooltips : {
+								backgroundColor : '#fff',
+// 								titleFontColor : '#333',
+								bodyFontColor : '#666',
+								bodySpacing : 4,
+								xPadding : 12,
+								mode : "nearest",
+								intersect : 0,
+								position : "nearest"
+							},
+							responsive : true,
+							scales : {
+								yAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(29,140,248,0.0)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										suggestedMin : 0,
+										suggestedMax : 10,	// y축
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ],
+				
+								xAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(220,53,69,0.1)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ]
+							}
+						};
+				
+						var ctx = document.getElementById("selectCEOSignUpMonth").getContext("2d");
+				
+						var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+				
+						gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
+						gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+						gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+				
+						var chartData = [data.jan, data.feb, data.mar, data.apr,
+												data.may, data.jun, data.jul, data.aug,
+												data.sep, data.oct, data.nov, data.dec];
+						
+						var data = {
+							labels : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월',
+									'10월', '11월', '12월' ],
+							datasets : [ {
+								label : "인원:",
+								fill : true,
+								backgroundColor : gradientStroke,
+								borderColor : '#ff7373',
+								borderWidth : 2,
+								borderDash : [],
+								borderDashOffset : 0.0,
+								pointBackgroundColor : '#ff7373',
+								pointBorderColor : 'rgba(255,255,255,0)',
+								pointHoverBackgroundColor : '#ff7373',
+								pointBorderWidth : 20,
+								pointHoverRadius : 4,
+								pointHoverBorderWidth : 15,
+								pointRadius : 4,
+								data : chartData
+							} ]
+						};
+				
+						var myChart = new Chart(ctx, {
+							type : 'line',
+							data : data,
+							options : gradientChartOptionsConfiguration
+						});
+				},error:function(status){
+					console.log(status);
+				}
+			});
+		});
+	</script>
+	<!-- 메인 사업자 회원가입 끝 -->
+	
+	<!-- 사업자 회원가입 올해 -->
+	<script>
+		function selectCEOSignUpMonth() {
+
+			$.ajax({
+				url:"selectCEOSignUpMonth.ad",
+				type:"get",
+				success:function(data){
+					$("#selectCEOSignUpMonth").show();
+					$("#selectCEOSignUp7Days").hide();
+					
+					$("#ajaxGraph2").empty();
+					var sum = parseInt(data.jan) + parseInt(data.feb) + parseInt(data.mar)
+								+ parseInt(data.apr) + parseInt(data.may) + parseInt(data.jun) 
+								+ parseInt(data.jul) + parseInt(data.aug) +parseInt(data.sep)
+								+ parseInt(data.oct) + parseInt(data.nov) + parseInt(data.dec)
+					$("#ajaxGraph2").append('<div align="left">올해 사업자 회원가입 수 : '+sum+'명</div>');
+					
+					gradientChartOptionsConfiguration = {
+							maintainAspectRatio : false,
+							legend : {
+								display : false
+							},
+				
+							tooltips : {
+								backgroundColor : '#fff',
+// 								titleFontColor : '#333',
+								bodyFontColor : '#666',
+								bodySpacing : 4,
+								xPadding : 12,
+								mode : "nearest",
+								intersect : 0,
+								position : "nearest"
+							},
+							responsive : true,
+							scales : {
+								yAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(29,140,248,0.0)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										suggestedMin : 0,
+										suggestedMax : 10,	// y축
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ],
+				
+								xAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(220,53,69,0.1)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ]
+							}
+						};
+				
+						var ctx = document.getElementById("selectCEOSignUpMonth").getContext("2d");
+				
+						var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+				
+						gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
+						gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+						gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+				
+						var chartData = [data.jan, data.feb, data.mar, data.apr,
+												data.may, data.jun, data.jul, data.aug,
+												data.sep, data.oct, data.nov, data.dec];
+						
+						var data = {
+							labels : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월',
+									'10월', '11월', '12월' ],
+							datasets : [ {
+								label : "인원:",
+								fill : true,
+								backgroundColor : gradientStroke,
+								borderColor : '#ff7373',
+								borderWidth : 2,
+								borderDash : [],
+								borderDashOffset : 0.0,
+								pointBackgroundColor : '#ff7373',
+								pointBorderColor : 'rgba(255,255,255,0)',
+								pointHoverBackgroundColor : '#ff7373',
+								pointBorderWidth : 20,
+								pointHoverRadius : 4,
+								pointHoverBorderWidth : 15,
+								pointRadius : 4,
+								data : chartData
+							} ]
+						};
+				
+						var myChart = new Chart(ctx, {
+							type : 'line',
+							data : data,
+							options : gradientChartOptionsConfiguration
+						});
+				},error:function(status){
+					console.log(status);
+				}
+			});
+		}
+	</script>
+	<!-- 사업자 회원가입 올해 끝 -->
+	
+	<!-- 사업자 회원가입 최근 7일 -->	
+	<script>
+		function selectCEOSignUp7Days() {
+
+			$.ajax({
+				url:"selectCEOSignUp7Days.ad",
+				type:"get",
+				success:function(data){
+					$("#selectCEOSignUpMonth").hide();
+					$("#selectCEOSignUp7Days").show();
+					
+					$("#ajaxGraph2").empty();
+					var sum = parseInt(data.dayZero) + parseInt(data.dayOne) + parseInt(data.dayTwo)
+					+ parseInt(data.dayThree) + parseInt(data.dayFour) + parseInt(data.dayFive) 
+					+ parseInt(data.daySix) + parseInt(data.daySeven)
+					$("#ajaxGraph2").append('<div align="left">최근 7일 사업자 회원가입 수 : '+sum+'명</div>');
+					
+					gradientChartOptionsConfiguration = {
+							maintainAspectRatio : false,
+							legend : {
+								display : false
+							},
+				
+							tooltips : {
+								backgroundColor : '#fff',
+// 								titleFontColor : '#333',
+								bodyFontColor : '#666',
+								bodySpacing : 4,
+								xPadding : 12,
+								mode : "nearest",
+								intersect : 0,
+								position : "nearest"
+							},
+							responsive : true,
+							scales : {
+								yAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(29,140,248,0.0)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										suggestedMin : 0,
+										suggestedMax : 10,	// y축
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ],
+				
+								xAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(220,53,69,0.1)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ]
+							}
+						};
+				
+						var ctx = document.getElementById("selectCEOSignUp7Days").getContext("2d");
+				
+						var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+				
+						gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
+						gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+						gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+				
+						var chartData = [data.dayZero, data.dayOne, data.dayTwo, data.dayThree,
+												data.dayFour, data.dayFive, data.daySix, data.daySeven];
+						
+						var data = {
+							labels : [ '오늘', '1일전', '2일전', '3일전', '4일전', '5일전', '6일전', '7일전'],
+							datasets : [ {
+								label : "인원:",
+								fill : true,
+								backgroundColor : gradientStroke,
+								borderColor : '#ff7373',
+								borderWidth : 2,
+								borderDash : [],
+								borderDashOffset : 0.0,
+								pointBackgroundColor : '#ff7373',
+								pointBorderColor : 'rgba(255,255,255,0)',
+								pointHoverBackgroundColor : '#ff7373',
+								pointBorderWidth : 20,
+								pointHoverRadius : 4,
+								pointHoverBorderWidth : 15,
+								pointRadius : 4,
+								data : chartData
+							} ]
+						};
+				
+						var myChart = new Chart(ctx, {
+							type : 'line',
+							data : data,
+							options : gradientChartOptionsConfiguration
+						});
+				},error:function(status){
+					console.log(status);
+				}
+			});
+		}
+	</script>
+	<!-- 사업자 회원가입 최근 7일 끝 -->
+	<!-- 222222222222222222222222 사업자 회원가입 현황 끝 22222222222222222222222222222222 -->	
+	
+	<!-- 3333333333333333333333333333 게시판 등록 수 333333333333333333333333333333333 -->	
+	<script>
+		$(function () {
+			
+		});
+	</script>
+	<!-- 3333333333333333333333333333 게시판 등록 수 끝 333333333333333333333333333333333 -->	
+	
+	<!-- 444444444444444444444444 회원 주차장 예약 건수 444444444444444444444444444444444 -->	
+	<script>
+		$(function () {
+			
+		});
+	</script>
+	<!-- 444444444444444444444444 회원 주차장 예약 건수 끝 444444444444444444444444444444444 -->	
+	
+	<!-- 55555555555555555555555555555555 환전 5555555555555555555555555555555555 -->	
+	<!-- 메인 환전 통계 -->
+	<script>
+		$(function () {
+
+			$.ajax({
+				url:"selectStatisticsMonth2.ad",
+				type:"get",
+				success:function(data){
+					$("#selectStatisticsMonth2").show();
+					$("#selectStatistics7Days2").hide();
+					$("#selectStatisticsToday2").hide();
+					
+					$("#ajaxGraph5").empty();
+					var sum = parseInt(data.jan) + parseInt(data.feb) + parseInt(data.mar)
+								+ parseInt(data.apr) + parseInt(data.may) + parseInt(data.jun) 
+								+ parseInt(data.jul) + parseInt(data.aug) +parseInt(data.sep)
+								+ parseInt(data.oct) + parseInt(data.nov) + parseInt(data.dec)
+					$("#ajaxGraph5").append('<div align="left">올해 환전 금액 : '+sum+'원</div>');
+					
+					gradientChartOptionsConfiguration = {
+							maintainAspectRatio : false,
+							legend : {
+								display : false
+							},
+				
+							tooltips : {
+								backgroundColor : '#fff',
+								titleFontColor : '#333',
+								bodyFontColor : '#666',
+								bodySpacing : 4,
+								xPadding : 12,
+								mode : "nearest",
+								intersect : 0,
+								position : "nearest"
+							},
+							responsive : true,
+							scales : {
+								yAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(29,140,248,0.0)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										suggestedMin : 50,
+										suggestedMax : 110,	// y축
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ],
+				
+								xAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(220,53,69,0.1)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ]
+							}
+						};
+				
+						var ctx = document.getElementById("selectStatisticsMonth2").getContext("2d");
+				
+						var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+				
+						gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
+						gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+						gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+				
+						var chartData = [data.jan, data.feb, data.mar, data.apr,
+												data.may, data.jun, data.jul, data.aug,
+												data.sep, data.oct, data.nov, data.dec];
+						
+						var data = {
+							labels : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월',
+									'10월', '11월', '12월' ],
+							datasets : [ {
+								label : "매출:",
+								fill : true,
+								backgroundColor : gradientStroke,
+								borderColor : '#39acf4',
+								borderWidth : 2,
+								borderDash : [],
+								borderDashOffset : 0.0,
+								pointBackgroundColor : '#39acf4',
+								pointBorderColor : 'rgba(255,255,255,0)',
+								pointHoverBackgroundColor : '#39acf4',
+								pointBorderWidth : 20,
+								pointHoverRadius : 4,
+								pointHoverBorderWidth : 15,
+								pointRadius : 4,
+								data : chartData
+							} ]
+						};
+				
+						var myChart = new Chart(ctx, {
+							type : 'line',
+							data : data,
+							options : gradientChartOptionsConfiguration
+						});
+				},error:function(status){
+					console.log(status);
+				}
+			});
+		});
+	</script>
+	<!-- 메인 환전 통계 끝 -->
+	
+	<!-- 통계 그래프 (월별) -->
+	<script>
+		function selectStatisticsMonth2() {
+			$.ajax({
+				url:"selectStatisticsMonth2.ad",
+				type:"get",
+				success:function(data){
+					$("#selectStatisticsMonth2").show();
+					$("#selectStatistics7Days2").hide();
+					$("#selectStatisticsToday2").hide();
+					
+					$("#ajaxGraph5").empty();
+					var sum = parseInt(data.jan) + parseInt(data.feb) + parseInt(data.mar)
+								+ parseInt(data.apr) + parseInt(data.may) + parseInt(data.jun) 
+								+ parseInt(data.jul) + parseInt(data.aug) +parseInt(data.sep)
+								+ parseInt(data.oct) + parseInt(data.nov) + parseInt(data.dec)
+					$("#ajaxGraph5").append('<div align="left">올해 환전 금액 : '+sum+'원</div>');
+					
+					gradientChartOptionsConfiguration = {
+							maintainAspectRatio : false,
+							legend : {
+								display : false
+							},
+				
+							tooltips : {
+								backgroundColor : '#fff',
+								titleFontColor : '#333',
+								bodyFontColor : '#666',
+								bodySpacing : 4,
+								xPadding : 12,
+								mode : "nearest",
+								intersect : 0,
+								position : "nearest"
+							},
+							responsive : true,
+							scales : {
+								yAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(29,140,248,0.0)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										suggestedMin : 50,
+										suggestedMax : 110,	// y축
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ],
+				
+								xAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(220,53,69,0.1)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ]
+							}
+						};
+				
+						var ctx = document.getElementById("selectStatisticsMonth2").getContext("2d");
+				
+						var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+				
+						gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
+						gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+						gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+				
+						var chartData = [data.jan, data.feb, data.mar, data.apr,
+												data.may, data.jun, data.jul, data.aug,
+												data.sep, data.oct, data.nov, data.dec];
+						
+						var data = {
+							labels : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월',
+									'10월', '11월', '12월' ],
+							datasets : [ {
+								label : "매출:",
+								fill : true,
+								backgroundColor : gradientStroke,
+								borderColor : '#39acf4',
+								borderWidth : 2,
+								borderDash : [],
+								borderDashOffset : 0.0,
+								pointBackgroundColor : '#39acf4',
+								pointBorderColor : 'rgba(255,255,255,0)',
+								pointHoverBackgroundColor : '#39acf4',
+								pointBorderWidth : 20,
+								pointHoverRadius : 4,
+								pointHoverBorderWidth : 15,
+								pointRadius : 4,
+								data : chartData
+							} ]
+						};
+				
+						var myChart = new Chart(ctx, {
+							type : 'line',
+							data : data,
+							options : gradientChartOptionsConfiguration
+						});
+				},error:function(status){
+					console.log(status);
+				}
+			});
+		}
+	</script>
+	<!-- 통계 그래프 (월별) 끝 -->
+
+	<!-- 통계 그래프 (최근 7일) -->
+	<script>
+		function selectStatistics7Days2() {
+			$.ajax({
+				url:"selectStatistics7Day2.ad",
+				type:"get",
+				success:function(data){
+					$("#selectStatisticsMonth2").hide();
+					$("#selectStatistics7Days2").show();
+					$("#selectStatisticsToday2").hide();
+					
+					$("#ajaxGraph5").empty();
+					var sum = parseInt(data.dayZero) + parseInt(data.dayOne) + parseInt(data.dayTwo)
+					+ parseInt(data.dayThree) + parseInt(data.dayFour) + parseInt(data.dayFive) 
+					+ parseInt(data.daySix) + parseInt(data.daySeven)
+					$("#ajaxGraph5").append('<div align="left">최근 7일 환전 금액 : '+sum+'원</div>');
+					
+					gradientChartOptionsConfiguration = {
+							maintainAspectRatio : false,
+							legend : {
+								display : false
+							},
+				
+							tooltips : {
+								backgroundColor : '#fff',
+								titleFontColor : '#333',
+								bodyFontColor : '#666',
+								bodySpacing : 4,
+								xPadding : 12,
+								mode : "nearest",
+								intersect : 0,
+								position : "nearest"
+							},
+							responsive : true,
+							scales : {
+								yAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(29,140,248,0.0)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										suggestedMin : 50,
+										suggestedMax : 110,	// y축
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ],
+				
+								xAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(220,53,69,0.1)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ]
+							}
+						};
+				
+						var ctx = document.getElementById("selectStatistics7Days2").getContext("2d");
+				
+						var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+				
+						gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
+						gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+						gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+				
+						var chartData = [data.dayZero, data.dayOne, data.dayTwo, data.dayThree,
+												data.dayFour, data.dayFive, data.daySix, data.daySeven];
+						
+						var data = {
+							labels : [ '오늘', '1일전', '2일전', '3일전', '4일전', '5일전', '6일전', '7일전'],
+							datasets : [ {
+								label : "매출:",
+								fill : true,
+								backgroundColor : gradientStroke,
+								borderColor : '#39acf4',
+								borderWidth : 2,
+								borderDash : [],
+								borderDashOffset : 0.0,
+								pointBackgroundColor : '#39acf4',
+								pointBorderColor : 'rgba(255,255,255,0)',
+								pointHoverBackgroundColor : '#39acf4',
+								pointBorderWidth : 20,
+								pointHoverRadius : 4,
+								pointHoverBorderWidth : 15,
+								pointRadius : 4,
+								data : chartData
+							} ]
+						};
+				
+						var myChart = new Chart(ctx, {
+							type : 'line',
+							data : data,
+							options : gradientChartOptionsConfiguration
+						});
+				},error:function(status){
+					console.log(status);
+				}
+			});
+		}
+	</script>
+	<!-- 통계 그래프 (최근 7일) 끝 -->
+	
+	<!-- 통계 그래프 (최근 24시간) -->
+	<script>
+		function selectStatisticsToday2() {
+			$.ajax({
+				url:"selectStatisticsToday2.ad",
+				type:"get",
+				success:function(data){
+					$("#selectStatisticsMonth2").hide();
+					$("#selectStatistics7Days2").hide();
+					$("#selectStatisticsToday2").show();
+					
+					$("#ajaxGraph5").empty();
+					var sum = parseInt(data.time01) +  parseInt(data.time07) +  parseInt(data.time13) +  parseInt(data.time19) + 
+									parseInt(data.time02) +  parseInt(data.time08) +  parseInt(data.time14) +  parseInt(data.time20) + 
+									parseInt(data.time03) +  parseInt(data.time09) +  parseInt(data.time15) +  parseInt(data.time21) + 
+									parseInt(data.time04) +  parseInt(data.time10) +  parseInt(data.time16) +  parseInt(data.time22) + 
+									parseInt(data.time05) +  parseInt(data.time11) +  parseInt(data.time17) +  parseInt(data.time23) + 
+									parseInt(data.time06) +  parseInt(data.time12) +  parseInt(data.time18) +  parseInt(data.time24)
+					$("#ajaxGraph5").append('<div align="left">최근 24시간 환전 금액 : '+sum+'원</div>');
+					
+					gradientChartOptionsConfiguration = {
+							maintainAspectRatio : false,
+							legend : {
+								display : false
+							},
+				
+							tooltips : {
+								backgroundColor : '#fff',
+								titleFontColor : '#333',
+								bodyFontColor : '#666',
+								bodySpacing : 4,
+								xPadding : 12,
+								mode : "nearest",
+								intersect : 0,
+								position : "nearest"
+							},
+							responsive : true,
+							scales : {
+								yAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(29,140,248,0.0)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										suggestedMin : 50,
+										suggestedMax : 110,	// y축
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ],
+				
+								xAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(220,53,69,0.1)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ]
+							}
+						};
+				
+						var ctx = document.getElementById("selectStatisticsToday2").getContext("2d");
+				
+						var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+				
+						gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
+						gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+						gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+				
+						var chartData = [data.time01, data.time02, data.time03, data.time04, data.time05, data.time06, 
+												data.time07, data.time08, data.time09, data.time10, data.time11, data.time12, 
+												data.time13, data.time14, data.time15, data.time16, data.time17, data.time18, 
+												data.time19, data.time20, data.time21, data.time22, data.time23, data.time24];
+						
+						var data = {
+							labels : [ '1시간전', '2시간전', '3시간전', '4시간전', '5시간전', '6시간전',
+										 '7시간전', '8시간전', '9시간전', '10시간전', '11시간전', '12시간전',
+										 '13시간전', '14시간전', '15시간전', '16시간전', '17시간전', '18시간전',
+										 '19시간전', '20시간전', '21시간전', '22시간전', '23시간전', '24시간전'],
+							datasets : [ {
+								label : "매출:",
+								fill : true,
+								backgroundColor : gradientStroke,
+								borderColor : '#39acf4',
+								borderWidth : 2,
+								borderDash : [],
+								borderDashOffset : 0.0,
+								pointBackgroundColor : '#39acf4',
+								pointBorderColor : 'rgba(255,255,255,0)',
+								pointHoverBackgroundColor : '#39acf4',
+								pointBorderWidth : 20,
+								pointHoverRadius : 4,
+								pointHoverBorderWidth : 15,
+								pointRadius : 4,
+								data : chartData
+							} ]
+						};
+				
+						var myChart = new Chart(ctx, {
+							type : 'line',
+							data : data,
+							options : gradientChartOptionsConfiguration
+						});
+				},error:function(status){
+					console.log(status);
+				}
+			});
+		}
+	</script>
+	<!-- 통계 그래프 (최근 24시간) 끝 -->
+	<!-- 55555555555555555555555555555555 환전 끝 5555555555555555555555555555555555 -->	
+	
+	<!-- 666666666666666666666666666666 환불 6666666666666666666666666666666666 -->
+	<!-- 메인 환불 통계 -->
+	<script>
+		$(function () {
+			$.ajax({
+				url:"selectStatisticsMonth.ad",
+				type:"get",
+				success:function(data){
+					$("#selectStatisticsMonth").show();
+					$("#selectStatistics7Days").hide();
+					$("#selectStatisticsToday").hide();
+					
+					$("#ajaxGraph6").empty();
+					var sum = parseInt(data.jan) + parseInt(data.feb) + parseInt(data.mar)
+								+ parseInt(data.apr) + parseInt(data.may) + parseInt(data.jun) 
+								+ parseInt(data.jul) + parseInt(data.aug) +parseInt(data.sep)
+								+ parseInt(data.oct) + parseInt(data.nov) + parseInt(data.dec)
+					$("#ajaxGraph6").append('<div align="left">올해 매출 : '+sum+'원</div>');
+					
+					gradientChartOptionsConfiguration = {
+							maintainAspectRatio : false,
+							legend : {
+								display : false
+							},
+				
+							tooltips : {
+								backgroundColor : '#fff',
+								titleFontColor : '#333',
+								bodyFontColor : '#666',
+								bodySpacing : 4,
+								xPadding : 12,
+								mode : "nearest",
+								intersect : 0,
+								position : "nearest"
+							},
+							responsive : true,
+							scales : {
+								yAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(29,140,248,0.0)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										suggestedMin : 50,
+										suggestedMax : 110,	// y축
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ],
+				
+								xAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(220,53,69,0.1)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ]
+							}
+						};
+				
+						var ctx = document.getElementById("selectStatisticsMonth").getContext("2d");
+				
+						var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+				
+						gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
+						gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+						gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+				
+						var chartData = [data.jan, data.feb, data.mar, data.apr,
+												data.may, data.jun, data.jul, data.aug,
+												data.sep, data.oct, data.nov, data.dec];
+						
+						var data = {
+							labels : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월',
+									'10월', '11월', '12월' ],
+							datasets : [ {
+								label : "매출:",
+								fill : true,
+								backgroundColor : gradientStroke,
+								borderColor : '#ff7373',
+								borderWidth : 2,
+								borderDash : [],
+								borderDashOffset : 0.0,
+								pointBackgroundColor : '#ff7373',
+								pointBorderColor : 'rgba(255,255,255,0)',
+								pointHoverBackgroundColor : '#ff7373',
+								pointBorderWidth : 20,
+								pointHoverRadius : 4,
+								pointHoverBorderWidth : 15,
+								pointRadius : 4,
+								data : chartData
+							} ]
+						};
+				
+						var myChart = new Chart(ctx, {
+							type : 'line',
+							data : data,
+							options : gradientChartOptionsConfiguration
+						});
+				},error:function(status){
+					console.log(status);
+				}
+			});
+		});
+	</script>
+	<!-- 메인 환불 통계 끝 -->
+		
+	<!-- 통계 그래프 (월별) -->
+	<script>
+		function selectStatisticsMonth() {
+			$.ajax({
+				url:"selectStatisticsMonth.ad",
+				type:"get",
+				success:function(data){
+					$("#selectStatisticsMonth").show();
+					$("#selectStatistics7Days").hide();
+					$("#selectStatisticsToday").hide();
+					
+					$("#ajaxGraph6").empty();
+					var sum = parseInt(data.jan) + parseInt(data.feb) + parseInt(data.mar)
+								+ parseInt(data.apr) + parseInt(data.may) + parseInt(data.jun) 
+								+ parseInt(data.jul) + parseInt(data.aug) +parseInt(data.sep)
+								+ parseInt(data.oct) + parseInt(data.nov) + parseInt(data.dec)
+					$("#ajaxGraph6").append('<div align="left">올해 매출 : '+sum+'원</div>');
+					
+					gradientChartOptionsConfiguration = {
+							maintainAspectRatio : false,
+							legend : {
+								display : false
+							},
+				
+							tooltips : {
+								backgroundColor : '#fff',
+								titleFontColor : '#333',
+								bodyFontColor : '#666',
+								bodySpacing : 4,
+								xPadding : 12,
+								mode : "nearest",
+								intersect : 0,
+								position : "nearest"
+							},
+							responsive : true,
+							scales : {
+								yAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(29,140,248,0.0)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										suggestedMin : 50,
+										suggestedMax : 110,	// y축
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ],
+				
+								xAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(220,53,69,0.1)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ]
+							}
+						};
+				
+						var ctx = document.getElementById("selectStatisticsMonth").getContext("2d");
+				
+						var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+				
+						gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
+						gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+						gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+				
+						var chartData = [data.jan, data.feb, data.mar, data.apr,
+												data.may, data.jun, data.jul, data.aug,
+												data.sep, data.oct, data.nov, data.dec];
+						
+						var data = {
+							labels : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월',
+									'10월', '11월', '12월' ],
+							datasets : [ {
+								label : "매출:",
+								fill : true,
+								backgroundColor : gradientStroke,
+								borderColor : '#ff7373',
+								borderWidth : 2,
+								borderDash : [],
+								borderDashOffset : 0.0,
+								pointBackgroundColor : '#ff7373',
+								pointBorderColor : 'rgba(255,255,255,0)',
+								pointHoverBackgroundColor : '#ff7373',
+								pointBorderWidth : 20,
+								pointHoverRadius : 4,
+								pointHoverBorderWidth : 15,
+								pointRadius : 4,
+								data : chartData
+							} ]
+						};
+				
+						var myChart = new Chart(ctx, {
+							type : 'line',
+							data : data,
+							options : gradientChartOptionsConfiguration
+						});
+				},error:function(status){
+					console.log(status);
+				}
+			});
+		}
+	</script>
+	<!-- 통계 그래프 (월별) 끝 -->
+
+	<!-- 통계 그래프 (최근 7일) -->
+	<script>
+		function selectStatistics7Days() {
+			$.ajax({
+				url:"selectStatistics7Day.ad",
+				type:"get",
+				success:function(data){
+					$("#selectStatisticsMonth").hide();
+					$("#selectStatistics7Days").show();
+					$("#selectStatisticsToday").hide();
+					
+					$("#ajaxGraph6").empty();
+					var sum = parseInt(data.dayZero) + parseInt(data.dayOne) + parseInt(data.dayTwo)
+					+ parseInt(data.dayThree) + parseInt(data.dayFour) + parseInt(data.dayFive) 
+					+ parseInt(data.daySix) + parseInt(data.daySeven)
+					$("#ajaxGraph6").append('<div align="left">최근 7일 매출 : '+sum+'원</div>');
+					
+					gradientChartOptionsConfiguration = {
+							maintainAspectRatio : false,
+							legend : {
+								display : false
+							},
+				
+							tooltips : {
+								backgroundColor : '#fff',
+								titleFontColor : '#333',
+								bodyFontColor : '#666',
+								bodySpacing : 4,
+								xPadding : 12,
+								mode : "nearest",
+								intersect : 0,
+								position : "nearest"
+							},
+							responsive : true,
+							scales : {
+								yAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(29,140,248,0.0)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										suggestedMin : 50,
+										suggestedMax : 110,	// y축
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ],
+				
+								xAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(220,53,69,0.1)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ]
+							}
+						};
+				
+						var ctx = document.getElementById("selectStatistics7Days").getContext("2d");
+				
+						var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+				
+						gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
+						gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+						gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+				
+						var chartData = [data.dayZero, data.dayOne, data.dayTwo, data.dayThree,
+												data.dayFour, data.dayFive, data.daySix, data.daySeven];
+						
+						var data = {
+							labels : [ '오늘', '1일전', '2일전', '3일전', '4일전', '5일전', '6일전', '7일전'],
+							datasets : [ {
+								label : "매출:",
+								fill : true,
+								backgroundColor : gradientStroke,
+								borderColor : '#ff7373',
+								borderWidth : 2,
+								borderDash : [],
+								borderDashOffset : 0.0,
+								pointBackgroundColor : '#ff7373',
+								pointBorderColor : 'rgba(255,255,255,0)',
+								pointHoverBackgroundColor : '#ff7373',
+								pointBorderWidth : 20,
+								pointHoverRadius : 4,
+								pointHoverBorderWidth : 15,
+								pointRadius : 4,
+								data : chartData
+							} ]
+						};
+				
+						var myChart = new Chart(ctx, {
+							type : 'line',
+							data : data,
+							options : gradientChartOptionsConfiguration
+						});
+				},error:function(status){
+					console.log(status);
+				}
+			});
+		}
+	</script>
+	<!-- 통계 그래프 (최근 7일) 끝 -->
+	
+	<!-- 통계 그래프 (최근 24시간) -->
+	<script>
+		function selectStatisticsToday() {
+			$.ajax({
+				url:"selectStatisticsToday.ad",
+				type:"get",
+				success:function(data){
+					$("#selectStatisticsMonth").hide();
+					$("#selectStatistics7Days").hide();
+					$("#selectStatisticsToday").show();
+					
+					$("#ajaxGraph6").empty();
+					var sum = parseInt(data.time01) +  parseInt(data.time07) +  parseInt(data.time13) +  parseInt(data.time19) + 
+									parseInt(data.time02) +  parseInt(data.time08) +  parseInt(data.time14) +  parseInt(data.time20) + 
+									parseInt(data.time03) +  parseInt(data.time09) +  parseInt(data.time15) +  parseInt(data.time21) + 
+									parseInt(data.time04) +  parseInt(data.time10) +  parseInt(data.time16) +  parseInt(data.time22) + 
+									parseInt(data.time05) +  parseInt(data.time11) +  parseInt(data.time17) +  parseInt(data.time23) + 
+									parseInt(data.time06) +  parseInt(data.time12) +  parseInt(data.time18) +  parseInt(data.time24)
+					$("#ajaxGraph6").append('<div align="left">최근 24시간 매출 : '+sum+'원</div>');
+					
+					gradientChartOptionsConfiguration = {
+							maintainAspectRatio : false,
+							legend : {
+								display : false
+							},
+				
+							tooltips : {
+								backgroundColor : '#fff',
+								titleFontColor : '#333',
+								bodyFontColor : '#666',
+								bodySpacing : 4,
+								xPadding : 12,
+								mode : "nearest",
+								intersect : 0,
+								position : "nearest"
+							},
+							responsive : true,
+							scales : {
+								yAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(29,140,248,0.0)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										suggestedMin : 50,
+										suggestedMax : 110,	// y축
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ],
+				
+								xAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(220,53,69,0.1)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ]
+							}
+						};
+				
+						var ctx = document.getElementById("selectStatisticsToday").getContext("2d");
+				
+						var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+				
+						gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
+						gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+						gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+				
+						var chartData = [data.time01, data.time02, data.time03, data.time04, data.time05, data.time06, 
+												data.time07, data.time08, data.time09, data.time10, data.time11, data.time12, 
+												data.time13, data.time14, data.time15, data.time16, data.time17, data.time18, 
+												data.time19, data.time20, data.time21, data.time22, data.time23, data.time24];
+						
+						var data = {
+							labels : [ '1시간전', '2시간전', '3시간전', '4시간전', '5시간전', '6시간전',
+										 '7시간전', '8시간전', '9시간전', '10시간전', '11시간전', '12시간전',
+										 '13시간전', '14시간전', '15시간전', '16시간전', '17시간전', '18시간전',
+										 '19시간전', '20시간전', '21시간전', '22시간전', '23시간전', '24시간전'],
+							datasets : [ {
+								label : "매출:",
+								fill : true,
+								backgroundColor : gradientStroke,
+								borderColor : '#ff7373',
+								borderWidth : 2,
+								borderDash : [],
+								borderDashOffset : 0.0,
+								pointBackgroundColor : '#ff7373',
+								pointBorderColor : 'rgba(255,255,255,0)',
+								pointHoverBackgroundColor : '#ff7373',
+								pointBorderWidth : 20,
+								pointHoverRadius : 4,
+								pointHoverBorderWidth : 15,
+								pointRadius : 4,
+								data : chartData
+							} ]
+						};
+				
+						var myChart = new Chart(ctx, {
+							type : 'line',
+							data : data,
+							options : gradientChartOptionsConfiguration
+						});
+				},error:function(status){
+					console.log(status);
+				}
+			});
+		}
+	</script>
+	<!-- 통계 그래프 (최근 24시간) 끝 -->
+	<!-- 666666666666666666666666666666 환불 끝 6666666666666666666666666666666666 -->
 </body>
 </html>
