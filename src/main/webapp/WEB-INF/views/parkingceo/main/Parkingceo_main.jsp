@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -30,7 +31,7 @@
 		  <div class="col-md-12" style="height: 350px;" >
             <div class="card ">
               <div class="card-header">
-                <h4 class="card-title"> 주차장 별 간편 주차 현황</h4>
+                <h4 class="card-title"> 사업자 메인 페이지</h4>
               </div>
               <div class="card-body">
                 <div class="table-responsive"  style="overflow: hidden;">
@@ -39,25 +40,31 @@
                       <tr>
                         <td align="center"><div style="color: white;">${loginUser.member_name	 }님의 주차장을 선택해주세요</div></td>
                         <td>
-						<select class="custom-select nav-link dropdown-toggle" id="inputGroupSelect02">
-    						<option selected style="color: black;">주차장을 선택해주세요</option>
-    						<option value="1" style="color: black;">주차장1</option>
-    						<option value="2" style="color: black;">주차장2</option>
-    						<option value="3" style="color: black;">주차장3</option>
+						<select class="custom-select nav-link dropdown-toggle" id="inputGroupSelect01">
+    						 <c:if test="${not empty  CurrentParkinglist}">
+    						<option selected style="color: black;" value=${CurrentParkinglist[0].parking_no } id="pakringOption1">주차장을 선택해주세요</option>
+    						<c:set var="number" value="1"/>
+    						<c:forEach var="list" items="${CurrentParkinglist }" varStatus="status">
+    							<option value=${list.parking_no } style="color: black;">${list.parking_name }</option>
+    						</c:forEach>
+    						</c:if>
+    						<c:if test="${empty CurrentParkinglist }">
+    							<option selected style="color: black;" value="none">등록하신 주차장이 없습니다.</option>
+    						</c:if>
   						</select>
 						</td>
                       </tr>
                                            <tr>
                       <td colspan="2">
                        <ul>
-                        <li>박스를 클릭하지 않으시고 검색 버튼을 누르면 제일 상위 박스 카테고리가 검색됩니다.</li>
+                        <li>박스를 클릭하지 않으시고 버튼들을 누르면 제일 상위 박스 카테고리가 검색됩니다.</li>
+                        <li>주차장 등록을 하지 않으신 경우에는 등록을 진행해주시기 바랍니다.</li>
+                        <li>사업자님의 주차장을 선택하신 후 각각 버튼들을 누르면 현황이 표시됩니다.</li>
+                        <li>주의하세요! 입/출차 시스템에서 어느 회원인지 잘 확인하시고 시스템을 사용바랍니다.</li>
                        
                        </ul>
                       </td>
-                      </tr>      
-                      <tr>
-                      	<td colspan="2" align="center"><button class="btn btn-info animation-on-hover" type="button">검색</button></td>
-                      </tr>                    
+                      </tr>                     
                     </tbody>
                   </table>
                 </div>
@@ -76,10 +83,21 @@
               
               	   <ul class="nav nav-tabs">
 				    <li><a data-toggle="tab" href="#menu1" id="TabOne">입차 현황</a>
-				    		<button class="btn btn-info animation-on-hover" type="button" data-toggle="tab" onclick="insertParkingSystem();">입차현황</button>
+				    		<c:if test="${empty CurrentParkinglist }">
+    							<button class="btn btn-info animation-on-hover" type="button" data-toggle="tab" onclick="insertParkingSystem(1);" disabled="disabled">입차현황</button>
+    						</c:if>
+    						<c:if test="${not empty  CurrentParkinglist}">
+				    		<button class="btn btn-info animation-on-hover" type="button" data-toggle="tab" onclick="insertParkingSystem(1);">입차현황</button>    						
+    						</c:if>
 				    </li>
 				    <li><a data-toggle="tab" href="#menu2" id="TabTwo">예약신청 현황</a>
-				    		<button class="btn btn-info animation-on-hover" type="button" data-toggle="tab" onclick="resParkingSystem();">예약신청현황</button>
+				    		<c:if test="${empty CurrentParkinglist }">
+    							<button class="btn btn-info animation-on-hover" type="button" data-toggle="tab" onclick="resParkingSystem(1);" disabled="disabled">예약신청현황</button> 
+    						</c:if>
+    						<c:if test="${not empty  CurrentParkinglist}">
+				    		<button class="btn btn-info animation-on-hover" type="button" data-toggle="tab" onclick="resParkingSystem(1);">예약신청현황</button>    						
+    						</c:if>
+				    		
 				    </li>
 				  </ul>
 	<div class="tab-content">			  
@@ -87,31 +105,17 @@
       <!-- 일반 회원 입/출차 -->
        <div class="table-responsive"  style="overflow: hidden;">
                   <table class="table tablesorter " id="">
-                    <thead class=" text-primary">
+                    <thead class=" text-primary" id="insertListThead">
                       <tr>
-                        <th>	입출차번호</th>
-                        <th>회원 ID</th>
-                        <th>회원 이름</th>
-                        <th>차량번호</th>
-                        <th>주차 시작 시간</th>
-                        <th>요금</th>
-                        <th>구분</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>asjk158</td>
-                        <td>임수철</td>
-                        <td>25-588가</td>
-                        <td>15:54</td>
-                        <td>3000</td>
-                        <td>예약/일반</td>
+                    <tbody id="insertListTbody">
+                              <tr>
+                        <td align="center">결과값이 출력됩니다.</td>
                        </tr>
                     </tbody>
-                    <tfoot>
+                    <tfoot id="insertListTfoot">
                     	<tr>
-                    	<th colspan="7"><div align="center"><button class="btn btn-info animation-on-hover" type="button">새로고침</button></div></th>
                     	</tr>
                     </tfoot>
                   </table>
@@ -122,31 +126,17 @@
       <!-- 일반 회원 입/출차 -->
        <div class="table-responsive"  style="overflow: hidden;">
                   <table class="table tablesorter " id="">
-                    <thead class=" text-primary">
+                    <thead class=" text-primary" id="resThead">
                       <tr>
-                        <th>	입출차번호</th>
-                        <th>회원 ID</th>
-                        <th>회원 이름</th>
-                        <th>차량번호</th>
-                        <th>주차 시작 시간</th>
-                        <th>요금</th>
-                        <th>구분</th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="resTbody">
                       <tr>
-                        <td>1</td>
-                        <td>asjk158</td>
-                        <td>임수철</td>
-                        <td>25-588가</td>
-                        <td>15:54</td>
-                        <td>3000</td>
-                        <td>예약/일반</td>
+                        <td align="center">결과값이 출력됩니다.</td>
                        </tr>
                     </tbody>
-                    <tfoot>
+                    <tfoot id="resTfoot">
                     	<tr>
-                    	<th colspan="7"><div align="center"><button class="btn btn-info animation-on-hover" type="button">새로고침</button></div></th>
                     	</tr>
                     </tfoot>
                   </table>
@@ -172,13 +162,28 @@
               <div class="card-body">
    <ul class="nav nav-tabs">
     <li><a data-toggle="tab" href="#menu3" id="TabThree">비회원</a>
-    		<button class="btn btn-info animation-on-hover" type="button" data-toggle="tab" onclick="nonMemberParkingSystem();">비회원</button>
+    	<c:if test="${empty CurrentParkinglist }">
+    		<button class="btn btn-info animation-on-hover" type="button" data-toggle="tab" onclick="nonMemberParkingSystem(1);" disabled="disabled">비회원</button> 
+    	</c:if>
+    	<c:if test="${not empty  CurrentParkinglist}">
+			<button class="btn btn-info animation-on-hover" type="button" data-toggle="tab" onclick="nonMemberParkingSystem(1);">비회원</button>					
+    	</c:if>
     </li>
     <li><a data-toggle="tab" href="#menu4" id="TabFour">일반회원</a>
-    		<button class="btn btn-info animation-on-hover" type="button" data-toggle="tab" onclick="memberParkingSystem();">일반회원</button>
+    	<c:if test="${empty CurrentParkinglist }">
+    		<button class="btn btn-info animation-on-hover" type="button" data-toggle="tab" onclick="memberParkingSystem(1);" disabled="disabled">일반회원</button> 
+    	</c:if>
+    	<c:if test="${not empty  CurrentParkinglist}">
+			<button class="btn btn-info animation-on-hover" type="button" data-toggle="tab" onclick="memberParkingSystem(1);">일반회원</button>				
+    	</c:if>
     </li>
     <li><a data-toggle="tab" href="#menu5" id="TabFive">예약회원</a>
-    		<button class="btn btn-info animation-on-hover" type="button" data-toggle="tab" onclick="resMemberParkingSystem();">예약회원</button>
+    	<c:if test="${empty CurrentParkinglist }">
+    		<button class="btn btn-info animation-on-hover" type="button" data-toggle="tab" onclick="resMemberParkingSystem(1);" disabled="disabled">예약회원</button> 
+    	</c:if>
+    	<c:if test="${not empty  CurrentParkinglist}">
+			<button class="btn btn-info animation-on-hover" type="button" data-toggle="tab" onclick="resMemberParkingSystem(1);">예약회원</button>			
+    	</c:if>
     </li>
   </ul>
 
@@ -310,51 +315,11 @@
                     </tbody>
                   </table>
                 </div>
-      
+		    </div>
+		  </div>
+        </div>
+      </div>
     </div>
-  </div>
-              
-              
-              
-               <!--  <div class="table-responsive"  style="overflow: hidden;">
-                  <table class="table tablesorter " id="">
-                    <tbody>
-                      <tr>
-                        <td align="center" width="500px"><div style="color: white;">현재 [고객]님의 현재 주차 대수/전체 주차 대수</div></td>
-                        <td align="center">
-							100/150
-						</td>
-                      </tr>  
-                      <tr>
-                      	<td>
-                      	<div class="card" style="margin-top: 20px;">
-						    <div class="card-body">
-						      <div class="form-group has-success">
-						        <input type="text" placeholder="입차할 번호를 넣어주세요" class="form-control form-control-success" />
-						      </div>
-						    </div>
-						  </div>
-                      	</td>
-                      	<td align="center"><button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-1" type="button">입차</button></td>
-                      </tr>    
-                      <tr>
-                      	<td>
-                      	<div class="card" style="margin-top: 20px;">
-						    <div class="card-body">
-						      <div class="form-group has-success">
-						        <input type="text" placeholder="출차할 번호를 넣어주세요" class="form-control form-control-success" />
-						      </div>
-						    </div>
-						  </div>
-                      	</td>
-                      	<td align="center"><button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-2" type="button">출차</button></td>
-                      </tr>                 
-                    </tbody>
-                  </table>
-                </div> -->
-              </div>
-            </div>
-          </div>
       
       
 
@@ -614,16 +579,242 @@
 	
 	
 	//탭버튼 함수
+	//전역 페이징 변수
+	var currentPage = 1;
 	
-	function insertParkingSystem(){
+	function insertParkingSystem(data){
+		//주차장 선택 값
+		var selectParkingBox = $("#inputGroupSelect01 option:selected").val();
+		currentPage = data;
+		//입차 현황 데이터 조회 ajax
+		$.ajax({
+			url:"searchInsertParkingSystemList.pc",
+			type:"post",
+			data:{selectParkingBox:selectParkingBox,
+				currentPage:currentPage},
+			success:function(data){
+				console.log(data);
+				
+				//데이터 조회 성공시 입차현황에 테이블 추가
+				$theadId = $("#insertListThead");
+				$theadId.html('');
+				$tbodyId = $("#insertListTbody");
+				$tbodyId.html('');
+				$tfootId = $("#insertListTfoot");
+				$tfootId.html('');
+				$theadTr = $("<tr>");
+				
+				//thead 설정
+				$member_idTh = $("<th>").text("사용자 아이디");
+				$member_nameTh = $("<th>").text("사용자명");
+				$member_phoneTh = $("<th>").text("사용자 휴대폰번호");
+				$member_carNoTh = $("<th>").text("사용자 차번호");
+				$parking_startTimeTh = $("<th>").text("주차 시작 시간");
+				$parking_useTimeTh = $("<th>").text("주차 사용 시간")
+				$parking_statusTh = $("<th>").text("주차 상태");
+				$exit_payTh = $("<th>").text("정산 요금");
+				$entry_typeTh = $("<th>").text("예약/일반");
+				$pay_typeTh = $("<th>").text("예약번호");
+				
+				$theadTr.append($member_idTh);
+				$theadTr.append($member_nameTh);
+				$theadTr.append($member_phoneTh);
+				$theadTr.append($member_carNoTh);
+				$theadTr.append($parking_startTimeTh);
+				$theadTr.append($parking_useTimeTh);
+				$theadTr.append($parking_statusTh);
+				$theadTr.append($exit_payTh);
+				$theadTr.append($entry_typeTh);
+				$theadTr.append($pay_typeTh);
+				
+				
+				$theadId.append($theadTr);
+				
+				//tbody 설정
+				for(var i in data.list){
+					$tbodyTr = $("<tr>");
+					if(data.list[i].hasOwnProperty('MEMBER_ID') == false){
+						$member_idTd = $("<td>").text("아이디 없음");
+					}else{
+						$member_idTd = $("<td>").text(data.list[i].MEMBER_ID);
+					}
+					if(data.list[i].hasOwnProperty('MEMBER_NAME') == false){
+						$member_nameTd = $("<td>").text("X");
+					}else{
+						$member_nameTd = $("<td>").text(data.list[i].MEMBER_NAME);
+					}
+					$member_phoneTd = $("<td>").text(data.list[i].PHONE);
+					$member_carNoTd = $("<td>").text(data.list[i].CAR_NO);
+					$parking_startTimeTd =  $("<td>").text((1900+data.list[i].START_TIME.year)+"년 "
+							+(data.list[i].START_TIME.month+1)+"월 "+
+							data.list[i].START_TIME.date + "일 " +
+							data.list[i].START_TIME.hours+"시 " +
+							data.list[i].START_TIME.minutes+"분"
+							);
+					if(data.list[i].hasOwnProperty('HOURS')==false || data.list[i].hasOwnProperty('HOURS')== 0){
+						$parking_useTimeTd = $("<td>").text("");	
+					}else{
+						$parking_useTimeTd = $("<td>").text(Math.floor(data.list[i].HOURS/60)+"시 "
+								+data.list[i].HOURS%60+"분");
+					}
+
+					$parking_statusTd = $("<td>").text(data.list[i].STATUS);
+					if(data.list[i].hasOwnProperty('FEE') == false){
+						$exit_payTd = $("<td>").text("");
+					}else{
+						$exit_payTd = $("<td>").text(data.list[i].FEE);							
+					}
+					$entry_typeTh = $("<td>").text(data.list[i].EE_TYPE);		
+					if(data.list[i].hasOwnProperty('RES_NO') == false){							
+						$pay_typeTd = $("<td>").text("");	
+					}else{
+						$pay_typeTd = $("<td>").text(data.list[i].RES_NO);
+					}
+					$tbodyTr.append($member_idTd);
+					$tbodyTr.append($member_nameTd);
+					$tbodyTr.append($member_phoneTd);
+					$tbodyTr.append($member_carNoTd);
+					$tbodyTr.append($parking_startTimeTd);
+					$tbodyTr.append($parking_useTimeTd);
+					$tbodyTr.append($parking_statusTd);
+					$tbodyTr.append($exit_payTd);
+					$tbodyTr.append($entry_typeTh);
+					$tbodyTr.append($pay_typeTd);
+					
+					$tbodyId.append($tbodyTr); 
+					
+					
+				}
+				
+				//페이징
+				if(data.pi.listCount != 0){
+					$pageTr = $('<tr>');
+					$pageTh = $("<th colspan='10'>");
+					$pageUl = $('<ul class="pagination pagination-lg justify-content-center">');
+					$previousLi = $('<li class="page-item">');
+					$previousA = $('<a class="page-link" onclick="insertFirstPageMove(' +1+')" aria-label="Previous">');
+					$previousHidden = $('<span aria-hidden="true">').text('<<');
+					$previousSrOnly = $('<span class="sr-only">').text('Previous');
+					
+					$previousA.append($previousHidden);
+					$previousA.append($previousSrOnly);
+					$previousLi.append($previousA);
+					$pageUl.append($previousLi);
+					
+					if(data.pi.currentPage <= 1){
+						$leftIconDisableLi = $('<li class="page-item">');
+						$leftAtag = $('<a class="page-link">').text("<");
+						$leftIconDisableLi.append($leftAtag);
+						$pageUl.append($leftIconDisableLi);
+					}else{
+						currentPage = (data.pi.currentPage-1);
+						$leftIconAbleLi = $('<li class="page-item">');
+						$leftAtag2 = $('<a class="page-link" onclick="insertBeforePageMove('+currentPage+')">').text("<");
+						$leftIconAbleLi.append($leftAtag2);
+						$pageUl.append($leftIconAbleLi);
+					}
+					
+					for(var i = data.pi.startPage ; i <= data.pi.endPage; i++){
+						if(i == data.pi.currentPage){
+							$currentIconAbleLi = $('<li class="page-item">');
+							$currentAtag = $('<a class="page-link">').text(i);
+							$currentIconAbleLi.append($currentAtag);
+							$pageUl.append($currentIconAbleLi);
+						}else{
+							$currentIconAbleLi2 = $('<li class="page-item">');
+							$currentAtag2 = $('<a class="page-link" onclick="insertOnePageMove('+ i +')">').text(i);
+							$currentIconAbleLi2.append($currentAtag2);
+							$pageUl.append($currentIconAbleLi2);
+						}
+					}				
+					
+					if(data.pi.currentPage >= data.pi.maxPage){
+						$rightIconDisableLi = $('<li class="page-item">');
+						$rightAtag = $('<a class="page-link">').text(">");
+						$rightIconDisableLi.append($rightAtag);
+						$pageUl.append($rightIconDisableLi);
+					}else{
+						currentPage = (data.pi.currentPage+1);
+						$rightIconAbleLi = $('<li class="page-item">');
+						$rightAtag2 = $('<a class="page-link" onclick="insertNextPageMove('+currentPage+')">').text(">");
+						$rightIconAbleLi.append($rightAtag2);
+						$pageUl.append($rightIconAbleLi);
+					}					
+
+					$nextLi = $('<li class="page-item">');
+					$nextA = $('<a class="page-link" onclick="insertLastPageMove(' +data.pi.maxPage	+')" aria-label="Next">');
+					$nextHidden = $('<span aria-hidden="true">').text('>>');
+					$nextSrOnly = $('<span class="sr-only">').text('Next');
+					
+					$nextA.append($nextHidden);
+					$nextA.append($nextSrOnly);
+					$nextLi.append($nextA);
+					$pageUl.append($nextLi);
+					$pageTh.append($pageUl);
+					$pageTr.append($pageTh);
+                	
+                	//새로고침 버튼 설정
+                	$centerDiv = $('<div align="center">');
+                	$refreshButton = $('<buttron class="btn btn-info animation-on-hover" type="button" id="insertParkingStatusRefresh">').text('새로고침');
+					
+                	$centerDiv.append($refreshButton);
+                	$pageTh.append($centerDiv);
+                	$pageTr.append($pageTh);               	
+                	
+                	$tfootId.append($pageTr);
+					
+				}	
+			},
+			error:function(data){
+				console.log("데이터 통신 실패!");
+			}
+		});		
+		
 		$("#TabOne").click();
 	}
-	function resParkingSystem(){
+	
+	
+	//입차 페이징 재귀호출
+	function insertFirstPageMove(data){		
+		insertParkingSystem(data);		
+	}
+	function insertBeforePageMove(data){
+		insertParkingSystem(data);		
+	}
+	function insertOnePageMove(data){
+		insertParkingSystem(data);		
+	}
+	function insertNextPageMove(data){
+		insertParkingSystem(data);		
+	}
+	function insertLastPageMove(data){
+		insertParkingSystem(data);		
+	}
+	
+	
+	
+	
+	function resParkingSystem(data){
+		//주차장 선택 값
+		var selectParkingBox = $("#inputGroupSelect01 option:selected").val();
+		currentPage = data;
+		//예약 현황 데이터 조회 ajax
+		$.ajax({
+			url:"searchResParkingSystem.pc",
+			type:"post",
+			data:{selectParkingBox:selectParkingBox,currentPage:currentPage},
+			success:function(data){
+				console.log(data);
+			},
+			error:function(data){
+				console.log("데이터 통신 실패");
+			}
+		});
+		
 		$("#TabTwo").click();
 	}
 	
-	
-	
+	var currentPage2 = 1;
 	function nonMemberParkingSystem(){
 		$("#TabThree").click();
 	}
@@ -638,6 +829,10 @@
 	
 	
 	
+	//입차 현황 새로고침 버튼
+	function insertParkingStatusRefresh(){
+		
+	}	
 	
 	
 
