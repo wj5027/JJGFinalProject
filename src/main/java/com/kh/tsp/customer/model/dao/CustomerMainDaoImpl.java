@@ -293,11 +293,7 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 		return sqlSession.delete("Member.deletefavorite",hmap);
 	}
 
-  @
-	public int updateRequestRefund(SqlSessionTemplate sqlSession, HashMap<String, String> requesthmap) {
-		return sqlSession.update("Member.updateRequestRefund", requesthmap);
 
-	}
 
 	@Override
 	public ArrayList<ParkingCeoAttachmentVo> selectParkingImg(SqlSessionTemplate sqlSession, String pno) {
