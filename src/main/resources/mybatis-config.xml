@@ -23,6 +23,7 @@
 	 <typeAlias type="com.kh.tsp.customer.model.vo.Reservation" alias="Reservation"/>
 	 <typeAlias type="com.kh.tsp.customer.model.vo.Points" alias="Points"/>
 	 <typeAlias type="com.kh.tsp.parkingceo.model.vo.ParkingCeoVo" alias="ParkingCeoVo"/>
+	 <typeAlias type="com.kh.tsp.customer.model.vo.Reply" alias="Reply"/>
 	 
 </typeAliases>
 <mappers>

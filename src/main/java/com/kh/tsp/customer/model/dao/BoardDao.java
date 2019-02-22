@@ -92,6 +92,12 @@ public interface BoardDao {
 	ArrayList<Reply> selectReply(SqlSessionTemplate sqlSession, int bno);
 	//주차장문의 댓글
 	ArrayList<Reply> selectParkingReply(SqlSessionTemplate sqlSession, int bno);
+	//후기 댓글 조회
+	ArrayList<Reply> selectReviewList(SqlSessionTemplate sqlSession, int bno);
+	//후기 댓글 작성
+	int insertReply(SqlSessionTemplate sqlSession, Reply r);
+	//댓글 갯수
+	int replyCnt(SqlSessionTemplate sqlSession, int bno);
 	
 	
 	

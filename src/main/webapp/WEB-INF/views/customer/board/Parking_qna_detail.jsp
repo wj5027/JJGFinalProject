@@ -27,10 +27,10 @@
             <div class="card ">
               <div class="card-header">
                <c:choose>
-              	<c:when test="${ list ne null }">
+              	<c:when test="${ list.size()>0 }">
               		<h3 class="card-title" align="center">[${list[0].pno }]주차장 문의</h3>              		
    				</c:when>
-   				<c:when test="${ pName ne ' ' }">
+   				<c:when test="${ not empty pName }">
    					<h3 class="card-title" align="center">[${pName}]주차장 문의</h3>
    				</c:when>
    				<c:when test="${ b ne null }">

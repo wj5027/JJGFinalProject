@@ -116,11 +116,31 @@ public class CustomerBoardDetail {
 		
 		String pno = request.getParameter("pno");		
 		System.out.println("주차장문의상세보기 pno : "+pno);
-	
+
+		//글내용
 		Board b = bs.selectOneParkingReview(bno); 
+		
+		//댓글
+		ArrayList<Reply> reply = bs.selectReviewReply(bno);
+		
+		//작성자
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		if(b != null) {
+			if(reply!=null) {
+				request.setAttribute("reply", reply);
+				System.out.println("댓글 : "+reply);
+			}
+		
+		}else {
+			return "common/errorPage";
+		}
 		
 		request.setAttribute("b", b);
 		request.setAttribute("pno", pno);
+		request.setAttribute("loginUser", loginUser);
+		
 		return "customer/board/Parking_review_detail";
 	}
 }

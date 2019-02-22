@@ -29,17 +29,21 @@
 		  <div class="col-md-12" height="500px">
             <div class="card ">
               <div class="card-header">
-             
+             ${list[0]}
             <c:choose>
-              	<c:when test="${ list.size()>0 }">
+            <c:when test="${ list.size()>0 }">
               		<h3 class="card-title" align="center">[${list[0].pno }]주차장 후기</h3>              		
    				</c:when>
    				<c:when test="${ not empty pName }">
    					<h3 class="card-title" align="center">[${pName}]주차장 후기</h3>
    				</c:when>
-   				<c:when test="${ b ne null }">
+            <c:when test="${ b ne null }">
    					<h3 class="card-title" align="center">[${ b.pno }]주차장 후기</h3>   					
    				</c:when>
+           	 
+              	
+   				
+   				
    				<c:otherwise>
    					주차장 후기
    				</c:otherwise>
@@ -62,7 +66,7 @@
    		<tr>
    			<td>${ b.createDate }</td>
  		
-   			<td><input type="hidden" id="num" name="num" value="${b.bno}">${ b.bTitle }</td>
+   			<td><input type="hidden" id="num" name="num" value="${b.bno}">${ b.bTitle }[${ b.reCnt }]</td>
 			<td>${ b.pno }</td>	
    		</tr>
    		
@@ -137,12 +141,14 @@
               <div class="card-header">
              
                  <c:choose>
-              	<c:when test="${ list.size()>0 }">
+                 <c:when test="${ list.size()>0 }">
               		<h3 class="card-title" align="center">[${list[0].pno }]주차장 문의</h3>              		
    				</c:when>
-   				<c:when test="${ pName ne '' }">
-   					<h3 class="card-title" align="center">[${pName}]주차장 문의</h3>
+                 <c:when test="${ not empty pName }">
+   					<h3 class="card-title" align="center">[${pName}]주차장 후기</h3>
    				</c:when>
+              	
+   				
    				<c:when test="${ b ne null }">
    					<h3 class="card-title" align="center">[${ b.pno }]주차장 문의</h3>   					
    				</c:when>
@@ -170,13 +176,15 @@
                       <tr>
                       	<td>주차장 명</td>
                       	<td>
-                      		<c:choose>
-              	<c:when test="${ list.size()>0 }">
+             <c:choose>
+                 <c:when test="${ list.size()>0 }">
 					<input type="text" class="form-control" name="pName" value="${list[0].pno }" readonly>
                     <input type="hidden" id="pno" name="pno" value="${ pno }">   				</c:when>
-   				<c:when test="${ pName ne null }">
-					<input type="text" class="form-control" name="pName" value="${ pName }" readonly>                      		
-                    <input type="hidden" id="pno" name="pno" value="${ pno }">   				</c:when>
+                      		<c:when test="${ not empty pName }">
+                      		<input type="text" class="form-control" name="pName" value="${ pName }" readonly>                      		
+                    <input type="hidden" id="pno" name="pno" value="${ pno }">
+   				</c:when>
+
    				<c:when test="${ b ne null }">
 					<input type="text" class="form-control" name="pName" value="${b.pno }" readonly>
                     <input type="hidden" id="pno" name="pno" value="${ pno }">   				</c:when>
@@ -196,7 +204,7 @@
                       <tr>
                       	<td></td>
                       	<td style="padding-left: 30%">
-                      		<button type="subtmit" class="btn btn-info btn-sm">등록</button>
+                      		<button type="subtmit" onclick="return textChk()" class="btn btn-info btn-sm">등록</button>
                       	</td>
                       </tr> 
                                        
@@ -237,7 +245,31 @@
 			location.href="./parkingReviewDetail.cu?num="+num+"&pno="+pno;
 		});
 	});
+ 	
+   
  
+   function textChk(){
+	   var word = document.getElementById("textContent").value;
+       
+       // 금칙어 적용
+       var swear_words_arr = new Array("시발", "존나");
+
+       orgword = word.toLowerCase();
+       i = 0;
+
+       while (i <= swear_words_arr.length - 1) {
+
+           if (orgword.indexOf(swear_words_arr[i]) > -1) {
+               alert("'"+swear_words_arr[i] + "' 은(는) 금지어입니다. 등록 할 수 없습니다.");
+               return false;
+           }
+           i++;
+       }
+       return true;
+	   
+	   
+	   
+   }
 </script>
 </body>
 </html>
