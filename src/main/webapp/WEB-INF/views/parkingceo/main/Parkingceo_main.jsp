@@ -201,9 +201,9 @@
                     	<td colspan="2" align="center"><h3>비회원 입/출차</h3></td>
                     </tr>
                       <tr>
-                        <td align="center" width="500px"><div style="color: white;">현재 ${loginUser.member_name }님의 현재 주차 대수/전체 주차 대수</div></td>
-                        <td align="center">
-							100/150
+                        <td align="center" width="500px"><div style="color: white;">현재 ${loginUser.member_name }님의 주차 가능 대수/전체 주차 대수</div></td>
+                        <td align="center" id="nonMemberParkingSize">
+							
 						</td>
                       </tr>  
                       <tr>
@@ -211,24 +211,28 @@
                       	<div class="card" style="margin-top: 20px;">
 						    <div class="card-body">
 						      <div class="form-group has-success">
-						        <input type="text" placeholder="입차할 번호를 넣어주세요" class="form-control form-control-success" />
+						        <input type="text" placeholder="입차할 번호를 넣어주세요" class="form-control form-control-success"  id="nonMemberCarNo"/>
+						      </div>
+						      <br>
+						      <div class="form-group has-success">
+						        <input type="text" placeholder="휴대폰 번호를 넣어주세요" class="form-control form-control-success" id="nonMemberPhone"/>
 						      </div>
 						    </div>
 						  </div>
                       	</td>
-                      	<td align="center"><button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-1" type="button">입차</button></td>
+                      	<td align="center"><button class="btn btn-info animation-on-hover" type="button" onclick="acceptInputCar();" id="nonMemberAcceptInputCar">입차</button></td>
                       </tr>    
                       <tr>
                       	<td>
                       	<div class="card" style="margin-top: 20px;">
 						    <div class="card-body">
 						      <div class="form-group has-success">
-						        <input type="text" placeholder="출차할 번호를 넣어주세요" class="form-control form-control-success" />
+						        <input type="text" placeholder="휴대폰 번호를 넣어주세요" class="form-control form-control-success"  id="nonMemberPhone2"/>
 						      </div>
 						    </div>
 						  </div>
                       	</td>
-                      	<td align="center"><button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-2" type="button">출차</button></td>
+                      	<td align="center"><button class="btn btn-info animation-on-hover" onclick="acceptOutputCar();" type="button">출차</button></td>
                       </tr>                 
                     </tbody>
                   </table>
@@ -245,8 +249,8 @@
                     </tr>
                       <tr>
                         <td align="center" width="500px"><div style="color: white;">현재 ${loginUser.member_name }님의 현재 주차 대수/전체 주차 대수</div></td>
-                        <td align="center">
-							100/150
+                        <td align="center" id="nomalMemberParkingSize">
+							
 						</td>
                       </tr>  
                       <tr>
@@ -288,8 +292,8 @@
                     </tr>
                       <tr>
                         <td align="center" width="500px"><div style="color: white;">현재 ${loginUser.member_name }님의 현재 주차 대수/전체 주차 대수</div></td>
-                        <td align="center">
-							100/150
+                        <td align="center" id="resMemberParkingSize">
+							
 						</td>
                       </tr>  
                       <tr>
@@ -342,34 +346,28 @@
                   <table class="table tablesorter " id="">
                     <tbody>
                       <tr>
-                        <td align="center" width="500px"><div style="color: white;">현재 입차한 [사용자]님의 차번호</div></td>
-                        <td align="center">
-							차번호쓰
+                        <td align="center" width="500px"><div style="color: white;">입차 차번호</div></td>
+                        <td align="center" id="resultCarNo">
+							
 						</td>
                       </tr>
                        <tr>
-                        <td align="center" width="500px"><div style="color: white;">[사용자 이름]</div></td>
-                        <td align="center">
-							임수철
+                        <td align="center" width="500px"><div style="color: white;">입차 회원 이름</div></td>
+                        <td align="center" id="resultMemberName">
 						</td>
                       </tr>
                        <tr>
-                        <td align="center" width="500px"><div style="color: white;">입차 시간</div></td>
-                        <td align="center">
-							입차시간쓰
+                        <td align="center" width="500px"><div style="color: white;">입차자 휴대폰 번호</div></td>
+                        <td align="center" id="resultPhone">
 						</td>
-                      </tr>   
+                      </tr> 
                       <tr>
-                      	<td>
-                      	<div class="card" style="margin-top: 20px;">
-						    <div class="card-body">
-						      <div class="form-group has-success">
-						        <input type="text" placeholder="인증 번호를 입력해주세요" class="form-control form-control-success" />
-						      </div>
-						    </div>
-						  </div>
-                      	</td>
-                      	<td align="center"> <button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-3" type="button">입력</button>
+                        <td align="center" width="500px"><div style="color: white;">입차 시간</div></td>
+                        <td align="center" id="resultInsertDate">
+						</td>
+                      </tr>    
+                      <tr>
+                      	<td align="center" colspan="2"> <button class="btn btn-info animation-on-hover"  type="button" onclick="inputCar();">입차</button>
                       	</td>
                       </tr>
                       <tr>
@@ -398,27 +396,23 @@
                   <table class="table tablesorter " id="">
                     <tbody>
                       <tr>
-                        <td align="center" width="500px"><div style="color: white;">현재 출차할 [사용자]님의 차번호</div></td>
-                        <td align="center">
-							차번호쓰
+                        <td align="center" width="500px"><div style="color: white;">출차 차번호</div></td>
+                        <td align="center" id="resultOutputCarNo">
 						</td>
                       </tr>
                        <tr>
-                        <td align="center" width="500px"><div style="color: white;">[사용자 이름]</div></td>
-                        <td align="center">
-							임수철
+                        <td align="center" width="500px"><div style="color: white;">출차 회원 이름</div></td>
+                        <td align="center" id="resultOutputMemberName">
 						</td>
                       </tr>
                        <tr>
                         <td align="center" width="500px"><div style="color: white;">입차시간 - 출차 시간</div></td>
-                        <td align="center">
-							입차시간 - 출차시간쓰
+                        <td align="center" id="resultOutputDate">
 						</td>
                       </tr>   
                     	<tr>
                         <td align="center" width="500px"><div style="color: white;">결제금액</div></td>
-                        <td align="center">
-							결제금액쓰
+                        <td align="center" id="resultOutputPayment">
 						</td>
                       </tr>                 
                     </tbody>
@@ -438,7 +432,7 @@
 </div>     
 
 
-	<!-- 인증번호 눌렀을시 -->
+	<!-- 입차 눌렀을시 -->
       <div class="modal fade bd-example-modal-lg-3" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content" style="background: rgb(39,41,61);">
@@ -446,7 +440,7 @@
                      <div class="table-responsive"  style="overflow: hidden;">
                   <table class="table tablesorter " id="">
                     <tbody>
-						<tr><td align="center"><b>정상적으로 확인이 되었습니다.</b></td></tr>
+						<tr><td align="center"><b>정상적으로 입차 되었습니다.</b></td></tr>
 						<tr><td align="center"><button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location.reload();">닫기</button></td></tr>      
       			</tbody>
       		</table>
@@ -563,11 +557,36 @@
 </div>
 
 
+     <div class="modal fade bd-example-modal-lg-9" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="background: rgb(39,41,61);">
+    <div class="modal-body">
+                     <div class="table-responsive"  style="overflow: hidden;">
+                  <table class="table tablesorter " id="">
+                    <tbody>
+						<tr><td align="center" id="modalText" style="color: white;"></td></tr>
+						<tr><td align="center">
+						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button></td></tr>      
+      			</tbody>
+      		</table>
+      	</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
     
     
     <div id="hiddenButton">
+ <button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-1" type="button" id="nonMemberInsertCar">입차</button>
+ <button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-2" type="button"  id="updateModal">출차모달</button>
+<button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-3" type="button" id="insertModal">입차모달</button>
 <button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-7" type="button" id="modalBtn">모달버튼</button>
 <button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-8" type="button" id="modalBtn2">모달버튼2</button>
+<button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-9" type="button" id="modalBtn3">모달 버튼3</button>
 </div>   
     
     
@@ -1119,22 +1138,190 @@
 			
 		}
 	 
-	 
+		
+	//전역변수 설정
+	var resultCarNo = "";
+	var resultMemberNo = "";
+	var resultMemberName = "";
+	var resultResNo = "";
+	var resultPhone = "";
+	var resultYear;
+	var resultMonth;
+	var resultDay;
+	var resultHours;
+	var resultMin;
 	
-	var currentPage2 = 1;
+	//비회원 주차장 현황 조회 메소드
 	function nonMemberParkingSystem(){
+		var selectParkingBox = $("#inputGroupSelect01 option:selected").val();
+		$.ajax({
+			url:"searchPakringSize.pc",
+			type:"post",
+			data:{selectParkingBox:selectParkingBox},
+			success:function(data){
+				console.log(data);
+				$("#nonMemberParkingSize").text(data.hmap.LEFT_SIZE+"/"+data.hmap.PARKING_SIZE);
+				if(data.hmap.LEFT_SIZE == "0"){
+					$("#nonMemberAcceptInputCar").attr('disabled',true);
+				}
+			},
+			error:function(data){
+				console.log("데이터 통신 실패!");
+			}
+		});
 		$("#TabThree").click();
 	}
 	
+	function acceptInputCar(){
+		
+		var regExp1 = /^[0-9]\d{1,2}[-][가-힣]\d{1,4}/g;
+		car_no = $("#nonMemberCarNo").val();
+			
+		if($("#nonMemberCarNo").val() == ""){
+			$("#modalText").html('');
+			var modalText = $("<b>").text("차 번호를 입력해주세요.");
+			$("#modalText").append(modalText);
+			$("#modalBtn3").click();
+			return false;
+		}else if(!regExp1.test(car_no)){
+			$("#modalText").html('');
+			var modalText = $("<b>").text("올바른 차 번호를 입력해주세요.[2019년 개정 000-(가-힣)0000]");
+			$("#modalText").append(modalText);
+			$("#modalBtn3").click();
+			return false;
+		}
+		$("#modalText").html('');
+		
+		var regExp2 = /\d{1,3}[-]\d{1,4}[-]\d{1,4}/g;
+		phone = $("#nonMemberPhone").val();
+		if($("#nonMemberPhone").val() == ""){
+			$("#modalText").html('');
+			var modalText = $("<b>").text("휴대폰 번호를 입력해주세요.");
+			$("#modalText").append(modalText);
+			$("#modalBtn3").click();
+			return false;
+		}else if(!regExp2.test(phone)){
+			$("#modalText").html('');
+			var modalText = $("<b>").text("올바른 휴대폰 번호를 입력해주세요");
+			$("#modalText").append(modalText);
+			$("#modalBtn3").click();
+			return false;
+		}
+		$("#modalText").html('');
+		
+		//현재 시간 구하기
+		var today = new Date();
+		
+		$("#resultCarNo").text(car_no);
+		$("#resultMemberName").text("비회원");
+		$("#resultPhone").text(phone);
+		$("#resultInsertDate").text((1900+today.getYear())+"년 "+(today.getMonth()+1)+"월 "+today.getDate()+"일 "+today.getHours()+"시 "+today.getMinutes()+"분");
+		
+		//전역변수에 값 넣기
+		resultCarNo = car_no;
+		resultMemberName = "비회원";
+		resultPhone = phone;
+		resultYear = 1900+today.getYear();
+		resultMonth = today.getMonth()+1;
+		resultDay = today.getDate();
+		resultHours = today.getHours();
+		resultMin = today.getMinutes();
+		
+		$("#nonMemberInsertCar").click();
+	}
+	
+	
+	//출차 메소드
+	function acceptOutputCar(){
+		var regExp2 = /\d{1,3}[-]\d{1,4}[-]\d{1,4}/g;
+		phone = $("#nonMemberPhone2").val();
+		if($("#nonMemberPhone2").val() == ""){
+			$("#modalText").html('');
+			var modalText = $("<b>").text("휴대폰 번호를 입력해주세요.");
+			$("#modalText").append(modalText);
+			$("#modalBtn3").click();
+			return false;
+		}else if(!regExp2.test(phone)){
+			$("#modalText").html('');
+			var modalText = $("<b>").text("올바른 휴대폰 번호를 입력해주세요");
+			$("#modalText").append(modalText);
+			$("#modalBtn3").click();
+			return false;
+		}
+		$("#modalText").html('');
+		
+		//출차모달에 넣을 데이터 조회
+		
+		
+		$("#updateModal").click();
+	}
+	
+	
+	
+	
 	function memberParkingSystem(){
+		var selectParkingBox = $("#inputGroupSelect01 option:selected").val();
+		$.ajax({
+			url:"searchPakringSize.pc",
+			type:"post",
+			data:{selectParkingBox:selectParkingBox},
+			success:function(data){
+				console.log(data);
+				$("#nomalMemberParkingSize").text(data.hmap.LEFT_SIZE+"/"+data.hmap.PARKING_SIZE);
+			},
+			error:function(data){
+				console.log("데이터 통신 실패!");
+			}
+		});
 		$("#TabFour").click();
 	}
 	
 	function resMemberParkingSystem(){
+		var selectParkingBox = $("#inputGroupSelect01 option:selected").val();
+		$.ajax({
+			url:"searchPakringSize.pc",
+			type:"post",
+			data:{selectParkingBox:selectParkingBox},
+			success:function(data){
+				console.log(data);
+				$("#resMemberParkingSize").text(data.hmap.LEFT_SIZE+"/"+data.hmap.PARKING_SIZE);
+			},
+			error:function(data){
+				console.log("데이터 통신 실패!");
+			}
+		});
 		$("#TabFive").click();
 	}
 	
 	
+	
+	
+	//입차 메소드
+	function inputCar(){
+		var selectParkingBox = $("#inputGroupSelect01 option:selected").val();
+		var status = "";
+		
+		$.ajax({
+			url:"insertEntryList.pc",
+			type:"post",
+			data:{selectParkingBox:selectParkingBox,resultCarNo:resultCarNo,resultMemberNo:resultMemberNo,resultMemberName:resultMemberName,resultResNo:resultResNo,resultPhone:resultPhone
+				,resultYear:resultYear,resultMonth:resultMonth,resultDay:resultDay,resultHours:resultHours,resultMin:resultMin},
+			success:function(data){
+				console.log(data);
+				status = data.message;
+			},
+			error:function(data){
+				console.log(data);
+			}
+		});
+		
+		console.log(status);
+		if(status == "비회원 입차 실패"){
+			return false;
+		}
+		
+		$("#insertModal").click();
+	}
 	
 
 	
