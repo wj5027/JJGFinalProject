@@ -12,4 +12,6 @@ public interface AccountService {
 
 	int changePwd(Member m);
 
+	Member getRefreshMember(Member m);
+
 }

@@ -5,6 +5,7 @@
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red"
     -->
+    <div style="display: none;" id="cSetArea"></div>
       <div class="sidebar-wrapper" style="overflow: hidden; z-index:10000;">
         <div class="logo">
         
@@ -30,10 +31,9 @@
 	          </div>
 	          <div style="font-size: 1em;color: wheat;">
 	           <span>현재 보유오일 :</span>
-	          <span id="oilmount">${ loginUser.oil }</span>
+	          <span id="oilmount">${ UserOilInfo }</span>
 	          </div>
           </c:if>
-          
           
           <!-- <a href="javascript:void(0)" class="simple-text logo-normal">
          	님 환영합니다.
@@ -100,6 +100,7 @@
           </li>           
         </ul>
         <script>
+        var oilSelectMemberNo = ${member_no};
         $(function(){
          $(".nav").children("li").mouseover(function(){
         	 $(this).attr("class","active");
@@ -111,7 +112,6 @@
          })
         	
         });
-        
         </script>
       </div>
     </div>

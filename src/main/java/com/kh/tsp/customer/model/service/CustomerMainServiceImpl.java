@@ -260,17 +260,15 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 		return cmd.deletefavorite(sqlSession,mno,pno);
 	}
 
-
-
-	public int updateRequestRefund(HashMap<String, String> requesthmap) {
-		// TODO Auto-generated method stub
-		return cmd.updateRequestRefund(sqlSession, requesthmap);
-	}
-
 	@Override
 	public ArrayList<ParkingCeoAttachmentVo> selectParkingImg(String pno) {
 		// TODO Auto-generated method stub
 		return  cmd.selectParkingImg(sqlSession, pno);
+	}
+
+	@Override
+	public Member getRefreshMember(Member m) {
+		return cmd.getRefreshMember(sqlSession, m);
 	}
 
 	

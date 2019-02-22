@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.kh.tsp.common.PageInfo;
 import com.kh.tsp.common.ReservPagination;
@@ -33,13 +34,19 @@ public class CustomerPayment {
 	}
 	
 	@RequestMapping(value="/oil.cu", method=RequestMethod.GET)
-	public String CustomerOil(HttpServletRequest request) {
+	public String CustomerOil(HttpServletRequest request, HttpSession session) {
+		
+		if ((Member)session.getAttribute("loginUser") != null) {
+			int UserOilInfo = Integer.parseInt(cms.getRefreshMember((Member)session.getAttribute("loginUser")).getOil());
+			
+			request.setAttribute("UserOilInfo", UserOilInfo);
+		}
 		
 		return "customer/member/Customer_oil";
 	}
 	
 	@RequestMapping(value="/oilIn.cu", method=RequestMethod.GET)
-	public String CustomerOilInsert(HttpServletRequest request) {
+	public String CustomerOilInsert(HttpServletRequest request, HttpSession session) {
 		String imp_uid;
 		String merchant_uid;
 		boolean imp_success;
@@ -76,6 +83,7 @@ public class CustomerPayment {
 			}
 			
 		}
+		
 		return "redirect:oil.cu";
 	}
 	
@@ -108,7 +116,7 @@ public class CustomerPayment {
 		}
 		
 		return "customer/promotion/Customer_reserv";
-	}
+	}	
 	
 	@RequestMapping("updateCancelReserve.cu")
 	public @ResponseBody String updateCancelReserve(@RequestParam String resNo, HttpSession session) {
@@ -172,6 +180,8 @@ public class CustomerPayment {
 		requesthmap.put("Application_bank", Application_bank);
 		requesthmap.put("application_account_number", application_account_number);
 		
+		System.out.println(requesthmap.toString());
+		
 		int result = cms.intsertRequestRefund(requesthmap);
 		
 		if (result > 0) {
@@ -221,4 +231,6 @@ public class CustomerPayment {
 		
 		return "redirect:reserv.cu";
 	}
+	
+	
 }

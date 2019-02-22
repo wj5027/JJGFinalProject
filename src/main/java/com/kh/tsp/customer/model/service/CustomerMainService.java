@@ -92,6 +92,8 @@ public interface CustomerMainService {
 
 	ArrayList<ParkingCeoAttachmentVo> selectParkingImg(String pno);
 
+	Member getRefreshMember(Member m);
+
 
 
 	

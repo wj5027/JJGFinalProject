@@ -32,4 +32,9 @@ public class AccountDaoImpl implements AccountDao{
 		return sqlSession.update("Member.changePwd", m);
 	}
 
+	@Override
+	public Member getRefreshMember(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("Member.getRefreshMember", m);
+	}
+
 }
