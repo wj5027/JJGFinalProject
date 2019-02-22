@@ -18,18 +18,18 @@
 			<!-- 그래프 시작 -->
 			<div class="content">
 				<div class="row">
-					<div class="col-lg-5">
+					<div class="col-lg-6">
 						<div class="card card-chart">
 							<div class="card-header">
-								<h5 class="card-category">사용자 회원가입 현황</h5>
+								<h5> - 사용자 회원가입 현황 (전체 : ${customerListCount}명)</h5>
 								<h3 class="card-title">
 									<i class="tim-icons icon-send" style="color: #39acf4"></i>
 									<p id="ajaxGraph1" style="display: inline-block;"></p>
 								</h3>
-									<div align="right">
-										<button onclick="selectCustomerSignUpMonth();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
-										<button onclick="selectCustomerSignUp7Days();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
-									</div>
+								<div align="right">
+									<button onclick="selectCustomerSignUpMonth();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
+									<button onclick="selectCustomerSignUp7Days();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
+								</div>
 							</div>
 							<div class="card-body">
 								<div class="chart-area">
@@ -39,18 +39,18 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-5">
+					<div class="col-lg-6">
 						<div class="card card-chart">
 							<div class="card-header">
-								<h5 class="card-category">사업자 회원가입 현황</h5>
+								<h5> - 사업자 회원가입 현황 (전체 : ${ceoListCount}명)</h5>
 								<h3 class="card-title">
 									<i class="tim-icons icon-attach-87" style="color: #ff7373"></i>
 									<p id="ajaxGraph2" style="display: inline-block;"></p>
 								</h3>
-									<div align="right">
-										<button onclick="selectCEOSignUpMonth();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
-										<button onclick="selectCEOSignUp7Days();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
-									</div>
+								<div align="right">
+									<button onclick="selectCEOSignUpMonth();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
+									<button onclick="selectCEOSignUp7Days();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
+								</div>
 							</div>
 							<div class="card-body">
 								<div class="chart-area">
@@ -60,39 +60,49 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-5">
+					<div class="col-lg-6">
 						<div class="card card-chart">
 							<div class="card-header">
-								<h5 class="card-category">게시판 등록 수</h5>
+								<h5> - 게시판 등록 수 (관리자문의 : ${boardAdminListCount}건 / 사업자문의: ${boardCeoListCount}건 / 후기: ${boardReplyListCount}건)</h5>
 								<h3 class="card-title">
 									<i class="tim-icons icon-bell-55" style="color: #39acf4"></i>
 									<p id="ajaxGraph3" style="display: inline-block;"></p>
 								</h3>
-									<div align="right">
-										<button onclick="" class="btn btn-default animation-on-hover btn-sm">월별</button>				
-										<button onclick="" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
-									</div>
+								<div align="right">		
+									<button onclick="selectBoardAdminMonth();" class="btn btn-default animation-on-hover btn-sm">관리자문의(월별)</button>				
+									<button onclick="selectBoardAdmin7Days();" class="btn btn-default animation-on-hover btn-sm">관리자문의(최근 7일)</button>	
+									<button onclick="selectBoardReplyMonth();" class="btn btn-default animation-on-hover btn-sm" style="width: 26%">후기(월별)</button>	
+									<button onclick="selectBoardCeoMonth();" class="btn btn-default animation-on-hover btn-sm">사업자문의(월별)</button>				
+									<button onclick="selectBoardCeo7Days();" class="btn btn-default animation-on-hover btn-sm">사업자문의(최근 7일)</button>		
+									<button onclick="selectBoardReply7Days();" class="btn btn-default animation-on-hover btn-sm">후기(최근 7일)</button>				
+								</div>
 							</div>
 							<div class="card-body">
 								<div class="chart-area">
-									<canvas id="chartLinePurple"></canvas>
-<%-- 									<canvas id="lineChartExample2"></canvas> --%>
+									<canvas id="selectBoardAdminMonth"></canvas>
+									<canvas id="selectBoardAdmin7Days"></canvas>
+									<canvas id="selectBoardReplyMonth"></canvas>
+									<canvas id="selectBoardCeoMonth"></canvas>
+									<canvas id="selectBoardCeo7Days"></canvas>
+									<canvas id="selectBoardReply7Days"></canvas>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-5">
+					<div class="col-lg-6">
 						<div class="card card-chart">
 							<div class="card-header">
-								<h5 class="card-category">회원 주차장 예약 건수</h5>
+								<h5> - 회원 주차장 예약 건수</h5>
 								<h3 class="card-title">
 									<i class="tim-icons icon-support-17" style="color: #ff7373"></i> 
 									<p id="ajaxGraph4" style="display: inline-block;"></p>
 								</h3>
-									<div align="right">
-										<button onclick="" class="btn btn-default animation-on-hover btn-sm">월별</button>				
-										<button onclick="" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
-									</div>
+								<div align="right">
+									<button onclick="" class="btn btn-default animation-on-hover btn-sm">월별</button>		
+									<button onclick="" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>	
+								</div>
+								<div>&nbsp;</div>
+								<div>&nbsp;</div>
 							</div>
 							<div class="card-body">
 								<div class="chart-area">
@@ -102,19 +112,19 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-5">
+					<div class="col-lg-6">
 						<div class="card card-chart">
 							<div class="card-header">
-								<h5 class="card-category">환전</h5>
+								<h5> - 환전</h5>
 								<h3 class="card-title">
 									<i class="tim-icons icon-planet" style="color: #39acf4"></i>
 									<p id="ajaxGraph5" style="display: inline-block;"></p>
 								</h3>
-									<div align="right">
-										<button onclick="selectStatisticsMonth2();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
-										<button onclick="selectStatistics7Days2();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
-										<button onclick="selectStatisticsToday2();" class="btn btn-default animation-on-hover btn-sm">최근 24시간</button>				
-									</div>
+								<div align="right">
+									<button onclick="selectStatisticsMonth2();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
+									<button onclick="selectStatistics7Days2();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
+									<button onclick="selectStatisticsToday2();" class="btn btn-default animation-on-hover btn-sm">최근 24시간</button>				
+								</div>
 							</div>
 							<div class="card-body">
 								<div class="chart-area">
@@ -125,19 +135,19 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-5">
+					<div class="col-lg-6">
 						<div class="card card-chart">
 							<div class="card-header">
-								<h5 class="card-category">환불</h5>
+								<h5> - 환불</h5>
 								<h3 class="card-title">
 									<i class="tim-icons icon-spaceship" style="color: #ff7373;"></i>
 									<p id="ajaxGraph6" style="display: inline-block;"></p>
 								</h3>
-									<div align="right">
-										<button onclick="selectStatisticsMonth();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
-										<button onclick="selectStatistics7Days();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
-										<button onclick="selectStatisticsToday();" class="btn btn-default animation-on-hover btn-sm">최근 24시간</button>		
-									</div>
+								<div align="right">
+									<button onclick="selectStatisticsMonth();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
+									<button onclick="selectStatistics7Days();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
+									<button onclick="selectStatisticsToday();" class="btn btn-default animation-on-hover btn-sm">최근 24시간</button>		
+								</div>
 							</div>
 							<div class="card-body">
 								<div class="chart-area">
@@ -158,34 +168,63 @@
 							</div>
 							<div class="card-body">
 								<div class="table-responsive" style="overflow: hidden;">
-									<table class="table tablesorter " id="">
+									<table align="center" class="table tablesorter " id="" style="width: 60%;">
 										<thead class=" text-primary">
 											<tr>
-												<th>내용</th>
-												<th>구분</th>
-												<th class="text-center">건수</th>
+												<th style="font-size: 18px;" class="text-center">번호</th>
+												<th style="font-size: 18px;">구분</th>
+												<th style="font-size: 18px;">내용</th>
+												<th style="font-size: 18px;" class="text-center">건수</th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr>
-												<td>포인트 승인</td>
-												<td>승인</td>
-												<td class="text-center">5</td>
-											</tr>
-											<tr>
-												<td>주차장 신청</td>
+												<td class="text-center">1</td>
 												<td>신청</td>
-												<td class="text-center">32</td>
+												<td>오늘 환불신청 건수</td>
+												<td class="text-center">${requestRefund}건</td>
 											</tr>
 											<tr>
-												<td>매출</td>
-												<td>동계</td>
-												<td class="text-center">15</td>
+												<td class="text-center">2</td>
+												<td>신청</td>
+												<td>오늘 환전신청 건수</td>
+												<td class="text-center">${requestExchange}건</td>
 											</tr>
 											<tr>
-												<td>스팸 게시물</td>
-												<td>필터</td>
 												<td class="text-center">3</td>
+												<td>신청</td>
+												<td>오늘 주차장 신청 수</td>
+												<td class="text-center">${requestParkingLot}건</td>
+											</tr>
+											<tr>
+												<td class="text-center">4</td>
+												<td>회원가입</td>
+												<td>오늘 사용자 회원가입 수 </td>
+												<td class="text-center">${todayCeoList}명</td>
+											</tr>
+											<tr>
+												<td class="text-center">5</td>
+												<td>회원가입</td>
+												<td>오늘 사업자 회원가입 수 </td>
+												<td class="text-center">${todayCustomerList}명</td>
+											</tr>
+											<tr>
+												<td class="text-center">6</td>
+												<td>게시판</td>
+												<td>오늘 관리자문의 게시판 등록 수</td>
+												<td class="text-center">${todayBoardCeo}건</td>
+											</tr>
+											<tr>
+												<td class="text-center">7</td>
+												<td>게시판</td>
+												<td>오늘 사업자문의 게시판 등록 수</td>
+												<td class="text-center">${todayBoardAdmin}건</td>
+											</tr>
+											<tr>
+												<td class="text-center">8</td>
+												<td>매출</td>
+												<td>오늘 충전 금액</td>
+												<td class="text-center">${profit}원</td>
 											</tr>
 										</tbody>
 									</table>
@@ -881,11 +920,816 @@
 	<!-- 222222222222222222222222 사업자 회원가입 현황 끝 22222222222222222222222222222222 -->	
 	
 	<!-- 3333333333333333333333333333 게시판 등록 수 333333333333333333333333333333333 -->	
+	<!-- 메인 관리자문의 올해 -->
 	<script>
 		$(function () {
-			
+
+			$.ajax({
+				url:"selectBoardAdminMonth.ad",
+				type:"get",
+				success:function(data){
+					$("#selectBoardAdminMonth").show();
+					$("#selectBoardAdmin7Days").hide();
+					$("#selectBoardReplyMonth").hide();
+					$("#selectBoardCeoMonth").hide();
+					$("#selectBoardCeo7Days").hide();
+					$("#selectBoardReply7Days").hide();
+					
+					$("#ajaxGraph3").empty();
+					var sum = parseInt(data.jan) + parseInt(data.feb) + parseInt(data.mar)
+								+ parseInt(data.apr) + parseInt(data.may) + parseInt(data.jun) 
+								+ parseInt(data.jul) + parseInt(data.aug) +parseInt(data.sep)
+								+ parseInt(data.oct) + parseInt(data.nov) + parseInt(data.dec)
+					$("#ajaxGraph3").append('<div align="left">올해 관리자문의 : '+sum+'건</div>');
+					
+					gradientChartOptionsConfiguration = {
+							maintainAspectRatio : false,
+							legend : {
+								display : false
+							},
+				
+							tooltips : {
+								backgroundColor : '#fff',
+// 								titleFontColor : '#333',
+								bodyFontColor : '#666',
+								bodySpacing : 4,
+								xPadding : 12,
+								mode : "nearest",
+								intersect : 0,
+								position : "nearest"
+							},
+							responsive : true,
+							scales : {
+								yAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(29,140,248,0.0)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										suggestedMin : 0,
+										suggestedMax : 10,	// y축
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ],
+				
+								xAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(220,53,69,0.1)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ]
+							}
+						};
+				
+						var ctx = document.getElementById("selectBoardAdminMonth").getContext("2d");
+				
+						var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+				
+						gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
+						gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+						gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+				
+						var chartData = [data.jan, data.feb, data.mar, data.apr,
+												data.may, data.jun, data.jul, data.aug,
+												data.sep, data.oct, data.nov, data.dec];
+						
+						var data = {
+							labels : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월',
+									'10월', '11월', '12월' ],
+							datasets : [ {
+								label : "건수:",
+								fill : true,
+								backgroundColor : gradientStroke,
+								borderColor : '#39acf4',
+								borderWidth : 2,
+								borderDash : [],
+								borderDashOffset : 0.0,
+								pointBackgroundColor : '#39acf4',
+								pointBorderColor : 'rgba(255,255,255,0)',
+								pointHoverBackgroundColor : '#39acf4',
+								pointBorderWidth : 20,
+								pointHoverRadius : 4,
+								pointHoverBorderWidth : 15,
+								pointRadius : 4,
+								data : chartData
+							} ]
+						};
+				
+						var myChart = new Chart(ctx, {
+							type : 'line',
+							data : data,
+							options : gradientChartOptionsConfiguration
+						});
+				},error:function(status){
+					console.log(status);
+				}
+			});
 		});
 	</script>
+	<!-- 메인 관리자문의 올해 끝 -->
+	
+	<!-- 관리자 문의 올해 -->
+	<script>
+		function selectBoardAdminMonth() {
+
+			$.ajax({
+				url:"selectBoardAdminMonth.ad",
+				type:"get",
+				success:function(data){
+					$("#selectBoardAdminMonth").show();
+					$("#selectBoardAdmin7Days").hide();
+					$("#selectBoardReplyMonth").hide();
+					$("#selectBoardCeoMonth").hide();
+					$("#selectBoardCeo7Days").hide();
+					$("#selectBoardReply7Days").hide();
+					
+					$("#ajaxGraph3").empty();
+					var sum = parseInt(data.jan) + parseInt(data.feb) + parseInt(data.mar)
+								+ parseInt(data.apr) + parseInt(data.may) + parseInt(data.jun) 
+								+ parseInt(data.jul) + parseInt(data.aug) +parseInt(data.sep)
+								+ parseInt(data.oct) + parseInt(data.nov) + parseInt(data.dec)
+					$("#ajaxGraph3").append('<div align="left">올해 관리자문의 : '+sum+'건</div>');
+					
+					gradientChartOptionsConfiguration = {
+							maintainAspectRatio : false,
+							legend : {
+								display : false
+							},
+				
+							tooltips : {
+								backgroundColor : '#fff',
+// 								titleFontColor : '#333',
+								bodyFontColor : '#666',
+								bodySpacing : 4,
+								xPadding : 12,
+								mode : "nearest",
+								intersect : 0,
+								position : "nearest"
+							},
+							responsive : true,
+							scales : {
+								yAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(29,140,248,0.0)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										suggestedMin : 0,
+										suggestedMax : 10,	// y축
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ],
+				
+								xAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(220,53,69,0.1)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ]
+							}
+						};
+				
+						var ctx = document.getElementById("selectBoardAdminMonth").getContext("2d");
+				
+						var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+				
+						gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
+						gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+						gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+				
+						var chartData = [data.jan, data.feb, data.mar, data.apr,
+												data.may, data.jun, data.jul, data.aug,
+												data.sep, data.oct, data.nov, data.dec];
+						
+						var data = {
+							labels : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월',
+									'10월', '11월', '12월' ],
+							datasets : [ {
+								label : "건수:",
+								fill : true,
+								backgroundColor : gradientStroke,
+								borderColor : '#39acf4',
+								borderWidth : 2,
+								borderDash : [],
+								borderDashOffset : 0.0,
+								pointBackgroundColor : '#39acf4',
+								pointBorderColor : 'rgba(255,255,255,0)',
+								pointHoverBackgroundColor : '#39acf4',
+								pointBorderWidth : 20,
+								pointHoverRadius : 4,
+								pointHoverBorderWidth : 15,
+								pointRadius : 4,
+								data : chartData
+							} ]
+						};
+				
+						var myChart = new Chart(ctx, {
+							type : 'line',
+							data : data,
+							options : gradientChartOptionsConfiguration
+						});
+				},error:function(status){
+					console.log(status);
+				}
+			});
+		}
+	</script>
+	<!-- 관리자문의 올해 끝 -->
+	
+	<!-- 관리자문의 최근 7일 -->	
+	<script>
+		function selectBoardAdmin7Days() {
+
+			$.ajax({
+				url:"selectBoardAdmin7Days.ad",
+				type:"get",
+				success:function(data){
+					$("#selectBoardAdminMonth").hide();
+					$("#selectBoardAdmin7Days").show();
+					$("#selectBoardReplyMonth").hide();
+					$("#selectBoardCeoMonth").hide();
+					$("#selectBoardCeo7Days").hide();
+					$("#selectBoardReply7Days").hide();
+					
+					$("#ajaxGraph3").empty();
+					var sum = parseInt(data.dayZero) + parseInt(data.dayOne) + parseInt(data.dayTwo)
+					+ parseInt(data.dayThree) + parseInt(data.dayFour) + parseInt(data.dayFive) 
+					+ parseInt(data.daySix) + parseInt(data.daySeven)
+					$("#ajaxGraph3").append('<div align="left">최근 7일 관리자문의 : '+sum+'건</div>');
+					
+					gradientChartOptionsConfiguration = {
+							maintainAspectRatio : false,
+							legend : {
+								display : false
+							},
+				
+							tooltips : {
+								backgroundColor : '#fff',
+// 								titleFontColor : '#333',
+								bodyFontColor : '#666',
+								bodySpacing : 4,
+								xPadding : 12,
+								mode : "nearest",
+								intersect : 0,
+								position : "nearest"
+							},
+							responsive : true,
+							scales : {
+								yAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(29,140,248,0.0)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										suggestedMin : 0,
+										suggestedMax : 10,	// y축
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ],
+				
+								xAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(220,53,69,0.1)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ]
+							}
+						};
+				
+						var ctx = document.getElementById("selectBoardAdmin7Days").getContext("2d");
+				
+						var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+				
+						gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
+						gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+						gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+				
+						var chartData = [data.dayZero, data.dayOne, data.dayTwo, data.dayThree,
+												data.dayFour, data.dayFive, data.daySix, data.daySeven];
+						
+						var data = {
+							labels : [ '오늘', '1일전', '2일전', '3일전', '4일전', '5일전', '6일전', '7일전'],
+							datasets : [ {
+								label : "건수:",
+								fill : true,
+								backgroundColor : gradientStroke,
+								borderColor : '#39acf4',
+								borderWidth : 2,
+								borderDash : [],
+								borderDashOffset : 0.0,
+								pointBackgroundColor : '#39acf4',
+								pointBorderColor : 'rgba(255,255,255,0)',
+								pointHoverBackgroundColor : '#39acf4',
+								pointBorderWidth : 20,
+								pointHoverRadius : 4,
+								pointHoverBorderWidth : 15,
+								pointRadius : 4,
+								data : chartData
+							} ]
+						};
+				
+						var myChart = new Chart(ctx, {
+							type : 'line',
+							data : data,
+							options : gradientChartOptionsConfiguration
+						});
+				},error:function(status){
+					console.log(status);
+				}
+			});
+		}
+	</script>
+	<!-- 관리자문의 최근 7일 끝 -->
+		
+	<!-- 사업자 문의 올해 -->
+	<script>
+		function selectBoardCeoMonth() {
+
+			$.ajax({
+				url:"selectBoardCeoMonth.ad",
+				type:"get",
+				success:function(data){
+					$("#selectBoardAdminMonth").hide();
+					$("#selectBoardAdmin7Days").hide();
+					$("#selectBoardReplyMonth").hide();
+					$("#selectBoardCeoMonth").show();
+					$("#selectBoardCeo7Days").hide();
+					$("#selectBoardReply7Days").hide();
+					
+					$("#ajaxGraph3").empty();
+					var sum = parseInt(data.jan) + parseInt(data.feb) + parseInt(data.mar)
+								+ parseInt(data.apr) + parseInt(data.may) + parseInt(data.jun) 
+								+ parseInt(data.jul) + parseInt(data.aug) +parseInt(data.sep)
+								+ parseInt(data.oct) + parseInt(data.nov) + parseInt(data.dec)
+					$("#ajaxGraph3").append('<div align="left">올해 사업자문의 : '+sum+'건</div>');
+					
+					gradientChartOptionsConfiguration = {
+							maintainAspectRatio : false,
+							legend : {
+								display : false
+							},
+				
+							tooltips : {
+								backgroundColor : '#fff',
+// 								titleFontColor : '#333',
+								bodyFontColor : '#666',
+								bodySpacing : 4,
+								xPadding : 12,
+								mode : "nearest",
+								intersect : 0,
+								position : "nearest"
+							},
+							responsive : true,
+							scales : {
+								yAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(29,140,248,0.0)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										suggestedMin : 0,
+										suggestedMax : 10,	// y축
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ],
+				
+								xAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(220,53,69,0.1)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ]
+							}
+						};
+				
+						var ctx = document.getElementById("selectBoardCeoMonth").getContext("2d");
+				
+						var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+				
+						gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
+						gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+						gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+				
+						var chartData = [data.jan, data.feb, data.mar, data.apr,
+												data.may, data.jun, data.jul, data.aug,
+												data.sep, data.oct, data.nov, data.dec];
+						
+						var data = {
+							labels : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월',
+									'10월', '11월', '12월' ],
+							datasets : [ {
+								label : "건수:",
+								fill : true,
+								backgroundColor : gradientStroke,
+								borderColor : '#39acf4',
+								borderWidth : 2,
+								borderDash : [],
+								borderDashOffset : 0.0,
+								pointBackgroundColor : '#39acf4',
+								pointBorderColor : 'rgba(255,255,255,0)',
+								pointHoverBackgroundColor : '#39acf4',
+								pointBorderWidth : 20,
+								pointHoverRadius : 4,
+								pointHoverBorderWidth : 15,
+								pointRadius : 4,
+								data : chartData
+							} ]
+						};
+				
+						var myChart = new Chart(ctx, {
+							type : 'line',
+							data : data,
+							options : gradientChartOptionsConfiguration
+						});
+				},error:function(status){
+					console.log(status);
+				}
+			});
+		}
+	</script>
+	<!-- 사업자문의 올해 끝 -->
+	
+	<!-- 사업자문의 최근 7일 -->	
+	<script>
+		function selectBoardCeo7Days() {
+
+			$.ajax({
+				url:"selectBoardCeo7Days.ad",
+				type:"get",
+				success:function(data){
+					$("#selectBoardAdminMonth").hide();
+					$("#selectBoardAdmin7Days").hide();
+					$("#selectBoardReplyMonth").hide();
+					$("#selectBoardCeoMonth").hide();
+					$("#selectBoardCeo7Days").show();
+					$("#selectBoardReply7Days").hide();
+					
+					$("#ajaxGraph3").empty();
+					var sum = parseInt(data.dayZero) + parseInt(data.dayOne) + parseInt(data.dayTwo)
+					+ parseInt(data.dayThree) + parseInt(data.dayFour) + parseInt(data.dayFive) 
+					+ parseInt(data.daySix) + parseInt(data.daySeven)
+					$("#ajaxGraph3").append('<div align="left">최근 7일 사업자문의 : '+sum+'건</div>');
+					
+					gradientChartOptionsConfiguration = {
+							maintainAspectRatio : false,
+							legend : {
+								display : false
+							},
+				
+							tooltips : {
+								backgroundColor : '#fff',
+// 								titleFontColor : '#333',
+								bodyFontColor : '#666',
+								bodySpacing : 4,
+								xPadding : 12,
+								mode : "nearest",
+								intersect : 0,
+								position : "nearest"
+							},
+							responsive : true,
+							scales : {
+								yAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(29,140,248,0.0)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										suggestedMin : 0,
+										suggestedMax : 10,	// y축
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ],
+				
+								xAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(220,53,69,0.1)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ]
+							}
+						};
+				
+						var ctx = document.getElementById("selectBoardCeo7Days").getContext("2d");
+				
+						var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+				
+						gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
+						gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+						gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+				
+						var chartData = [data.dayZero, data.dayOne, data.dayTwo, data.dayThree,
+												data.dayFour, data.dayFive, data.daySix, data.daySeven];
+						
+						var data = {
+							labels : [ '오늘', '1일전', '2일전', '3일전', '4일전', '5일전', '6일전', '7일전'],
+							datasets : [ {
+								label : "건수:",
+								fill : true,
+								backgroundColor : gradientStroke,
+								borderColor : '#39acf4',
+								borderWidth : 2,
+								borderDash : [],
+								borderDashOffset : 0.0,
+								pointBackgroundColor : '#39acf4',
+								pointBorderColor : 'rgba(255,255,255,0)',
+								pointHoverBackgroundColor : '#39acf4',
+								pointBorderWidth : 20,
+								pointHoverRadius : 4,
+								pointHoverBorderWidth : 15,
+								pointRadius : 4,
+								data : chartData
+							} ]
+						};
+				
+						var myChart = new Chart(ctx, {
+							type : 'line',
+							data : data,
+							options : gradientChartOptionsConfiguration
+						});
+				},error:function(status){
+					console.log(status);
+				}
+			});
+		}
+	</script>
+	<!-- 사업자문의 최근 7일 끝 -->
+	
+	
+	<!-- 후기 문의 올해 -->
+	<script>
+		function selectBoardReplyMonth() {
+
+			$.ajax({
+				url:"selectBoardReplyMonth.ad",
+				type:"get",
+				success:function(data){
+					$("#selectBoardAdminMonth").hide();
+					$("#selectBoardAdmin7Days").hide();
+					$("#selectBoardReplyMonth").show();
+					$("#selectBoardCeoMonth").hide();
+					$("#selectBoardCeo7Days").hide();
+					$("#selectBoardReply7Days").hide();
+					
+					$("#ajaxGraph3").empty();
+					var sum = parseInt(data.jan) + parseInt(data.feb) + parseInt(data.mar)
+								+ parseInt(data.apr) + parseInt(data.may) + parseInt(data.jun) 
+								+ parseInt(data.jul) + parseInt(data.aug) +parseInt(data.sep)
+								+ parseInt(data.oct) + parseInt(data.nov) + parseInt(data.dec)
+					$("#ajaxGraph3").append('<div align="left">올해 후기 : '+sum+'건</div>');
+					
+					gradientChartOptionsConfiguration = {
+							maintainAspectRatio : false,
+							legend : {
+								display : false
+							},
+				
+							tooltips : {
+								backgroundColor : '#fff',
+// 								titleFontColor : '#333',
+								bodyFontColor : '#666',
+								bodySpacing : 4,
+								xPadding : 12,
+								mode : "nearest",
+								intersect : 0,
+								position : "nearest"
+							},
+							responsive : true,
+							scales : {
+								yAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(29,140,248,0.0)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										suggestedMin : 0,
+										suggestedMax : 10,	// y축
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ],
+				
+								xAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(220,53,69,0.1)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ]
+							}
+						};
+				
+						var ctx = document.getElementById("selectBoardReplyMonth").getContext("2d");
+				
+						var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+				
+						gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
+						gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+						gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+				
+						var chartData = [data.jan, data.feb, data.mar, data.apr,
+												data.may, data.jun, data.jul, data.aug,
+												data.sep, data.oct, data.nov, data.dec];
+						
+						var data = {
+							labels : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월',
+									'10월', '11월', '12월' ],
+							datasets : [ {
+								label : "건수:",
+								fill : true,
+								backgroundColor : gradientStroke,
+								borderColor : '#39acf4',
+								borderWidth : 2,
+								borderDash : [],
+								borderDashOffset : 0.0,
+								pointBackgroundColor : '#39acf4',
+								pointBorderColor : 'rgba(255,255,255,0)',
+								pointHoverBackgroundColor : '#39acf4',
+								pointBorderWidth : 20,
+								pointHoverRadius : 4,
+								pointHoverBorderWidth : 15,
+								pointRadius : 4,
+								data : chartData
+							} ]
+						};
+				
+						var myChart = new Chart(ctx, {
+							type : 'line',
+							data : data,
+							options : gradientChartOptionsConfiguration
+						});
+				},error:function(status){
+					console.log(status);
+				}
+			});
+		}
+	</script>
+	<!-- 후기 올해 끝 -->
+	
+	<!-- 후기 최근 7일 -->	
+	<script>
+		function selectBoardReply7Days() {
+
+			$.ajax({
+				url:"selectBoardReply7Days.ad",
+				type:"get",
+				success:function(data){
+					$("#selectBoardAdminMonth").hide();
+					$("#selectBoardAdmin7Days").hide();
+					$("#selectBoardReplyMonth").hide();
+					$("#selectBoardCeoMonth").hide();
+					$("#selectBoardCeo7Days").hide();
+					$("#selectBoardReply7Days").show();
+					
+					$("#ajaxGraph3").empty();
+					var sum = parseInt(data.dayZero) + parseInt(data.dayOne) + parseInt(data.dayTwo)
+					+ parseInt(data.dayThree) + parseInt(data.dayFour) + parseInt(data.dayFive) 
+					+ parseInt(data.daySix) + parseInt(data.daySeven)
+					$("#ajaxGraph3").append('<div align="left">최근 7일 후기 : '+sum+'건</div>');
+					
+					gradientChartOptionsConfiguration = {
+							maintainAspectRatio : false,
+							legend : {
+								display : false
+							},
+				
+							tooltips : {
+								backgroundColor : '#fff',
+// 								titleFontColor : '#333',
+								bodyFontColor : '#666',
+								bodySpacing : 4,
+								xPadding : 12,
+								mode : "nearest",
+								intersect : 0,
+								position : "nearest"
+							},
+							responsive : true,
+							scales : {
+								yAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(29,140,248,0.0)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										suggestedMin : 0,
+										suggestedMax : 10,	// y축
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ],
+				
+								xAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(220,53,69,0.1)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ]
+							}
+						};
+				
+						var ctx = document.getElementById("selectBoardReply7Days").getContext("2d");
+				
+						var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+				
+						gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
+						gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+						gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+				
+						var chartData = [data.dayZero, data.dayOne, data.dayTwo, data.dayThree,
+												data.dayFour, data.dayFive, data.daySix, data.daySeven];
+						
+						var data = {
+							labels : [ '오늘', '1일전', '2일전', '3일전', '4일전', '5일전', '6일전', '7일전'],
+							datasets : [ {
+								label : "건수:",
+								fill : true,
+								backgroundColor : gradientStroke,
+								borderColor : '#39acf4',
+								borderWidth : 2,
+								borderDash : [],
+								borderDashOffset : 0.0,
+								pointBackgroundColor : '#39acf4',
+								pointBorderColor : 'rgba(255,255,255,0)',
+								pointHoverBackgroundColor : '#39acf4',
+								pointBorderWidth : 20,
+								pointHoverRadius : 4,
+								pointHoverBorderWidth : 15,
+								pointRadius : 4,
+								data : chartData
+							} ]
+						};
+				
+						var myChart = new Chart(ctx, {
+							type : 'line',
+							data : data,
+							options : gradientChartOptionsConfiguration
+						});
+				},error:function(status){
+					console.log(status);
+				}
+			});
+		}
+	</script>
+	<!-- 후기 최근 7일 끝 -->
 	<!-- 3333333333333333333333333333 게시판 등록 수 끝 333333333333333333333333333333333 -->	
 	
 	<!-- 444444444444444444444444 회원 주차장 예약 건수 444444444444444444444444444444444 -->	
