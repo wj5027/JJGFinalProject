@@ -21,12 +21,13 @@ public class Board implements java.io.Serializable{
 	private String parkingName;	
 	private String roadAddress;
 	private int parkingSize;
+	private int reCnt;
 	
 	public Board() {}
 
 	public Board(int bno, String bTitle, String bContext, int bViews, Date createDate, Date modifyDate, String bType,
 			String status, String mno, String pno, String mId, String cancelYN, String replyContext, int replyNo,
-			String parkingName, String roadAddress, int parkingSize) {
+			String parkingName, String roadAddress, int parkingSize, int reCnt) {
 		super();
 		this.bno = bno;
 		this.bTitle = bTitle;
@@ -45,6 +46,7 @@ public class Board implements java.io.Serializable{
 		this.parkingName = parkingName;
 		this.roadAddress = roadAddress;
 		this.parkingSize = parkingSize;
+		this.reCnt = reCnt;
 	}
 
 	public int getBno() {
@@ -183,12 +185,24 @@ public class Board implements java.io.Serializable{
 		this.parkingSize = parkingSize;
 	}
 
+	public int getReCnt() {
+		return reCnt;
+	}
+
+	public void setReCnt(int reCnt) {
+		this.reCnt = reCnt;
+	}
+
 	@Override
 	public String toString() {
 		return "Board [bno=" + bno + ", bTitle=" + bTitle + ", bContext=" + bContext + ", bViews=" + bViews
 				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", bType=" + bType + ", status="
 				+ status + ", mno=" + mno + ", pno=" + pno + ", mId=" + mId + ", cancelYN=" + cancelYN
 				+ ", replyContext=" + replyContext + ", replyNo=" + replyNo + ", parkingName=" + parkingName
-				+ ", roadAddress=" + roadAddress + ", parkingSize=" + parkingSize + "]";
+				+ ", roadAddress=" + roadAddress + ", parkingSize=" + parkingSize + ", reCnt=" + reCnt + "]";
 	}
+
+	
+	
+	
 }

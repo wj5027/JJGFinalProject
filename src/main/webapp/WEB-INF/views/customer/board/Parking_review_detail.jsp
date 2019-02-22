@@ -54,28 +54,89 @@
 			
 			<tr>
 			<td><td>
-			</tr>
+			</tr>			
 			
-			<tr><!-- BOARD BUTTONS -->
-				<td colspan="5" align="center">
+		</table>
+	<div class="repleArea">
+		<div class="replySelectArea">
+		<table id="replySelectTable" width="100%" border="0" cellpadding="0" cellspacing="0">
+			<c:forEach var="r" items="${ reply }">
+			
+			<tbody>
+			<tr>
+				<td width="60px">댓글&nbsp;</td>
+				<td   colspan="2">${ r.context }　　　　　　　　　</td>
+				<td align="center">${ r.memberNo }
+			</tr>
+			</c:forEach>
+			</table>
+			</div>
+			<table>
+			<tr>
+				<td>댓글작성	</td>
+				<td colspan="2">
+					<input type="text" id="replyContent" class="form-control">
 					
+				</td>
+				<td float="right">
+					<button class="btn btn-info btn-sm" onclick="return insertReply()" id="addReply">댓글등록</button>
+				</td>
+			</tr>
+			</tbody>
+			
+			</table>
+			</div>
+		<br>
+		<br>
+		<br>
+        <div align="center">	
 					<button id="editBtn" class="btn btn-info btn-sm">수정</button>&nbsp;
 					<button id="deleteBtn" class="btn btn-info btn-sm">삭제</button>&nbsp;					
 					<button id="goToList" class="btn btn-info btn-sm">목록</button>&nbsp;					
-				
-				</td>
-			</tr>
-		</table>
-		<br>
-		<br>
-		<br>
-        
+				</div>
+		
               </div>
             </div>
           </div>
         </div>
       </div>
 <script>
+	function insertReply(){
+		
+		var writer = ${ loginUser.member_no }
+		var content = $("#replyContent").val();
+		var bno =${ b.bno };
+		
+		console.log(writer);
+		console.log(content); 
+		console.log(bno);
+		
+		$.ajax({
+			url:"insertReply.cu",
+			data:{ writer:writer, content:content, bno:bno},
+			type:"post",
+			success:function(data){
+				console.log(data);
+				
+				var $replySelectTable = $("#replySelectTable");
+				$replySelectTable.html('');
+				
+				
+					
+					$("#replyContent").val("");
+					window.location.reload();
+				
+				 
+				
+			},
+			error:function(){
+				console.log("실패");
+			}
+		});
+		
+	}
+
+
 	$(function(){
 		$("#editBtn").click(function(){
 			var num = $("input[name='num']").val();
@@ -107,6 +168,52 @@
 			location.href="./parkingReview.cu?num="+pno+"&pName="+pName;
 		});
 	});
+
+	//댓글 작성
+	/*$(function(){
+		$("#addReply").click(function(){
+			
+			
+			var writer =${ loginUser };
+			var bno =${ b.bno };
+			var content = $("#replyContent").val(); 
+			
+		 	console.log(writer); 
+			console.log(bno);
+			console.log(content);
+			
+			 $.ajax({
+				url:"insertReply.cu",
+				data:{ writer:writer, content:content, bno:bno},
+				type:"post",
+				success:function(data){
+					console.log(data);
+					
+					var $replySelectTable = $("#replySelectTable");
+					$replySelectTable.html('');
+					
+					for(var key in data){
+						var $tr = $("<tr>");
+						var $writerTd = $("<td>").text(data[key].writerId).css("width","100px");
+						var $contentTd = $("<td>").text(data[key].bContent).css("width","400px");
+						var $dateTd = $("<td>").text(data[key].bDate).css("width", "200px");
+						
+						$tr.append($writerTd);
+						$tr.append($contentTd);
+						$replySelectTable.append($tr);
+						
+						$("#replyContent").val("");
+						//window.location.reload();
+					}
+					 
+					
+				},
+				error:function(){
+					console.log("실패");
+				}
+			});
+		});
+	});*/
 </script>	
 </body>
 </html>

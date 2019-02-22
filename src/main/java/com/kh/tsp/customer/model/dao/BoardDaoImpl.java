@@ -299,6 +299,24 @@ public class BoardDaoImpl implements BoardDao{
 
 		return (ArrayList)sqlSession.selectList("Board.selectParkingReply", bno);
 	}
+	//후기 댓글 조회
+	@Override
+	public ArrayList<Reply> selectReviewList(SqlSessionTemplate sqlSession, int bno) {
+
+		return (ArrayList)sqlSession.selectList("Board.selectReviewReply", bno);
+	}
+	//후기 댓글 작성
+	@Override
+	public int insertReply(SqlSessionTemplate sqlSession, Reply r) {
+
+		return sqlSession.insert("Board.insertReply", r);
+	}
+	//댓글 갯수
+	@Override
+	public int replyCnt(SqlSessionTemplate sqlSession, int bno) {
+
+		return sqlSession.selectOne("Board.replyCnt", bno);
+	}
 	
 	
 	

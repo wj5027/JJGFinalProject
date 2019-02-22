@@ -27,7 +27,7 @@
         <div class="row">
 		  <div class="col-md-12" height="500px">
             <div class="card ">
-              <div class="card-header">
+              <div class="card-header">${list[0] }
               <c:choose>
               	<c:when test="${ list.size()>0 }">
               		<h3 class="card-title" align="center">[${list[0].pno }]주차장 문의</h3>              		
@@ -56,7 +56,7 @@
 	  		<tbody>
 	  		<tr>
 	  		<td>${ b.createDate }</td>
-	  		<td><input type="hidden" id="bno" name="bno" value="${b.bno}">${ b.bTitle }</td>
+	  		<td><input type="hidden" id="bno" name="bno" value="${b.bno}">${ b.bTitle }${ b.reCnt }</td>
 	  	
 	  		</tr>
   	</c:forEach>

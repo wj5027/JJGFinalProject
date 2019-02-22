@@ -92,6 +92,12 @@ public interface BoardService {
 	ArrayList<Reply> selectReply(int bno);
 	//사업자문의(주차장문의) 댓글
 	ArrayList<Reply> selectParkingReply(int bno);
+	//후기 댓글 목록 조회
+	ArrayList<Reply> selectReviewReply(int bno);
+	//후기 댓글 작성
+	ArrayList<Reply> insertReply(Reply r);
+	//댓글 갯수
+	int replyCnt(int bno);
 	
 	
 	

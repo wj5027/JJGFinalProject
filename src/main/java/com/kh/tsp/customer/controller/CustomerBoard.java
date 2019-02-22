@@ -1,5 +1,6 @@
 package com.kh.tsp.customer.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 import com.kh.tsp.common.PageInfo;
 import com.kh.tsp.common.Pagination;
 import com.kh.tsp.customer.model.exception.BoardSelectListException;
@@ -24,6 +27,7 @@ import com.kh.tsp.customer.model.service.BoardService;
 import com.kh.tsp.customer.model.service.BoardServiceImpl;
 import com.kh.tsp.customer.model.vo.Board;
 import com.kh.tsp.customer.model.vo.Member;
+import com.kh.tsp.customer.model.vo.Reply;
 
 
 @Controller
@@ -535,17 +539,21 @@ public class CustomerBoard {
 		//String mno = Integer.toString(loginUser.getMember_no());
 
 		int currentPage = 1;
-							 
+		
+		
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 							
 		int listCount = bs.getReviewListCount(pno);
 		System.out.println("주차장 후기 전체게시글 수 : "+listCount);
+
+		
+		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 						
 		ArrayList<Board> list = bs.selectParkingReviewList(pi, pno);
-								
+		int replyCnt =0;						
 
 		if(list == null) {
 			request.setAttribute("message", "주차장 후기 목록 불러오기 실패");
@@ -553,6 +561,7 @@ public class CustomerBoard {
 			return "common/errorPage";
 						
 		}else {
+						
 			request.setAttribute("loginUser", loginUser);
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
@@ -594,6 +603,7 @@ public class CustomerBoard {
 		int result = bs.insertParkingReview(b);
 			
 		if(result > 0) {
+			request.setAttribute("b", b);
 			request.setAttribute("pno", pno);	
 			return "redirect:parkingReview.cu?num="+pno;
 				
@@ -787,7 +797,33 @@ public class CustomerBoard {
 			
 		}		
 		
+		//댓글 작성
+		@RequestMapping(value="insertReply.cu", method=RequestMethod.POST)
+		public void insertReply(HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException {
+			String writer = request.getParameter("writer");
+			int bno = Integer.parseInt(request.getParameter("bno"));
+			String content = request.getParameter("content");
+			
+			System.out.println("컨트로러 댓글작성자:"+writer);
+			System.out.println("bno: "+bno);
+			System.out.println("댓글내용: "+content);
+		
+
+			Reply r = new Reply();
+			r.setBoardNo(bno);
+			r.setMemberNo(writer);
+			r.setContext(content);
+			
 		
 		
+			ArrayList<Reply> replyList = bs.insertReply(r);
+		
+			System.out.println("댓글 list길ㅇㅣ: "+replyList.size());
+			
+			response.setContentType("application/json");
+			new Gson().toJson(replyList, response.getWriter());
+		
+			
+		}
 		
 }

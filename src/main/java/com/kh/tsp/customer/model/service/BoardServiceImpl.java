@@ -310,6 +310,31 @@ public class BoardServiceImpl implements BoardService {
 
 		return bd.selectParkingReply(sqlSession, bno);
 	}
+	//후기 댓글 조회
+	@Override
+	public ArrayList<Reply> selectReviewReply(int bno) {
+
+		return bd.selectReviewList(sqlSession,  bno);
+	}
+	//후기 댓글 작성
+	@Override
+	public ArrayList<Reply> insertReply(Reply r) {
+		ArrayList<Reply> replyList = null;
+		
+		int result =  bd.insertReply(sqlSession, r);
+		
+		if(result > 0) {
+			replyList = bd.selectReviewList(sqlSession, r.getBoardNo());
+		}
+		
+		return replyList;
+	}
+	//댓글 갯수
+	@Override
+	public int replyCnt(int bno) {
+
+		return bd.replyCnt(sqlSession, bno);
+	}
 	
 	
 	

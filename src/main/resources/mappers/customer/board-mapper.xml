@@ -105,6 +105,7 @@
   		
   	</resultMap>
 
+	<!-- 후기 댓글 -->
 	<resultMap type="com.kh.tsp.customer.model.vo.Reply" id="BoardReplyResultSet">
   		<id property="replyNo" column="REPLY_NO"/>
   		<result property="context" column="REPLY_CONTEXT"/>
@@ -113,8 +114,9 @@
   		<result property="modifyYN" column="MODIFY_YN"/>
   		<result property="boardNo" column="BOARD_NO"/>
   		<result property="memberNo" column="MEMBER_NAME"/>
-  				
+  			
   	</resultMap>
+  
   	
   	<!-- 공지사항 게시물 목록 조회용 쿼리문 -->
   	<select id="boardList" resultMap="boardListSet">
@@ -144,8 +146,7 @@
   		AND B.STATUS = 'Y'
   	</select>
   	
-  	<!-- 공지 수정1 쿼리문 -->
-  	
+  	<!-- 공지 수정1 쿼리문 -->  	
   	<select id="updateNotice" parameterType="_int" resultMap="noticeListSet">
   		SELECT *
   		FROM BOARD B
@@ -233,7 +234,8 @@
   	
   	<!-- 내 후기 목록 쿼리문 -->
   	<select id="selectReviewList" resultMap="reviewListSet0" parameterType="_int">
-  		SELECT * FROM BOARD B
+  		SELECT * 
+  		FROM BOARD B
   		JOIN PARKING P ON(B.PARKING_NO = P.PARKING_NO)
   		WHERE B.STATUS = 'Y'  	
         AND B.BOARD_TYPE = '후기'
@@ -315,14 +317,16 @@
   	
   	<!-- 주차장 문의 게시물 목록 조회용 쿼리문 -->
   	<select id="selectParkingQnaList" resultMap="parkingQnaListSet" parameterType="String">
-  		SELECT *
-  		FROM BOARD B
-  		JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
-  		JOIN PARKING P ON(B.PARKING_NO = P.PARKING_NO)
-  		WHERE B.STATUS = 'Y'
-  		AND B.BOARD_TYPE = '사업자문의'
-  		AND B.PARKING_NO = #{pno}
-  		ORDER BY BOARD_NO DESC
+		SELECT *
+		FROM BOARD B
+		JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
+		JOIN PARKING P ON(B.PARKING_NO = P.PARKING_NO)
+		WHERE B.STATUS = 'Y'
+		AND B.BOARD_TYPE = '사업자문의'
+		AND B.PARKING_NO = #{pno}
+		ORDER BY BOARD_NO DESC
+
+
   	</select>
   	
   	<!-- 주차장 문의 게시물 상세보기 -->
@@ -338,8 +342,8 @@
   	
   	<!-- 주차장 후기 목록 -->
   	<select id="selectParkingReviewList" resultMap="reviewListSet" parameterType="String">
-  		SELECT *
-  		FROM BOARD B
+  		SELECT B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, B.CREATION_DATE,B.MODIFIED_DATE, B.BOARD_TYPE, B.STATUS, B.MEMBER_NO, B.PARKING_NO, (SELECT COUNT(*) FROM REPLY R WHERE R.BOARD_NO=B.BOARD_NO) AS reCnt
+  		FROM BOARD B 
   		JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
   		JOIN PARKING P ON(B.PARKING_NO = P.PARKING_NO)
   		WHERE B.STATUS = 'Y'
@@ -472,5 +476,30 @@
   		WHERE B.BOARD_TYPE = '사업자문의'
   			AND B.BOARD_NO = #{bno}
   	</select>
+  
+   	<!-- 후기 댓글 조회 -->
+  	<select id="selectReviewReply" resultMap="BoardReplyResultSet" parameterType="_int">
+  	 SELECT M.MEMBER_NO, M.MEMBER_NAME, M.MEMBER_ID, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, B.CREATION_DATE, B.MODIFIED_DATE, B.BOARD_TYPE, B.STATUS, R.CANCEL_YN, R.REPLY_CONTEXT, R.REPLY_NO
+  		FROM REPLY R
+  		INNER JOIN MEMBER M ON(R.MEMBER_NO = M.MEMBER_NO)
+        LEFT OUTER JOIN BOARD B ON(B.BOARD_NO = R.BOARD_NO)       
+  		WHERE B.BOARD_TYPE = '후기'
+  			AND B.BOARD_NO = #{bno}
+  	</select>		
+  	
+  	<!-- 후기 댓글 작성 -->
+  	<insert id="insertReply" parameterType="Reply">
+  		INSERT INTO REPLY VALUES(REPLY_NO_SEQ.NEXTVAL,#{context},SYSDATE ,null,null, #{boardNo}, #{memberNo} )
+  	</insert>
+  	
+  	<!-- 댓글 수 -->
+  	<select id="replyCnt" resultType="_int" parameterType="_int">
+  		SELECT B.*, (SELECT COUNT(*) FROM REPLY R WHERE R.BOARD_NO=B.BOARD_NO) AS repleCtn
+        FROM BOARD B
+        WHERE BOARD_TYPE='후기'
+        AND B.PARKING_NO = '121-2-000011'
+        AND STATUS='Y';
   		
+  	</select>
+  	
   </mapper>
