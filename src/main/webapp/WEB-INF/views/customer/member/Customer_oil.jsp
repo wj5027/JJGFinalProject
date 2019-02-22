@@ -198,7 +198,7 @@
 								
 							</div>
 							<br>
-							<button class="btn btn-info animation-on-hover" type="button" onclick="backTableList()">취소</button>
+							<button class="btn btn-info animation-on-hover" type="button" onclick="backTableRefundList()">취소</button>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<button class='btn btn-info animation-on-hover' data-toggle='modal' onclick="refundNo(${ loginUser.member_no }, ${ loginUser.oil })" data-target='.cancle_pay'>환불신청</button>
 							<br><br><br>
@@ -265,7 +265,7 @@
 			                  </tr>
 			                  <tr>
 			                  	<td align="center">
-			                  		<button type="button" class="btn btn-default" data-dismiss="modal" onclick="">닫기</button>
+			                  		<button type="button" class="btn btn-default" data-dismiss="modal" onclick="location.href='oil.cu'">닫기</button>
 			                  	</td>
 			                  </tr>      
 			            </tbody>
@@ -317,6 +317,15 @@
 		$("#payTable").css("display", "none");
 		$("#refundTable").css("display", "none");
 	}
+	function backTableRefundList() {
+		$("#listTable").css("display", "inline-block");
+		$("#listTable2").css("display", "inline-block");
+		$("#listBtn").css("display", "none");
+		$("#listRefundBtn").css("display", "inline-block");
+		$("#payTable").css("display", "none");
+		$("#refundTable").css("display", "none");
+	}
+	
 	var IMP = window.IMP; // 생략가능
 	IMP.init('imp31619485'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 
@@ -825,7 +834,7 @@
 	function refundNo(memberNo, possesOil) {
 		$("#ShowRefundModal").html("");
 		var refundOil = selectedOil;
-		if (possesOil > refundOil) {
+		if (possesOil > refundOil && refundOil > 0) {
 			$("#ShowRefundModal").append("<tr><td align='center' colspan='2'>"
 									+ "포인트를 " + possesOil + "L 가지고 있습니다.<br>"
 									+ "환불할 포인트는 " + refundOil +" 입니다.<br>"
@@ -850,6 +859,8 @@
 									+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
 									+ "<button type='button' class='btn btn-default' data-dismiss='modal' onclick='requestRefund(" + memberNo + ", " + refundOil + ")'>환불 신청</button>"
 									+ "</td></tr>");
+		} else if (refundOil == 0) {
+			alert("환불할 오일을 선택해주세요!")
 		} else {
 			$("#ShowRefundModal").append("<tr><td align='center'><br><br>"
 									+ "현재 포인트가 " + possesOil + "L 이므로 환불이 불가능합니다.<br>"

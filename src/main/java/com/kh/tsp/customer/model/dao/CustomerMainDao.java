@@ -1,6 +1,5 @@
 package com.kh.tsp.customer.model.dao;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -100,6 +99,8 @@ public interface CustomerMainDao {
 	int insertOilListRefund(SqlSessionTemplate sqlSession, HashMap<String, String> requesthmap);
 
 	ArrayList<ParkingCeoAttachmentVo> selectParkingImg(SqlSessionTemplate sqlSession, String pno);
+
+	Member getRefreshMember(SqlSessionTemplate sqlSession, Member m);
 
 	
 	

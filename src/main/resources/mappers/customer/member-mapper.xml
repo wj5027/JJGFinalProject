@@ -360,9 +360,9 @@
 				ORDER BY oil_list_no DESC
 			</when>
 			<when test="selectedListInfo == '환불'">
-				SELECT * FROM oil_list o JOIN parking p ON (o.parking_no = p.parking_no)
+				SELECT * FROM oil_list
 				<where>
-					(o.oil_list_type = '환불' OR o.oil_list_type = '환불신청' OR o.oil_list_type = '환불취소') AND o.member_no = #{ memberNo }
+					(oil_list_type = '환불' OR oil_list_type = '환불신청' OR oil_list_type = '환불취소') AND member_no = #{ memberNo }
 					<choose>
 						<when test="startDate != null and endDate == null">
 							<![CDATA[
@@ -439,9 +439,9 @@
 				</where>
 			</when>
 			<when test="selectedListInfo == '환불'">
-				SELECT * FROM oil_list o JOIN parking p ON (o.parking_no = p.parking_no)
+				SELECT COUNT(*) FROM oil_list
 				<where>
-					(o.oil_list_type = '환불' OR o.oil_list_type = '환불신청' OR o.oil_list_type = '환불취소') AND o.member_no = #{ memberNo }
+					(oil_list_type = '환불' OR oil_list_type = '환불신청' OR oil_list_type = '환불취소') AND member_no = #{ memberNo }
 					<choose>
 						<when test="startDate != null and endDate == null">
 							<![CDATA[
@@ -515,10 +515,10 @@
 							application_bank,
 							application_account_number)
 		VALUES (EXCHANGE_NO_SEQ.NEXTVAL, '환불진행중', 
-				(SELECT oil FROM oil_list WHERE oil_list_no = #{ oilListNo }),
-				(SELECT oil / 1.1 FROM oil_list WHERE oil_list_no = #{ oilListNo }),
+				#{ refundOil },
+				#{ refundOil } / 1.1,
 				SYSDATE,
-				(SELECT member_no FROM oil_list WHERE oil_list_no = #{ oilListNo }),
+				#{ memberNo },
 				#{ accountHolder },
 				#{ Application_bank },
 				#{ application_account_number })
@@ -578,14 +578,21 @@
 	<!-- 사용자 - 오일 환불 시 차감 -->
 	<update id="updateRequestRefund" parameterType="hashmap">
 		UPDATE member
-		SET oil = (SELECT oil FROM member WHERE member_no = (SELECT member_no FROM oil_list WHERE oil_list_no = #{ oilListNo })) - (SELECT oil FROM oil_list WHERE oil_list_no = #{ oilListNo })
-		WHERE member_no = (SELECT member_no FROM oil_list WHERE oil_list_no = #{ oilListNo })
+		SET oil = (SELECT oil FROM member WHERE member_no = #{ memberNo }) - #{ refundOil }
+		WHERE member_no = #{ memberNo }
 	</update>
 	
 	<!-- 사용자 - 오일 환불 시 Oil List 테이블에 기록 남김 -->
 	<insert id="insertOilListRefund" parameterType="hashmap">
 		INSERT INTO oil_list
-		VALUES (OIL_LIST_SEQ.NEXTVAL, '환불신청', SYSDATE, (SELECT oil FROM oil_list WHERE oil_list_no = #{ oilListNo }), (SELECT member_no FROM oil_list WHERE oil_list_no = #{ oilListNo }), null,null,null,null);
+		VALUES (OIL_LIST_SEQ.NEXTVAL, '환불신청', SYSDATE, #{ refundOil }, #{ memberNo }, null,null,null,null)
 	</insert>
-
+	
+	<!-- 로그인 세션 새로고침 -->
+	<select id="getRefreshMember" resultMap="MemberResultSet" parameterType="Member">
+		SELECT * 
+		FROM MEMBER
+		WHERE member_no = #{ member_no }
+	</select>
+	
 </mapper>

@@ -14,4 +14,6 @@ public interface AccountDao {
 
 	int changePwd(SqlSessionTemplate sqlSession, Member m);
 
+	Member getRefreshMember(SqlSessionTemplate sqlSession, Member m);
+
 }

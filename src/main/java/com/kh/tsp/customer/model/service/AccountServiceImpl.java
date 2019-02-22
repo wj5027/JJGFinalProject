@@ -34,5 +34,10 @@ public class AccountServiceImpl implements AccountService{
 
 		return ad.changePwd(sqlSession, m);
 	}
+	
+	@Override
+	public Member getRefreshMember(Member m) {
+		return ad.getRefreshMember(sqlSession, m);
+	}
 
 }

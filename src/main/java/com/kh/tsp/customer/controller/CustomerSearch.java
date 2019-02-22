@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kh.tsp.common.OilPagination;
 import com.kh.tsp.common.PageInfo;
 import com.kh.tsp.customer.model.service.CustomerMainService;
+import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.customer.model.vo.OilList;
 import com.kh.tsp.customer.model.vo.Parking;
 
@@ -77,7 +79,7 @@ public class CustomerSearch {
 		PageInfo pi = OilPagination.getPageInfo(currentPage, listCount);
 		
 		ArrayList<OilList> Olist = cms.searchOilList(searchInfo, pi);
-				
+		System.out.println(Olist);
 		return Olist;
     }
 	
@@ -109,4 +111,21 @@ public class CustomerSearch {
 				
 		return pi;
     }
+	
+	// 사용자 - 오일 리턴
+	@RequestMapping("selectNewOil.cu")
+	public @ResponseBody int selectNewOil(HttpSession session) {
+		Member newMember = new Member();
+		
+		if ((Member)session.getAttribute("loginUser") != null) {
+			 newMember = cms.getRefreshMember((Member)session.getAttribute("loginUser"));
+		}
+		
+		System.out.println("왜 안되세요");
+		System.out.println(newMember.getOil());
+		
+		return Integer.parseInt(newMember.getOil());
+	}
+	
+	
 }
