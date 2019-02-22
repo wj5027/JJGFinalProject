@@ -71,6 +71,25 @@
 		UPDATE PARKING_RESERVATION SET STATUS = '취소', CANCEL_REASON = #{resCancelText} WHERE RES_NO = #{completeResNo}
 	</update>
 	
+	<select id="searchNonMemberPakringSize" parameterType="hashmap" resultType="hashmap">
+		SELECT PARKING_SIZE,LEFT_SIZE FROM PARKING WHERE PARKING_NO = #{parking_no}
+	</select>
+	
+	<insert id="insertNonMemberEntryList" parameterType="hashmap">
+		INSERT INTO ENTRY_EXIT_LIST
+		VALUES (EE_NO_SEQ.NEXTVAL,TO_DATE(#{start_time},'YYYY-MM-DD HH24:MI:SS'),NULL,'일반',NULL,0,#{parking_no},NULL,NULL,#{car_no},'입차',#{phone})
+	</insert>
+	
+	
+	
+	
+	
+	
+	<update id="updateLeftSize1" parameterType="hashmap">
+		UPDATE PARKING SET LEFT_SIZE = (SELECT LEFT_SIZE FROM PARKING WHERE PARKING_NO = #{parking_no}) -1
+		WHERE PARKING_NO = #{parking_no}
+	</update>
+	
 </mapper>
 
 

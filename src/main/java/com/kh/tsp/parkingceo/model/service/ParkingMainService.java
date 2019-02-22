@@ -20,6 +20,12 @@ public interface ParkingMainService {
 
 	void updateResCancel(int parseInt, String resCancelText);
 
+	HashMap<String, Object> searchPakringSize(HashMap<String, Object> searchHmap);
+
+	void insertEntryList(HashMap<String, Object> searchHashmap, String resultMemberNo, String resultResNo);
+
+
+
 
 
 }

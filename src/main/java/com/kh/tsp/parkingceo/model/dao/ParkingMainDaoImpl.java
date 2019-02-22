@@ -61,6 +61,42 @@ public class ParkingMainDaoImpl implements ParkingMainDao {
 		sqlSession.update("ParkingMain.updateResCancel2", hmap);
 	}
 
+	@Override
+	public HashMap<String, Object> searchPakringSize(SqlSessionTemplate sqlSession,
+			HashMap<String, Object> searchHmap) {
+		return sqlSession.selectOne("ParkingMain.searchNonMemberPakringSize", searchHmap);
+	}
+
+	@Override
+	public void insertNonMemberEntryList(SqlSessionTemplate sqlSession, HashMap<String, Object> searchHashmap) {
+		sqlSession.insert("ParkingMain.insertNonMemberEntryList", searchHashmap);
+	}
+
+	@Override
+	public void insertNomalMemberEntryList(SqlSessionTemplate sqlSession, HashMap<String, Object> searchHashmap) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int searchMemberNo(HashMap<String, Object> searchHashmap) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void insertResMemberEntryList(SqlSessionTemplate sqlSession, HashMap<String, Object> searchHashmap) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateLeftSize(SqlSessionTemplate sqlSession, HashMap<String, Object> searchHashmap) {
+		sqlSession.update("ParkingMain.updateLeftSize1",searchHashmap);
+	}
+
+
+
 
 
 
