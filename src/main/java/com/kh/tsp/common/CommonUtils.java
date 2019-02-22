@@ -5,7 +5,7 @@ import java.util.UUID;
 public class CommonUtils {
 
 	public CommonUtils() {
-		// TODO Auto-generated constructor stub
+		// TODO Auto-generated constructor stub헤헤ㅔ헤
 	}
 	
 	public static String getRandomString() {
