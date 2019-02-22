@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.tsp.admin.model.exception.MainStatisticsException;
 import com.kh.tsp.admin.model.exception.ParkingCEOSelectListException;
+import com.kh.tsp.admin.model.exception.SelectBoardListException;
 import com.kh.tsp.admin.model.exception.ParkingCEOSelectListException;
 import com.kh.tsp.admin.model.vo.DateAdmin;
 import com.kh.tsp.admin.model.vo.MemberAdmin;
@@ -21,6 +22,27 @@ import com.kh.tsp.common.PageInfo;
 
 @Repository
 public class MainDaoImpl  implements MainDao{
+
+	///////////////////////////////////////// 회원 ///////////////////////////////////
+	// 전체 사용자 회원 수 
+	@Override
+	public int getCustomerListCount(SqlSessionTemplate sqlSession) throws MainStatisticsException {
+		int customerListCount = sqlSession.selectOne("MainAdmin.getCustomerListCount");
+		if(customerListCount <=0) {
+			throw new MainStatisticsException("전체 사용자 회원 수 조회 실패!");
+		}
+		return customerListCount;
+	}
+
+	// 전체 사업자 회원 수 
+	@Override
+	public int getCeoListCount(SqlSessionTemplate sqlSession) throws MainStatisticsException {
+		int ceoListCount = sqlSession.selectOne("MainAdmin.getCeoListCount");
+		if(ceoListCount <=0) {
+			throw new MainStatisticsException("전체 사업자 회원 수 조회 실패!");
+		}
+		return ceoListCount;
+	}
 
 	// 올해 사용자 회원가입 수
 	@Override
@@ -70,41 +92,189 @@ public class MainDaoImpl  implements MainDao{
 		return da;
 	}
 
-
-/*	// 통계 그래프 (월별)
+	//////////////////////////////////// 게시판 /////////////////////////////////////////
+	// 관리자문의 게시판 수
 	@Override
-	public DateAdmin selectStatisticsMonth(SqlSessionTemplate sqlSession) throws ParkingCEOSelectListException {
+	public int getBoardAdminListCount(SqlSessionTemplate sqlSession) throws MainStatisticsException {
+		int boardAdminListCount = sqlSession.selectOne("MainAdmin.getBoardAdminListCount");
+		if(boardAdminListCount <=0) {
+			throw new MainStatisticsException("관리자문의 게시판 수 조회 실패!");
+		}
+		return boardAdminListCount;
+	}
+
+	// 사업자문의 게시판 수
+	@Override
+	public int getBoardCeoListCount(SqlSessionTemplate sqlSession) throws MainStatisticsException {
+		int boardCeoListCount = sqlSession.selectOne("MainAdmin.getBoardCeoListCount");
+		if(boardCeoListCount <=0) {
+			throw new MainStatisticsException("사업자문의 게시판 수 조회 실패!");
+		}
+		return boardCeoListCount;
+	}
+
+	// 후기 게시판 수
+	@Override
+	public int getBoardReplyListCount(SqlSessionTemplate sqlSession) throws MainStatisticsException {
+		int boardReplyListCount = sqlSession.selectOne("MainAdmin.getBoardReplyListCount");
+		if(boardReplyListCount <=0) {
+			throw new MainStatisticsException("후기 게시판 수 조회 실패!");
+		}
+		return boardReplyListCount;
+	}
+
+	// 올해 관리자문의 수
+	@Override
+	public DateAdmin selectBoardAdminMonth(SqlSessionTemplate sqlSession) throws MainStatisticsException {
 		
-		DateAdmin da = sqlSession.selectOne("MemberAdmin.selectStatisticsMonth");
+		DateAdmin da = sqlSession.selectOne("MainAdmin.selectBoardAdminMonth");
 		
 		if(da == null) {
-			throw new ParkingCEOSelectListException("통계 그래프 (월별) 조회 실패");
+			throw new MainStatisticsException("올해 관리자문의 수 조회 실패");
 		}
 		return da;
 	}
 
-	// 통계 리스트 (최근 7일)
+	// 최근 7일 관리자문의 수
 	@Override
-	public DateAdmin selectStatistics7Day(SqlSessionTemplate sqlSession) throws ParkingCEOSelectListException {
+	public DateAdmin selectBoardAdmin7Days(SqlSessionTemplate sqlSession) throws MainStatisticsException {
 		
-		DateAdmin da = sqlSession.selectOne("MemberAdmin.selectStatistics7Day");
+		DateAdmin da = sqlSession.selectOne("MainAdmin.selectBoardAdmin7Days");
 		
 		if(da == null) {
-			throw new ParkingCEOSelectListException("통계 리스트 (최근 7일) 조회 실패");
+			throw new MainStatisticsException("최근 7알 관리자문의 수 조회 실패");
 		}
 		return da;
 	}
 
-	// 통계 리스트 (최근 24시간)
+	// 올해 사업자문의 수
 	@Override
-	public DateAdmin selectStatisticsToday(SqlSessionTemplate sqlSession) throws ParkingCEOSelectListException {
+	public DateAdmin selectBoardCeoMonth(SqlSessionTemplate sqlSession) throws MainStatisticsException {
 		
-		DateAdmin da = sqlSession.selectOne("MemberAdmin.selectStatisticsToday");
+		DateAdmin da = sqlSession.selectOne("MainAdmin.selectBoardCeoMonth");
 		
 		if(da == null) {
-			throw new ParkingCEOSelectListException("통계 리스트 (최근 24시간) 조회 실패");
+			throw new MainStatisticsException("올해 사업자문의 수 조회 실패");
 		}
 		return da;
-	}*/
+	}
+
+	// 최근 7일 사업자문의 수
+	@Override
+	public DateAdmin selectBoardCeo7Days(SqlSessionTemplate sqlSession) throws MainStatisticsException {
+		
+		DateAdmin da = sqlSession.selectOne("MainAdmin.selectBoardCeo7Days");
+		
+		if(da == null) {
+			throw new MainStatisticsException("최근 7일 사업자문의 수 조회 실패");
+		}
+		return da;
+	}
+
+	// 올해 후기 수
+	@Override
+	public DateAdmin selectBoardReplyMonth(SqlSessionTemplate sqlSession) throws MainStatisticsException {
+		
+		DateAdmin da = sqlSession.selectOne("MainAdmin.selectBoardReplyMonth");
+		
+		if(da == null) {
+			throw new MainStatisticsException("올해 후기 수 조회 실패");
+		}
+		return da;
+	}
+
+	// 최근 7일 후기 수
+	@Override
+	public DateAdmin selectBoardReply7Days(SqlSessionTemplate sqlSession) throws MainStatisticsException {
+		
+		DateAdmin da = sqlSession.selectOne("MainAdmin.selectBoardReply7Days");
+		
+		if(da == null) {
+			throw new MainStatisticsException("최근 7일 후기 수 조회 실패");
+		}
+		return da;
+	}
+
+
+	//////////////////////////////////// 오늘 현황 /////////////////////////////////////////
+	// 환불신청
+	@Override
+	public int getRequestRefundListCount(SqlSessionTemplate sqlSession) throws MainStatisticsException {
+		int result = sqlSession.selectOne("MainAdmin.getRequestRefundListCount");
+		if(result <=0) {
+			throw new MainStatisticsException("환불신청 수 조회 실패!");
+		}
+		return result;
+	}
+
+	// 환전신청
+	@Override
+	public int getRequestExchangeListCount(SqlSessionTemplate sqlSession) throws MainStatisticsException {
+		int result = sqlSession.selectOne("MainAdmin.getRequestExchangeListCount");
+		if(result <=0) {
+			throw new MainStatisticsException("환전신청 수 조회 실패!");
+		}
+		return result;
+	}
+
+	// 사용자 회원가입 수 
+	@Override
+	public int getTodayCustomerListCount(SqlSessionTemplate sqlSession) throws MainStatisticsException {
+		int result = sqlSession.selectOne("MainAdmin.getTodayCustomerListCount");
+		if(result <=0) {
+			throw new MainStatisticsException("사용자 회원가입 수 조회 실패!");
+		}
+		return result;
+	}
+
+	// 사업자 회원가입 수
+	@Override
+	public int getTodayCeoListCount(SqlSessionTemplate sqlSession) throws MainStatisticsException {
+		int result = sqlSession.selectOne("MainAdmin.getTodayCeoListCount");
+		if(result <=0) {
+			throw new MainStatisticsException("사업자 회원가입 수 조회 실패!");
+		}
+		return result;
+	}
+
+	// 주차장 신청
+	@Override
+	public int getRequestParkingLotListCount(SqlSessionTemplate sqlSession) throws MainStatisticsException {
+		int result = sqlSession.selectOne("MainAdmin.getRequestParkingLotListCount");
+		if(result <=0) {
+			throw new MainStatisticsException("주차장 신청 수 조회 실패!");
+		}
+		return result;
+	}
+
+	// 매출
+	@Override
+	public int getProfit(SqlSessionTemplate sqlSession) throws MainStatisticsException {
+		int result = sqlSession.selectOne("MainAdmin.getProfit");
+		if(result <=0) {
+			throw new MainStatisticsException("매출 조회 실패!");
+		}
+		return result;
+	}
+
+	// 사업자문의 게시판
+	@Override
+	public int getTodayBoardCeo(SqlSessionTemplate sqlSession) throws MainStatisticsException {
+		int result = sqlSession.selectOne("MainAdmin.getTodayBoardCeo");
+		if(result <=0) {
+			throw new MainStatisticsException("사업자문의 게시판 수 조회 실패!");
+		}
+		return result;
+	}
+
+	// 관리자문의 게시판
+	@Override
+	public int getTodayBoardAdmin(SqlSessionTemplate sqlSession) throws MainStatisticsException {
+		int result = sqlSession.selectOne("MainAdmin.getTodayBoardAdmin");
+		if(result <=0) {
+			throw new MainStatisticsException("관리자문의 게시판 수 조회 실패!");
+		}
+		return result;
+	}
 
 }

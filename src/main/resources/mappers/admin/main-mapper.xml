@@ -53,6 +53,21 @@
 			<result property="time23" column="TIME23"/>	
 			<result property="time24" column="TIME24"/>	
 	</resultMap>
+	
+	<!-- ///////////////////////////// 회원 ////////////////////////////////// -->
+	<!-- 전체 사용자 회원 수 -->
+  	<select id="getCustomerListCount" resultType="_int">
+  		SELECT COUNT(*) 
+		FROM MEMBER
+		WHERE MEMBER_TYPE='U'
+  	</select>
+  	
+	<!-- 전체 사업자 회원 수 -->
+  	<select id="getCeoListCount" resultType="_int">
+  		SELECT COUNT(*) 
+		FROM MEMBER
+		WHERE MEMBER_TYPE='B'
+  	</select>
   
   	<!-- 올해 사용자 회원가입 수 -->
   	<select id="selectCustomerSignUpMonth" resultMap="DateAdminResultSet">		
@@ -114,6 +129,185 @@
 		FROM DUAL
   	</select>
   	
+	<!-- ///////////////////////////// 게시판 ////////////////////////////////// -->
+	<!-- 관리자문의 게시판 수 -->
+  	<select id="getBoardAdminListCount" resultType="_int">
+  		SELECT COUNT(*) 
+		FROM BOARD
+		WHERE BOARD_TYPE='관리자문의'
+  	</select>
+  	
+	<!-- 사업자문의 게시판 수 -->
+  	<select id="getBoardCeoListCount" resultType="_int">
+  		SELECT COUNT(*) 
+		FROM BOARD
+		WHERE BOARD_TYPE='사업자문의'
+  	</select>
+  	
+	<!-- 후기 게시판 수 -->
+  	<select id="getBoardReplyListCount" resultType="_int">
+  		SELECT COUNT(*) 
+		FROM BOARD
+		WHERE BOARD_TYPE='후기'
+  	</select>
+  	
+  	<!-- 올해 관리자문의 수 -->
+  	<select id="selectBoardAdminMonth" resultMap="DateAdminResultSet">		
+		SELECT  (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='관리자문의' AND TO_CHAR(CREATION_DATE, 'YYMM')='1901') AS JAN,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='관리자문의' AND TO_CHAR(CREATION_DATE, 'YYMM')='1902') AS FEB,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='관리자문의' AND TO_CHAR(CREATION_DATE, 'YYMM')='1903') AS MAR,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='관리자문의' AND TO_CHAR(CREATION_DATE, 'YYMM')='1904') AS APR,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='관리자문의' AND TO_CHAR(CREATION_DATE, 'YYMM')='1905') AS MAY,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='관리자문의' AND TO_CHAR(CREATION_DATE, 'YYMM')='1906') AS JUN,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='관리자문의' AND TO_CHAR(CREATION_DATE, 'YYMM')='1907') AS JUL,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='관리자문의' AND TO_CHAR(CREATION_DATE, 'YYMM')='1908') AS AUG,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='관리자문의' AND TO_CHAR(CREATION_DATE, 'YYMM')='1909') AS SEP,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='관리자문의' AND TO_CHAR(CREATION_DATE, 'YYMM')='1910') AS OCT,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='관리자문의' AND TO_CHAR(CREATION_DATE, 'YYMM')='1911') AS NOV,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='관리자문의' AND TO_CHAR(CREATION_DATE, 'YYMM')='1912') AS DEC
+		FROM DUAL
+  	</select>
+  	
+  	<!-- 최근 7일 관리자문의 수 -->
+  	<select id="selectBoardAdmin7Days" resultMap="DateAdminResultSet">		
+		SELECT  (SELECT NVL(COUNT(*),0) FROM BOARD WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(CREATION_DATE, 'YYYYMMDD')) = 0 AND BOARD_TYPE='관리자문의') AS DAYZERO,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(CREATION_DATE, 'YYYYMMDD')) = 1 AND BOARD_TYPE='관리자문의') AS DAYONE,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(CREATION_DATE, 'YYYYMMDD')) = 2 AND BOARD_TYPE='관리자문의') AS DAYTWO,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(CREATION_DATE, 'YYYYMMDD')) = 3 AND BOARD_TYPE='관리자문의') AS DAYTHREE,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(CREATION_DATE, 'YYYYMMDD')) = 4 AND BOARD_TYPE='관리자문의') AS DAYFOUR,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(CREATION_DATE, 'YYYYMMDD')) = 5 AND BOARD_TYPE='관리자문의') AS DAYFIVE,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(CREATION_DATE, 'YYYYMMDD')) = 6 AND BOARD_TYPE='관리자문의') AS DAYSIX,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(CREATION_DATE, 'YYYYMMDD')) = 7 AND BOARD_TYPE='관리자문의') AS DAYSEVEN
+		FROM DUAL
+  	</select>
+  	
+  	<!-- 올해 사업자문의 수 -->
+  	<select id="selectBoardCeoMonth" resultMap="DateAdminResultSet">		
+		SELECT  (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='사업자문의' AND TO_CHAR(CREATION_DATE, 'YYMM')='1901') AS JAN,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='사업자문의' AND TO_CHAR(CREATION_DATE, 'YYMM')='1902') AS FEB,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='사업자문의' AND TO_CHAR(CREATION_DATE, 'YYMM')='1903') AS MAR,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='사업자문의' AND TO_CHAR(CREATION_DATE, 'YYMM')='1904') AS APR,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='사업자문의' AND TO_CHAR(CREATION_DATE, 'YYMM')='1905') AS MAY,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='사업자문의' AND TO_CHAR(CREATION_DATE, 'YYMM')='1906') AS JUN,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='사업자문의' AND TO_CHAR(CREATION_DATE, 'YYMM')='1907') AS JUL,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='사업자문의' AND TO_CHAR(CREATION_DATE, 'YYMM')='1908') AS AUG,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='사업자문의' AND TO_CHAR(CREATION_DATE, 'YYMM')='1909') AS SEP,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='사업자문의' AND TO_CHAR(CREATION_DATE, 'YYMM')='1910') AS OCT,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='사업자문의' AND TO_CHAR(CREATION_DATE, 'YYMM')='1911') AS NOV,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='사업자문의' AND TO_CHAR(CREATION_DATE, 'YYMM')='1912') AS DEC
+		FROM DUAL
+  	</select>
+  	
+  	<!-- 최근 7일 사업자문의 수 -->
+  	<select id="selectBoardCeo7Days" resultMap="DateAdminResultSet">		
+		SELECT  (SELECT NVL(COUNT(*),0) FROM BOARD WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(CREATION_DATE, 'YYYYMMDD')) = 0 AND BOARD_TYPE='사업자문의') AS DAYZERO,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(CREATION_DATE, 'YYYYMMDD')) = 1 AND BOARD_TYPE='사업자문의') AS DAYONE,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(CREATION_DATE, 'YYYYMMDD')) = 2 AND BOARD_TYPE='사업자문의') AS DAYTWO,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(CREATION_DATE, 'YYYYMMDD')) = 3 AND BOARD_TYPE='사업자문의') AS DAYTHREE,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(CREATION_DATE, 'YYYYMMDD')) = 4 AND BOARD_TYPE='사업자문의') AS DAYFOUR,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(CREATION_DATE, 'YYYYMMDD')) = 5 AND BOARD_TYPE='사업자문의') AS DAYFIVE,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(CREATION_DATE, 'YYYYMMDD')) = 6 AND BOARD_TYPE='사업자문의') AS DAYSIX,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(CREATION_DATE, 'YYYYMMDD')) = 7 AND BOARD_TYPE='사업자문의') AS DAYSEVEN
+		FROM DUAL
+  	</select>
+  	
+  	<!-- 올해 후기 수 -->
+  	<select id="selectBoardReplyMonth" resultMap="DateAdminResultSet">		
+		SELECT  (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='후기' AND TO_CHAR(CREATION_DATE, 'YYMM')='1901') AS JAN,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='후기' AND TO_CHAR(CREATION_DATE, 'YYMM')='1902') AS FEB,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='후기' AND TO_CHAR(CREATION_DATE, 'YYMM')='1903') AS MAR,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='후기' AND TO_CHAR(CREATION_DATE, 'YYMM')='1904') AS APR,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='후기' AND TO_CHAR(CREATION_DATE, 'YYMM')='1905') AS MAY,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='후기' AND TO_CHAR(CREATION_DATE, 'YYMM')='1906') AS JUN,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='후기' AND TO_CHAR(CREATION_DATE, 'YYMM')='1907') AS JUL,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='후기' AND TO_CHAR(CREATION_DATE, 'YYMM')='1908') AS AUG,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='후기' AND TO_CHAR(CREATION_DATE, 'YYMM')='1909') AS SEP,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='후기' AND TO_CHAR(CREATION_DATE, 'YYMM')='1910') AS OCT,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='후기' AND TO_CHAR(CREATION_DATE, 'YYMM')='1911') AS NOV,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE BOARD_TYPE='후기' AND TO_CHAR(CREATION_DATE, 'YYMM')='1912') AS DEC
+		FROM DUAL
+  	</select>
+  	
+  	<!-- 최근 7일 후기 수 -->
+  	<select id="selectBoardReply7Days" resultMap="DateAdminResultSet">		
+		SELECT  (SELECT NVL(COUNT(*),0) FROM BOARD WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(CREATION_DATE, 'YYYYMMDD')) = 0 AND BOARD_TYPE='후기') AS DAYZERO,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(CREATION_DATE, 'YYYYMMDD')) = 1 AND BOARD_TYPE='후기') AS DAYONE,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(CREATION_DATE, 'YYYYMMDD')) = 2 AND BOARD_TYPE='후기') AS DAYTWO,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(CREATION_DATE, 'YYYYMMDD')) = 3 AND BOARD_TYPE='후기') AS DAYTHREE,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(CREATION_DATE, 'YYYYMMDD')) = 4 AND BOARD_TYPE='후기') AS DAYFOUR,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(CREATION_DATE, 'YYYYMMDD')) = 5 AND BOARD_TYPE='후기') AS DAYFIVE,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(CREATION_DATE, 'YYYYMMDD')) = 6 AND BOARD_TYPE='후기') AS DAYSIX,
+		            (SELECT NVL(COUNT(*),0) FROM BOARD WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(CREATION_DATE, 'YYYYMMDD')) = 7 AND BOARD_TYPE='후기') AS DAYSEVEN
+		FROM DUAL
+  	</select>
+  	
+  	<!-- //////////////////////////// 오늘 통계 ///////////////////////////// -->
+  	<!-- 환불신청. -->
+  	<select id="getRequestRefundListCount" resultType="_int">
+		SELECT (SELECT NVL(COUNT(*),0) 
+                    FROM EXCHANGE 
+                    WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(APPLICATION_DATE, 'YYYYMMDD')) = 0 AND STATUS='환불진행중') AS DAYZERO
+		FROM DUAL
+  	</select>
+  	
+  	<!-- 환전신청. -->
+  	<select id="getRequestExchangeListCount" resultType="_int">
+		SELECT (SELECT NVL(COUNT(*),0) 
+                    FROM EXCHANGE 
+                    WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(APPLICATION_DATE, 'YYYYMMDD')) = 0 AND STATUS='환전진행중') AS DAYZERO
+		FROM DUAL
+  	</select>
+  	
+  	<!-- 사용자 회원가입 수. -->
+  	<select id="getTodayCustomerListCount" resultType="_int">
+        SELECT (SELECT NVL(COUNT(*),0) 
+                     FROM MEMBER 
+                     WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(ENROLL_DATE, 'YYYYMMDD')) = 0 AND MEMBER_TYPE='U') AS DAYZERO
+		FROM DUAL        
+  	</select>
+  	
+  	<!-- 사업자 회원가입 수. -->
+  	<select id="getTodayCeoListCount" resultType="_int">
+        SELECT (SELECT NVL(COUNT(*),0) 
+                     FROM MEMBER 
+                     WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(ENROLL_DATE, 'YYYYMMDD')) = 0 AND MEMBER_TYPE='B') AS DAYZERO
+		FROM DUAL        
+  	</select>
+  	
+  	<!-- 주차장 신청 -->
+  	<select id="getRequestParkingLotListCount" resultType="_int">
+  		SELECT (SELECT NVL(COUNT(*),0) 
+                     FROM PARKING_LIST 
+                     WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(MODIFY_DATE, 'YYYYMMDD')) = 0 AND PARKING_LIST_STATUS='변경중') AS DAYZERO
+		FROM DUAL 
+  	</select>
+  	
+  	<!-- 매출. -->
+  	<select id="getProfit" resultType="_int">
+  		SELECT ((SELECT NVL(SUM(OIL),0) 
+                     FROM OIL_LIST 
+                     WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(OIL_LIST_DATE, 'YYYYMMDD')) = 0 AND OIL_LIST_TYPE='충전') 
+                                  - (SELECT NVL(SUM(OIL),0) 
+                                     FROM OIL_LIST 
+                                     WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(OIL_LIST_DATE, 'YYYYMMDD')) = 0 AND OIL_LIST_TYPE='결제취소')) AS DAYZERO
+		FROM DUAL
+  	</select>
+  	
+  	<!-- 사업자문의 게시판. -->
+  	<select id="getTodayBoardCeo" resultType="_int">  		
+        SELECT  (SELECT NVL(COUNT(*),0) 
+                     FROM BOARD 
+                     WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(CREATION_DATE, 'YYYYMMDD')) = 0 AND BOARD_TYPE='사업자문의') AS DAYZERO
+		FROM DUAL
+  	</select>
+  	
+  	<!-- 관리자문의 게시판. -->
+  	<select id="getTodayBoardAdmin" resultType="_int">
+  		SELECT  (SELECT NVL(COUNT(*),0) 
+                     FROM BOARD 
+                     WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(CREATION_DATE, 'YYYYMMDD')) = 0 AND BOARD_TYPE='관리자문의') AS DAYZERO
+		FROM DUAL
+  	</select>
   	
   	
   </mapper>
