@@ -1233,6 +1233,9 @@
 	
 	//출차 메소드
 	function acceptOutputCar(){
+		//주차장 데이터 가져오기
+		var selectParkingBox = $("#inputGroupSelect01 option:selected").val();
+		
 		var regExp2 = /\d{1,3}[-]\d{1,4}[-]\d{1,4}/g;
 		phone = $("#nonMemberPhone2").val();
 		if($("#nonMemberPhone2").val() == ""){
@@ -1252,8 +1255,21 @@
 		
 		//출차모달에 넣을 데이터 조회
 		
+		$.ajax({
+			url:"",
+			type:"post",
+			data:{selectParkingBox:selectParkingBox,phone:phone},
+			success:function(data){
+				console.log(data);
+			},
+			error:function(data){
+				console.log("데이터 통신 실패");
+			}
+		});
 		
-		$("#updateModal").click();
+		
+		
+		/* $("#updateModal").click(); */
 	}
 	
 	
