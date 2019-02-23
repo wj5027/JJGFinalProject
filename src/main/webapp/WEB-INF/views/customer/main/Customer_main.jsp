@@ -279,7 +279,6 @@
            
            
            <script type='text/javascript'>
-           
            //사진 클릭시 사진 보여주기 함수
            
            function onparkingImgs(){
@@ -458,8 +457,12 @@
 		 
 		 
 		  /*@@@@@@@@@@@@@@@@@움직 일때 마다 내위치 마커 이동 @@@@@@@@@@@@@@@@@@@@@@@@@  */
+		  /*02/24 검색 결과나 쿠폰 위치조회에서  요청이 있을 때 해당 request 값의 위치로 지도를 띄움 추가*/
 				// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
 				var count=1;
+		  
+        	    
+
 				if (navigator.geolocation) {
 				    console.log("지오로케이션사용");
 				    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
@@ -467,6 +470,8 @@
 				        console.log("움직였음."+count);
 				        var lat = position.coords.latitude, // 위도
 				            lon = position.coords.longitude; // 경도
+				        globalVarLat = position.coords.latitude;
+				        globalVarLon = position.coords.longitude;
 				        console.log(lat+","+lon);
 				        var locPosition = new daum.maps.LatLng(lat, lon); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
 				          
@@ -478,17 +483,28 @@
 				        }
 				        count++;
 					/* displayMarker(locPosition, message); */
-				            
-				      });
+						if ('${ empty requestLat }' == 'true') {
+							
+						} else {
+				    	    // 만약 검색이나 쿠폰의 위치 조회를 통해서 지도를 볼 때
+				    	    // 위치정보를 받았을 경우 내 위치가 아닌 주차장의 위치로 화면을 이동시킴
+							var moveLatLon = new daum.maps.LatLng('${ requestLat }', '${ requestlon }');
+							map.panTo(moveLatLon);
+						}
+	
+					});
 				}
-				
 				//@@@@@@@@@@@@@@@@@내위치 잦기@@@@@@@@@@@@@@@@@
 			    function span_myP(){
-		        	   var moveLatLon = mypositionMarker.getPosition();
+		        		
 		        	    // 지도 중심을 부드럽게 이동시킵니다
 		        	    // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
-		        	    map.panTo(moveLatLon);            
-		           }
+		        	    
+		        	    var moveLatLon = mypositionMarker.getPosition();
+		        	    	map.panTo(moveLatLon);
+		        	    
+		        	    
+		        }
 		          
 				
 				//@@@@@@@@@@@@@@@@@@@@@네비게이션@@@@@@@@@@@@@@@@@@
@@ -1031,7 +1047,7 @@
 	          </div>
 	          <div style="font-size: 1em;color: wheat;">
 	           <span>현재 보유오일 :</span>
-	          <span id="oilmount">${ loginUser.oil }</span>
+	          <span id="oilmount">${ UserOilInfo }</span>
 	          </div>
           </c:if>
           

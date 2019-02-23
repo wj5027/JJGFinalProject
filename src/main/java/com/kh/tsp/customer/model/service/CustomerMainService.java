@@ -1,6 +1,5 @@
 package com.kh.tsp.customer.model.service;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -22,9 +21,9 @@ public interface CustomerMainService {
 
 	ArrayList<Parking> getnearParkings(Points p);
 
-	HashMap<String, Parking> searchVoiceParking(String keyword, String type);
+	HashMap<String, Parking> searchVoiceParking(HashMap<String, String> mapKeyword, String type);
 
-	HashMap<String, Parking> selectSearchTextParking(String keyword);
+	HashMap<String, Parking> selectSearchTextParking(HashMap<String, String> mapKeyword);
 
 
 	ArrayList<Reservation> selectShowReserv(Member member, PageInfo pi);
@@ -93,6 +92,10 @@ public interface CustomerMainService {
 	ArrayList<ParkingCeoAttachmentVo> selectParkingImg(String pno);
 
 	Member getRefreshMember(Member m);
+
+	void insertCancelReserveOilList(Reservation reserv);
+
+	String selectReservDay(int parseInt);
 
 
 

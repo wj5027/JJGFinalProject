@@ -154,25 +154,124 @@
 	
 	</select>
 	
-	<select id="searchLocalParkings" resultMap="parkingResultSet" parameterType="String">
-		SELECT * FROM parking
-		WHERE status = 'Y'
-		AND address LIKE '%' || #{keyword} || '%'
+	<select id="searchLocalParkings" resultMap="parkingResultSet" parameterType="hashmap">
+		<![CDATA[
+		SELECT PARKING_NO ,
+		PARKING_NAME ,
+		OPERATE_TYPE ,
+		PARKING_TYPE ,
+		ROAD_ADDRESS ,
+		ADDRESS ,
+		PARKING_SIZE ,
+		OPEN_DAYS ,
+		WEEKDAY_STIME ,
+		WEEKDAY_ETIME ,
+		SAT_STIME ,
+		SAT_ETIME ,
+		HOLIDAY_STIME ,
+		HOLIDAY_ETIME ,
+		PRICE_INFO ,
+		PARKING_NTIME ,
+		PARKING_NPRICE ,
+		PARKING_ATIME ,
+		PARKING_APRICE ,
+		PAY_TYPE ,
+		REMARKS ,
+		LATITUDE ,
+		LONGITUDE ,
+		PARKING_MANGEMENT ,
+		MANAGEMENT_TEL ,
+		MEMBER_NO ,
+		LEFT_SIZE ,
+		STATUS ,
+		ALLIANCE_DATE,
+		TO_NUMBER(NVL(LATITUDE, 60)) - TO_NUMBER(#{ lat }) AS POSITION_RESULT_LAT,
+		TO_NUMBER(NVL(LONGITUDE, 160)) - TO_NUMBER(#{ lon }) AS POSITION_RESULT_LON
+			FROM PARKING
+			WHERE STATUS='Y'
+			AND TO_NUMBER(NVL(LATITUDE, 60)) - TO_NUMBER(#{ lat }) >= - 0.03 AND TO_NUMBER(NVL(LATITUDE, 60)) - TO_NUMBER(#{ lat }) <= 0.03
+			AND TO_NUMBER(NVL(LONGITUDE, 160)) - TO_NUMBER(#{ lon }) >= - 0.03 AND TO_NUMBER(NVL(LONGITUDE, 160)) - TO_NUMBER(#{ lon }) <= 0.03
+	        ORDER BY POSITION_RESULT_LAT DESC, POSITION_RESULT_LON DESC
+		]]>
 	</select>
 	
 	<!-- 사용자 - 주차장 이름 기준 검색 -->
-	<select id="selectSearchTitleParking" resultMap="parkingResultSet" parameterType="string">
-		SELECT *
-		FROM PARKING
-		WHERE STATUS='Y'
-		AND parking_name LIKE '%' || #{keyword} || '%'
+	<select id="selectSearchTitleParking" resultMap="parkingResultSet" parameterType="hashmap">
+		SELECT PARKING_NO ,
+		PARKING_NAME ,
+		OPERATE_TYPE ,
+		PARKING_TYPE ,
+		ROAD_ADDRESS ,
+		ADDRESS ,
+		PARKING_SIZE ,
+		OPEN_DAYS ,
+		WEEKDAY_STIME ,
+		WEEKDAY_ETIME ,
+		SAT_STIME ,
+		SAT_ETIME ,
+		HOLIDAY_STIME ,
+		HOLIDAY_ETIME ,
+		PRICE_INFO ,
+		PARKING_NTIME ,
+		PARKING_NPRICE ,
+		PARKING_ATIME ,
+		PARKING_APRICE ,
+		PAY_TYPE ,
+		REMARKS ,
+		LATITUDE ,
+		LONGITUDE ,
+		PARKING_MANGEMENT ,
+		MANAGEMENT_TEL ,
+		MEMBER_NO ,
+		LEFT_SIZE ,
+		STATUS ,
+		ALLIANCE_DATE,
+		TO_NUMBER(NVL(LATITUDE, 60)) - TO_NUMBER(#{ lat }) AS POSITION_RESULT_LAT,
+		TO_NUMBER(NVL(LONGITUDE, 160)) - TO_NUMBER(#{ lon }) AS POSITION_RESULT_LON
+			FROM PARKING
+			WHERE STATUS='Y'
+			AND parking_name LIKE '%' || #{ keyword } || '%'
+	        ORDER BY POSITION_RESULT_LAT DESC, POSITION_RESULT_LON DESC
 	</select>
 	
 	<!-- 사용자 - 주차장 주소 기준 검색 -->
 	<select id="searchAddrParking" resultMap="parkingResultSet" parameterType="String">
-		SELECT * FROM parking
-		WHERE status = 'Y'
-		AND address LIKE '%' || #{keyword} || '%'
+		SELECT PARKING_NO ,
+		PARKING_NAME ,
+		OPERATE_TYPE ,
+		PARKING_TYPE ,
+		ROAD_ADDRESS ,
+		ADDRESS ,
+		PARKING_SIZE ,
+		OPEN_DAYS ,
+		WEEKDAY_STIME ,
+		WEEKDAY_ETIME ,
+		SAT_STIME ,
+		SAT_ETIME ,
+		HOLIDAY_STIME ,
+		HOLIDAY_ETIME ,
+		PRICE_INFO ,
+		PARKING_NTIME ,
+		PARKING_NPRICE ,
+		PARKING_ATIME ,
+		PARKING_APRICE ,
+		PAY_TYPE ,
+		REMARKS ,
+		LATITUDE ,
+		LONGITUDE ,
+		PARKING_MANGEMENT ,
+		MANAGEMENT_TEL ,
+		MEMBER_NO ,
+		LEFT_SIZE ,
+		STATUS ,
+		ALLIANCE_DATE,
+		TO_NUMBER(NVL(LATITUDE, 60)) - TO_NUMBER(#{ lat }) AS POSITION_RESULT_LAT,
+		TO_NUMBER(NVL(LONGITUDE, 160)) - TO_NUMBER(#{ lon }) AS POSITION_RESULT_LON
+			FROM PARKING
+			WHERE STATUS='Y'
+			AND address LIKE '%' || #{keyword} || '%'
+	        ORDER BY POSITION_RESULT_LAT DESC, POSITION_RESULT_LON DESC
+
 	</select>
 	
 	<!-- 사용자 - 주차장 검색 갯수 조회 -->
@@ -593,6 +692,24 @@
 		SELECT * 
 		FROM MEMBER
 		WHERE member_no = #{ member_no }
+	</select>
+	
+	<!-- 사용자 - 예약 취소 시 환불되면 Oil List에 기록 남김 -->
+	<insert id="insertCancelReserveOilList" parameterType="Reservation">
+		INSERT INTO oil_list
+		VALUES (OIL_LIST_SEQ.NEXTVAL, 
+				'예약취소',
+				SYSDATE,
+				(SELECT parking_nprice * 3 FROM parking WHERE parking_no = (SELECT parking_no FROM parking_reservation WHERE res_no = #{ resNo })),
+				#{ memberNo },
+				(SELECT parking_no FROM parking_reservation WHERE res_no = #{ resNo }),
+				#{ resNo },
+				null,null)
+	</insert>
+	
+	<!-- 사용자 - 예약 상태 조회 -->
+	<select id="selectReservDay" resultType="String" parameterType="int">
+		SELECT status FROM parking_reservation WHERE res_no = #{ resDate }
 	</select>
 	
 </mapper>

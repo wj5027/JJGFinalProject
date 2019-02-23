@@ -25,6 +25,7 @@ import com.kh.tsp.common.Pagination;
 import com.kh.tsp.customer.model.exception.BoardSelectListException;
 import com.kh.tsp.customer.model.service.BoardService;
 import com.kh.tsp.customer.model.service.BoardServiceImpl;
+import com.kh.tsp.customer.model.service.CustomerMainService;
 import com.kh.tsp.customer.model.vo.Board;
 import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.customer.model.vo.Reply;
@@ -34,7 +35,8 @@ import com.kh.tsp.customer.model.vo.Reply;
 public class CustomerBoard {
 	@Autowired
 	private BoardService bs;
-	
+	@Autowired
+	private CustomerMainService cms;
 	
 	public CustomerBoard() {
 		
@@ -42,7 +44,7 @@ public class CustomerBoard {
 	
 	@RequestMapping(value="/customerNotice.cu", method=RequestMethod.GET)
 	public String CustomerNotice(Board b, Model model,HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response, HttpSession session) {
 		/*List<Board> list = bs.selectNoticeList(b);
 		model.addAttribute("list", list);
 		
@@ -60,7 +62,13 @@ public class CustomerBoard {
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 				
 		ArrayList<Board> list = bs.selectNoticeList(pi);
-				
+		
+		// 오일 조회
+		if ((Member)session.getAttribute("loginUser") != null) {
+			int UserOilInfo = Integer.parseInt(cms.getRefreshMember((Member)session.getAttribute("loginUser")).getOil());
+			
+			request.setAttribute("UserOilInfo", UserOilInfo);
+		}
 
 		if(list == null) {
 			model.addAttribute("msg", "공지 목록 불러오기 실패");
@@ -120,6 +128,13 @@ public class CustomerBoard {
 		ArrayList<Board> list = bs.selectReviewList(pi, mno);
 		System.out.println("컨트롤러 list: "+list);
 
+		// 오일 조회
+		if ((Member)session.getAttribute("loginUser") != null) {
+			int UserOilInfo = Integer.parseInt(cms.getRefreshMember((Member)session.getAttribute("loginUser")).getOil());
+			
+			request.setAttribute("UserOilInfo", UserOilInfo);
+		}
+		
 		if(list == null) {
 			request.setAttribute("msg", "후기 목록 불러오기 실패");
 			return "common/errorPage";
@@ -157,7 +172,13 @@ public class CustomerBoard {
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 				
 		ArrayList<Board> list = bs.selectQnaList(pi, mno);
-				
+		
+		// 오일 조회
+		if ((Member)session.getAttribute("loginUser") != null) {
+			int UserOilInfo = Integer.parseInt(cms.getRefreshMember((Member)session.getAttribute("loginUser")).getOil());
+			
+			request.setAttribute("UserOilInfo", UserOilInfo);
+		}
 
 		if(list == null) {
 			request.setAttribute("message", "문의 목록 불러오기 실패");
@@ -174,7 +195,7 @@ public class CustomerBoard {
 	
 	//공지사항 수정용1
 	@RequestMapping(value="/updateNotice.cu")
-	public String updateNotice(HttpServletRequest request, HttpServletResponse response) {
+	public String updateNotice(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		int bno = Integer.parseInt(request.getParameter("num"));
 		
 		System.out.println("수정 서블릿1 bno : "+bno);
@@ -183,12 +204,19 @@ public class CustomerBoard {
 		
 		request.setAttribute("b", b);
 		
+		// 오일 조회
+		if ((Member)session.getAttribute("loginUser") != null) {
+			int UserOilInfo = Integer.parseInt(cms.getRefreshMember((Member)session.getAttribute("loginUser")).getOil());
+			
+			request.setAttribute("UserOilInfo", UserOilInfo);
+		}
+		
 		return "customer/board/Customer_notice_edit";
 	}
 	
 	//공지사항 수정용2
 	@RequestMapping(value="/updateNotice2.cu")
-	public String updateNotice2(HttpServletRequest request, HttpServletResponse response) {
+	public String updateNotice2(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		int bno = Integer.parseInt(request.getParameter("bno"));
 		System.out.println("수정 서블릿2 bno : "+bno);
 	
@@ -203,7 +231,12 @@ public class CustomerBoard {
 		b.setbTitle(title);
 		b.setbContext(content);
 		
-		
+		// 오일 조회
+		if ((Member)session.getAttribute("loginUser") != null) {
+			int UserOilInfo = Integer.parseInt(cms.getRefreshMember((Member)session.getAttribute("loginUser")).getOil());
+			
+			request.setAttribute("UserOilInfo", UserOilInfo);
+		}
 		
 		int result = bs.updateNotice2(b);
 		System.out.println("servlet2 result : "+result);
@@ -314,7 +347,7 @@ public class CustomerBoard {
 	
 	//문의 수정1
 	@RequestMapping(value="/updateQna.cu")
-	public String updateQna(HttpServletRequest request, HttpServletResponse response) {
+	public String updateQna(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		int bno = Integer.parseInt(request.getParameter("num"));
 		
 		System.out.println("수정 서블릿1 bno : "+bno);
@@ -322,6 +355,13 @@ public class CustomerBoard {
 		Board b = bs.updateQna(bno);
 		
 		request.setAttribute("b", b);
+		
+		// 오일 조회
+		if ((Member)session.getAttribute("loginUser") != null) {
+			int UserOilInfo = Integer.parseInt(cms.getRefreshMember((Member)session.getAttribute("loginUser")).getOil());
+			
+			request.setAttribute("UserOilInfo", UserOilInfo);
+		}
 		
 		return "customer/board/My_qna_edit";
 		
@@ -419,7 +459,7 @@ public class CustomerBoard {
 	
 	//후기 수정1
 	@RequestMapping(value="/updateReview.cu")
-	public String updateReview(String num, Model model) {
+	public String updateReview(String num, Model model, HttpSession session, HttpServletRequest request) {
 		int bno = Integer.parseInt(num);
 		
 		System.out.println("후기 수정 서블릿1 bno : "+bno);
@@ -427,6 +467,13 @@ public class CustomerBoard {
 		Board b = bs.updateReview(bno);
 		
 		model.addAttribute("b", b);
+		
+		// 오일 조회
+		if ((Member)session.getAttribute("loginUser") != null) {
+			int UserOilInfo = Integer.parseInt(cms.getRefreshMember((Member)session.getAttribute("loginUser")).getOil());
+			
+			request.setAttribute("UserOilInfo", UserOilInfo);
+		}
 		
 		return "customer/board/My_review_edit";
 		
@@ -489,7 +536,12 @@ public class CustomerBoard {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		//String mno = Integer.toString(loginUser.getMember_no());
 		
-		
+		// 오일 조회
+		if ((Member)session.getAttribute("loginUser") != null) {
+			int UserOilInfo = Integer.parseInt(cms.getRefreshMember((Member)session.getAttribute("loginUser")).getOil());
+			
+			request.setAttribute("UserOilInfo", UserOilInfo);
+		}
 		
 		int currentPage = 1;
 						 
@@ -548,7 +600,12 @@ public class CustomerBoard {
 		int listCount = bs.getReviewListCount(pno);
 		System.out.println("주차장 후기 전체게시글 수 : "+listCount);
 
-		
+		// 오일 조회
+		if ((Member)session.getAttribute("loginUser") != null) {
+			int UserOilInfo = Integer.parseInt(cms.getRefreshMember((Member)session.getAttribute("loginUser")).getOil());
+			
+			request.setAttribute("UserOilInfo", UserOilInfo);
+		}
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 						
@@ -618,7 +675,7 @@ public class CustomerBoard {
 	
 	//주차장 후기 수정1
 		@RequestMapping(value="/updateParkingReview.cu")
-		public String updateParkingReview(String num, String pno, Model model) {
+		public String updateParkingReview(String num, String pno, Model model, HttpSession session, HttpServletRequest request) {
 			int bno = Integer.parseInt(num);			
 			System.out.println("주차장 후기 수정 서블릿1 bno : "+bno);
 			
@@ -628,6 +685,13 @@ public class CustomerBoard {
 			
 			model.addAttribute("b", b);
 			model.addAttribute("pno", pno);
+			
+			// 오일 조회
+			if ((Member)session.getAttribute("loginUser") != null) {
+				int UserOilInfo = Integer.parseInt(cms.getRefreshMember((Member)session.getAttribute("loginUser")).getOil());
+				
+				request.setAttribute("UserOilInfo", UserOilInfo);
+			}
 			
 			return "customer/board/Parking_review_edit";
 			
@@ -681,7 +745,7 @@ public class CustomerBoard {
 		
 	//주차장 문의 수정1(상세보기)
 		@RequestMapping(value="/updateParkingQna.cu")
-		public String updateParkingQna(String num, String pno, HttpServletRequest request, HttpServletResponse response) {
+		public String updateParkingQna(String num, String pno, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 			int bno = Integer.parseInt(request.getParameter("num"));
 			
 			System.out.println("주차장 문의 수정 서블릿1 bno : "+bno);
@@ -690,6 +754,13 @@ public class CustomerBoard {
 			
 			request.setAttribute("b", b);
 			request.setAttribute("pno", pno);
+			
+			// 오일 조회
+			if ((Member)session.getAttribute("loginUser") != null) {
+				int UserOilInfo = Integer.parseInt(cms.getRefreshMember((Member)session.getAttribute("loginUser")).getOil());
+				
+				request.setAttribute("UserOilInfo", UserOilInfo);
+			}
 			
 			return "customer/board/Parking_qna_edit";
 			

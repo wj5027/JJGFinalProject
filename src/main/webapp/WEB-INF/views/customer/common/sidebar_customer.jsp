@@ -100,7 +100,7 @@
           </li>           
         </ul>
         <script>
-        var oilSelectMemberNo = ${member_no};
+        var oilSelectMemberNo = ${loginUser.member_no};
         $(function(){
          $(".nav").children("li").mouseover(function(){
         	 $(this).attr("class","active");

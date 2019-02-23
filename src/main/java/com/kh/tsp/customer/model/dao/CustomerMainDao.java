@@ -21,11 +21,11 @@ public interface CustomerMainDao {
 
 	ArrayList<Parking> selectnearParkings(Points p, SqlSessionTemplate sqlSession);
 
-	HashMap<String, Parking> searchVoiceLocalParking(SqlSessionTemplate sqlSession, String keyword);
+	HashMap<String, Parking> searchVoiceLocalParking(SqlSessionTemplate sqlSession, HashMap<String, String> mapKeyword);
 
-	HashMap<String, Parking> searchVoiceNearParking(SqlSessionTemplate sqlSession, double lat, double lon);
+	HashMap<String, Parking> searchVoiceNearParking(SqlSessionTemplate sqlSession, HashMap<String, String> mapKeyword);
 
-	HashMap<String, Parking> selectSearchTextParking(SqlSessionTemplate sqlSession, String keyword);
+	HashMap<String, Parking> selectSearchTextParking(SqlSessionTemplate sqlSession, HashMap<String, String> mapKeyword);
 	
 	int selectSearchTextCount(SqlSessionTemplate sqlSession, String keyword);
 
@@ -101,6 +101,10 @@ public interface CustomerMainDao {
 	ArrayList<ParkingCeoAttachmentVo> selectParkingImg(SqlSessionTemplate sqlSession, String pno);
 
 	Member getRefreshMember(SqlSessionTemplate sqlSession, Member m);
+
+	void insertCancelReserveOilList(SqlSessionTemplate sqlSession, Reservation reserv);
+
+	String selectReservDay(SqlSessionTemplate sqlSession, int resDate);
 
 	
 	

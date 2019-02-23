@@ -27,7 +27,7 @@
 					<tr>
 						<td colspan="1" style="text-align: left;"><b>내 오일</b></td>
 						<td colspan="1"><b></b></td>
-						<td colspan="1"style="text-align: right;"><b><fmt:formatNumber value="${ loginUser.oil }" groupingUsed="true"></fmt:formatNumber>L</b></td>
+						<td colspan="1"style="text-align: right;"><b><fmt:formatNumber value="${ UserOilInfo }" groupingUsed="true"></fmt:formatNumber>L</b></td>
 					</tr>
 					<tr>
 						<td colspan="3">
@@ -116,7 +116,7 @@
 					<tr>
 						<td colspan="2" style="text-align: left;"><b>내 오일</b></td>
 						<td colspan="2"><b></b></td>
-						<td colspan="2"style="text-align: right;"><b><fmt:formatNumber value="${ loginUser.oil }" groupingUsed="true"></fmt:formatNumber>L</b></td>
+						<td colspan="2"style="text-align: right;"><b><fmt:formatNumber value="${ UserOilInfo }" groupingUsed="true"></fmt:formatNumber>L</b></td>
 					</tr>
 					<tr id="showChargeView" style="display: none;">
 						<td colspan="2" style="text-align: left;"><b>결제금액</b></td>
@@ -171,7 +171,7 @@
 					<tr>
 						<td colspan="2" style="text-align: left;"><b>내 오일</b></td>
 						<td colspan="2"><b></b></td>
-						<td colspan="2"style="text-align: right;"><b><fmt:formatNumber value="${ loginUser.oil }" groupingUsed="true"></fmt:formatNumber>L</b></td>
+						<td colspan="2"style="text-align: right;"><b><fmt:formatNumber value="${ UserOilInfo }" groupingUsed="true"></fmt:formatNumber>L</b></td>
 					</tr>
 					<tr id="showRefundView" style="display: none;">
 						<td colspan="2" style="text-align: left;"><b>환불 할 오일</b></td>
@@ -200,7 +200,7 @@
 							<br>
 							<button class="btn btn-info animation-on-hover" type="button" onclick="backTableRefundList()">취소</button>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<button class='btn btn-info animation-on-hover' data-toggle='modal' onclick="refundNo(${ loginUser.member_no }, ${ loginUser.oil })" data-target='.cancle_pay'>환불신청</button>
+							<button class='btn btn-info animation-on-hover' data-toggle='modal' onclick="refundNo(${ loginUser.member_no }, ${ UserOilInfo })" data-target='.cancle_pay'>환불신청</button>
 							<br><br><br>
 							<div style="text-align: left;">
 								<p style="color: red;">미사용 오일 환불 안내</p><br>

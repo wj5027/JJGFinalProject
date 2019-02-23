@@ -46,6 +46,12 @@ public class CustomerCoupon {
 			System.out.println("로그인 정보가 없습니다!");
 		}
 		
+		if ((Member)session.getAttribute("loginUser") != null) {
+			int UserOilInfo = Integer.parseInt(cms.getRefreshMember((Member)session.getAttribute("loginUser")).getOil());
+			
+			request.setAttribute("UserOilInfo", UserOilInfo);
+		}
+		
 		return "customer/member/Customer_coupon";
 	}
 	

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.kh.tsp.customer.model.service.BoardService;
+import com.kh.tsp.customer.model.service.CustomerMainService;
 import com.kh.tsp.customer.model.vo.Board;
 import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.customer.model.vo.Reply;
@@ -22,11 +23,13 @@ import com.kh.tsp.customer.model.vo.Reply;
 public class CustomerBoardDetail {
 	@Autowired
 	private BoardService bs;
+	@Autowired
+	private CustomerMainService cms;
 	
 	public CustomerBoardDetail() {}
 	//공지사항 상세보기
 	@RequestMapping(value="customerNoticeDetail.cu", method=RequestMethod.GET)
-	public String CustomerNoticeDetail(HttpServletRequest request, HttpServletResponse response) {
+	public String CustomerNoticeDetail(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 		int bno = Integer.parseInt(request.getParameter("num"));
 		
 		System.out.println("bno: "+bno);
@@ -34,11 +37,19 @@ public class CustomerBoardDetail {
 		Board b = bs.selectOneNotice(bno); 
 		
 		request.setAttribute("b", b);
+		
+		// 오일 조회
+		if ((Member)session.getAttribute("loginUser") != null) {
+			int UserOilInfo = Integer.parseInt(cms.getRefreshMember((Member)session.getAttribute("loginUser")).getOil());
+			
+			request.setAttribute("UserOilInfo", UserOilInfo);
+		}
+		
 		return "customer/board/Customer_notice_detail";
 	}
 	//후기 상세보기
 	@RequestMapping(value="reviewDetail.cu", method=RequestMethod.GET)
-	public String MyReviewDetail(String num, Model model) {
+	public String MyReviewDetail(String num, Model model, HttpSession session, HttpServletRequest request) {
 		
 		int bno = Integer.parseInt(num);
 		
@@ -48,12 +59,19 @@ public class CustomerBoardDetail {
 		
 		model.addAttribute("b", b);
 		
+		// 오일 조회
+		if ((Member)session.getAttribute("loginUser") != null) {
+			int UserOilInfo = Integer.parseInt(cms.getRefreshMember((Member)session.getAttribute("loginUser")).getOil());
+			
+			request.setAttribute("UserOilInfo", UserOilInfo);
+		}
+		
 		return "customer/board/My_review_detail";
 	}
 	
 	//내 문의 상세보기
 	@RequestMapping(value="qnaDetail.cu", method=RequestMethod.GET)
-	public String MyQnaDetail(Board b,HttpServletRequest request, HttpServletResponse response) {
+	public String MyQnaDetail(Board b,HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		int bno = Integer.parseInt(request.getParameter("num"));
 		System.out.println("문의상세보기 서블릿 bno: "+bno);
 	
@@ -73,13 +91,19 @@ public class CustomerBoardDetail {
 			return "common/errorPage";
 		}
 		
+		// 오일 조회
+		if ((Member)session.getAttribute("loginUser") != null) {
+			int UserOilInfo = Integer.parseInt(cms.getRefreshMember((Member)session.getAttribute("loginUser")).getOil());
+			
+			request.setAttribute("UserOilInfo", UserOilInfo);
+		}
 
 		return "customer/board/My_qna_detail";
 	}
 	
 	//주차장 문의(사업자문의) 상세보기
 	@RequestMapping(value="parkingQnaDetail.cu", method=RequestMethod.GET)
-	public String ParkingQnaDetail(HttpServletRequest request, HttpServletResponse response) {
+	public String ParkingQnaDetail(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		int bno = Integer.parseInt(request.getParameter("num"));
 		System.out.println("주차장 문의상세보기 서블릿 bno: "+bno);
 		
@@ -104,6 +128,12 @@ public class CustomerBoardDetail {
 		request.setAttribute("b", b);
 		request.setAttribute("pno", pno);
 		
+		// 오일 조회
+		if ((Member)session.getAttribute("loginUser") != null) {
+			int UserOilInfo = Integer.parseInt(cms.getRefreshMember((Member)session.getAttribute("loginUser")).getOil());
+			
+			request.setAttribute("UserOilInfo", UserOilInfo);
+		}
 		
 		return "customer/board/Parking_qna_detail";
 	}
@@ -140,6 +170,13 @@ public class CustomerBoardDetail {
 		request.setAttribute("b", b);
 		request.setAttribute("pno", pno);
 		request.setAttribute("loginUser", loginUser);
+		
+		// 오일 조회
+		if ((Member)session.getAttribute("loginUser") != null) {
+			int UserOilInfo = Integer.parseInt(cms.getRefreshMember((Member)session.getAttribute("loginUser")).getOil());
+			
+			request.setAttribute("UserOilInfo", UserOilInfo);
+		}
 		
 		return "customer/board/Parking_review_detail";
 	}
