@@ -34,20 +34,32 @@ public class CustomerSearch {
 	
 	// 사용자 - 음성 검색
 	@RequestMapping("searchVoiceParking.cu")
-	public @ResponseBody HashMap<String, Parking> searchVoiceParking(@RequestParam String keyword, @RequestParam String type, HttpServletResponse response) {
+	public @ResponseBody HashMap<String, Parking> searchVoiceParking(@RequestParam String keyword, @RequestParam String type, HttpServletResponse response, @RequestParam String lat, @RequestParam String lon) {
 		
-		HashMap<String, Parking> hmap = cms.searchVoiceParking(keyword, type);
+		HashMap<String, String> mapKeyword = new HashMap<String, String>();
+		
+		mapKeyword.put("keyword", keyword);
+		mapKeyword.put("lat", lat);
+		mapKeyword.put("lon", lon);
+		System.out.println();
+		HashMap<String, Parking> hmap = cms.searchVoiceParking(mapKeyword, type);
 				
 		return hmap;
     }
 	
 	// 사용자 - 텍스트 검색
 	@RequestMapping("searchTextParking.cu")
-	public @ResponseBody HashMap<String, Parking> searchTextParking(@RequestParam String keyword, HttpServletResponse response) {
+	public @ResponseBody HashMap<String, Parking> searchTextParking(@RequestParam String keyword, HttpServletResponse response, @RequestParam String lat, @RequestParam String lon) {
 		
-		HashMap<String, Parking> hmap = cms.selectSearchTextParking(keyword);
+		HashMap<String, String> mapKeyword = new HashMap<String, String>();
 		
-		System.out.println(hmap.toString());
+		mapKeyword.put("keyword", keyword);
+		mapKeyword.put("lat", lat);
+		mapKeyword.put("lon", lon);
+		
+		HashMap<String, Parking> hmap = cms.selectSearchTextParking(mapKeyword);
+		
+		System.out.println(hmap.toString() + "\n" + lat + "," + lon + " 기준으로 정렬됨");
 		
 		return hmap;
     }

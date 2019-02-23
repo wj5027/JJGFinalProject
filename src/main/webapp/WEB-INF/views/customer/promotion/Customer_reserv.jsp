@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 
 <html>
@@ -112,7 +113,9 @@
 			                  <tr>
 			                  	<td align="center"><br><br>
 			                  		예약 취소 시 소모된 포인트는<br>
-			                  		1시간 이내의 취소만 환불처리 됩니다.<br><br>
+			                  		1시간 이내의 취소이거나<br>
+			                  		예약 시간이 지났는데도 승인처리 되지 않은<br>
+			                  		경우에만 환불처리 됩니다.<br><br>
 			                  		정말로 환불 하시겠습니까?
 			                  	<br><br><br></td>
 			                  </tr>

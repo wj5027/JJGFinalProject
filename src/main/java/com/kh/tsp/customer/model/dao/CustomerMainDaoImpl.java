@@ -41,16 +41,16 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 	}
 
 	@Override
-	public HashMap<String, Parking> searchVoiceLocalParking(SqlSessionTemplate sqlSession, String keyword) {
+	public HashMap<String, Parking> searchVoiceLocalParking(SqlSessionTemplate sqlSession, HashMap<String, String> mapKeyword) {
 		HashMap<String, Parking> hmap = new HashMap<String, Parking>();
-		System.out.println(keyword);
-		ArrayList<Parking> list = (ArrayList)sqlSession.selectList("Member.selectSearchTitleParking", keyword);// 1. 이름 기준 검색
+		System.out.println(mapKeyword);
+		ArrayList<Parking> list = (ArrayList)sqlSession.selectList("Member.selectSearchTitleParking", mapKeyword);// 1. 이름 기준 검색
 		
 		for (int i = 0; i < list.size(); i++) {
 			hmap.put("" + (i + 100001), list.get(i));
 		}
 		
-		list = (ArrayList)sqlSession.selectList("Member.searchAddrParking", keyword); // 2. 주소 기준 검색
+		list = (ArrayList)sqlSession.selectList("Member.searchAddrParking", mapKeyword); // 2. 주소 기준 검색
 		
 		for (int i = 0; i < list.size(); i++) {
 			hmap.put("" + (i + 200001), list.get(i));
@@ -62,29 +62,29 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 	}
 
 	@Override
-	public HashMap<String, Parking> searchVoiceNearParking(SqlSessionTemplate sqlSession, double lat, double lon) {
+	public HashMap<String, Parking> searchVoiceNearParking(SqlSessionTemplate sqlSession, HashMap<String, String> mapKeyword) {
 		HashMap<String, Parking> hmap = new HashMap<String, Parking>();
 		
-		ArrayList<Parking> list = (ArrayList)sqlSession.selectList("Member.searchLocalParkings", lat);
+		ArrayList<Parking> list = (ArrayList)sqlSession.selectList("Member.searchLocalParkings", mapKeyword);
 		
 		for (int i = 0; i < list.size(); i++) {
-			hmap.put("" + (i + 1), list.get(i));
+			hmap.put("" + (i + 100001), list.get(i));
 		}
 		
 		return hmap;
 	}
 
 	@Override
-	public HashMap<String, Parking> selectSearchTextParking(SqlSessionTemplate sqlSession, String keyword) {
+	public HashMap<String, Parking> selectSearchTextParking(SqlSessionTemplate sqlSession, HashMap<String, String> mapKeyword) {
 		HashMap<String, Parking> hmap = new HashMap<String, Parking>();
-		System.out.println(keyword);
-		ArrayList<Parking> list = (ArrayList)sqlSession.selectList("Member.selectSearchTitleParking", keyword);// 1. 이름 기준 검색
+		System.out.println(mapKeyword.toString());
+		ArrayList<Parking> list = (ArrayList)sqlSession.selectList("Member.selectSearchTitleParking", mapKeyword);// 1. 이름 기준 검색
 		
 		for (int i = 0; i < list.size(); i++) {
 			hmap.put("" + (i + 100001), list.get(i));
 		}
 		
-		list = (ArrayList)sqlSession.selectList("Member.searchAddrParking", keyword); // 2. 주소 기준 검색
+		list = (ArrayList)sqlSession.selectList("Member.searchAddrParking", mapKeyword); // 2. 주소 기준 검색
 		
 		for (int i = 0; i < list.size(); i++) {
 			hmap.put("" + (i + 200001), list.get(i));
@@ -304,6 +304,15 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 		return sqlSession.selectOne("Member.getRefreshMember", m);
 	}
 
+	@Override
+	public void insertCancelReserveOilList(SqlSessionTemplate sqlSession, Reservation reserv) {
+		sqlSession.insert("Member.insertCancelReserveOilList", reserv);
+	}
+
+	@Override
+	public String selectReservDay(SqlSessionTemplate sqlSession, int resDate) {
+		return sqlSession.selectOne("Member.selectReservDay", resDate);
+	}
 	
 	
 }

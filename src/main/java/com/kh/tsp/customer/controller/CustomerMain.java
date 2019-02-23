@@ -7,6 +7,7 @@ import java.util.HashMap;
 import javax.security.auth.login.LoginException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -42,7 +43,13 @@ public class CustomerMain {
 	
 
 	@RequestMapping(value="/customer.cu")
-	public String Customer() {
+	public String Customer(HttpSession session, HttpServletRequest request) {
+		// 오일 조회
+		if ((Member)session.getAttribute("loginUser") != null) {
+			int UserOilInfo = Integer.parseInt(cms.getRefreshMember((Member)session.getAttribute("loginUser")).getOil());
+			
+			request.setAttribute("UserOilInfo", UserOilInfo);
+		}
 		
 		return "customer/main/Customer_main";
 	}
@@ -348,7 +355,14 @@ public @ResponseBody HashMap<String, Object> selectfavorites(@RequestParam Strin
 	
 	//아이디/비밀번호 찾기 폼으로 이동
 	@RequestMapping(value="findIdPwd.cu")
-	public String findPwdForm() {
+	public String findPwdForm(HttpSession session, HttpServletRequest request) {
+		// 오일 조회
+		if ((Member)session.getAttribute("loginUser") != null) {
+			int UserOilInfo = Integer.parseInt(cms.getRefreshMember((Member)session.getAttribute("loginUser")).getOil());
+			
+			request.setAttribute("UserOilInfo", UserOilInfo);
+		}
+		
 		return "customer/main/find_IdPwd_form";
 	}
 	
@@ -458,7 +472,14 @@ public @ResponseBody HashMap<String, Object> selectfavorites(@RequestParam Strin
 	}
     //네이버 로그인
 	@RequestMapping(value="naverLogin.cu", method=RequestMethod.GET)
-	public String naverLogin(@RequestParam String member_name, String member_id, String email, Model model) {
+	public String naverLogin(@RequestParam String member_name, String member_id, String email, Model model, HttpSession session, HttpServletRequest request) {
+		// 오일 조회
+		if ((Member)session.getAttribute("loginUser") != null) {
+			int UserOilInfo = Integer.parseInt(cms.getRefreshMember((Member)session.getAttribute("loginUser")).getOil());
+			
+			request.setAttribute("UserOilInfo", UserOilInfo);
+		}
+		
 		System.out.println("네이버 아이디: "+member_id);
 		System.out.println("네이버 이름 : "+member_name);
 		System.out.println("네이버 이메일 : "+email);

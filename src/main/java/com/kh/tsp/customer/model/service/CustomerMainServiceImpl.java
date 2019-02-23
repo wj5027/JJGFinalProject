@@ -63,23 +63,18 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 	}
 
 	@Override
-	public HashMap<String, Parking> searchVoiceParking(String keyword, String type) {
+	public HashMap<String, Parking> searchVoiceParking(HashMap<String, String> mapKeyword, String type) {
 		
 		HashMap<String, Parking> hmap = new HashMap<String, Parking>();
 		
 		if (type.equals("지역")) {
-			if (cmd.selectSearchTextCount(sqlSession, keyword) < 351) {
-				hmap = cmd.searchVoiceLocalParking(sqlSession, keyword);
+			if (cmd.selectSearchTextCount(sqlSession, mapKeyword.get("keyword")) < 351) {
+				hmap = cmd.searchVoiceLocalParking(sqlSession, mapKeyword);
 			} else {
 				
 			}
 		} else if (type.equals("근처 주차장")) {
-			//37.4996559/127.0330656
-			String[] temp = keyword.split("/");
-			double lat = Double.parseDouble(temp[0]);
-			double lon = Double.parseDouble(temp[1]);
-			
-			hmap = cmd.searchVoiceNearParking(sqlSession, lat, lon);
+			hmap = cmd.searchVoiceNearParking(sqlSession, mapKeyword);
 		} else {
 			hmap = null;
 		}
@@ -88,12 +83,12 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 	}
 
 	@Override
-	public HashMap<String, Parking> selectSearchTextParking(String keyword) {
+	public HashMap<String, Parking> selectSearchTextParking(HashMap<String, String> mapKeyword) {
 		
 		HashMap<String, Parking> hmap = new HashMap<String, Parking>();
 		
-		if (cmd.selectSearchTextCount(sqlSession, keyword) < 351) {
-			hmap = cmd.selectSearchTextParking(sqlSession, keyword);
+		if (cmd.selectSearchTextCount(sqlSession, mapKeyword.get("keyword")) < 351) {
+			hmap = cmd.selectSearchTextParking(sqlSession, mapKeyword);
 		} else {
 			
 		}
@@ -269,6 +264,16 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 	@Override
 	public Member getRefreshMember(Member m) {
 		return cmd.getRefreshMember(sqlSession, m);
+	}
+
+	@Override
+	public void insertCancelReserveOilList(Reservation reserv) {
+		cmd.insertCancelReserveOilList(sqlSession, reserv);
+	}
+
+	@Override
+	public String selectReservDay(int resDate) {
+		return cmd.selectReservDay(sqlSession, resDate);
 	}
 
 	

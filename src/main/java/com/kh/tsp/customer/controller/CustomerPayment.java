@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
 
 import com.kh.tsp.common.PageInfo;
 import com.kh.tsp.common.ReservPagination;
@@ -115,6 +114,13 @@ public class CustomerPayment {
 			System.out.println("로그인 정보가 없습니다!");
 		}
 		
+		// 오일 조회
+		if ((Member)session.getAttribute("loginUser") != null) {
+			int UserOilInfo = Integer.parseInt(cms.getRefreshMember((Member)session.getAttribute("loginUser")).getOil());
+			
+			request.setAttribute("UserOilInfo", UserOilInfo);
+		}
+		
 		return "customer/promotion/Customer_reserv";
 	}	
 	
@@ -128,15 +134,23 @@ public class CustomerPayment {
 		reserv.setResNo(Integer.parseInt(resNo));
 		reserv.setMemberNo(member.getMember_no());
 		
+		String status = cms.selectReservDay(Integer.parseInt(resNo));
+		
 		int result = cms.updateCancelReserve(reserv);
 		
 		if (result > 0) { // 취소 성공 시 시간을 체크하여 오일을 환불
 			result = 0;
 			
 			result = Integer.parseInt(cms.selectOneCancelAndReserveTime(Integer.parseInt(resNo)));
-			System.out.println(result);
-			if (result > 60) { // 시간이 한시간 전이여서 오일 환불 - 주차장의 nprice의 3배
+			
+			System.out.println("해당 취소의 시간차는 " + result + " 입니다.");
+			System.out.println("해당 취소건의 상태는 " + status);
+			
+			if (!(result > -60  && status.equals("승인"))) { // 시간이 한시간 전이거나 시간이 지났는데도 승인을 안했을때 오일 환불 - 주차장의 nprice의 3배
 				result = 0;
+				
+				// OilList에 예약 취소 내역 추가
+				cms.insertCancelReserveOilList(reserv);
 				
 				result = cms.updateCancelReserveOil(reserv);
 				
@@ -230,6 +244,15 @@ public class CustomerPayment {
 		}
 		
 		return "redirect:reserv.cu";
+	}
+	
+	
+	
+	
+	
+	
+	public boolean compareTime() {
+		return false;
 	}
 	
 	

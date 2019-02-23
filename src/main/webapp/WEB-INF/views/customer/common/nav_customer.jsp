@@ -121,7 +121,7 @@
 			        $.ajax({
 			    		url:"searchTextParking.cu",
 			    		type:"post",
-			    		data:{keyword:keyword},
+			    		data:{keyword:keyword, lat:globalVarLat, lon:globalVarLon},
 			    		success:function(data){
 			    			$("#hiddenModal").click();
 			    			
@@ -233,6 +233,8 @@
 
 <script src="/jjg/resources/STTService/annyang.js"></script>
 <script type="text/javascript">
+var globalVarLat = 0;
+var globalVarLon = 0;
 /* 
 --------------------진짜 음성인식 annyang (https://jeongchul.tistory.com/539을 참조함)
  */
@@ -243,7 +245,7 @@
 	
  	function startSTT() {
  		$("#voiceSize").css("height", "auto");
- 		
+ 		console.log(globalVarLat + "ㅁ나어마ㅣㄴ어ㅣㅏ")
  		$("#STTResult").html("");
  		
  		$("#STTResult").append("<tr><td align='center'><b><i class='fas fa-microphone-alt' style='color: white;'></i> &nbsp;&nbsp; - &nbsp;&nbsp; 검색결과</b></td></tr>"
@@ -290,38 +292,119 @@ function searchVoice(keyword, type) {
 	var table = $("#STTResult");
 	
 	if (type == '근처 주차장') {
-		
-		if (navigator.geolocation) {
-			
-			navigator.geolocation.getCurrentPosition(function(position) {
+		$.ajax({
+			url:"searchVoiceParking.cu",
+			type:"post",
+			data:{keyword:keyword, type:type, lat:globalVarLat, lon:globalVarLon},
+			success:function(data){
+				$("#voiceSize").css("height", "400px")
+				table.html("");
 				
-				var lati = position.coords.latitude;
-				var longi = position.coords.longitude;
+				table.append("<tr align='center'>"
+						+ "<th colspan='2'>"
+						+ "<b><i class='fas fa-microphone-alt' style='color: white;'></i> &nbsp;&nbsp; - &nbsp;&nbsp;'" + type + " " + keyword + "'의 검색결과</b>"
+						+ "</th>"
+						+ "</tr>");
 				
-				var location = lati + "/" + longi;
-				
-				$.ajax({
-					url:"searchVoiceParking.cu",
-					type:"post",
-					data:{keyword:location, type:type},
-					success:function(data){
-						console.log(data);
-					},
-					error:function(status){
-						console.log(status);
+    			table.append("<tr>"
+	            	  	+ "<th>주차장 명</th>"
+	            	  	+ "<th>기본 요금</th>"
+		            	+ "</tr>");
+    			
+    			var sortData = [];
+    			
+    			$.each(data, function(index, value){
+    	               sortData.push({key: index, value: value});
+    	        });
+    			
+    			sortData.sort(function(a, b){
+    	               /* return(a.key < b.key) ? -1 : (a.key > b.key) ? 1 : 0; */
+    	               return ((a.key < b.key) ? -1 : ((a.key > b.key) ? 1 : 0));
+    	        });
+    			// 가까운 거리 순으로 정렬하고 싶으면 DB 쿼리문에서 땡겨와야 함 END 부분은 더 이상 수정 불가능
+    			if (sortData.length > 0) {
+    				var boolCheck = true; // 200000 체크용
+    				var boolCheck2 = true; // 100000이나 200000이 없을때 동작을 위한 불값
+    				// 주차장 명 검색 결과
+    				table.append("<tr>"
+	            	  	+ "<th colspan='2'>근처 주차장 검색 결과</th>"
+		            	+ "</tr>");
+    				for (var i = 0; i < sortData.length; i++) {
+    					if (boolCheck2) {
+    						if (sortData[i].key >= 100000 && sortData[i].key <= 199999) {
+    							boolCheck2 = false;
+							} else {
+    							table.append("<tr align='center'>"
+		    		                  	+ "<td align='center' colspan='2'>검색 결과가 없습니다!</td>"
+		    			                + "</tr>");
+    							
+								boolCheck2 = false;
+							}
+    						
+						}
+    					
+    					if (boolCheck) {
+							if (sortData[i].key > 200000) {
+								boolCheck = false;
+			    				table.append("<tr>"
+					            	  	+ "<th colspan='2'>주차장 주소 기준 검색 결과</th>"
+						            	+ "</tr>");
+							}
+						}
+    					
+	    				if (sortData[i].value.parking_NPRICE == '0') {
+	    					table.append(
+					            	"<tr onclick='moveParkingSpot(" + sortData[i].value.latitude + "," + sortData[i].value.longitude + ")'>"
+					            	+ "<td style='color: white;'>"
+					            	+ sortData[i].value.parking_NAME
+					            	+ "</td>"
+					            	+ "<td style='color: white;'>"
+					            	+ "정보 없음"
+					            	+ "</td>"
+					            	+ "</tr>"
+					            	);
+						} else {
+							table.append(
+									"<tr onclick='moveParkingSpot(" + sortData[i].value.latitude + "," + sortData[i].value.longitude + ")'>"
+					            	+ "<td style='color: white;'>"
+					            	+ sortData[i].value.parking_NAME
+					            	+ "</td>"
+					            	+ "<td style='color: white;'>"
+					            	+ sortData[i].value.parking_NPRICE
+					            	+ "</td>"
+					            	+ "</tr>"
+					            	);
+						}
+    					
 					}
-					
-				});
-			});
-		}
-
+    			
+    				$("#voiceSize").css("height", "400px");
+				} else {
+					table.append(
+			            	"<tr align='center'>"
+		                  	+ "<td align='center' colspan='2'>검색 결과가 너무 많거나 없습니다!</td>"
+			                + "</tr>"
+	    					);
+				}
+				
+				table.append("<tr align='center'>"
+						+ "<td colspan='2'>"
+						+ "<button type='button' class='btn btn-default' data-dismiss='modal' onclick=''>닫기</button>"
+						+ "</td>"
+						+ "</tr>");
+			},
+			error:function(status){
+				console.log(status);
+			}
+			
+		});
 	} else {
 		console.log(keyword + "/" + type);
 		
 		$.ajax({
 			url:"searchVoiceParking.cu",
 			type:"post",
-			data:{keyword:keyword, type:type},
+			data:{keyword:keyword, type:type, lat:globalVarLat, lon:globalVarLon},
 			success:function(data){
 				console.log(data);
 				$("#voiceSize").css("height", "400px")
@@ -410,7 +493,7 @@ function searchVoice(keyword, type) {
 				} else {
 					table.append(
 			            	"<tr align='center'>"
-		                  	+ "<td align='center' colspan='2'>검색 결과가 없습니다!</td>"
+		                  	+ "<td align='center' colspan='2'>검색 결과가 너무 많거나 없습니다!</td>"
 			                + "</tr>"
 	    					);
 				}
@@ -431,19 +514,19 @@ function searchVoice(keyword, type) {
 	
 }
 </script>
-<!-- <script type="text/javascript">
-var lati;
-var longi;
-if (navigator.geolocation) {
-	console.log("이것도 되는거야?");
-    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
-    navigator.geolocation.watchPosition(function(position) {
-        lati = position.coords.latitude; // 위도
-        longi = position.coords.longitude; // 경도
-    });
-    console.log(lati + "/" + longi);
+<script type="text/javascript">
+if (globalVarLat == 0 && globalVarLon == 0) {
+	if (navigator.geolocation) {
+		console.log("이것도 되는거야?");
+	    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+	    navigator.geolocation.watchPosition(function(position) {
+	    	globalVarLat = position.coords.latitude; // 위도
+	    	globalVarLon = position.coords.longitude; // 경도
+	    });
+	    console.log(lati + "/" + longi);
+	}
 }
-</script> -->
+</script>
 
       
       

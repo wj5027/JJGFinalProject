@@ -12,12 +12,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.kh.tsp.customer.model.service.AccountService;
+import com.kh.tsp.customer.model.service.CustomerMainService;
 import com.kh.tsp.customer.model.vo.Member;
 
 @Controller
 public class CustomerAccount {
 	@Autowired
 	private AccountService as;
+	@Autowired
+	private CustomerMainService cms;
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
@@ -27,21 +30,37 @@ public class CustomerAccount {
 
 	
 	@RequestMapping(value="/customer_loginPage.cu", method=RequestMethod.GET)
-	public String CustomerLogin() {
-		
+	public String CustomerLogin(HttpSession session, HttpServletRequest request) {
+		// 오일 조회
+		if ((Member)session.getAttribute("loginUser") != null) {
+			int UserOilInfo = Integer.parseInt(cms.getRefreshMember((Member)session.getAttribute("loginUser")).getOil());
+			
+			request.setAttribute("UserOilInfo", UserOilInfo);
+		}
 		
 		return "customer/main/Customer_login";
 	}
 	
 	@RequestMapping(value="/customer_joinInput.cu", method=RequestMethod.GET)
-	public String CustomerjoinInput() {
+	public String CustomerjoinInput(HttpSession session, HttpServletRequest request) {
+		// 오일 조회
+		if ((Member)session.getAttribute("loginUser") != null) {
+			int UserOilInfo = Integer.parseInt(cms.getRefreshMember((Member)session.getAttribute("loginUser")).getOil());
+			
+			request.setAttribute("UserOilInfo", UserOilInfo);
+		}
 		
 		return "customer/main/Customer_joinInput";
 	}
 	
 	@RequestMapping(value="/customer_join.cu", method=RequestMethod.GET)
-	public String Customerjoin() {
-		
+	public String Customerjoin(HttpSession session, HttpServletRequest request) {
+		// 오일 조회
+		if ((Member)session.getAttribute("loginUser") != null) {
+			int UserOilInfo = Integer.parseInt(cms.getRefreshMember((Member)session.getAttribute("loginUser")).getOil());
+			
+			request.setAttribute("UserOilInfo", UserOilInfo);
+		}
 		
 		return "customer/main/Customer_join";
 	}
@@ -57,6 +76,13 @@ public class CustomerAccount {
 		
 		Member myInfo = as.selectMyInfo(m); 
 		
+		// 오일 조회
+		if ((Member)session.getAttribute("loginUser") != null) {
+			int UserOilInfo = Integer.parseInt(cms.getRefreshMember((Member)session.getAttribute("loginUser")).getOil());
+			
+			request.setAttribute("UserOilInfo", UserOilInfo);
+		}
+		
 		if(myInfo != null) {
 			model.addAttribute("list", myInfo);
 			
@@ -71,7 +97,7 @@ public class CustomerAccount {
 	}
 	//내 정보 수정
 	@RequestMapping(value="changeMyInfo.cu", method= {RequestMethod.POST, RequestMethod.GET})
-	public String changeMyInfo(@ModelAttribute Member m, Model model) {
+	public String changeMyInfo(@ModelAttribute Member m, Model model, HttpSession session, HttpServletRequest request) {
 		System.out.println("정보 수정 컨트롤러 : "+m);
 		int result=0;
 		System.out.println("m.getMember_pwd(): "+m.getMember_pwd());
@@ -85,6 +111,13 @@ public class CustomerAccount {
 			System.out.println("비밀번호 포함한 정보수정");
 			result = as.changePwd(m);
 			
+		}
+		
+		// 오일 조회
+		if ((Member)session.getAttribute("loginUser") != null) {
+			int UserOilInfo = Integer.parseInt(cms.getRefreshMember((Member)session.getAttribute("loginUser")).getOil());
+			
+			request.setAttribute("UserOilInfo", UserOilInfo);
 		}
 
 		if(result > 0) {
