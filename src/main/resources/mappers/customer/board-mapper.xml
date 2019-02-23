@@ -117,6 +117,19 @@
   			
   	</resultMap>
   
+  <resultMap type="com.kh.tsp.customer.model.vo.Board" id="parking2">
+  		<id property="bno" column="BOARD_NO"/>
+  		<result property="bTitle" column="BOARD_TITLE"/>
+  		<result property="bContext" column="BOARD_CONTEXT"/>
+  		<result property="bViews" column="BOARD_VIEWS"/>
+  		<result property="createDate" column="CREATION_DATE"/>
+  		<result property="modifyDate" column="MODIFED_DATE"/>
+  		<result property="bType" column="BOARD_TYPE"/>
+  		<result property="status" column="STATUS"/>
+  		<result property="mno" column="MEMBER_NO"/>
+  		<result property="pno" column="PARKING_NO"/>
+  		<result property="reCnt" column="RECNT"/>
+  	</resultMap>
   	
   	<!-- 공지사항 게시물 목록 조회용 쿼리문 -->
   	<select id="boardList" resultMap="boardListSet">
@@ -341,8 +354,8 @@
   	</select>
   	
   	<!-- 주차장 후기 목록 -->
-  	<select id="selectParkingReviewList" resultMap="reviewListSet" parameterType="String">
-  		SELECT B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, B.CREATION_DATE,B.MODIFIED_DATE, B.BOARD_TYPE, B.STATUS, B.MEMBER_NO, B.PARKING_NO, (SELECT COUNT(*) FROM REPLY R WHERE R.BOARD_NO=B.BOARD_NO) AS reCnt
+  	<select id="selectParkingReviewList" resultMap="parking2" parameterType="String">
+  		SELECT B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, B.CREATION_DATE,B.MODIFIED_DATE, B.BOARD_TYPE, B.STATUS, B.MEMBER_NO, p.PARKING_Name as parking_no, (SELECT COUNT(*) FROM REPLY R WHERE R.BOARD_NO=B.BOARD_NO) AS reCnt
   		FROM BOARD B 
   		JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
   		JOIN PARKING P ON(B.PARKING_NO = P.PARKING_NO)
