@@ -10,7 +10,7 @@
 			주차하러 갑니다 </a>
 	</div>
 	<ul class="nav">
-		<li class=" "><a href="statisticsList.ad"> <i
+		<li class=" "><a href="selectStatisticsList.ad"> <i
 				class="tim-icons icon-chart-bar-32"></i>
 				<p>메인 페이지</p>
 		</a></li>

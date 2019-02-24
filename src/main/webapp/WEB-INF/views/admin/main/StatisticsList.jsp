@@ -9,239 +9,275 @@
 <jsp:include page="../../common/bootInfo.jsp"></jsp:include>
 </head>
 <body>
-	<div class="wrapper">
-		<div class="sidebar" style="background: rgb(49, 49, 49) !important;">
-			<!-- sidebar_admin -->
-			<jsp:include page="../../common/sidebar_admin.jsp"></jsp:include>
-			<!-- END sidebar_admin -->
 
-			<!-- 그래프 시작 -->
-			<div class="content">
-				<div class="row">
-					<div class="col-lg-6">
-						<div class="card card-chart">
-							<div class="card-header">
-								<h5> - 사용자 회원가입 현황 (전체 : ${customerListCount}명)</h5>
-								<h3 class="card-title">
-									<i class="tim-icons icon-send" style="color: #39acf4"></i>
-									<p id="ajaxGraph1" style="display: inline-block;"></p>
-								</h3>
-								<div align="right">
-									<button onclick="selectCustomerSignUpMonth();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
-									<button onclick="selectCustomerSignUp7Days();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
-								</div>
-							</div>
-							<div class="card-body">
-								<div class="chart-area">
-									<canvas id="selectCustomerSignUpMonth"></canvas>
-									<canvas id="selectCustomerSignUp7Days"></canvas>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-6">
-						<div class="card card-chart">
-							<div class="card-header">
-								<h5> - 사업자 회원가입 현황 (전체 : ${ceoListCount}명)</h5>
-								<h3 class="card-title">
-									<i class="tim-icons icon-attach-87" style="color: #ff7373"></i>
-									<p id="ajaxGraph2" style="display: inline-block;"></p>
-								</h3>
-								<div align="right">
-									<button onclick="selectCEOSignUpMonth();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
-									<button onclick="selectCEOSignUp7Days();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
-								</div>
-							</div>
-							<div class="card-body">
-								<div class="chart-area">
-									<canvas id="selectCEOSignUpMonth"></canvas>
-									<canvas id="selectCEOSignUp7Days"></canvas>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-6">
-						<div class="card card-chart">
-							<div class="card-header">
-								<h5> - 게시판 등록 수 (관리자문의 : ${boardAdminListCount}건 / 사업자문의: ${boardCeoListCount}건 / 후기: ${boardReplyListCount}건)</h5>
-								<h3 class="card-title">
-									<i class="tim-icons icon-bell-55" style="color: #39acf4"></i>
-									<p id="ajaxGraph3" style="display: inline-block;"></p>
-								</h3>
-								<div align="right">		
-									<button onclick="selectBoardAdminMonth();" class="btn btn-default animation-on-hover btn-sm">관리자문의(월별)</button>				
-									<button onclick="selectBoardAdmin7Days();" class="btn btn-default animation-on-hover btn-sm">관리자문의(최근 7일)</button>	
-									<button onclick="selectBoardReplyMonth();" class="btn btn-default animation-on-hover btn-sm" style="width: 26%">후기(월별)</button>	
-									<button onclick="selectBoardCeoMonth();" class="btn btn-default animation-on-hover btn-sm">사업자문의(월별)</button>				
-									<button onclick="selectBoardCeo7Days();" class="btn btn-default animation-on-hover btn-sm">사업자문의(최근 7일)</button>		
-									<button onclick="selectBoardReply7Days();" class="btn btn-default animation-on-hover btn-sm">후기(최근 7일)</button>				
-								</div>
-							</div>
-							<div class="card-body">
-								<div class="chart-area">
-									<canvas id="selectBoardAdminMonth"></canvas>
-									<canvas id="selectBoardAdmin7Days"></canvas>
-									<canvas id="selectBoardReplyMonth"></canvas>
-									<canvas id="selectBoardCeoMonth"></canvas>
-									<canvas id="selectBoardCeo7Days"></canvas>
-									<canvas id="selectBoardReply7Days"></canvas>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-6">
-						<div class="card card-chart">
-							<div class="card-header">
-								<h5> - 회원 주차장 예약 건수</h5>
-								<h3 class="card-title">
-									<i class="tim-icons icon-support-17" style="color: #ff7373"></i> 
-									<p id="ajaxGraph4" style="display: inline-block;"></p>
-								</h3>
-								<div align="right">
-									<button onclick="" class="btn btn-default animation-on-hover btn-sm">월별</button>		
-									<button onclick="" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>	
-								</div>
-								<div>&nbsp;</div>
-								<div>&nbsp;</div>
-							</div>
-							<div class="card-body">
-								<div class="chart-area">
-									<canvas id="chartLinePurple"></canvas>
-<%-- 									<canvas id="lineChartExample2"></canvas> --%>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-6">
-						<div class="card card-chart">
-							<div class="card-header">
-								<h5> - 환전</h5>
-								<h3 class="card-title">
-									<i class="tim-icons icon-planet" style="color: #39acf4"></i>
-									<p id="ajaxGraph5" style="display: inline-block;"></p>
-								</h3>
-								<div align="right">
-									<button onclick="selectStatisticsMonth2();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
-									<button onclick="selectStatistics7Days2();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
-									<button onclick="selectStatisticsToday2();" class="btn btn-default animation-on-hover btn-sm">최근 24시간</button>				
-								</div>
-							</div>
-							<div class="card-body">
-								<div class="chart-area">
-									<canvas id="selectStatisticsMonth2"></canvas>
-									<canvas id="selectStatistics7Days2"></canvas>
-									<canvas id="selectStatisticsToday2"></canvas>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-6">
-						<div class="card card-chart">
-							<div class="card-header">
-								<h5> - 환불</h5>
-								<h3 class="card-title">
-									<i class="tim-icons icon-spaceship" style="color: #ff7373;"></i>
-									<p id="ajaxGraph6" style="display: inline-block;"></p>
-								</h3>
-								<div align="right">
-									<button onclick="selectStatisticsMonth();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
-									<button onclick="selectStatistics7Days();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
-									<button onclick="selectStatisticsToday();" class="btn btn-default animation-on-hover btn-sm">최근 24시간</button>		
-								</div>
-							</div>
-							<div class="card-body">
-								<div class="chart-area">
-									<canvas id="selectStatisticsMonth"></canvas>
-									<canvas id="selectStatistics7Days"></canvas>
-									<canvas id="selectStatisticsToday"></canvas>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- 그래프 끝 -->
-					
-					<!-- 테이블 시작 -->					
-					<div class="col-md-12">
-						<div class="card ">
-							<div class="card-header">
-								<h4 class="card-title">오늘 현황</h4>
-							</div>
-							<div class="card-body">
-								<div class="table-responsive" style="overflow: hidden;">
-									<table align="center" class="table tablesorter " id="" style="width: 60%;">
-										<thead class=" text-primary">
-											<tr>
-												<th style="font-size: 18px;" class="text-center">번호</th>
-												<th style="font-size: 18px;">구분</th>
-												<th style="font-size: 18px;">내용</th>
-												<th style="font-size: 18px;" class="text-center">건수</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td class="text-center">1</td>
-												<td>신청</td>
-												<td>오늘 환불신청 건수</td>
-												<td class="text-center">${requestRefund}건</td>
-											</tr>
-											<tr>
-												<td class="text-center">2</td>
-												<td>신청</td>
-												<td>오늘 환전신청 건수</td>
-												<td class="text-center">${requestExchange}건</td>
-											</tr>
-											<tr>
-												<td class="text-center">3</td>
-												<td>신청</td>
-												<td>오늘 주차장 신청 수</td>
-												<td class="text-center">${requestParkingLot}건</td>
-											</tr>
-											<tr>
-												<td class="text-center">4</td>
-												<td>회원가입</td>
-												<td>오늘 사용자 회원가입 수 </td>
-												<td class="text-center">${todayCeoList}명</td>
-											</tr>
-											<tr>
-												<td class="text-center">5</td>
-												<td>회원가입</td>
-												<td>오늘 사업자 회원가입 수 </td>
-												<td class="text-center">${todayCustomerList}명</td>
-											</tr>
-											<tr>
-												<td class="text-center">6</td>
-												<td>게시판</td>
-												<td>오늘 관리자문의 게시판 등록 수</td>
-												<td class="text-center">${todayBoardCeo}건</td>
-											</tr>
-											<tr>
-												<td class="text-center">7</td>
-												<td>게시판</td>
-												<td>오늘 사업자문의 게시판 등록 수</td>
-												<td class="text-center">${todayBoardAdmin}건</td>
-											</tr>
-											<tr>
-												<td class="text-center">8</td>
-												<td>매출</td>
-												<td>오늘 충전 금액</td>
-												<td class="text-center">${profit}원</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- 테이블 끝 -->					
-				</div>
-			</div>
-
-			<!-- footer_admin -->
-			<jsp:include page="../../common/footer_admin.jsp"></jsp:include>
-			<!-- END footer_admin -->
-		</div>
-	</div>
+	<c:if test="${not empty sessionScope.loginUser and loginUser.member_type=='A'}">
+		<div class="wrapper">
+			<div class="sidebar" style="background: rgb(49, 49, 49) !important;">
+				<!-- sidebar_admin -->
+				<jsp:include page="../../common/sidebar_admin.jsp"></jsp:include>
+				<!-- END sidebar_admin -->
 	
+				<!-- 그래프 시작 -->
+				<div class="content">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="card card-chart">
+								<div class="card-header">
+									<h5> - 사용자 회원가입 현황 (전체 : ${customerListCount}명)</h5>
+									<h3 class="card-title">
+										<i class="tim-icons icon-send" style="color: #39acf4"></i>
+										<p id="ajaxGraph1" style="display: inline-block;"></p>
+									</h3>
+									<div align="right">
+										<button onclick="selectCustomerSignUpMonth();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
+										<button onclick="selectCustomerSignUp7Days();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="chart-area">
+										<canvas id="selectCustomerSignUpMonth"></canvas>
+										<canvas id="selectCustomerSignUp7Days"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="card card-chart">
+								<div class="card-header">
+									<h5> - 사업자 회원가입 현황 (전체 : ${ceoListCount}명)</h5>
+									<h3 class="card-title">
+										<i class="tim-icons icon-attach-87" style="color: #ff7373"></i>
+										<p id="ajaxGraph2" style="display: inline-block;"></p>
+									</h3>
+									<div align="right">
+										<button onclick="selectCEOSignUpMonth();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
+										<button onclick="selectCEOSignUp7Days();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="chart-area">
+										<canvas id="selectCEOSignUpMonth"></canvas>
+										<canvas id="selectCEOSignUp7Days"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="card card-chart">
+								<div class="card-header">
+									<h5> - 게시판 등록 수 (관리자문의 : ${boardAdminListCount}건 / 사업자문의: ${boardCeoListCount}건 / 후기: ${boardReplyListCount}건)</h5>
+									<h3 class="card-title">
+										<i class="tim-icons icon-bell-55" style="color: #39acf4"></i>
+										<p id="ajaxGraph3" style="display: inline-block;"></p>
+									</h3>
+									<div align="right">		
+										<button onclick="selectBoardAdminMonth();" class="btn btn-default animation-on-hover btn-sm">관리자문의(월별)</button>				
+										<button onclick="selectBoardAdmin7Days();" class="btn btn-default animation-on-hover btn-sm">관리자문의(최근 7일)</button>	
+										<button onclick="selectBoardReplyMonth();" class="btn btn-default animation-on-hover btn-sm" style="width: 26%">후기(월별)</button>	
+										<button onclick="selectBoardCeoMonth();" class="btn btn-default animation-on-hover btn-sm">사업자문의(월별)</button>				
+										<button onclick="selectBoardCeo7Days();" class="btn btn-default animation-on-hover btn-sm">사업자문의(최근 7일)</button>		
+										<button onclick="selectBoardReply7Days();" class="btn btn-default animation-on-hover btn-sm">후기(최근 7일)</button>				
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="chart-area">
+										<canvas id="selectBoardAdminMonth"></canvas>
+										<canvas id="selectBoardAdmin7Days"></canvas>
+										<canvas id="selectBoardReplyMonth"></canvas>
+										<canvas id="selectBoardCeoMonth"></canvas>
+										<canvas id="selectBoardCeo7Days"></canvas>
+										<canvas id="selectBoardReply7Days"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="card card-chart">
+								<div class="card-header">
+									<h5> - 회원 주차장 예약 건수</h5>
+									<h3 class="card-title">
+										<i class="tim-icons icon-support-17" style="color: #ff7373"></i> 
+										<p id="ajaxGraph4" style="display: inline-block;"></p>
+									</h3>
+									<div align="right">
+										<button onclick="" class="btn btn-default animation-on-hover btn-sm">월별</button>		
+										<button onclick="" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>	
+									</div>
+									<div>&nbsp;</div>
+									<div>&nbsp;</div>
+								</div>
+								<div class="card-body">
+									<div class="chart-area">
+										<canvas id="chartLinePurple"></canvas>
+	<%-- 									<canvas id="lineChartExample2"></canvas> --%>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="card card-chart">
+								<div class="card-header">
+									<h5> - 환전</h5>
+									<h3 class="card-title">
+										<i class="tim-icons icon-planet" style="color: #39acf4"></i>
+										<p id="ajaxGraph5" style="display: inline-block;"></p>
+									</h3>
+									<div align="right">
+										<button onclick="selectStatisticsMonth2();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
+										<button onclick="selectStatistics7Days2();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
+										<button onclick="selectStatisticsToday2();" class="btn btn-default animation-on-hover btn-sm">최근 24시간</button>				
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="chart-area">
+										<canvas id="selectStatisticsMonth2"></canvas>
+										<canvas id="selectStatistics7Days2"></canvas>
+										<canvas id="selectStatisticsToday2"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="card card-chart">
+								<div class="card-header">
+									<h5> - 환불</h5>
+									<h3 class="card-title">
+										<i class="tim-icons icon-spaceship" style="color: #ff7373;"></i>
+										<p id="ajaxGraph6" style="display: inline-block;"></p>
+									</h3>
+									<div align="right">
+										<button onclick="selectStatisticsMonth();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
+										<button onclick="selectStatistics7Days();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
+										<button onclick="selectStatisticsToday();" class="btn btn-default animation-on-hover btn-sm">최근 24시간</button>		
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="chart-area">
+										<canvas id="selectStatisticsMonth"></canvas>
+										<canvas id="selectStatistics7Days"></canvas>
+										<canvas id="selectStatisticsToday"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- 그래프 끝 -->
+						
+						<!-- 테이블 시작 -->					
+						<div class="col-md-12">
+							<div class="card ">
+								<div class="card-header">
+									<h4 class="card-title">오늘 현황</h4>
+									<h6 class="card-title">( 리스트 클릭으로 페이지 이동 )</h6>
+								</div>
+								<div class="card-body">
+									<div class="table-responsive" style="overflow: hidden;">
+										<table align="center" class="table tablesorter " id="" style="width: 60%;">
+											<thead class=" text-primary">
+												<tr>
+													<th style="font-size: 18px;" class="text-center">번호</th>
+													<th style="font-size: 18px;">구분</th>
+													<th style="font-size: 18px;">내용</th>
+													<th style="font-size: 18px;" class="text-center">건수</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class="todayTable">
+													<td class="text-center">1</td>
+													<td>신청</td>
+													<td>오늘 환불신청 건수</td>
+													<td class="text-center">${requestRefund}건</td>
+												</tr>
+												<tr class="todayTable">
+													<td class="text-center">2</td>
+													<td>신청</td>
+													<td>오늘 환전신청 건수</td>
+													<td class="text-center">${requestExchange}건</td>
+												</tr>
+												<tr class="todayTable">
+													<td class="text-center">3</td>
+													<td>신청</td>
+													<td>오늘 주차장 신청 수</td>
+													<td class="text-center">${requestParkingLot}건</td>
+												</tr>
+												<tr class="todayTable">
+													<td class="text-center">4</td>
+													<td>회원가입</td>
+													<td>오늘 사용자 회원가입 수 </td>
+													<td class="text-center">${todayCeoList}명</td>
+												</tr>
+												<tr class="todayTable">
+													<td class="text-center">5</td>
+													<td>회원가입</td>
+													<td>오늘 사업자 회원가입 수 </td>
+													<td class="text-center">${todayCustomerList}명</td>
+												</tr>
+												<tr class="todayTable">
+													<td class="text-center">6</td>
+													<td>게시판</td>
+													<td>오늘 관리자문의 게시판 등록 수</td>
+													<td class="text-center">${todayBoardCeo}건</td>
+												</tr>
+												<tr class="todayTable">
+													<td class="text-center">7</td>
+													<td>게시판</td>
+													<td>오늘 사업자문의 게시판 등록 수</td>
+													<td class="text-center">${todayBoardAdmin}건</td>
+												</tr>
+												<tr class="todayTable">
+													<td class="text-center">8</td>
+													<td>매출</td>
+													<td>오늘 충전 금액</td>
+													<td class="text-center">${profit}원</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- 테이블 끝 -->					
+					</div>
+				</div>
+	
+				<!-- footer_admin -->
+				<jsp:include page="../../common/footer_admin.jsp"></jsp:include>
+				<!-- END footer_admin -->
+			</div>
+		</div>
+	</c:if>
+	
+	<!-- 오늘 현황 테이블 페이지 이동 -->
+	<script>
+		$(".todayTable").mouseenter(function () {
+			$(this).children().css({"background":"rgb(28, 28, 38)", "cursor":"pointer"});	
+			no = $(this).children().eq(0).text();	
+		}).mouseout(function () {	
+			$(this).children().css({"background":"rgb(39, 41, 61)"});	
+		}).click(function () {
+			for (var i = 0; i < $(".todayTable").length; i++) {
+				$(".todayTable").eq(i).children().css({"background":"rgb(39, 41, 61)"});	
+			}
+			$(this).children().css({"background":"rgb(0, 0, 0)"});	
+			if(no==1){	
+				location.href="selectSearchExchangeList.ad?currentPage=1&status=R&memberId=&memberType=&today=&startDate=&endDate=";			
+			}else if(no==2){
+				location.href="selectSearchExchangeList.ad?currentPage=1&status=E&memberId=&memberType=&today=&startDate=&endDate=";
+			}else if(no==3){
+				location.href="selectSearchParkingLotList.ad?currentPage=2&parkingListStatus=I&memberId=&parkingAddress=&parkingListName=&today=&startDate=&endDate=";
+			}else if(no==4){
+				location.href="selectCustomerList.ad";
+			}else if(no==5){
+				location.href="selectCEOList.ad";
+			}else if(no==6){
+				location.href="selectBoardQnA.ad";
+			}else if(no==7){
+				location.href="selectBoardQnA.ad";
+			}else if(no==8){
+				location.href="selectStatisticsCustomer.ad";
+			}
+		});	
+	</script>
+	<!-- 오늘 현황 테이블 페이지 이동 끝 -->
 	
 	<!-- 111111111111111111111111 사용자 회원가입 현황 1111111111111111111111111111111 -->	
 	<!-- 메인 사용자 회원가입 -->

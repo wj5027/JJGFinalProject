@@ -1,7 +1,5 @@
 package com.kh.tsp.admin.controller;
 
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,12 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.tsp.admin.model.exception.MainStatisticsException;
-import com.kh.tsp.admin.model.exception.SelectBoardListException;
 import com.kh.tsp.admin.model.service.MainService;
 import com.kh.tsp.admin.model.vo.DateAdmin;
-import com.kh.tsp.common.PageInfo;
-import com.kh.tsp.common.Pagination;
-import com.kh.tsp.customer.model.vo.Board;
 
 
 @Controller
@@ -26,8 +20,8 @@ public class statisticsListController {
 	@Autowired
 	private MainService ms;
 
-	@RequestMapping(value = "/statisticsList.ad", method = RequestMethod.GET)
-	public String statisticsList(HttpServletRequest request) {
+	@RequestMapping(value = "/selectStatisticsList.ad", method = {RequestMethod.GET, RequestMethod.POST})
+	public String statisticsList(HttpServletRequest request, HttpServletResponse response) {
 
 		try {
 			// 전체 사용자 회원 수 
@@ -59,7 +53,6 @@ public class statisticsListController {
 			// 관리자문의 게시판
 			int todayBoardAdmin = ms.getTodayBoardAdmin();
 			
-			request.setAttribute("customerListCount", customerListCount);
 			request.setAttribute("ceoListCount", ceoListCount);
 			request.setAttribute("boardAdminListCount", boardAdminListCount);
 			request.setAttribute("boardCeoListCount", boardCeoListCount);
@@ -72,7 +65,7 @@ public class statisticsListController {
 			request.setAttribute("requestParkingLot", requestParkingLot);
 			request.setAttribute("profit", profit);
 			request.setAttribute("todayBoardCeo", todayBoardCeo);
-			request.setAttribute("todayBoardAdmin", todayBoardAdmin);
+			request.setAttribute("todayBoardAdmin", todayBoardAdmin);			
 			
 			return "admin/main/StatisticsList";
 			

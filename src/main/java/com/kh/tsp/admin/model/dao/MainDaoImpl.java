@@ -28,9 +28,6 @@ public class MainDaoImpl  implements MainDao{
 	@Override
 	public int getCustomerListCount(SqlSessionTemplate sqlSession) throws MainStatisticsException {
 		int customerListCount = sqlSession.selectOne("MainAdmin.getCustomerListCount");
-		if(customerListCount <=0) {
-			throw new MainStatisticsException("전체 사용자 회원 수 조회 실패!");
-		}
 		return customerListCount;
 	}
 
@@ -38,9 +35,6 @@ public class MainDaoImpl  implements MainDao{
 	@Override
 	public int getCeoListCount(SqlSessionTemplate sqlSession) throws MainStatisticsException {
 		int ceoListCount = sqlSession.selectOne("MainAdmin.getCeoListCount");
-		if(ceoListCount <=0) {
-			throw new MainStatisticsException("전체 사업자 회원 수 조회 실패!");
-		}
 		return ceoListCount;
 	}
 
@@ -97,9 +91,6 @@ public class MainDaoImpl  implements MainDao{
 	@Override
 	public int getBoardAdminListCount(SqlSessionTemplate sqlSession) throws MainStatisticsException {
 		int boardAdminListCount = sqlSession.selectOne("MainAdmin.getBoardAdminListCount");
-		if(boardAdminListCount <=0) {
-			throw new MainStatisticsException("관리자문의 게시판 수 조회 실패!");
-		}
 		return boardAdminListCount;
 	}
 
@@ -107,9 +98,6 @@ public class MainDaoImpl  implements MainDao{
 	@Override
 	public int getBoardCeoListCount(SqlSessionTemplate sqlSession) throws MainStatisticsException {
 		int boardCeoListCount = sqlSession.selectOne("MainAdmin.getBoardCeoListCount");
-		if(boardCeoListCount <=0) {
-			throw new MainStatisticsException("사업자문의 게시판 수 조회 실패!");
-		}
 		return boardCeoListCount;
 	}
 
@@ -117,9 +105,6 @@ public class MainDaoImpl  implements MainDao{
 	@Override
 	public int getBoardReplyListCount(SqlSessionTemplate sqlSession) throws MainStatisticsException {
 		int boardReplyListCount = sqlSession.selectOne("MainAdmin.getBoardReplyListCount");
-		if(boardReplyListCount <=0) {
-			throw new MainStatisticsException("후기 게시판 수 조회 실패!");
-		}
 		return boardReplyListCount;
 	}
 
@@ -201,9 +186,6 @@ public class MainDaoImpl  implements MainDao{
 	@Override
 	public int getRequestRefundListCount(SqlSessionTemplate sqlSession) throws MainStatisticsException {
 		int result = sqlSession.selectOne("MainAdmin.getRequestRefundListCount");
-		if(result <=0) {
-			throw new MainStatisticsException("환불신청 수 조회 실패!");
-		}
 		return result;
 	}
 
@@ -211,9 +193,6 @@ public class MainDaoImpl  implements MainDao{
 	@Override
 	public int getRequestExchangeListCount(SqlSessionTemplate sqlSession) throws MainStatisticsException {
 		int result = sqlSession.selectOne("MainAdmin.getRequestExchangeListCount");
-		if(result <=0) {
-			throw new MainStatisticsException("환전신청 수 조회 실패!");
-		}
 		return result;
 	}
 
@@ -221,9 +200,6 @@ public class MainDaoImpl  implements MainDao{
 	@Override
 	public int getTodayCustomerListCount(SqlSessionTemplate sqlSession) throws MainStatisticsException {
 		int result = sqlSession.selectOne("MainAdmin.getTodayCustomerListCount");
-		if(result <=0) {
-			throw new MainStatisticsException("사용자 회원가입 수 조회 실패!");
-		}
 		return result;
 	}
 
@@ -231,9 +207,6 @@ public class MainDaoImpl  implements MainDao{
 	@Override
 	public int getTodayCeoListCount(SqlSessionTemplate sqlSession) throws MainStatisticsException {
 		int result = sqlSession.selectOne("MainAdmin.getTodayCeoListCount");
-		if(result <=0) {
-			throw new MainStatisticsException("사업자 회원가입 수 조회 실패!");
-		}
 		return result;
 	}
 
@@ -241,9 +214,6 @@ public class MainDaoImpl  implements MainDao{
 	@Override
 	public int getRequestParkingLotListCount(SqlSessionTemplate sqlSession) throws MainStatisticsException {
 		int result = sqlSession.selectOne("MainAdmin.getRequestParkingLotListCount");
-		if(result <=0) {
-			throw new MainStatisticsException("주차장 신청 수 조회 실패!");
-		}
 		return result;
 	}
 
@@ -251,9 +221,6 @@ public class MainDaoImpl  implements MainDao{
 	@Override
 	public int getProfit(SqlSessionTemplate sqlSession) throws MainStatisticsException {
 		int result = sqlSession.selectOne("MainAdmin.getProfit");
-		if(result <=0) {
-			throw new MainStatisticsException("매출 조회 실패!");
-		}
 		return result;
 	}
 
@@ -261,9 +228,6 @@ public class MainDaoImpl  implements MainDao{
 	@Override
 	public int getTodayBoardCeo(SqlSessionTemplate sqlSession) throws MainStatisticsException {
 		int result = sqlSession.selectOne("MainAdmin.getTodayBoardCeo");
-		if(result <=0) {
-			throw new MainStatisticsException("사업자문의 게시판 수 조회 실패!");
-		}
 		return result;
 	}
 
@@ -271,9 +235,6 @@ public class MainDaoImpl  implements MainDao{
 	@Override
 	public int getTodayBoardAdmin(SqlSessionTemplate sqlSession) throws MainStatisticsException {
 		int result = sqlSession.selectOne("MainAdmin.getTodayBoardAdmin");
-		if(result <=0) {
-			throw new MainStatisticsException("관리자문의 게시판 수 조회 실패!");
-		}
 		return result;
 	}
 
