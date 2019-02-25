@@ -192,12 +192,14 @@
   	</insert>
   	
   	<!-- 내 문의 목록 쿼리문 -->
-  	<select id="selectQnaList" resultMap="qnaList0" parameterType="_int">
-  		SELECT * FROM BOARD B
+  	<select id="selectQnaList" resultMap="parking2" parameterType="_int">
+  		SELECT B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, 
+		B.CREATION_DATE,B.MODIFIED_DATE, B.BOARD_TYPE, B.STATUS, 
+		(SELECT COUNT(*) FROM REPLY R WHERE R.BOARD_NO=B.BOARD_NO) AS reCnt
+  		FROM BOARD B 
   		JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
   		WHERE B.STATUS = 'Y'
-  		AND M.MEMBER_NO = #{mno}  		
-        AND (B.BOARD_TYPE = '관리자문의'
+  		AND  (B.BOARD_TYPE = '관리자문의'
         OR B.BOARD_TYPE = '사업자문의')
   		ORDER BY BOARD_NO DESC
   	</select>
@@ -246,13 +248,15 @@
   	</update>
   	
   	<!-- 내 후기 목록 쿼리문 -->
-  	<select id="selectReviewList" resultMap="reviewListSet0" parameterType="_int">
-  		SELECT * 
-  		FROM BOARD B
+  	<select id="selectReviewList" resultMap="parking2" parameterType="_int">
+  		SELECT B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, 
+		B.CREATION_DATE,B.MODIFIED_DATE, B.BOARD_TYPE, B.STATUS, p.PARKING_Name as parking_no,
+		(SELECT COUNT(*) FROM REPLY R WHERE R.BOARD_NO=B.BOARD_NO) AS reCnt
+  		FROM BOARD B 
+  		JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
   		JOIN PARKING P ON(B.PARKING_NO = P.PARKING_NO)
-  		WHERE B.STATUS = 'Y'  	
-        AND B.BOARD_TYPE = '후기'
-        AND B.MEMBER_NO = #{mno}
+  		WHERE B.STATUS = 'Y'
+  		AND B.BOARD_TYPE = '후기'
   		ORDER BY BOARD_NO DESC
   	</select>
   	
@@ -329,15 +333,18 @@
   	</select>
   	
   	<!-- 주차장 문의 게시물 목록 조회용 쿼리문 -->
-  	<select id="selectParkingQnaList" resultMap="parkingQnaListSet" parameterType="String">
-		SELECT *
-		FROM BOARD B
-		JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
-		JOIN PARKING P ON(B.PARKING_NO = P.PARKING_NO)
-		WHERE B.STATUS = 'Y'
-		AND B.BOARD_TYPE = '사업자문의'
-		AND B.PARKING_NO = #{pno}
-		ORDER BY BOARD_NO DESC
+  	<select id="selectParkingQnaList" resultMap="parking2" parameterType="String">
+		SELECT B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, 
+		B.CREATION_DATE,B.MODIFIED_DATE, B.BOARD_TYPE, B.STATUS, 
+		M.MEMBER_NAME as MEMBER_NO, p.PARKING_Name as parking_no, 
+		(SELECT COUNT(*) FROM REPLY R WHERE R.BOARD_NO=B.BOARD_NO) AS reCnt
+  		FROM BOARD B 
+  		JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
+  		JOIN PARKING P ON(B.PARKING_NO = P.PARKING_NO)
+  		WHERE B.STATUS = 'Y'
+  		AND B.PARKING_NO = #{pno}
+  		AND B.BOARD_TYPE = '사업자문의'
+  		ORDER BY BOARD_NO DESC
 
 
   	</select>
@@ -355,7 +362,10 @@
   	
   	<!-- 주차장 후기 목록 -->
   	<select id="selectParkingReviewList" resultMap="parking2" parameterType="String">
-  		SELECT B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, B.CREATION_DATE,B.MODIFIED_DATE, B.BOARD_TYPE, B.STATUS, B.MEMBER_NO, p.PARKING_Name as parking_no, (SELECT COUNT(*) FROM REPLY R WHERE R.BOARD_NO=B.BOARD_NO) AS reCnt
+  		SELECT B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTEXT, B.BOARD_VIEWS, 
+		B.CREATION_DATE,B.MODIFIED_DATE, B.BOARD_TYPE, B.STATUS, 
+		M.MEMBER_NAME as MEMBER_NO, p.PARKING_Name as parking_no, 
+		(SELECT COUNT(*) FROM REPLY R WHERE R.BOARD_NO=B.BOARD_NO) AS reCnt
   		FROM BOARD B 
   		JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
   		JOIN PARKING P ON(B.PARKING_NO = P.PARKING_NO)
@@ -514,5 +524,7 @@
         AND STATUS='Y';
   		
   	</select>
+  	
+  	
   	
   </mapper>

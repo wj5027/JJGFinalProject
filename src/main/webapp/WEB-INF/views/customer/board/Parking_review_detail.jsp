@@ -57,6 +57,7 @@
 			</tr>			
 			
 		</table>
+		
 	<div class="repleArea">
 		<div class="replySelectArea">
 		<table id="replySelectTable" width="100%" border="0" cellpadding="0" cellspacing="0">
@@ -66,19 +67,19 @@
 			<tr>
 				<td width="60px">댓글&nbsp;</td>
 				<td   colspan="2">${ r.context }　　　　　　　　　</td>
-				<td align="center">${ r.memberNo }
+				<td align="center">${ r.memberNo }</td>
 			</tr>
 			</c:forEach>
 			</table>
 			</div>
 			<table>
 			<tr>
-				<td>댓글작성	</td>
-				<td colspan="2">
+				<td width="60px">댓글작성	</td>
+				<td colspan="2" width="500px">
 					<input type="text" id="replyContent" class="form-control">
 					
 				</td>
-				<td float="right">
+				<td width="30px">
 					<button class="btn btn-info btn-sm" onclick="return insertReply()" id="addReply">댓글등록</button>
 				</td>
 			</tr>
@@ -106,7 +107,7 @@
 		var writer = ${ loginUser.member_no }
 		var content = $("#replyContent").val();
 		var bno =${ b.bno };
-		
+		xi3
 		console.log(writer);
 		console.log(content); 
 		console.log(bno);

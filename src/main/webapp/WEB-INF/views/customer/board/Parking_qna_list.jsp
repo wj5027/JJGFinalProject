@@ -27,7 +27,7 @@
         <div class="row">
 		  <div class="col-md-12" height="500px">
             <div class="card ">
-              <div class="card-header">${list[0] }
+              <div class="card-header">
               <c:choose>
               	<c:when test="${ list.size()>0 }">
               		<h3 class="card-title" align="center">[${list[0].pno }]주차장 문의</h3>              		
@@ -47,17 +47,18 @@
               <div align="center">
   	
 	  	<table id="listArea">
-	  		<th width="50%">작성일</th>
+	  		<th width="40%">작성일</th>
 	  		
-	  		<th>제목</th>
+	  		<th width="40%">제목</th>
+	  		<th>작성자</th>
 	  		<c:forEach var="b" items="${ list }">
   	
   	 
 	  		<tbody>
 	  		<tr>
 	  		<td>${ b.createDate }</td>
-	  		<td><input type="hidden" id="bno" name="bno" value="${b.bno}">${ b.bTitle }${ b.reCnt }</td>
-	  	
+	  		<td><input type="hidden" id="bno" name="bno" value="${b.bno}">${ b.bTitle }[${ b.reCnt }]</td>
+	  		<td>${ b.mno }</td>
 	  		</tr>
   	</c:forEach>
 	  		</tbody>
@@ -147,7 +148,7 @@
                     	<td>주차장 명</td>
                     	<td>
                     <c:choose>
-              	<c:when test="${ list ne null }">
+              	<c:when test="${ list.size()>0 }">
 					<input type="text" class="form-control" name="pName" value="${list[0].pno }" readonly>
                     <input type="hidden" id="pno" name="pno" value="${ pno }">   				</c:when>
    				<c:when test="${ pName ne null }">
