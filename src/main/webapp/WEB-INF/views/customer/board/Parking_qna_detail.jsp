@@ -74,9 +74,8 @@
 			
 			<tr>
 				<td width="60px">댓글&nbsp;</td>
-				<td   colspan="2">댓글내용　　　　　　　　　</td>
-				
-				<!-- <td>&nbsp;<button float="right" class="btn btn-info btn-sm">등록</button></td> -->
+				<td   colspan="2">${ r.context }　　　　　　　　　</td>
+				<td align="center">사업자</td> 
 			</tr>
 			</table>
 			

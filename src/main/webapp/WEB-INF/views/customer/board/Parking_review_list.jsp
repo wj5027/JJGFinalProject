@@ -29,7 +29,7 @@
 		  <div class="col-md-12" height="500px">
             <div class="card ">
               <div class="card-header">
-             ${list[0]}
+             
             <c:choose>
             <c:when test="${ list.size()>0 }">
               		<h3 class="card-title" align="center">[${list[0].pno }]주차장 후기</h3>              		
@@ -57,7 +57,8 @@
    	<table id="listArea">
    		<th width="30%">작성일</th>
    		<th width="40%">제목</th>
-   		<th>주차장 명</th>
+   		<th>작성자</th>
+   		
    		
    		<c:forEach var="b" items="${ list }">
    		
@@ -67,7 +68,7 @@
    			<td>${ b.createDate }</td>
  		
    			<td><input type="hidden" id="num" name="num" value="${b.bno}">${ b.bTitle }[${ b.reCnt }]</td>
-			<td>${ b.pno }</td>	
+			<td>${ b.mno }</td>	
    		</tr>
    		
    		<!-- <hr style="border: solid 1px white;"> -->

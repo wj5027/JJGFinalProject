@@ -55,8 +55,19 @@ public class CustomerBoardDetail {
 		
 		System.out.println("후기 상세보기 bno: "+bno);
 		
+		//댓글
+		ArrayList<Reply> reply = bs.selectReviewReply(bno);
+				
 		Board b = bs.selectOneReview(bno);
+		if(b != null) {
+			if(reply!=null) {
+				request.setAttribute("reply", reply);
+				System.out.println("댓글 : "+reply);
+			}
 		
+		}else {
+			return "common/errorPage";
+		}
 		model.addAttribute("b", b);
 		
 		// 오일 조회

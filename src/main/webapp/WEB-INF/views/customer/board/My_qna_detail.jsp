@@ -57,8 +57,7 @@
 			<tr>
 				<td width="60px">댓글&nbsp;</td>
 				<td   colspan="2">${ r.context }　　　　　　　　　</td>
-				
-				<!-- <td>&nbsp;<button float="right" class="btn btn-info btn-sm">등록</button></td> -->
+				<td align="center">${ r.memberNo }</td>
 			</tr>
 			</tbody>
 			</c:forEach>

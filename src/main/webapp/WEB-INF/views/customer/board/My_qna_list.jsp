@@ -33,7 +33,7 @@
               <div align="center">
   	
 	  	<table id="listArea">
-	  		<th width="100px">문의분류</th>
+	  		<th width="100px">분류</th>
 	  		<th width="130px">작성일</th>
 	  		<%-- ${list[0].mno } --%>
 	  		<th>제목 </th>
@@ -44,7 +44,7 @@
 	  		<tr>
 	  		<td>${ b.bType }</td>
 	  		<td>${ b.createDate }</td>
-	  		<td><input type="hidden" id="bno" name="bno" value="${b.bno}">${ b.bTitle }</td>
+	  		<td><input type="hidden" id="bno" name="bno" value="${b.bno}">${ b.bTitle }[${ b.reCnt }]</td>
 	  	
 	  		</tr>
 	  		

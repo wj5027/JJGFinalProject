@@ -89,27 +89,7 @@ public class CustomerBoard {
 	@RequestMapping(value="/review.cu", method=RequestMethod.GET)
 	public String CustomerReview(Board b, Model model,HttpServletRequest request,
 			HttpServletResponse response) {
-		/*List<Board> list = bs.selectReviewList(b);
 		
-		model.addAttribute("list", list);
-		System.out.println("후기 서블릿 list: "+list);
-		
-		//작성자
-				HttpSession session = request.getSession();
-				Member loginUser = (Member)session.getAttribute("loginUser");
-				if(loginUser == null) {
-					request.setAttribute("message", "로그인하세요");
-					return "common/errorPage";
-				}
-				
-				String mno = Integer.toString(loginUser.getMember_no());
-						
-				b = new Board();		
-				b.setMno(mno);
-				
-				System.out.println("servlet mno: "+mno);
-		
-		return "customer/board/My_review_list";*/
 		//작성자
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
@@ -884,6 +864,7 @@ public class CustomerBoard {
 			r.setBoardNo(bno);
 			r.setMemberNo(writer);
 			r.setContext(content);
+			
 			
 		
 		

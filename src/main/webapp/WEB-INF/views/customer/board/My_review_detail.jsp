@@ -53,21 +53,63 @@
 			<tr>
 			<td><td>
 			</tr>
+			</table>
 			
-			<tr><!-- BOARD BUTTONS -->
-				<td colspan="5" align="center">
+			<div class="repleArea">
+		<div class="replySelectArea">
+		<table id="replySelectTable" width="100%" border="0" cellpadding="0" cellspacing="0">
+			<c:forEach var="r" items="${ reply }">
+			
+			<tbody>
+			<tr>
+				<td width="60px">댓글&nbsp;</td>
+				<td   colspan="2">${ r.context }　　　　　　　　　</td>
+				<td align="center">${ r.memberNo }</td>
+			</tr>
+			</c:forEach>
+			</table>
+			</div>
+			
+			<div class="repleArea">
+		<div class="replySelectArea">
+		<table id="replySelectTable" width="100%" border="0" cellpadding="0" cellspacing="0">
+			<c:forEach var="r" items="${ reply }">
+			
+			<tbody>
+			<tr>
+				<td width="60px">댓글&nbsp;</td>
+				<td   colspan="2">${ r.context }　　　　　　　　　</td>
+				<td align="center">${ r.memberNo }</td>
+			</tr>
+			</c:forEach>
+			</table>
+			</div>
+			
+			<div>
+			<table>
+			<tbody>
+			<tr>
+				<td width="60px">댓글작성	</td>
+				<td colspan="2" width="500px">
+					<input type="text" id="replyContent" class="form-control">
+				</td>
+				<td width="30px">
+					<button class="btn btn-info btn-sm" onclick="return insertReply()" id="addReply">댓글등록</button>
 					
+				</td>
+			</tr>
+			</tbody>
+			
+			</table>
+			</div>
+		<br>
+		
+        <div align="center">	
 					<button id="editBtn" class="btn btn-info btn-sm">수정</button>&nbsp;
 					<button id="deleteBtn" class="btn btn-info btn-sm">삭제</button>&nbsp;					
 					<button id="goToList" class="btn btn-info btn-sm">목록</button>&nbsp;					
-				
-				</td>
-			</tr>
-		</table>
+				</div>
 		<br>
-		<br>
-		<br>
-        
               </div>
             </div>
           </div>
@@ -96,6 +138,41 @@
 			location.href="./review.cu";
 		});
 	});
+	
+function insertReply(){
+		
+		var writer = ${ loginUser.member_no }
+		var content = $("#replyContent").val();
+		var bno =${ b.bno };
+		
+		console.log(writer);
+		console.log(content); 
+		console.log(bno);
+		
+		$.ajax({
+			url:"insertReply.cu",
+			data:{ writer:writer, content:content, bno:bno},
+			type:"post",
+			success:function(data){
+				console.log(data);
+				
+				var $replySelectTable = $("#replySelectTable");
+				$replySelectTable.html('');
+				
+				
+					
+					$("#replyContent").val("");
+					window.location.reload();
+				
+				 
+				
+			},
+			error:function(){
+				console.log("실패");
+			}
+		});
+		
+	}
 </script>	
 </body>
 </html>

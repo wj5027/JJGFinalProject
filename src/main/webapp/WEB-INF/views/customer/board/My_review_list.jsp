@@ -49,7 +49,7 @@
    		<tr>
    			<td>${ b.createDate }</td>
  		
-   			<td><input type="hidden" id="num" name="num" value="${b.bno}">${ b.bTitle }</td>
+   			<td><input type="hidden" id="num" name="num" value="${b.bno}">${ b.bTitle }[${ b.reCnt }]</td>
 			<td>${ b.pno }</td>	
    		</tr>
    		
