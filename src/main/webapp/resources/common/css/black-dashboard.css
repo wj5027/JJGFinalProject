@@ -13386,7 +13386,8 @@ img {
 }
 
 .navbar {
-  padding: 10px 30px 10px 15px;
+	/*현영수정  */
+  /* padding: 10px 30px 10px 15px; */
   width: 100%;
   z-index: 1050;
   background: #1a1e34;
@@ -13542,7 +13543,8 @@ img {
 
 @media screen and (max-width: 991px) {
   .navbar .container-fluid {
-    padding-right: 15px;
+    /*수정 */
+    /* padding-right: 15px; */
     padding-left: 15px;
   }
   .navbar .navbar-collapse .input-group {
