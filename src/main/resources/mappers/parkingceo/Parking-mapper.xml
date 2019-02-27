@@ -42,8 +42,8 @@
 
 <insert id="insertParkingListOne" parameterType="com.kh.tsp.parkingceo.model.vo.ParkingCeoVo">
 		INSERT INTO PARKING_LIST
-		VALUES(PARKING_LIST_SEQ.NEXTVAL,#{parkingName},'민영',#{parkingSize},#{openDays},#{weekdayStime},#{weekdayEtime},#{satStime},#{satEtime},#{hollydayStime},#{hollydayEtime},#{priceInfo}
-		,#{parkingNtime},#{parkingNprice},#{parkingAtime},#{parkingAprice},#{payType},'변경중',#{memberNo},#{parkingNo},NULL,SYSDATE)
+		VALUES (PARKING_LIST_SEQ.NEXTVAL,#{parkingName},'민영',#{parkingSize},#{openDays},#{weekdayStime},#{weekdayEtime},#{satStime},#{satEtime},#{hollydayStime},#{hollydayEtime},#{priceInfo}
+		,#{parkingNtime},#{parkingNprice},#{parkingAtime},#{parkingAprice},#{payType},'변경중',#{memberNo},#{parkingNo},NULL,SYSDATE,NULL)
 </insert>
 
 <select id="selectParkingListNo" resultType="_int">
