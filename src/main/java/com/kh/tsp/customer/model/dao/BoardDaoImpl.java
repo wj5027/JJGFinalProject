@@ -62,7 +62,7 @@ public class BoardDaoImpl implements BoardDao{
 		
 		return sqlSession.insert("Board.insertNotice", b);
 	}
-	//문의 목록
+	//문의 목록.
 	@Override
 	public List<Board> selectQnaList(Board b) {
 		System.out.println("dao b: "+b);
