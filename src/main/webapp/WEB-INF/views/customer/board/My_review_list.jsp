@@ -188,7 +188,7 @@
 		}).click(function(){	
 			
 			var num = $(this).find("#num").val();
-			console.log(num);
+			//console.log(num);
 			
 			
 			location.href="./reviewDetail.cu?num="+num;
