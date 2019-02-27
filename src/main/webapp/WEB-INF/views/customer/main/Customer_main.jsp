@@ -1165,9 +1165,7 @@
     console.log(naver_id_login.getProfileData('email'));
     console.log(naver_id_login.getProfileData('name'));
   	console.log(naver_id_login.getProfileData('id'));
-  	/* $("#member_id").val(naver_id_login.getProfileData('id'));
-    $("#member_name").val(naver_id_login.getProfileData('name'));
-     */
+  
      var member_id=naver_id_login.getProfileData('id');
     var member_name=naver_id_login.getProfileData('name');
     var email = naver_id_login.getProfileData('email');
@@ -1175,7 +1173,7 @@
      console.log(member_name);
      console.log(email);
       location.href="./naverLogin.cu?member_id="+member_id+"&member_name="+member_name+"&email="+email;
-   // alert(naver_id_login.getProfileData('age'));
+  
  
   }
 	  

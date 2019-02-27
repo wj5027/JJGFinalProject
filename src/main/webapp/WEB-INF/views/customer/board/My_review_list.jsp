@@ -42,9 +42,9 @@
    		<th width="40%">제목</th>
    		<th>주차장 명</th>
    		
+   		
    		<c:forEach var="b" items="${ list }">
-   		
-   		
+   		<c:if test="${ b.mno eq loginUser.member_no }">	
    		<tbody>
    		<tr>
    			<td>${ b.createDate }</td>
@@ -54,8 +54,9 @@
    		</tr>
    		
    		<!-- <hr style="border: solid 1px white;"> -->
-   		  
+   		</c:if>
    		   </c:forEach>
+   		   
    		</tbody>
    	</table>
    		<%-- <a href="./customerNoticeDetail.cu" >${ b.bTitle }<intput type="hidden" name="bno" value="${ b.bno }"></a><h5>${ b.createDate }</h5> --%>

@@ -58,7 +58,7 @@
                       <tr>
                       	<td></td>
                       	<td style="padding-left: 30%">
-                      		<button class="btn btn-info btn-sm">등록</button>
+                      		<button type="submit" id="chk"onclick="return textChk()" class="btn btn-info btn-sm">등록</button>
                       	</td>
                       </tr> 
                                        
@@ -104,5 +104,29 @@
   </div>
  
 </body>
+<script>
 
+function textChk(){
+	   var word = document.getElementById("textContent").value;
+    console.log(word);
+    // 금칙어 적용
+    var swear_words_arr = new Array("시발", "존나");
+
+    orgword = word.toLowerCase();
+    i = 0;
+
+    while (i <= swear_words_arr.length - 1) {
+
+        if (orgword.indexOf(swear_words_arr[i]) > -1) {
+            alert("'"+swear_words_arr[i] + "' 은(는) 금지어입니다. 등록 할 수 없습니다.");
+            return false;
+        }
+        i++;
+    }
+    return true;
+	   
+	   
+	   
+}
+</script>
 </html>

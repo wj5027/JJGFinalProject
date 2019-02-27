@@ -99,12 +99,9 @@
         Kakao.API.request({
           url: '/v1/user/me',
           success: function(res) {
-            //console.log(JSON.stringify(res.kaccount_email));
-            console.log(JSON.stringify(res.id));
-            //console.log(JSON.stringify(res.properties.profile_image));
-            console.log(JSON.stringify(res.properties.nickname));
-         	//location.href="kakao.cu?nickname="+res.properties.nickname;
-            //alert(JSON.stringify(authObj));
+         
+            console.log(JSON.stringify(res.id));           
+            console.log(JSON.stringify(res.properties.nickname));         	
             
            $("#kakao_id").val(res.id)
            $("#member_name").val(res.properties.nickname)
