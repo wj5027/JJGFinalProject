@@ -531,7 +531,7 @@ function goReservationPage(){
 		
 		
 		//주차 구획수 변수 및 정규표현식
-		parking_size = $("#parking_size").val();
+		parking_size = $("#parkingSize").val();
 		regExp3 = /\d{1,5}/g;
 		//주차 구획수가 비었을시
 		if($("#parkingSize").val() == null || $("#parkingSize").val() == ''){
