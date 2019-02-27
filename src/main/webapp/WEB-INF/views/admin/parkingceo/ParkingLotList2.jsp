@@ -747,7 +747,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 						<div class="modal-body" style="padding-bottom: 0px;">
 							<div class="card ">
 								<div class="card-header">
-									<h4 class="card-title">환전/환불 승인 취소 사유</h4>
+									<h4 class="card-title">주차장 승인 취소 사유</h4>
 								</div>
 								<div class="card-body" style="padding-bottom: 0px;">
 									<div class="table-responsive"
