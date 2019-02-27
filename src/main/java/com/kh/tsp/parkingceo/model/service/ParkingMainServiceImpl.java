@@ -95,6 +95,48 @@ public class ParkingMainServiceImpl implements ParkingMainService {
 	}
 
 
+	@Override
+	public HashMap<String, Object> selectNonMemberUseTime(HashMap<String, Object> searchData) {
+		// 출차시간 업데이트
+		pmd.updateNonMemberTimes(sqlSession,searchData);
+		//사용시간,출차시간 가져오기
+		HashMap<String,Object> hmap = pmd.selectNonMemberUseTime(sqlSession,searchData);
+		return hmap;
+	}
+
+
+	@Override
+	public HashMap<String, Integer> selectNonMemberParkingUseTimeAndPrice(String selectParkingBox) {
+		return pmd.selectNonMemberParkingUseTimeAndPrice(sqlSession,selectParkingBox);
+	}
+
+
+	@Override
+	public void updateNonMemberResultData(HashMap<String, Object> addResultData) {
+		pmd.updateNonMemberResultData(sqlSession,addResultData);
+	}
+
+
+	@Override
+	public HashMap<String, Object> selectNonMemberResultData(HashMap<String, Object> searchData) {
+		return pmd.selectNonMemberResultData(sqlSession,searchData);
+	}
+
+
+	@Override
+	public void plusNonMemberParkingLeftSize(HashMap<String, Object> searchData) {
+		pmd.plusNonMemberParkingLeftSize(sqlSession,searchData);
+	}
+
+
+
+
+
+
+
+
+	
+
 
 
 

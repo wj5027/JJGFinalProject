@@ -1,5 +1,6 @@
 package com.kh.tsp.parkingceo.controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -230,9 +231,6 @@ public class ParkingCeoMain {
 		searchHashmap.put("car_no", resultCarNo);
 		searchHashmap.put("phone", resultPhone);
 		searchHashmap.put("start_time", resultDate);
-		
-		
-		
 		try {
 			pms.insertEntryList(searchHashmap,resultMemberNo,resultResNo);
 		}catch(Exception e) {
@@ -245,5 +243,93 @@ public class ParkingCeoMain {
 		mv.setViewName("jsonView");
 		return mv;
 	}
+	
+	
+	//일반회원 출차 메소드
+	@RequestMapping(value="selectNonMemberOutputCar.pc",method=RequestMethod.POST)
+	public ModelAndView selectNonMemberOutputCar(ModelAndView mv,@RequestParam String selectParkingBox,@RequestParam String car_no) {
+
+		int nTime = 0;
+		int nPrice = 0;
+		int aTime = 0;
+		int aPrice = 0;
+		int resultPrice = 0;
+		HashMap<String, Object> addResultData = new HashMap<String,Object>();
+		HashMap<String, Object> searchData = new HashMap<String,Object>();
+		
+		searchData.put("parking_no", selectParkingBox);
+		searchData.put("car_no", car_no);
+		
+		try {
+			//출차시간과 사용시간 데이터 삽입 후 사용시간 가져오기
+			HashMap<String, Object> selectUseTime = pms.selectNonMemberUseTime(searchData);
+			
+			int resultUseTime = Integer.parseInt(selectUseTime.get("USE_TIME")+"");
+			//사용시간을 데이터베이스에 넣기 위해 해쉬맵에 데이터 넣기
+			addResultData.put("resultUseTime", resultUseTime);
+			//기본시간,기본요금,추가시간,추가요금 가져오기
+			HashMap<String, Integer> selectParkingUseTimeAndPrice = pms.selectNonMemberParkingUseTimeAndPrice(selectParkingBox);
+			
+			//각 시간이 0이나 null이 아닐시 계산구하기
+			if(selectParkingUseTimeAndPrice.get("PARKING_NTIME") != null || selectParkingUseTimeAndPrice.get("PARKING_NTIME")+"" != "" ) {
+				nTime = Integer.parseInt(selectParkingUseTimeAndPrice.get("PARKING_NTIME")+"");				
+			}else {
+				nTime = 0;
+			}
+			
+			if(selectParkingUseTimeAndPrice.get("PARKING_NPRICE") != null || selectParkingUseTimeAndPrice.get("PARKING_NPRICE")+"" != "" ) {
+				nPrice =  Integer.parseInt(selectParkingUseTimeAndPrice.get("PARKING_NPRICE")+"");				
+			}else {
+				nPrice = 0;
+			}
+			
+			if(selectParkingUseTimeAndPrice.get("PARKING_NPRICE") != null || selectParkingUseTimeAndPrice.get("PARKING_NPRICE")+"" != "" ) {
+				aTime = Integer.parseInt(selectParkingUseTimeAndPrice.get("PARKING_ATIME")+"");				
+			}else {
+				aTime = 0;
+			}
+			
+			if(selectParkingUseTimeAndPrice.get("PARKING_NPRICE") != null || selectParkingUseTimeAndPrice.get("PARKING_NPRICE")+"" != "" ) {
+				aPrice =  Integer.parseInt(selectParkingUseTimeAndPrice.get("PARKING_APRICE")+"");				
+			}else {
+				aTime = 0;
+			}
+			
+			if(nTime != 0) {
+				resultUseTime = resultUseTime - nTime;
+				resultPrice = nPrice;
+				if(aTime != 0) {
+					resultPrice += ((int)(resultUseTime/aTime))*aPrice;
+				}else {
+					resultPrice += ((int)(resultUseTime/nTime))*nPrice;
+				}
+			}
+			
+			//구해온 요금을 해쉬맵에 삽입
+			addResultData.put("resultPrice", resultPrice);
+			addResultData.put("car_no", car_no);
+			addResultData.put("parking_no", selectParkingBox);
+			//데이터 베이스에 재 업로드
+			pms.updateNonMemberResultData(addResultData);
+			
+			//주차장 구획수 증가
+			pms.plusNonMemberParkingLeftSize(searchData);
+			
+			//출차 데이터 불러오기
+			HashMap<String, Object> hmap = pms.selectNonMemberResultData(searchData);
+			mv.addObject("hmap", hmap);
+		
+			
+			
+		}catch(Exception e) {
+			mv.addObject("message", "출차 실패!");
+			mv.setViewName("jsonView");
+			return mv;
+		}
+		
+		mv.setViewName("jsonView");
+		return mv;
+	}
+	
 	
 }

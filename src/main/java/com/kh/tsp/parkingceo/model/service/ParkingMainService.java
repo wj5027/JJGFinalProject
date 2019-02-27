@@ -24,6 +24,26 @@ public interface ParkingMainService {
 
 	void insertEntryList(HashMap<String, Object> searchHashmap, String resultMemberNo, String resultResNo);
 
+	HashMap<String, Object> selectNonMemberUseTime(HashMap<String, Object> searchData);
+
+	HashMap<String, Integer> selectNonMemberParkingUseTimeAndPrice(String selectParkingBox);
+
+	void updateNonMemberResultData(HashMap<String, Object> addResultData);
+
+	HashMap<String, Object> selectNonMemberResultData(HashMap<String, Object> searchData);
+
+	void plusNonMemberParkingLeftSize(HashMap<String, Object> searchData);
+
+
+
+
+
+
+
+	
+
+
+
 
 
 
