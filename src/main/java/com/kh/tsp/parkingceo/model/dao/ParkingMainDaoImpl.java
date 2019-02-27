@@ -72,6 +72,7 @@ public class ParkingMainDaoImpl implements ParkingMainDao {
 		sqlSession.insert("ParkingMain.insertNonMemberEntryList", searchHashmap);
 	}
 
+	/////////////////////////////////////////////////////////////////////////
 	@Override
 	public void insertNomalMemberEntryList(SqlSessionTemplate sqlSession, HashMap<String, Object> searchHashmap) {
 		// TODO Auto-generated method stub
@@ -94,6 +95,43 @@ public class ParkingMainDaoImpl implements ParkingMainDao {
 	public void updateLeftSize(SqlSessionTemplate sqlSession, HashMap<String, Object> searchHashmap) {
 		sqlSession.update("ParkingMain.updateLeftSize1",searchHashmap);
 	}
+
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	@Override
+	public void updateNonMemberTimes(SqlSessionTemplate sqlSession,HashMap<String, Object> searchData) {
+		sqlSession.update("ParkingMain.updateNonMemberTimes",searchData);
+	}
+
+	@Override
+	public HashMap<String, Object> selectNonMemberUseTime(SqlSessionTemplate sqlSession,HashMap<String, Object> searchData) {
+		return sqlSession.selectOne("ParkingMain.selectNonMemberUseTime",searchData);
+	}
+
+	@Override
+	public HashMap<String, Integer> selectNonMemberParkingUseTimeAndPrice(SqlSessionTemplate sqlSession,
+			String selectParkingBox) {
+		HashMap<String, Object> hmap = new HashMap<String,Object>();
+		hmap.put("parking_no", selectParkingBox);
+		return sqlSession.selectOne("ParkingMain.selectNonMemberParkingUseTimeAndPrice", hmap);
+	}
+
+	@Override
+	public void updateNonMemberResultData(SqlSessionTemplate sqlSession, HashMap<String, Object> addResultData) {
+		sqlSession.update("ParkingMain.updateNonMemberResultData", addResultData);
+	}
+
+	@Override
+	public HashMap<String, Object> selectNonMemberResultData(SqlSessionTemplate sqlSession,
+			HashMap<String, Object> searchData) {
+		return sqlSession.selectOne("ParkingMain.selectNonMemberResultData", searchData);
+	}
+
+	@Override
+	public void plusNonMemberParkingLeftSize(SqlSessionTemplate sqlSession, HashMap<String, Object> searchData) {
+		sqlSession.update("ParkingMain.plusNonMemberParkingLeftSize", searchData);
+	}
+
 
 
 

@@ -80,15 +80,36 @@
 		VALUES (EE_NO_SEQ.NEXTVAL,TO_DATE(#{start_time},'YYYY-MM-DD HH24:MI:SS'),NULL,'일반',NULL,0,#{parking_no},NULL,NULL,#{car_no},'입차',#{phone})
 	</insert>
 	
-	
-	
-	
-	
-	
 	<update id="updateLeftSize1" parameterType="hashmap">
 		UPDATE PARKING SET LEFT_SIZE = (SELECT LEFT_SIZE FROM PARKING WHERE PARKING_NO = #{parking_no}) -1
 		WHERE PARKING_NO = #{parking_no}
 	</update>
+	
+	<update id="updateNonMemberTimes" parameterType="hashmap">
+		UPDATE ENTRY_EXIT_LIST SET END_TIME = SYSDATE WHERE CAR_NO = #{car_no} AND PARKING_NO = #{parking_no}
+	</update>
+	
+	<select id="selectNonMemberUseTime" parameterType="hashmap" resultType="hashmap">
+		SELECT TRUNC((END_TIME - START_TIME) * 24 * 60) AS USE_TIME FROM ENTRY_EXIT_LIST WHERE CAR_NO = #{car_no} AND PARKING_NO = #{parking_no}
+	</select>
+	
+	<select id="selectNonMemberParkingUseTimeAndPrice" parameterType="hashmap" resultType="hashmap">
+		SELECT PARKING_NTIME,PARKING_NPRICE,PARKING_ATIME,PARKING_APRICE FROM PARKING WHERE PARKING_NO = #{parking_no}
+	</select>
+	
+	<update id="updateNonMemberResultData" parameterType="hashmap">
+		UPDATE ENTRY_EXIT_LIST SET STATUS = '출차',HOURS=#{resultUseTime},FEE=#{resultPrice} WHERE CAR_NO = #{car_no} AND PARKING_NO = #{parking_no}
+	</update>
+	
+	<select id="selectNonMemberResultData" parameterType="hashmap" resultType="hashmap">
+		SELECT HOURS,FEE,CAR_NO,PHONE FROM ENTRY_EXIT_LIST WHERE CAR_NO = #{car_no} AND PARKING_NO = #{parking_no}
+	</select>
+	
+	<update id="plusNonMemberParkingLeftSize" parameterType="hashmap">
+		UPDATE PARKING SET LEFT_SIZE = (SELECT LEFT_SIZE FROM PARKING WHERE PARKING_NO = #{parking_no}) +1
+		WHERE PARKING_NO = #{parking_no}
+	</update>
+	
 	
 </mapper>
 

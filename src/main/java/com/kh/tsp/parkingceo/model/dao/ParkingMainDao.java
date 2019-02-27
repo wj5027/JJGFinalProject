@@ -38,6 +38,21 @@ public interface ParkingMainDao {
 
 	void updateLeftSize(SqlSessionTemplate sqlSession, HashMap<String, Object> searchHashmap);
 
+	void updateNonMemberTimes(SqlSessionTemplate sqlSession,HashMap<String, Object> searchData);
+
+	HashMap<String, Object> selectNonMemberUseTime(SqlSessionTemplate sqlSession,HashMap<String, Object> searchData);
+
+	HashMap<String, Integer> selectNonMemberParkingUseTimeAndPrice(SqlSessionTemplate sqlSession, String selectParkingBox);
+
+	void updateNonMemberResultData(SqlSessionTemplate sqlSession, HashMap<String, Object> addResultData);
+
+	HashMap<String, Object> selectNonMemberResultData(SqlSessionTemplate sqlSession,
+			HashMap<String, Object> searchData);
+
+	void plusNonMemberParkingLeftSize(SqlSessionTemplate sqlSession, HashMap<String, Object> searchData);
+
+	
+
 
 
 
