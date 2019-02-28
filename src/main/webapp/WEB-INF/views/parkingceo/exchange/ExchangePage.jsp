@@ -598,7 +598,7 @@ function goReservationPage(){
 		
  		//주차장명 값 및 정규표현식
 		parking_name = $("#parkingName").val();
-		var regExp1 = /^[가-힣 ]{2,15}$/g;
+		var regExp1 = /^[가-힣 0-9]{2,15}$/g;
 		//주차장명이 비었을시
 		if($("#parkingName").val() == null || $("#parkingName").val() == ''){
 			var modalText = $("<b>").text("주차장 명을 입력해주세요.");

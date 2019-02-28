@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.tsp.common.ParkingCeoPageInfo;
+import com.kh.tsp.customer.model.vo.Member;
 
 public interface ParkingMainDao {
 
@@ -50,6 +51,10 @@ public interface ParkingMainDao {
 			HashMap<String, Object> searchData);
 
 	void plusNonMemberParkingLeftSize(SqlSessionTemplate sqlSession, HashMap<String, Object> searchData);
+
+	Member selectNomalMemberInformation(SqlSessionTemplate sqlSession, HashMap<String, Object> selectHmap);
+
+
 
 	
 

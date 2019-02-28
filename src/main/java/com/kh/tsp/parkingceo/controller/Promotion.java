@@ -91,6 +91,12 @@ public class Promotion {
 				endDay = Integer.parseInt(endDateArr[i]);
 			}
 		}
+		
+		if(pv.getRemark().equals("") || pv.getRemark() == null) {
+			pv.setRemark("비고없음");
+		}
+		
+		
 		pv.setCoupon_start_date(new Date(new GregorianCalendar(startYear, startMonth-1, startDay).getTimeInMillis()));
 		pv.setCoupon_end_date(new Date(new GregorianCalendar(endYear, endMonth-1, endDay).getTimeInMillis()));
 		

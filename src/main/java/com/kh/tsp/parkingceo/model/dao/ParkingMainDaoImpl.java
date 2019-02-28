@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.tsp.common.ParkingCeoPageInfo;
+import com.kh.tsp.customer.model.vo.Member;
 
 @Repository
 public class ParkingMainDaoImpl implements ParkingMainDao {
@@ -75,7 +76,7 @@ public class ParkingMainDaoImpl implements ParkingMainDao {
 	/////////////////////////////////////////////////////////////////////////
 	@Override
 	public void insertNomalMemberEntryList(SqlSessionTemplate sqlSession, HashMap<String, Object> searchHashmap) {
-		// TODO Auto-generated method stub
+		sqlSession.insert("ParkingMain.insertNomalMemberEntryList", searchHashmap);
 		
 	}
 
@@ -130,6 +131,11 @@ public class ParkingMainDaoImpl implements ParkingMainDao {
 	@Override
 	public void plusNonMemberParkingLeftSize(SqlSessionTemplate sqlSession, HashMap<String, Object> searchData) {
 		sqlSession.update("ParkingMain.plusNonMemberParkingLeftSize", searchData);
+	}
+
+	@Override
+	public Member selectNomalMemberInformation(SqlSessionTemplate sqlSession, HashMap<String, Object> selectHmap) {
+		return sqlSession.selectOne("ParkingMain.selectNomalMemberInformation", selectHmap);
 	}
 
 

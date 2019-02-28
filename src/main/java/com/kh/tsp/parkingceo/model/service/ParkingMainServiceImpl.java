@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.tsp.common.ParkingCeoPageInfo;
+import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.parkingceo.model.dao.ParkingMainDao;
 
 @Service
@@ -75,18 +76,18 @@ public class ParkingMainServiceImpl implements ParkingMainService {
 
 	@Override
 	public void insertEntryList(HashMap<String, Object> searchHashmap, String resultMemberNo, String resultResNo) {
-			//일반 회원일시
-		 if(!resultMemberNo.equals("")) {
-			 searchHashmap.put("member_no", Integer.parseInt(resultMemberNo));
-			 pmd.insertNomalMemberEntryList(sqlSession,searchHashmap);
-		 }else if(!resultResNo.equals("")) {
+		if(!resultResNo.equals("")) {
 			 //예약회원일시
 			 searchHashmap.put("res_no", Integer.parseInt(resultResNo));
 			 int member_no = pmd.searchMemberNo(searchHashmap);
 			 searchHashmap.put("member_no", member_no);
 			 pmd.insertResMemberEntryList(sqlSession,searchHashmap);
-		 }else {
-				//비회원일시 
+		 }else if (!resultMemberNo.equals("")) { 
+			//일반 회원일시
+			 searchHashmap.put("member_no", Integer.parseInt(resultMemberNo));
+			 pmd.insertNomalMemberEntryList(sqlSession,searchHashmap);		 
+		 }else{
+			 //비회원일시 
 			 pmd.insertNonMemberEntryList(sqlSession,searchHashmap);
 		 }
 		 //입차일시 주차장 남은 대수 감소
@@ -126,6 +127,12 @@ public class ParkingMainServiceImpl implements ParkingMainService {
 	@Override
 	public void plusNonMemberParkingLeftSize(HashMap<String, Object> searchData) {
 		pmd.plusNonMemberParkingLeftSize(sqlSession,searchData);
+	}
+
+
+	@Override
+	public Member selectNomalMemberInformation(HashMap<String, Object> selectHmap) {
+		return pmd.selectNomalMemberInformation(sqlSession,selectHmap);
 	}
 
 

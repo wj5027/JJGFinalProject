@@ -28,6 +28,27 @@
 			<result property="parkingListReason" column="PARKING_LIST_REASON"/>
 			<result property="modifyDate" column="MODIFY_DATE"/>
 	</resultMap>
+	
+		<resultMap type="com.kh.tsp.customer.model.vo.Member" id="MemberResultSet">
+			<id property="member_no" column="MEMBER_NO"/>
+			<result property="member_id" column="MEMBER_ID"/>
+			<result property="member_pwd" column="MEMBER_PASSWORD"/>
+			<result property="member_type" column="MEMBER_TYPE"/>
+			<result property="id_type" column="ID_TYPE"/>
+			<result property="oil" column="OIL"/>
+			<result property="email" column="EMAIL"/>
+			<result property="phone" column="PHONE"/>
+			<result property="member_name" column="MEMBER_NAME"/>
+			<result property="member_carNo" column="MEMBER_CARNO"/>
+			<result property="status" column="STATUS"/>
+			<result property="kakao_id" column="KAKAO_ID"/>
+			<result property="bank_id" column="BANK_ID"/>
+			<result property="bank_name" column="BANK_NAME"/>
+			<result property="enroll_date" column="ENROLL_DATE"/>	
+	</resultMap>
+	
+	
+	
 
 	<select id="selectListCountInsertParkingSystemList" parameterType="hashmap" resultType="_int">
 		SELECT COUNT(*) FROM ENTRY_EXIT_LIST EEL
@@ -38,7 +59,7 @@
 	</select>
 
 	<select id="selectSearchInsertParkingSystemList" parameterType="hashmap" resultType="hashmap">
-		SELECT M.MEMBER_ID,M.MEMBER_NAME,M.PHONE,EEL.CAR_NO,EEL.START_TIME,EEL.HOURS,EEL.END_TIME,EEL.STATUS,FEE,EEL.EE_TYPE,EEL.RES_NO FROM ENTRY_EXIT_LIST EEL
+		SELECT M.MEMBER_ID,M.MEMBER_NAME,EEL.PHONE,EEL.CAR_NO,EEL.START_TIME,EEL.HOURS,EEL.END_TIME,EEL.STATUS,FEE,EEL.EE_TYPE,EEL.RES_NO FROM ENTRY_EXIT_LIST EEL
 		LEFT JOIN MEMBER M ON (EEL.MEMBER_NO = M.MEMBER_NO)
 		LEFT JOIN PARKING P ON(EEL.PARKING_NO = P.PARKING_NO)
 		WHERE EEL.STATUS = '입차'
@@ -80,6 +101,15 @@
 		VALUES (EE_NO_SEQ.NEXTVAL,TO_DATE(#{start_time},'YYYY-MM-DD HH24:MI:SS'),NULL,'일반',NULL,0,#{parking_no},NULL,NULL,#{car_no},'입차',#{phone})
 	</insert>
 	
+	<insert id="insertNomalMemberEntryList" parameterType="hashmap">
+		INSERT INTO ENTRY_EXIT_LIST
+		VALUES (EE_NO_SEQ.NEXTVAL,TO_DATE(#{start_time},'YYYY-MM-DD HH24:MI:SS'),NULL,'일반',NULL,0,#{parking_no},NULL,#{member_no},#{car_no},'입차',#{phone})
+	
+	</insert>
+	
+	
+	
+	
 	<update id="updateLeftSize1" parameterType="hashmap">
 		UPDATE PARKING SET LEFT_SIZE = (SELECT LEFT_SIZE FROM PARKING WHERE PARKING_NO = #{parking_no}) -1
 		WHERE PARKING_NO = #{parking_no}
@@ -109,6 +139,11 @@
 		UPDATE PARKING SET LEFT_SIZE = (SELECT LEFT_SIZE FROM PARKING WHERE PARKING_NO = #{parking_no}) +1
 		WHERE PARKING_NO = #{parking_no}
 	</update>
+	
+	
+	<select id="selectNomalMemberInformation" parameterType="hashmap" resultMap="MemberResultSet">
+		SELECT MEMBER_NO,MEMBER_ID,MEMBER_CARNO,MEMBER_NAME,PHONE FROM MEMBER WHERE MEMBER_ID = #{member_id}
+	</select>
 	
 	
 </mapper>

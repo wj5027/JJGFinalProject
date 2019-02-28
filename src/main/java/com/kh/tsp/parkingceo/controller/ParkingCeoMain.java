@@ -211,7 +211,7 @@ public class ParkingCeoMain {
 	//입차 메소드
 	@RequestMapping(value="/insertEntryList.pc",method=RequestMethod.POST)
 	public ModelAndView insertEntryList(ModelAndView mv,@RequestParam String selectParkingBox,@RequestParam String resultCarNo,@RequestParam String resultMemberNo,
-			@RequestParam String resultMemberName,@RequestParam String resultResNo,@RequestParam String resultPhone,@RequestParam String resultYear
+			@RequestParam String resultResNo,@RequestParam String resultPhone,@RequestParam String resultYear
 			,@RequestParam String resultMonth,@RequestParam String resultDay,@RequestParam String resultHours,@RequestParam String resultMin) 
 	{
 		
@@ -246,7 +246,7 @@ public class ParkingCeoMain {
 	
 	
 	//일반회원 출차 메소드
-	@RequestMapping(value="selectNonMemberOutputCar.pc",method=RequestMethod.POST)
+	@RequestMapping(value="/selectNonMemberOutputCar.pc",method=RequestMethod.POST)
 	public ModelAndView selectNonMemberOutputCar(ModelAndView mv,@RequestParam String selectParkingBox,@RequestParam String car_no) {
 
 		int nTime = 0;
@@ -330,6 +330,44 @@ public class ParkingCeoMain {
 		mv.setViewName("jsonView");
 		return mv;
 	}
+	
+	
+	//일반회원 입차 정보 조회 메소드
+	@RequestMapping(value="/selectNomalMemberInformation.pc",method=RequestMethod.POST)
+	public ModelAndView selectNomalMemberInformation(ModelAndView mv,@RequestParam String member_id) {
+		
+		HashMap<String, Object> selectHmap = new HashMap<String,Object>();
+		HashMap<String, Object> resultHmap = new HashMap<String,Object>();
+		selectHmap.put("member_id", member_id);
+
+		try {
+			
+			Member m = pms.selectNomalMemberInformation(selectHmap);
+			resultHmap.put("member", m);
+			mv.addObject("hmap", resultHmap);
+
+		}catch(Exception e){
+			System.err.println(e.getMessage());
+			mv.addObject("message", "일반 회원 조회 실패!");
+			mv.setViewName("jsonView");
+			return mv;
+		}
+		
+		mv.setViewName("jsonView");
+		return mv;
+	}
+	
+	
+	@RequestMapping(value="/selectNomalMemberOutputInformation.pc",method=RequestMethod.POST)
+	public ModelAndView selectNomalMemberOutputInformation(ModelAndView mv,@RequestParam String member_id) {
+		
+		System.out.println(member_id);
+		
+		
+		mv.setViewName("jsonView");
+		return mv;
+	}
+	
 	
 	
 }

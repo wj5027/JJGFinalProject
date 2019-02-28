@@ -275,7 +275,7 @@
 						    </div>
 						  </div>
                       	</td>
-                      	<td align="center"><button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-2" type="button">출차</button></td>
+                      	<td align="center"><button class="btn btn-info animation-on-hover" type="button" onclick="nomalMemberOutputCar();">출차</button></td>
                       </tr>                 
                     </tbody>
                   </table>
@@ -400,7 +400,7 @@
                     	<tr>
                         <td align="center" width="500px"><div style="color: white;">회원 아이디</div></td>
                         <td align="center">
-							<input type="text" class="form-control form-control-success" id="nomalMemberId" readonly="readonly"/>
+							<input type="text" class="form-control form-control-success" id="nomalMemberId" readonly="readonly" style="color: white;"/>
 						</td>
                       </tr>
                       <tr>
@@ -412,13 +412,13 @@
                        <tr>
                         <td align="center" width="500px"><div style="color: white;">입차 회원 이름</div></td>
                         <td align="center">
-                        <input type="text" placeholder="회원 이름을 넣어주세요" class="form-control form-control-success" id="nomalMemberName"/>
+                        	<input type="text" placeholder="회원 이름을 넣어주세요" class="form-control form-control-success" id="nomalMemberName" readonly="readonly" style="color: white;"/>
 						</td>
                       </tr>
                        <tr>
                         <td align="center" width="500px"><div style="color: white;">입차자 휴대폰 번호</div></td>
                         <td align="center">
-                        <input type="text" placeholder="휴대폰 번호를 넣어주세요" class="form-control form-control-success" id="nomalMemberPhone"/>
+                        	<input type="text" placeholder="휴대폰 번호를 넣어주세요" class="form-control form-control-success" id="nomalMemberPhone"/>
 						</td>
                       </tr> 
                       <tr>
@@ -427,7 +427,7 @@
 						</td>
                       </tr>    
                       <tr>
-                      	<td align="center" colspan="2"> <button class="btn btn-info animation-on-hover"  type="button" onclick="inputCar();">입차</button>
+                      	<td align="center" colspan="2"> <button class="btn btn-info animation-on-hover"  type="button" onclick="nomalMemberResultInputCar();">입차</button>
                       	</td>
                       </tr>
                       <tr>
@@ -492,6 +492,62 @@
     	</div>
   </div>
 </div>     
+
+
+<!-- 일반 회원 출차 모달 -->
+<div class="modal fade bd-example-modal-lg-11" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+ <div class="modal-content" style="background: rgb(39,41,61);">
+    <div class="modal-body">
+      <div class="card ">
+              <div class="card-header">
+                <h4 class="card-title"> 출차 시스템</h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive"  style="overflow: hidden;">
+                  <table class="table tablesorter " id="">
+                    <tbody>
+                    	<tr>
+                        <td align="center" width="500px"><div style="color: white;">출차자 회원아이디</div></td>
+                        <td align="center" id="resultOutputCarNo">
+						</td>
+                      </tr>
+                      <tr>
+                        <td align="center" width="500px"><div style="color: white;">출차 차번호</div></td>
+                        <td align="center" id="resultOutputCarNo">
+						</td>
+                      </tr>
+                       <tr>
+                        <td align="center" width="500px"><div style="color: white;">출차자 핸드폰 번호</div></td>
+                        <td align="center" id="resultOutputPhone">
+						</td>
+                      </tr>
+                       <tr>
+                        <td align="center" width="500px"><div style="color: white;">사용시간</div></td>
+                        <td align="center" id="resultOutputDate">
+						</td>
+                      </tr>   
+                    	<tr>
+                        <td align="center" width="500px"><div style="color: white;">결제금액</div></td>
+                        <td align="center" id="resultOutputPayment">
+						</td>
+                      </tr>                 
+                    </tbody>
+                  </table>
+                  <div align="center">
+                  	<button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-4" type="button" >현장 결제</button>
+                  	<button type="button" class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-5" type="button" id="pointPayment">포인트 결제</button>
+                  	<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            </div>
+    	</div>
+  </div>
+</div>     
+
 
 
 	<!-- 입차 눌렀을시 -->
@@ -644,11 +700,13 @@
     
     <div id="hiddenButton">
  <button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-1" type="button" id="nonMemberInsertCar">입차</button>
+
  <button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-2" type="button"  id="updateModal">출차모달</button>
 <button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-3" type="button" id="insertModal">입차모달</button>
 <button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-7" type="button" id="modalBtn">모달버튼</button>
 <button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-8" type="button" id="modalBtn2">모달버튼2</button>
 <button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-9" type="button" id="modalBtn3">모달 버튼3</button>
+ <button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-10" type="button" id="nomalMemberInsertCar">일반회원입차</button>
 </div>   
     
     
@@ -1203,8 +1261,8 @@
 		
 	//전역변수 설정
 	var resultCarNo = "";
-	var resultMemberNo = "";
-	var resultMemberName = "";
+	var resultMemberNo = 0;
+	/* var resultMemberId = ""; */
 	var resultResNo = "";
 	var resultPhone = "";
 	var resultYear;
@@ -1359,7 +1417,7 @@
 	
 	//일반회원 입차 클릭시 메소드
 	function nomalMemberInputCar(){
-		var selectParkingBox = $("#inputGroupSelect01 option:selected").val();
+
 		var member_id = $("#nomalMemberInputText").val();
 		
 		if(member_id == null || member_id == ''){
@@ -1370,6 +1428,43 @@
 			return false;
 		}
 		$("#modalText").html('');
+		
+		// 조회해온 주차장 번호와 일반유저 아이디로 회원 정보 조회
+		
+		$.ajax({
+			type:"post",
+			url:"selectNomalMemberInformation.pc",
+			data:{member_id:member_id},
+			success:function(data){
+				console.log(data);
+				
+				if(data.hmap.member != null){					
+				//조회해온 데이터에 동적으로 테이블 삽입
+				//현재 시간 구하기
+				var today = new Date();
+				$("#nomalMemberId").val(data.hmap.member.member_id);
+				$("#nomalMemberCarNo").val(data.hmap.member.member_carNo);
+				$("#nomalMemberName").val(data.hmap.member.member_name);
+				$("#nomalMemberPhone").val(data.hmap.member.phone);
+				$("#nomalMemberInsertDate").text((1900+today.getYear())+"년 "+(today.getMonth()+1)+"월 "+today.getDate()+"일 "+today.getHours()+"시 "+today.getMinutes()+"분");
+				$("#nomalMemberInsertCar").click();
+				
+				resultMemberNo = data.hmap.member.member_no;
+				resultYear = 1900+today.getYear();
+				resultMonth = today.getMonth()+1;
+				resultDay = today.getDate();
+				resultHours = today.getHours();
+				resultMin = today.getMinutes();
+				}else{
+					alert("등록된 회원이 아닙니다!");
+					return false;
+				}
+			},
+			error:function(data){
+				console.log("데이터 통신 실패!");
+			}
+		});
+		
 		
 		
 	}
@@ -1400,7 +1495,7 @@
 	
 	
 	
-	//입차 메소드
+	//비회원 입차 메소드
 	function inputCar(){
 		var selectParkingBox = $("#inputGroupSelect01 option:selected").val();
 		var status = "";
@@ -1408,7 +1503,7 @@
 		$.ajax({
 			url:"insertEntryList.pc",
 			type:"post",
-			data:{selectParkingBox:selectParkingBox,resultCarNo:resultCarNo,resultMemberNo:resultMemberNo,resultMemberName:resultMemberName,resultResNo:resultResNo,resultPhone:resultPhone
+			data:{selectParkingBox:selectParkingBox,resultCarNo:resultCarNo,resultMemberNo:resultMemberNo,resultResNo:resultResNo,resultPhone:resultPhone
 				,resultYear:resultYear,resultMonth:resultMonth,resultDay:resultDay,resultHours:resultHours,resultMin:resultMin},
 			success:function(data){
 				console.log(data);
@@ -1425,6 +1520,70 @@
 		}
 		
 		$("#insertModal").click();
+	}
+	
+	
+	//일반회원 입차 메소드
+		function nomalMemberResultInputCar(){
+		resultCarNo = $("#nomalMemberCarNo").val();
+		resultPhone = $("#nomalMemberPhone").val();
+		var selectParkingBox = $("#inputGroupSelect01 option:selected").val();
+		var status = "";
+		
+		$.ajax({
+			url:"insertEntryList.pc",
+			type:"post",
+			data:{selectParkingBox:selectParkingBox,resultCarNo:resultCarNo,resultMemberNo:resultMemberNo,resultResNo:resultResNo,resultPhone:resultPhone
+				,resultYear:resultYear,resultMonth:resultMonth,resultDay:resultDay,resultHours:resultHours,resultMin:resultMin},
+			success:function(data){
+				console.log(data);
+				status = data.message;
+			},
+			error:function(data){
+				console.log(data);
+			}
+		});
+		
+		console.log(status);
+		if(status == "비회원 입차 실패"){
+			return false;
+		}
+		
+		$("#insertModal").click();
+	}	
+	
+	
+	
+	//일반회원 출차 정보 메소드
+	function nomalMemberOutputCar(){
+		
+var member_id = $("#nomalMemberOutputText").val();
+		
+		if(member_id == null || member_id == ''){
+			$("#modalText").html('');
+			var modalText = $("<b>").text("회원 아이디를 입력해주세요.");
+			$("#modalText").append(modalText);
+			$("#modalBtn3").click();
+			return false;
+		}
+		$("#modalText").html('');
+		
+		// 조회해온 아이디로 출차 정보 조회
+		$.ajax({
+			type:"post",
+			url:"selectNomalMemberOutputInformation.pc",
+			data:{member_id:member_id},
+			success:function(data){
+				console.log(data);
+			},
+			error:function(data){
+				console.log("데이터 통신 실패!");
+			}
+		});
+		
+		
+		
+		
 	}
 	
 

@@ -234,14 +234,22 @@
 		var toDayDate = new Date();
 		var toDay = toDayDate.toLocaleDateString();
 		var StartDayCheck = StartDayCheckDate.toLocaleDateString();
+		
+
+		
 		if(toDay > StartDayCheck){
 			alert("쿠폰 시작일은 오늘 기준으로 입력해주세요");
 			return false;
 		}
 		var selectEndDay = $("#EndDay").val().replace('월','');
+		var toDay2 = toDayDate.toLocaleDateString();
 		var endDayCheckDate = new Date(selectEndDay);
 		var endDayCheck = endDayCheckDate.toLocaleDateString();
-		if(toDay <= endDayCheck){
+		
+		console.log(toDay2);
+		console.log(endDayCheck);
+		
+		if(toDay2 >= endDayCheck){
 			console.log(toDay);
 			console.log(endDayCheck);
 			alert("쿠폰 종료일은 내일 기준으로 입력해주세요");
