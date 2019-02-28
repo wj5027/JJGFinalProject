@@ -71,12 +71,13 @@
 			</table>
 			
 			<table width="100%" border="0" cellpadding="0" cellspacing="0">
-			
+			<c:forEach var="r" items="${ reply }">
 			<tr>
 				<td width="60px">댓글&nbsp;</td>
-				<td   colspan="2">${ r.context }　　　　　　　　　</td>
+				<td   colspan="2">　${r.context }　　　　　　　</td>
 				<td align="center">사업자</td> 
 			</tr>
+			</c:forEach>
 			</table>
 			
 			

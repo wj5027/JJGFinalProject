@@ -145,7 +145,7 @@
 			
 			return false;
 		}else{
-			alert("알맞은 전화번호 형식!!");
+			//alert("알맞은 전화번호 형식!!");
 			phoneChk=1;
 		}
 		
