@@ -52,7 +52,8 @@ public class statisticsListController {
 			int todayBoardCeo = ms.getTodayBoardCeo();
 			// 관리자문의 게시판
 			int todayBoardAdmin = ms.getTodayBoardAdmin();
-			
+
+			request.setAttribute("customerListCount", customerListCount);
 			request.setAttribute("ceoListCount", ceoListCount);
 			request.setAttribute("boardAdminListCount", boardAdminListCount);
 			request.setAttribute("boardCeoListCount", boardCeoListCount);

@@ -70,7 +70,7 @@ public class CustomerMain {
 			if(loginUser.getMember_type().equals("U") || loginUser.getMember_type().equals("u")) {
 				return "redirect:customer.cu";				
 			}else if(loginUser.getMember_type().equals("A") || loginUser.getMember_type().equals("a")) {
-				return "redirect:statisticsList.ad";	
+				return "redirect:selectStatisticsList.ad";	
 			}else {
 				return "redirect:parkingceoMain.pc";	
 			}
