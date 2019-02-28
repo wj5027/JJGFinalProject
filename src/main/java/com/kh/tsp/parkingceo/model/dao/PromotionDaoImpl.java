@@ -23,6 +23,8 @@ public class PromotionDaoImpl implements PromotionDao {
 
 	@Override
 	public void insertPromotion(SqlSessionTemplate sqlSession, PromotionVo pv) {
+		System.out.println("여기까진 오니?");
+		System.out.println(pv);
 		sqlSession.insert("ParkingCeoPromotion.insertPromotion", pv);
 	}
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.tsp.common.ParkingCeoPageInfo;
+import com.kh.tsp.customer.model.vo.Member;
 
 public interface ParkingMainService {
 
@@ -33,6 +34,10 @@ public interface ParkingMainService {
 	HashMap<String, Object> selectNonMemberResultData(HashMap<String, Object> searchData);
 
 	void plusNonMemberParkingLeftSize(HashMap<String, Object> searchData);
+
+	Member selectNomalMemberInformation(HashMap<String, Object> selectHmap);
+
+
 
 
 

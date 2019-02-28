@@ -21,7 +21,7 @@
 	<insert id="insertPromotion" parameterType="com.kh.tsp.parkingceo.model.vo.PromotionVo">
 		INSERT INTO COUPON_REQUEST_LIST
 		VALUES (COUPON_REQ_SEQ.NEXTVAL,#{coupon_name},#{coupon_type},#{coupon_start_date},#{coupon_end_date},
-		#{amount},#{remark},#{member_no},#{parking_no},null,#{oDiscountValue},#{pDiscountValue})
+		#{amount},#{remark},#{member_no},#{parking_no},null,#{oDiscountValue},#{pDiscountValue},'신청중')
 	
 	</insert>
 	
