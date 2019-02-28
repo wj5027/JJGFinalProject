@@ -44,15 +44,15 @@
 	          
 	          
 	          <!--@@@@@@@@@@@@@@@@@@@@@@@@@@@설명 div@@@@@@@@@@@@@@@@@@@@@@@@  -->
-	          <div align="right" style="position:absolute; width: 100px;height: 200px;z-index:100000000;top: 11%;left: 72%;">
+	          <div align="right" style="position:absolute; width: 130px;height: 200px;z-index:100000000;top: 11%;left: 65%;">
 	          <button id="bttn" align="right" style="background-color:white; color:black; border-radius:10px; border:0.5px solid black; font-size:1.5em" onclick="togglebtn()">></button>
 	          <div align="left" id="explaindiv" style="margin:1px; background-color:white; border-radius: 10px;">
-	          <span align="center" style="margin:2px; color:black; font-size:0.7em;"><img src='resources/common/img/greenMarker.png' width="25px" height="25px"> &nbsp;<b>2000원 이하</b></span>
-	          <span align="center" style="margin:2px; color:black; font-size:0.7em;"><img src='resources/common/img/blueMarker.png' width="25px" height="25px"> &nbsp;<b>2000~4000</b></span>
-	          <span align="center" style="margin:2px; color:black; font-size:0.7em;"><img src='resources/common/img/yellowMarker.png' width="25px" height="25px"> &nbsp;<b>4000~8000</b></span>
-	          <span align="center" style="margin:2px; color:black; font-size:0.7em;"><img src='resources/common/img/pinkMarker.png' width="25px" height="25px"> &nbsp;<b>8000원 이상</b></span>
+	           <span align="center" style="margin:2px; color:black; font-size:0.7em;"><input type="checkbox" id="freemk"><img src='resources/common/img/freeparking.png' width="25px" height="25px"> &nbsp;<b>무료</b></span><br>
+	          <span align="center" style="margin:2px; color:black; font-size:0.7em;"><input type="checkbox" id="greenmk"><img src='resources/common/img/greenMarker.png' width="25px" height="25px"> &nbsp;<b>2000원 이하</b></span><br>
+	          <span align="center" style="margin:2px; color:black; font-size:0.7em;"><input type="checkbox" id="bluemk"><img src='resources/common/img/blueMarker.png' width="25px" height="25px"> &nbsp;<b>2000~4000</b></span><br>
+	          <span align="center" style="margin:2px; color:black; font-size:0.7em;"><input type="checkbox" id="yellowmk"><img src='resources/common/img/yellowMarker.png' width="25px" height="25px"> &nbsp;<b>4000~8000</b></span><br>
+	          <span align="center" style="margin:2px; color:black; font-size:0.7em;"><input type="checkbox" id="pinkmk"><img src='resources/common/img/pinkMarker.png' width="25px" height="25px"> &nbsp;<b>8000원 이상</b></span><br>
 	          <span align="center" style="margin:2px; color:black; font-size:0.7em;"><img src='resources/common/img/muni.png' width="25px" height="25px"> &nbsp;<b>관리자에게 문의</b></span>
-	           <span align="center" style="margin:2px; color:black; font-size:0.7em;"><img src='resources/common/img/freeparking.png' width="25px" height="25px"> &nbsp;<b>무료</b></span>
 	          </div>
 	          </div>
 	         
@@ -283,12 +283,67 @@
            
            function onparkingImgs(){
         	   $("#onparkingImgsbtn").click();
-        	   
-        	   
-        	   
-        	   
-        	   
            }
+           
+           
+           
+           
+	          
+	          
+           $("input:checkbox").change(checkedChange);
+   		function checkedChange(){
+   			console.log($(this).prop("checked"));
+   			if($(this).prop("checked")){
+   				clusterer.clear();
+   			}else{
+   			}
+   		}
+
+           
+           
+       	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@즐겨찾기 등록 버튼 함수
+      		function favoriteReg(){
+      			var ppno= $("#pno").val();
+      			var mno ="${loginUser.member_no}";
+      			if($("#favorite_btn").text()=="즐겨찾기"){
+      		 	$.ajax({
+					url:"insertfavorite.cu",
+					type:"post",
+					data:{mno:mno,pno:ppno}, 
+					success:function(data){
+						if(data==1){
+							$("#favorite_btn").text("즐겨찾기 해제");
+							alert("즐겨찾기 등록 성공!");
+							location.reload();
+						}else{
+							alert("즐겨찾기 등록 실패!");
+						}
+					
+					},error:function(status){
+						console.log(status);
+					}
+				 }); 
+      			}else{
+      			 	$.ajax({
+						url:"deletefavorite.cu",
+						type:"post",
+						data:{mno:mno,pno:ppno}, 
+						success:function(data){
+							if(data==1){
+								$("#favorite_btn").text("즐겨찾기");
+								alert("즐겨찾기 해제 성공!");
+								location.reload();
+							}else{
+							}
+						
+						},error:function(status){
+							console.log(status);
+						}
+					 });
+      			}
+      			
+      		}
+      
            
            
            
@@ -313,47 +368,7 @@
            			
            		}
            		
-           		//즐겨찾기 등록 버튼 함수
-           		function favoriteReg(){
-           			var ppno= $("#pno").val();
-           			var mno ="${loginUser.member_no}";
-           			if($("#favorite_btn").text()=="즐겨찾기"){
-           		 	$.ajax({
-						url:"insertfavorite.cu",
-						type:"post",
-						data:{mno:mno,pno:ppno}, 
-						success:function(data){
-							if(data==1){
-								$("#favorite_btn").text("즐겨찾기 해제");
-								alert("즐겨찾기 등록 성공!");
-							}else{
-								alert("즐겨찾기 등록 실패!");
-							}
-						
-						},error:function(status){
-							console.log(status);
-						}
-					 }); 
-           			}else{
-           			 	$.ajax({
-    						url:"deletefavorite.cu",
-    						type:"post",
-    						data:{mno:mno,pno:ppno}, 
-    						success:function(data){
-    							if(data==1){
-    								$("#favorite_btn").text("즐겨찾기");
-    								alert("즐겨찾기 해제 성공!");
-    							}else{
-    							}
-    						
-    						},error:function(status){
-    							console.log(status);
-    						}
-    					 });
-           			}
-           			
-           		}
-           
+           		
            
            
            
@@ -483,17 +498,32 @@
 				        }
 				        count++;
 					/* displayMarker(locPosition, message); */
-						if ('${ empty requestLat }' == 'true') {
-							
-						} else {
-				    	    // 만약 검색이나 쿠폰의 위치 조회를 통해서 지도를 볼 때
-				    	    // 위치정보를 받았을 경우 내 위치가 아닌 주차장의 위치로 화면을 이동시킴
-							var moveLatLon = new daum.maps.LatLng('${ requestLat }', '${ requestlon }');
-							map.panTo(moveLatLon);
-						}
+					
 	
 					});
 				}
+				
+				
+				
+			
+				
+				if ('${ empty requestLat }' == 'true') {
+					
+				} else {
+		    	    // 만약 검색이나 쿠폰의 위치 조회를 통해서 지도를 볼 때
+		    	    // 위치정보를 받았을 경우 내 위치가 아닌 주차장의 위치로 화면을 이동시킴
+					var moveLatLon = new daum.maps.LatLng('${ requestLat }', '${ requestlon }');
+					map.panTo(moveLatLon);
+				}
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				//@@@@@@@@@@@@@@@@@내위치 잦기@@@@@@@@@@@@@@@@@
 			    function span_myP(){
 		        		
@@ -647,7 +677,13 @@
 											}
 										}
 										
+										
+										var freemk;
+								          var greenmk;
+								          var yellowmk;
+								          var pinkmk;
 										if((0<allfair) && (2000>=allfair)){
+											
 											 img='resources/common/img/greenMarker.png';
 											}else if((2000<=allfair) && (4000>=allfair)){
 											 img='resources/common/img/blueMarker.png';
