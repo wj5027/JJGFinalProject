@@ -296,9 +296,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 										충전 통계 그래프 (총 매출: <p style="display: inline;">${sum}</p> 원)
 									</h4>
 									<div align="right">
-										<button onclick="selectStatisticsMonth();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
-										<button onclick="selectStatistics7Days();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
-										<button onclick="selectStatisticsToday();" class="btn btn-default animation-on-hover btn-sm">최근 24시간</button>				
+										<button id="selectStatisticsMonthBtn" onclick="selectStatisticsMonth();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
+										<button id="selectStatistics7DaysBtn" onclick="selectStatistics7Days();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
+										<button id="selectStatisticsTodayBtn" onclick="selectStatisticsToday();" class="btn btn-default animation-on-hover btn-sm">최근 24시간</button>				
 										<div id="ajaxGraph"></div>
 									</div>
 								</div>
@@ -475,6 +475,123 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 			});
 		</script>
 		<!-- 테이블 날짜버튼 클릭 시 색상 변경 끝 -->
+		
+		<!-- 통계 기본 출력(월별) -->
+		<script>
+			$(function () {
+				$.ajax({
+					url:"selectStatisticsMonth.ad",
+					type:"get",
+					success:function(data){
+						$("#lineChartExample").show();
+						$("#lineChartExample2").hide();
+						$("#lineChartExample3").hide();
+						
+						$("#selectStatisticsMonthBtn").attr("class", "btn btn-warning animation-on-hover btn-sm");
+						$("#selectStatistics7DaysBtn").attr("class", "btn btn-default animation-on-hover btn-sm");
+						$("#selectStatisticsTodayBtn").attr("class", "btn btn-default animation-on-hover btn-sm");
+						
+						$("#ajaxGraph").empty();
+						var sum = parseInt(data.jan) + parseInt(data.feb) + parseInt(data.mar)
+									+ parseInt(data.apr) + parseInt(data.may) + parseInt(data.jun) 
+									+ parseInt(data.jul) + parseInt(data.aug) +parseInt(data.sep)
+									+ parseInt(data.oct) + parseInt(data.nov) + parseInt(data.dec)
+						$("#ajaxGraph").append('<div align="left">올해 매출 : '+sum+'원</div>');
+						
+						gradientChartOptionsConfiguration = {
+								maintainAspectRatio : false,
+								legend : {
+									display : false
+								},
+					
+								tooltips : {
+									backgroundColor : '#fff',
+									titleFontColor : '#333',
+									bodyFontColor : '#666',
+									bodySpacing : 4,
+									xPadding : 12,
+									mode : "nearest",
+									intersect : 0,
+									position : "nearest"
+								},
+								responsive : true,
+								scales : {
+									yAxes : [ {
+										barPercentage : 1.6,
+										gridLines : {
+											drawBorder : false,
+											color : 'rgba(29,140,248,0.0)',
+											zeroLineColor : "transparent",
+										},
+										ticks : {
+											suggestedMin : 50,
+											suggestedMax : 110,	// y축
+											padding : 20,
+											fontColor : "#9a9a9a"
+										}
+									} ],
+					
+									xAxes : [ {
+										barPercentage : 1.6,
+										gridLines : {
+											drawBorder : false,
+											color : 'rgba(220,53,69,0.1)',
+											zeroLineColor : "transparent",
+										},
+										ticks : {
+											padding : 20,
+											fontColor : "#9a9a9a"
+										}
+									} ]
+								}
+							};
+					
+							var ctx = document.getElementById("lineChartExample").getContext("2d");
+					
+							var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+					
+							gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
+							gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+							gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+					
+							var chartData = [data.jan, data.feb, data.mar, data.apr,
+													data.may, data.jun, data.jul, data.aug,
+													data.sep, data.oct, data.nov, data.dec];
+							
+							var data = {
+								labels : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월',
+										'10월', '11월', '12월' ],
+								datasets : [ {
+									label : "매출:",
+									fill : true,
+									backgroundColor : gradientStroke,
+									borderColor : '#d048b6',
+									borderWidth : 2,
+									borderDash : [],
+									borderDashOffset : 0.0,
+									pointBackgroundColor : '#d048b6',
+									pointBorderColor : 'rgba(255,255,255,0)',
+									pointHoverBackgroundColor : '#d048b6',
+									pointBorderWidth : 20,
+									pointHoverRadius : 4,
+									pointHoverBorderWidth : 15,
+									pointRadius : 4,
+									data : chartData
+								} ]
+							};
+					
+							var myChart = new Chart(ctx, {
+								type : 'line',
+								data : data,
+								options : gradientChartOptionsConfiguration
+							});
+					},error:function(status){
+						console.log(status);
+					}
+				});
+			});
+		</script>
+		<!-- 통계 기본 출력(월별) 끝 -->
 	
 		<!-- 통계 그래프 (월별) -->
 		<script>
@@ -486,6 +603,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 						$("#lineChartExample").show();
 						$("#lineChartExample2").hide();
 						$("#lineChartExample3").hide();
+						
+						$("#selectStatisticsMonthBtn").attr("class", "btn btn-warning animation-on-hover btn-sm");
+						$("#selectStatistics7DaysBtn").attr("class", "btn btn-default animation-on-hover btn-sm");
+						$("#selectStatisticsTodayBtn").attr("class", "btn btn-default animation-on-hover btn-sm");
 						
 						$("#ajaxGraph").empty();
 						var sum = parseInt(data.jan) + parseInt(data.feb) + parseInt(data.mar)
@@ -600,6 +721,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 						$("#lineChartExample2").show();
 						$("#lineChartExample3").hide();
 						
+						$("#selectStatisticsMonthBtn").attr("class", "btn btn-default animation-on-hover btn-sm");
+						$("#selectStatistics7DaysBtn").attr("class", "btn btn-warning animation-on-hover btn-sm");
+						$("#selectStatisticsTodayBtn").attr("class", "btn btn-default animation-on-hover btn-sm");
+						
 						$("#ajaxGraph").empty();
 						var sum = parseInt(data.dayZero) + parseInt(data.dayOne) + parseInt(data.dayTwo)
 						+ parseInt(data.dayThree) + parseInt(data.dayFour) + parseInt(data.dayFive) 
@@ -709,6 +834,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 						$("#lineChartExample").hide();
 						$("#lineChartExample2").hide();
 						$("#lineChartExample3").show();
+
+						$("#selectStatisticsMonthBtn").attr("class", "btn btn-default animation-on-hover btn-sm");
+						$("#selectStatistics7DaysBtn").attr("class", "btn btn-default animation-on-hover btn-sm");
+						$("#selectStatisticsTodayBtn").attr("class", "btn btn-warning animation-on-hover btn-sm");
 						
 						$("#ajaxGraph").empty();
 						var sum = parseInt(data.time01) +  parseInt(data.time07) +  parseInt(data.time13) +  parseInt(data.time19) + 
