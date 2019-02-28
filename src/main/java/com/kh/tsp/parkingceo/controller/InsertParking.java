@@ -44,8 +44,11 @@ public class InsertParking {
 	public String insertPakringOne(HttpSession session,Model model,HttpServletRequest request,@ModelAttribute ParkingCeoVo parking,@RequestParam(value="parkingImage1",required=false) MultipartFile parkingImage1
 			,@RequestParam(value="parkingImage2",required=false) MultipartFile parkingImage2,@RequestParam(value="parkingImage3",required=false) MultipartFile parkingImage3
 			,@RequestParam String address,@RequestParam String detailAddress) {
+		
+		
+		
 		Member m = (Member)session.getAttribute("loginUser");
-		String resultAddress = address+detailAddress;
+		String resultAddress = address+" "+detailAddress;
 		String weekStartTime = parking.getWeekdayStime();
 		String weekEndTime = parking.getWeekdayEtime();
 		String satStartTime = parking.getSatStime();
@@ -114,6 +117,9 @@ public class InsertParking {
 		String originFileName = "";
 		String changeName = "";
 		String ext = "";
+		
+		
+
 		
 		try {
 			for(int i = 0 ; i < multipartList.size(); i++) {
