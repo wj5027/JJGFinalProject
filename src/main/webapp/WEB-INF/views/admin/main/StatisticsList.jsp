@@ -140,7 +140,7 @@
 						<div class="col-lg-6">
 							<div class="card card-chart">
 								<div class="card-header">
-									<h5> - 환불</h5>
+									<h5> - 매출</h5>
 									<h3 class="card-title">
 										<i class="tim-icons icon-spaceship" style="color: #ff7373;"></i>
 										<p id="ajaxGraph6" style="display: inline-block;"></p>
