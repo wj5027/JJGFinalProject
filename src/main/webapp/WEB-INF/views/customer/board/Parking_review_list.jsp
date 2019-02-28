@@ -143,7 +143,7 @@
              
                  <c:choose>
                  <c:when test="${ list.size()>0 }">
-              		<h3 class="card-title" align="center">[${list[0].pno }]주차장 문의</h3>              		
+              		<h3 class="card-title" align="center">[${list[0].pno }]주차장 후기</h3>              		
    				</c:when>
                  <c:when test="${ not empty pName }">
    					<h3 class="card-title" align="center">[${pName}]주차장 후기</h3>
@@ -151,10 +151,10 @@
               	
    				
    				<c:when test="${ b ne null }">
-   					<h3 class="card-title" align="center">[${ b.pno }]주차장 문의</h3>   					
+   					<h3 class="card-title" align="center">[${ b.pno }]주차장 후기</h3>   					
    				</c:when>
    				<c:otherwise>
-   					주차장 문의
+   					주차장 후기
    				</c:otherwise>
               </c:choose>
             
@@ -205,7 +205,7 @@
                       <tr>
                       	<td></td>
                       	<td style="padding-left: 30%">
-                      		<button type="subtmit" onclick="return textChk()" class="btn btn-info btn-sm">등록</button>
+                      		<button type="submit" onclick="return textChk()" class="btn btn-info btn-sm">등록</button>
                       	</td>
                       </tr> 
                                        

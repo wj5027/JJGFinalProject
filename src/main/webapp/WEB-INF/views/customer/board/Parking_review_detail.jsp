@@ -107,7 +107,7 @@
 		var writer = ${ loginUser.member_no }
 		var content = $("#replyContent").val();
 		var bno =${ b.bno };
-		xi3
+		
 		console.log(writer);
 		console.log(content); 
 		console.log(bno);

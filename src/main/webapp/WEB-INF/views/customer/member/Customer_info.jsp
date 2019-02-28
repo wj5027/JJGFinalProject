@@ -95,11 +95,12 @@
                         <td>
                   			<div class="row">
 		                    	<div class="form-group">
-                        			<input type="email" class="form-control" name="email" value="${ list.email }">
+                        			<input type="email" class="form-control" name="email" id="userEmail" value="${ list.email }"><button onclick="return emailCheck()" class="btn btn-info btn-sm" id="emailCk">중복확인</button><br>
                         		</div>
                         	</div>
                         </td>
-                      </tr>  
+                        </tr>
+                        
                        </tbody>
                       
                   </table>
@@ -149,6 +150,36 @@
 </body>
 
 <script>
+
+//이메일 중복체크    
+function emailCheck(){
+	var email = $("#userEmail").val();
+	console.log(email);
+	
+	$.ajax({
+		url:"emailCheck.cu",
+		type:"post",
+		data:{email:email},
+		success:function(data){
+			//alert(data);
+			
+			if(data == 1){
+				alert("이미 존재하는 이메일입니다.");
+			
+			}else{
+				alert("사용가능한 이메일입니다.");
+				
+				emailCheckResult = 1;
+			}
+
+		},
+		error:function(status){
+			console.log(status);
+		}
+	});	
+	return false;
+}
+
 	function edit(){
 		var pass1 = $("#password").val();
 		var pass2 = $("#password2").val();
@@ -159,7 +190,7 @@
 		if(pass1 != pass2){
 			alert("비밀번호가 일치하지 않습니다");
 		}else{
-			//alert("회원정보가 수정되었습니다");
+			alert("회원정보가 수정되었습니다");
 			$("#infoForm").submit();
 		}
 	}

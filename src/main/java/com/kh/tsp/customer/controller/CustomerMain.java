@@ -287,9 +287,6 @@ public @ResponseBody HashMap<String, Object> selectfavorites(@RequestParam Strin
 			return "redirect:customer.cu";
 		}
 		
-		
-		//return "redirect:customer.cu";
-		
 	}
 	//카카오톡 회원가입
 	@RequestMapping(value="insertKakao.cu", method=RequestMethod.POST)
