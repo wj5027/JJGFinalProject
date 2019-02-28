@@ -29,8 +29,8 @@
 										<p id="ajaxGraph1" style="display: inline-block;"></p>
 									</h3>
 									<div align="right">
-										<button onclick="selectCustomerSignUpMonth();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
-										<button onclick="selectCustomerSignUp7Days();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
+										<button id="selectCustomerSignUpMonthBtn" onclick="selectCustomerSignUpMonth();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
+										<button id="selectCustomerSignUp7DaysBtn" onclick="selectCustomerSignUp7Days();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
 									</div>
 								</div>
 								<div class="card-body">
@@ -50,8 +50,8 @@
 										<p id="ajaxGraph2" style="display: inline-block;"></p>
 									</h3>
 									<div align="right">
-										<button onclick="selectCEOSignUpMonth();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
-										<button onclick="selectCEOSignUp7Days();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
+										<button id="selectCEOSignUpMonthBtn" onclick="selectCEOSignUpMonth();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
+										<button id="selectCEOSignUp7DaysBtn" onclick="selectCEOSignUp7Days();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
 									</div>
 								</div>
 								<div class="card-body">
@@ -71,12 +71,12 @@
 										<p id="ajaxGraph3" style="display: inline-block;"></p>
 									</h3>
 									<div align="right">		
-										<button onclick="selectBoardAdminMonth();" class="btn btn-default animation-on-hover btn-sm">관리자문의(월별)</button>				
-										<button onclick="selectBoardAdmin7Days();" class="btn btn-default animation-on-hover btn-sm">관리자문의(최근 7일)</button>	
-										<button onclick="selectBoardReplyMonth();" class="btn btn-default animation-on-hover btn-sm" style="width: 26%">후기(월별)</button>	
-										<button onclick="selectBoardCeoMonth();" class="btn btn-default animation-on-hover btn-sm">사업자문의(월별)</button>				
-										<button onclick="selectBoardCeo7Days();" class="btn btn-default animation-on-hover btn-sm">사업자문의(최근 7일)</button>		
-										<button onclick="selectBoardReply7Days();" class="btn btn-default animation-on-hover btn-sm">후기(최근 7일)</button>				
+										<button id="selectBoardAdminMonthBtn" onclick="selectBoardAdminMonth();" class="btn btn-default animation-on-hover btn-sm">관리자문의(월별)</button>				
+										<button id="selectBoardAdmin7DaysBtn" onclick="selectBoardAdmin7Days();" class="btn btn-default animation-on-hover btn-sm">관리자문의(최근 7일)</button>	
+										<button id="selectBoardReplyMonthBtn" onclick="selectBoardReplyMonth();" class="btn btn-default animation-on-hover btn-sm" style="width: 26%">후기(월별)</button>	
+										<button id="selectBoardCeoMonthBtn" onclick="selectBoardCeoMonth();" class="btn btn-default animation-on-hover btn-sm">사업자문의(월별)</button>				
+										<button id="selectBoardCeo7DaysBtn" onclick="selectBoardCeo7Days();" class="btn btn-default animation-on-hover btn-sm">사업자문의(최근 7일)</button>		
+										<button id="selectBoardReply7DaysBtn" onclick="selectBoardReply7Days();" class="btn btn-default animation-on-hover btn-sm">후기(최근 7일)</button>				
 									</div>
 								</div>
 								<div class="card-body">
@@ -100,8 +100,8 @@
 										<p id="ajaxGraph4" style="display: inline-block;"></p>
 									</h3>
 									<div align="right">
-										<button onclick="" class="btn btn-default animation-on-hover btn-sm">월별</button>		
-										<button onclick="" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>	
+										<button id="Btn" onclick="" class="btn btn-default animation-on-hover btn-sm">월별</button>		
+										<button id="Btn" onclick="" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>	
 									</div>
 									<div>&nbsp;</div>
 									<div>&nbsp;</div>
@@ -123,9 +123,9 @@
 										<p id="ajaxGraph5" style="display: inline-block;"></p>
 									</h3>
 									<div align="right">
-										<button onclick="selectStatisticsMonth2();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
-										<button onclick="selectStatistics7Days2();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
-										<button onclick="selectStatisticsToday2();" class="btn btn-default animation-on-hover btn-sm">최근 24시간</button>				
+										<button id="selectStatisticsMonth2Btn" onclick="selectStatisticsMonth2();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
+										<button id="selectStatistics7Days2Btn" onclick="selectStatistics7Days2();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
+										<button id="selectStatisticsToday2Btn" onclick="selectStatisticsToday2();" class="btn btn-default animation-on-hover btn-sm">최근 24시간</button>				
 									</div>
 								</div>
 								<div class="card-body">
@@ -140,15 +140,15 @@
 						<div class="col-lg-6">
 							<div class="card card-chart">
 								<div class="card-header">
-									<h5> - 환불</h5>
+									<h5> - 매출</h5>
 									<h3 class="card-title">
 										<i class="tim-icons icon-spaceship" style="color: #ff7373;"></i>
 										<p id="ajaxGraph6" style="display: inline-block;"></p>
 									</h3>
 									<div align="right">
-										<button onclick="selectStatisticsMonth();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
-										<button onclick="selectStatistics7Days();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
-										<button onclick="selectStatisticsToday();" class="btn btn-default animation-on-hover btn-sm">최근 24시간</button>		
+										<button id="selectStatisticsMonthBtn" onclick="selectStatisticsMonth();" class="btn btn-default animation-on-hover btn-sm">월별</button>				
+										<button id="selectStatistics7DaysBtn" onclick="selectStatistics7Days();" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>				
+										<button id="selectStatisticsTodayBtn" onclick="selectStatisticsToday();" class="btn btn-default animation-on-hover btn-sm">최근 24시간</button>		
 									</div>
 								</div>
 								<div class="card-body">
@@ -248,6 +248,10 @@
 	
 	<!-- 오늘 현황 테이블 페이지 이동 -->
 	<script>
+		var d = new Date();
+		var today = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + (d.getDate())).slice(-2);
+		console.log(today);
+	
 		$(".todayTable").mouseenter(function () {
 			$(this).children().css({"background":"rgb(28, 28, 38)", "cursor":"pointer"});	
 			no = $(this).children().eq(0).text();	
@@ -259,21 +263,21 @@
 			}
 			$(this).children().css({"background":"rgb(0, 0, 0)"});	
 			if(no==1){	
-				location.href="selectSearchExchangeList.ad?currentPage=1&status=R&memberId=&memberType=&today=&startDate=&endDate=";			
+				location.href="selectSearchExchangeList.ad?currentPage=1&status=R&memberId=&memberType=&today=&startDate="+today+"&endDate="+today;			
 			}else if(no==2){
-				location.href="selectSearchExchangeList.ad?currentPage=1&status=E&memberId=&memberType=&today=&startDate=&endDate=";
+				location.href="selectSearchExchangeList.ad?currentPage=1&status=E&memberId=&memberType=&today=&startDate="+today+"&endDate="+today;		
 			}else if(no==3){
-				location.href="selectSearchParkingLotList.ad?currentPage=2&parkingListStatus=I&memberId=&parkingAddress=&parkingListName=&today=&startDate=&endDate=";
+				location.href="selectSearchParkingLotList.ad?currentPage=1&parkingListStatus=I&memberId=&parkingAddress=&parkingListName=&today=&startDate="+today+"&endDate="+today;		
 			}else if(no==4){
-				location.href="selectCustomerList.ad";
+				location.href="selectCustomerList.ad?currentPage=1&memberId=&today=&startDate="+today+"&endDate="+today;
 			}else if(no==5){
-				location.href="selectCEOList.ad";
+				location.href="selectSearchCEOList.ad?currentPage=1&selectStatus=A&memberId=&today=&startDate="+today+"&endDate="+today;
 			}else if(no==6){
-				location.href="selectBoardQnA.ad";
+				location.href="selectSearchBoardQnAList.ad?currentPage=2&selectStatus=A&mId=&bTitle=&today=&startDate="+today+"&endDate="+today;
 			}else if(no==7){
 				location.href="selectBoardQnA.ad";
 			}else if(no==8){
-				location.href="selectStatisticsCustomer.ad";
+				location.href="selectStatisticsCustomer.ad?currentPage=1&selectStatus=A&memberId=&startMoney=0&endMoney=&today=&startDate="+today+"&endDate="+today;
 			}
 		});	
 	</script>
@@ -403,6 +407,8 @@
 				success:function(data){
 					$("#selectCustomerSignUpMonth").show();
 					$("#selectCustomerSignUp7Days").hide();
+					$("#selectCustomerSignUpMonthBtn").attr("class", "btn btn-warning animation-on-hover btn-sm");
+					$("#selectCustomerSignUp7DaysBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
 					
 					$("#ajaxGraph1").empty();
 					var sum = parseInt(data.jan) + parseInt(data.feb) + parseInt(data.mar)
@@ -516,6 +522,8 @@
 				success:function(data){
 					$("#selectCustomerSignUpMonth").hide();
 					$("#selectCustomerSignUp7Days").show();
+					$("#selectCustomerSignUpMonthBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectCustomerSignUp7DaysBtn").attr("class", "btn btn-warning animation-on-hover btn-sm");
 					
 					$("#ajaxGraph1").empty();
 					var sum = parseInt(data.dayZero) + parseInt(data.dayOne) + parseInt(data.dayTwo)
@@ -741,6 +749,8 @@
 				success:function(data){
 					$("#selectCEOSignUpMonth").show();
 					$("#selectCEOSignUp7Days").hide();
+					$("#selectCEOSignUpMonthBtn").attr("class", "btn btn-warning animation-on-hover btn-sm");
+					$("#selectCEOSignUp7DaysBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
 					
 					$("#ajaxGraph2").empty();
 					var sum = parseInt(data.jan) + parseInt(data.feb) + parseInt(data.mar)
@@ -854,6 +864,8 @@
 				success:function(data){
 					$("#selectCEOSignUpMonth").hide();
 					$("#selectCEOSignUp7Days").show();
+					$("#selectCEOSignUpMonthBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectCEOSignUp7DaysBtn").attr("class", "btn btn-warning animation-on-hover btn-sm");
 					
 					$("#ajaxGraph2").empty();
 					var sum = parseInt(data.dayZero) + parseInt(data.dayOne) + parseInt(data.dayTwo)
@@ -1088,6 +1100,13 @@
 					$("#selectBoardCeo7Days").hide();
 					$("#selectBoardReply7Days").hide();
 					
+					$("#selectBoardAdminMonthBtn").attr("class", "btn btn-warning animation-on-hover btn-sm");
+					$("#selectBoardAdmin7DaysBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectBoardReplyMonthBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectBoardCeoMonthBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectBoardCeo7DaysBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectBoardReply7DaysBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					
 					$("#ajaxGraph3").empty();
 					var sum = parseInt(data.jan) + parseInt(data.feb) + parseInt(data.mar)
 								+ parseInt(data.apr) + parseInt(data.may) + parseInt(data.jun) 
@@ -1205,6 +1224,13 @@
 					$("#selectBoardCeo7Days").hide();
 					$("#selectBoardReply7Days").hide();
 					
+					$("#selectBoardAdminMonthBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectBoardAdmin7DaysBtn").attr("class", "btn btn-warning animation-on-hover btn-sm");
+					$("#selectBoardReplyMonthBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectBoardCeoMonthBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectBoardCeo7DaysBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectBoardReply7DaysBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					
 					$("#ajaxGraph3").empty();
 					var sum = parseInt(data.dayZero) + parseInt(data.dayOne) + parseInt(data.dayTwo)
 					+ parseInt(data.dayThree) + parseInt(data.dayFour) + parseInt(data.dayFive) 
@@ -1318,6 +1344,13 @@
 					$("#selectBoardCeoMonth").show();
 					$("#selectBoardCeo7Days").hide();
 					$("#selectBoardReply7Days").hide();
+					
+					$("#selectBoardAdminMonthBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectBoardAdmin7DaysBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectBoardReplyMonthBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectBoardCeoMonthBtn").attr("class", "btn btn-warning animation-on-hover btn-sm");
+					$("#selectBoardCeo7DaysBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectBoardReply7DaysBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
 					
 					$("#ajaxGraph3").empty();
 					var sum = parseInt(data.jan) + parseInt(data.feb) + parseInt(data.mar)
@@ -1436,6 +1469,13 @@
 					$("#selectBoardCeo7Days").show();
 					$("#selectBoardReply7Days").hide();
 					
+					$("#selectBoardAdminMonthBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectBoardAdmin7DaysBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectBoardReplyMonthBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectBoardCeoMonthBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectBoardCeo7DaysBtn").attr("class", "btn btn-warning animation-on-hover btn-sm");
+					$("#selectBoardReply7DaysBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					
 					$("#ajaxGraph3").empty();
 					var sum = parseInt(data.dayZero) + parseInt(data.dayOne) + parseInt(data.dayTwo)
 					+ parseInt(data.dayThree) + parseInt(data.dayFour) + parseInt(data.dayFive) 
@@ -1550,6 +1590,13 @@
 					$("#selectBoardCeoMonth").hide();
 					$("#selectBoardCeo7Days").hide();
 					$("#selectBoardReply7Days").hide();
+					
+					$("#selectBoardAdminMonthBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectBoardAdmin7DaysBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectBoardReplyMonthBtn").attr("class", "btn btn-warning animation-on-hover btn-sm");
+					$("#selectBoardCeoMonthBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectBoardCeo7DaysBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectBoardReply7DaysBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
 					
 					$("#ajaxGraph3").empty();
 					var sum = parseInt(data.jan) + parseInt(data.feb) + parseInt(data.mar)
@@ -1667,6 +1714,13 @@
 					$("#selectBoardCeoMonth").hide();
 					$("#selectBoardCeo7Days").hide();
 					$("#selectBoardReply7Days").show();
+					
+					$("#selectBoardAdminMonthBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectBoardAdmin7DaysBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectBoardReplyMonthBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectBoardCeoMonthBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectBoardCeo7DaysBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectBoardReply7DaysBtn").attr("class", "btn btn-warning animation-on-hover btn-sm");
 					
 					$("#ajaxGraph3").empty();
 					var sum = parseInt(data.dayZero) + parseInt(data.dayOne) + parseInt(data.dayTwo)
@@ -1902,6 +1956,10 @@
 					$("#selectStatistics7Days2").hide();
 					$("#selectStatisticsToday2").hide();
 					
+					$("#selectStatisticsMonth2Btn").attr("class", "btn btn-warning animation-on-hover btn-sm");
+					$("#selectStatistics7Days2Btn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectStatisticsToday2Btn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					
 					$("#ajaxGraph5").empty();
 					var sum = parseInt(data.jan) + parseInt(data.feb) + parseInt(data.mar)
 								+ parseInt(data.apr) + parseInt(data.may) + parseInt(data.jun) 
@@ -2015,6 +2073,10 @@
 					$("#selectStatistics7Days2").show();
 					$("#selectStatisticsToday2").hide();
 					
+					$("#selectStatisticsMonth2Btn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectStatistics7Days2Btn").attr("class", "btn btn-warning animation-on-hover btn-sm");
+					$("#selectStatisticsToday2Btn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					
 					$("#ajaxGraph5").empty();
 					var sum = parseInt(data.dayZero) + parseInt(data.dayOne) + parseInt(data.dayTwo)
 					+ parseInt(data.dayThree) + parseInt(data.dayFour) + parseInt(data.dayFive) 
@@ -2124,6 +2186,10 @@
 					$("#selectStatisticsMonth2").hide();
 					$("#selectStatistics7Days2").hide();
 					$("#selectStatisticsToday2").show();
+					
+					$("#selectStatisticsMonth2Btn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectStatistics7Days2Btn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectStatisticsToday2Btn").attr("class", "btn btn-warning animation-on-hover btn-sm");
 					
 					$("#ajaxGraph5").empty();
 					var sum = parseInt(data.time01) +  parseInt(data.time07) +  parseInt(data.time13) +  parseInt(data.time19) + 
@@ -2358,6 +2424,10 @@
 					$("#selectStatistics7Days").hide();
 					$("#selectStatisticsToday").hide();
 					
+					$("#selectStatisticsMonthBtn").attr("class", "btn btn-warning animation-on-hover btn-sm");
+					$("#selectStatistics7DaysBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectStatisticsTodayBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					
 					$("#ajaxGraph6").empty();
 					var sum = parseInt(data.jan) + parseInt(data.feb) + parseInt(data.mar)
 								+ parseInt(data.apr) + parseInt(data.may) + parseInt(data.jun) 
@@ -2471,6 +2541,10 @@
 					$("#selectStatistics7Days").show();
 					$("#selectStatisticsToday").hide();
 					
+					$("#selectStatisticsMonthBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectStatistics7DaysBtn").attr("class", "btn btn-warning animation-on-hover btn-sm");
+					$("#selectStatisticsTodayBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					
 					$("#ajaxGraph6").empty();
 					var sum = parseInt(data.dayZero) + parseInt(data.dayOne) + parseInt(data.dayTwo)
 					+ parseInt(data.dayThree) + parseInt(data.dayFour) + parseInt(data.dayFive) 
@@ -2580,6 +2654,10 @@
 					$("#selectStatisticsMonth").hide();
 					$("#selectStatistics7Days").hide();
 					$("#selectStatisticsToday").show();
+					
+					$("#selectStatisticsMonthBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectStatistics7DaysBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectStatisticsTodayBtn").attr("class", "btn btn-warning animation-on-hover btn-sm");
 					
 					$("#ajaxGraph6").empty();
 					var sum = parseInt(data.time01) +  parseInt(data.time07) +  parseInt(data.time13) +  parseInt(data.time19) + 

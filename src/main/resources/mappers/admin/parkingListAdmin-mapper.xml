@@ -153,14 +153,14 @@
 		</if>
 		<if test="today != ''">
 		<![CDATA[
-			AND (TO_CHAR(TO_DATE(ENROLL_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') >= TO_CHAR(TO_DATE(#{today},'yyyy/mm/dd'), 'yyyy/mm/dd') 
-					AND TO_CHAR(TO_DATE(ENROLL_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') <= TO_CHAR(TO_DATE(SYSDATE,'rrrr/mm/dd'), 'yyyy/mm/dd'))
+			AND (TO_CHAR(TO_DATE(MODIFY_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') >= TO_CHAR(TO_DATE(#{today},'yyyy/mm/dd'), 'yyyy/mm/dd') 
+					AND TO_CHAR(TO_DATE(MODIFY_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') <= TO_CHAR(TO_DATE(SYSDATE,'rrrr/mm/dd'), 'yyyy/mm/dd'))
 		]]>		
 		</if>
 		<if test="startDate != ''">
 		<![CDATA[
-			AND (TO_CHAR(TO_DATE(ENROLL_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') >= TO_CHAR(TO_DATE(#{startDate},'yyyy-mm-dd'),'yyyy-mm-dd') 
-					AND TO_CHAR(TO_DATE(ENROLL_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') <= TO_CHAR(TO_DATE(#{endDate},'yyyy-mm-dd'),'yyyy-mm-dd'))
+			AND (TO_CHAR(TO_DATE(MODIFY_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') >= TO_CHAR(TO_DATE(#{startDate},'yyyy-mm-dd'),'yyyy-mm-dd') 
+					AND TO_CHAR(TO_DATE(MODIFY_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') <= TO_CHAR(TO_DATE(#{endDate},'yyyy-mm-dd'),'yyyy-mm-dd'))
 		]]>		
 		</if>
   	</select>
@@ -202,14 +202,14 @@
 		</if>
 		<if test="today != ''">
 		<![CDATA[
-			AND (TO_CHAR(TO_DATE(ENROLL_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') >= TO_CHAR(TO_DATE(#{today},'yyyy/mm/dd'), 'yyyy/mm/dd') 
-					AND TO_CHAR(TO_DATE(ENROLL_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') <= TO_CHAR(TO_DATE(SYSDATE,'rrrr/mm/dd'), 'yyyy/mm/dd'))
+			AND (TO_CHAR(TO_DATE(MODIFY_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') >= TO_CHAR(TO_DATE(#{today},'yyyy/mm/dd'), 'yyyy/mm/dd') 
+					AND TO_CHAR(TO_DATE(MODIFY_DATE,'rrrr/mm/dd'), 'yyyy/mm/dd') <= TO_CHAR(TO_DATE(SYSDATE,'rrrr/mm/dd'), 'yyyy/mm/dd'))
 		]]>		
 		</if>
 		<if test="startDate != ''">
 		<![CDATA[
-			AND (TO_CHAR(TO_DATE(ENROLL_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') >= TO_CHAR(TO_DATE(#{startDate},'yyyy-mm-dd'),'yyyy-mm-dd') 
-					AND TO_CHAR(TO_DATE(ENROLL_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') <= TO_CHAR(TO_DATE(#{endDate},'yyyy-mm-dd'),'yyyy-mm-dd'))
+			AND (TO_CHAR(TO_DATE(MODIFY_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') >= TO_CHAR(TO_DATE(#{startDate},'yyyy-mm-dd'),'yyyy-mm-dd') 
+					AND TO_CHAR(TO_DATE(MODIFY_DATE,'rrrr-mm-dd'),'yyyy-mm-dd') <= TO_CHAR(TO_DATE(#{endDate},'yyyy-mm-dd'),'yyyy-mm-dd'))
 		]]>		
 		</if>
 		ORDER BY PARKING_LIST_NO DESC
