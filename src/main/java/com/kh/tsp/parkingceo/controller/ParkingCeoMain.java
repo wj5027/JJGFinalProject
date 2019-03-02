@@ -361,7 +361,11 @@ public class ParkingCeoMain {
 	@RequestMapping(value="/selectNomalMemberOutputInformation.pc",method=RequestMethod.POST)
 	public ModelAndView selectNomalMemberOutputInformation(ModelAndView mv,@RequestParam String member_id) {
 		
-		System.out.println(member_id);
+		
+		
+		//회원 아이디로 회원 번호 조회
+		/*Member m = pms.selectNomalMemberMemberNo()*/
+		//조회한 회원 번호로 
 		
 		
 		mv.setViewName("jsonView");

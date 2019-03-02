@@ -1556,9 +1556,7 @@
 	
 	//일반회원 출차 정보 메소드
 	function nomalMemberOutputCar(){
-		
-var member_id = $("#nomalMemberOutputText").val();
-		
+		var member_id = $("#nomalMemberOutputText").val();
 		if(member_id == null || member_id == ''){
 			$("#modalText").html('');
 			var modalText = $("<b>").text("회원 아이디를 입력해주세요.");
