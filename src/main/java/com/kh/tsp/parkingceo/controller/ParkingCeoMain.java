@@ -359,13 +359,133 @@ public class ParkingCeoMain {
 	
 	
 	@RequestMapping(value="/selectNomalMemberOutputInformation.pc",method=RequestMethod.POST)
-	public ModelAndView selectNomalMemberOutputInformation(ModelAndView mv,@RequestParam String member_id) {
+	public ModelAndView selectNomalMemberOutputInformation(ModelAndView mv,@RequestParam String member_id,@RequestParam String car_no
+			,@RequestParam String selectParkingBox) {
+		
+		int nTime = 0;
+		int nPrice = 0;
+		int aTime = 0;
+		int aPrice = 0;
+		int resultPrice = 0;
+		HashMap<String, Object> member_idHmap = new HashMap<String,Object>();
+		HashMap<String, Object> selectHmap = new HashMap<String,Object>();
+		member_idHmap.put("member_id", member_id);
 		
 		
+		try {
+			
+			//회원 아이디로 회원 번호 조회
+			HashMap<String, Object> selectMemberNo = pms.selectNomalMemberMemberNo(member_idHmap);
+			//조회해온 회원번호,차량번호,주차장번호 데이터 삽입
+			selectHmap.put("member_no", Integer.parseInt(selectMemberNo.get("MEMBER_NO")+""));
+			selectHmap.put("parking_no", selectParkingBox);
+			selectHmap.put("car_no", car_no);
+			
+
+			//selectHmap으로 입차정보 구해오기
+			HashMap<String, Object> selectEntryData = pms.selectNomalMemberUseTiems(selectHmap);
+			//selectHmap으로 주차장 기본,추가 시간/요금 조회해오기
+
+			
+			int resultUseTime = Integer.parseInt(selectEntryData.get("END_TIME")+"");
+			//기본시간,기본요금,추가시간,추가요금 가져오기
+			HashMap<String, Integer> selectParkingUseTimeAndPrice = pms.selectNonMemberParkingUseTimeAndPrice(selectParkingBox);
+			
+			//각 시간이 0이나 null이 아닐시 계산구하기
+			if(selectParkingUseTimeAndPrice.get("PARKING_NTIME") != null || selectParkingUseTimeAndPrice.get("PARKING_NTIME")+"" != "" ) {
+				nTime = Integer.parseInt(selectParkingUseTimeAndPrice.get("PARKING_NTIME")+"");				
+			}else {
+				nTime = 0;
+			}
+			
+			if(selectParkingUseTimeAndPrice.get("PARKING_NPRICE") != null || selectParkingUseTimeAndPrice.get("PARKING_NPRICE")+"" != "" ) {
+				nPrice =  Integer.parseInt(selectParkingUseTimeAndPrice.get("PARKING_NPRICE")+"");				
+			}else {
+				nPrice = 0;
+			}
+			
+			if(selectParkingUseTimeAndPrice.get("PARKING_NPRICE") != null || selectParkingUseTimeAndPrice.get("PARKING_NPRICE")+"" != "" ) {
+				aTime = Integer.parseInt(selectParkingUseTimeAndPrice.get("PARKING_ATIME")+"");				
+			}else {
+				aTime = 0;
+			}
+			
+			if(selectParkingUseTimeAndPrice.get("PARKING_NPRICE") != null || selectParkingUseTimeAndPrice.get("PARKING_NPRICE")+"" != "" ) {
+				aPrice =  Integer.parseInt(selectParkingUseTimeAndPrice.get("PARKING_APRICE")+"");				
+			}else {
+				aTime = 0;
+			}
+			
+			if(nTime != 0) {
+				resultUseTime = resultUseTime - nTime;
+				resultPrice = nPrice;
+				if(aTime != 0) {
+					resultPrice += ((int)(resultUseTime/aTime))*aPrice;
+				}else {
+					resultPrice += ((int)(resultUseTime/nTime))*nPrice;
+				}
+			}
+			
+			
+			selectEntryData.put("resultPrice", resultPrice);
+			mv.addObject("hmap", selectEntryData);
+			
+		}catch(Exception e) {
+			mv.addObject("message", "출차 정보 조회 실패!");
+			mv.setViewName("jsonView");
+			return mv;
+		}
+		mv.setViewName("jsonView");
+		return mv;
+	}
+	
+	
+	
+	@RequestMapping(value="/nomalDirectPayment.pc",method=RequestMethod.POST)
+	public ModelAndView nomalDirectPayment(ModelAndView mv,
+			@RequestParam String resultNomalMemberNo2,@RequestParam String resultNomalCarNo2,@RequestParam String resultNomalEndTime
+			,@RequestParam String resultFee,@RequestParam String selectParkingBox) {
 		
-		//회원 아이디로 회원 번호 조회
-		/*Member m = pms.selectNomalMemberMemberNo()*/
-		//조회한 회원 번호로 
+		HashMap<String, Object> data = new HashMap<String,Object>();
+		data.put("parking_no", selectParkingBox);
+		data.put("member_no", Integer.parseInt(resultNomalMemberNo2+""));
+		data.put("hours",Integer.parseInt(resultNomalEndTime)+"");
+		data.put("fee", Integer.parseInt(resultFee+""));
+		data.put("car_no", resultNomalCarNo2);
+		
+		
+		try {
+			//일반회원 현장결제 출차 업데이트
+			pms.updateNomalMemberCurrentPayment(data);
+			//주차장 구획수 증가
+			pms.plusNonMemberParkingLeftSize(data);
+			
+		}catch(Exception e) {
+			mv.addObject("message", "일반회원 현장결제 실패!");
+			mv.setViewName("jsonView");
+			return mv;
+		}
+		
+		
+		mv.setViewName("jsonView");
+		return mv;
+	}
+	
+	
+	//일반회원 포인트 조회 메소드
+	@RequestMapping(value="/searchNomalMemberPoint.pc",method=RequestMethod.POST)
+	public ModelAndView searchNomalMemberPoint(ModelAndView mv,@RequestParam String resultNomalMemberNo2) {
+		HashMap<String, Object> selectHmap = new HashMap<String,Object>();
+		selectHmap.put("member_no", Integer.parseInt(resultNomalMemberNo2+""));
+		
+		try {
+			HashMap<String, Object> resultHmap = pms.selectSearchNomalMemberPoint(selectHmap);
+			mv.addObject("hmap", resultHmap);
+		}catch(Exception e) {
+			mv.addObject("message", "포인트조회 실패!");
+			mv.setViewName("jsonView");
+			return mv;
+		}
 		
 		
 		mv.setViewName("jsonView");

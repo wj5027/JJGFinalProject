@@ -63,7 +63,7 @@
 		LEFT JOIN MEMBER M ON (EEL.MEMBER_NO = M.MEMBER_NO)
 		LEFT JOIN PARKING P ON(EEL.PARKING_NO = P.PARKING_NO)
 		WHERE EEL.STATUS = '입차'
-		AND P.PARKING_NO = #{parking_no}
+		AND P.PARKING_NO = #{parking_no} ORDER BY START_TIME DESC
 	</select>
 	
 	<select id="selectListCountResParkingList" parameterType="hashmap" resultType="_int">
@@ -77,7 +77,7 @@
 		SELECT PR.RES_NO,PR.RES_REQUEST_DATE,PR.RES_DATE,PR.STATUS,PR.CAR_NO,M.MEMBER_ID,M.MEMBER_NAME,M.PHONE FROM PARKING_RESERVATION PR
 		JOIN MEMBER M ON(PR.MEMBER_NO = M.MEMBER_NO)
 		WHERE PR.PARKING_NO = #{parking_no}
-		AND PR.STATUS = 'Y'
+		AND PR.STATUS = 'Y' ORDER BY RES_REQUEST_DATE DESC
 	</select>
 	
 	<update id="updateResComplete" parameterType="_int">
@@ -143,6 +143,28 @@
 	
 	<select id="selectNomalMemberInformation" parameterType="hashmap" resultMap="MemberResultSet">
 		SELECT MEMBER_NO,MEMBER_ID,MEMBER_CARNO,MEMBER_NAME,PHONE FROM MEMBER WHERE MEMBER_ID = #{member_id}
+	</select>
+	
+	<select id="selectNomalMemberMemberNo" parameterType="hashmap" resultType="hashmap">
+		SELECT MEMBER_NO FROM MEMBER WHERE MEMBER_ID = #{member_id}
+	</select>
+	
+	
+	<select id="selectNomalMemberUseTiems" parameterType="hashmap" resultType="hashmap">
+		SELECT M.MEMBER_NO,M.MEMBER_ID,EEL.CAR_NO,M.MEMBER_NAME,EEL.PHONE,EEL.START_TIME,TRUNC((SYSDATE - START_TIME) * 24 * 60) AS END_TIME FROM MEMBER M
+		JOIN ENTRY_EXIT_LIST EEL ON (M.MEMBER_NO = EEL.MEMBER_NO)
+		WHERE EEL.MEMBER_NO = #{member_no} AND EEL.STATUS = '입차' AND EEL.CAR_NO = #{car_no}
+	</select>
+	
+	<update id="updateNomalMemberCurrentPayment" parameterType="hashmap">
+		UPDATE ENTRY_EXIT_LIST SET STATUS = '출차',END_TIME = SYSDATE,HOURS=#{hours},FEE=#{fee} WHERE MEMBER_NO = #{member_no}
+		AND CAR_NO = #{car_no}
+	</update>
+	
+	
+	<select id="selectSearchNomalMemberPoint" parameterType="hashmap" resultType="hashmap">
+		SELECT OIL FROM MEMBER WHERE MEMBER_NO = #{member_no}
+	
 	</select>
 	
 	
