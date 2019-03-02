@@ -54,6 +54,17 @@ public interface ParkingMainDao {
 
 	Member selectNomalMemberInformation(SqlSessionTemplate sqlSession, HashMap<String, Object> selectHmap);
 
+	HashMap<String, Object> selectNomalMemberMemberNo(SqlSessionTemplate sqlSession,
+			HashMap<String, Object> member_idHmap);
+
+	HashMap<String, Object> selectNomalMemberUseTiems(SqlSessionTemplate sqlSession,
+			HashMap<String, Object> selectHmap);
+
+	void updateNomalMemberCurrentPayment(SqlSessionTemplate sqlSession, HashMap<String, Object> data);
+
+	HashMap<String, Object> selectSearchNomalMemberPoint(SqlSessionTemplate sqlSession,
+			HashMap<String, Object> selectHmap);
+
 
 
 	

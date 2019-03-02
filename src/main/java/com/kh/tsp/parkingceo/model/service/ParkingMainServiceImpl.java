@@ -136,6 +136,30 @@ public class ParkingMainServiceImpl implements ParkingMainService {
 	}
 
 
+	@Override
+	public HashMap<String, Object> selectNomalMemberMemberNo(HashMap<String, Object> member_idHmap) {
+		return pmd.selectNomalMemberMemberNo(sqlSession,member_idHmap);
+	}
+
+
+	@Override
+	public HashMap<String, Object> selectNomalMemberUseTiems(HashMap<String, Object> selectHmap) {
+		return pmd.selectNomalMemberUseTiems(sqlSession,selectHmap);
+	}
+
+
+	@Override
+	public void updateNomalMemberCurrentPayment(HashMap<String, Object> data) {
+		pmd.updateNomalMemberCurrentPayment(sqlSession,data);
+	}
+
+
+	@Override
+	public HashMap<String, Object> selectSearchNomalMemberPoint(HashMap<String, Object> selectHmap) {
+		return pmd.selectSearchNomalMemberPoint(sqlSession,selectHmap);
+	}
+
+
 
 
 

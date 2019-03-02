@@ -138,6 +138,29 @@ public class ParkingMainDaoImpl implements ParkingMainDao {
 		return sqlSession.selectOne("ParkingMain.selectNomalMemberInformation", selectHmap);
 	}
 
+	@Override
+	public HashMap<String, Object> selectNomalMemberMemberNo(SqlSessionTemplate sqlSession,
+			HashMap<String, Object> member_idHmap) {
+		return sqlSession.selectOne("ParkingMain.selectNomalMemberMemberNo", member_idHmap);
+	}
+
+	@Override
+	public HashMap<String, Object> selectNomalMemberUseTiems(SqlSessionTemplate sqlSession,
+			HashMap<String, Object> selectHmap) {
+		return sqlSession.selectOne("ParkingMain.selectNomalMemberUseTiems", selectHmap);
+	}
+
+	@Override
+	public void updateNomalMemberCurrentPayment(SqlSessionTemplate sqlSession, HashMap<String, Object> data) {
+		sqlSession.update("ParkingMain.updateNomalMemberCurrentPayment", data);
+	}
+
+	@Override
+	public HashMap<String, Object> selectSearchNomalMemberPoint(SqlSessionTemplate sqlSession,
+			HashMap<String, Object> selectHmap) {
+		return sqlSession.selectOne("ParkingMain.selectSearchNomalMemberPoint", selectHmap);
+	}
+
 
 
 
