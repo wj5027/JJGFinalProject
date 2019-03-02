@@ -50,6 +50,12 @@ public interface MainService {
 	// 최근 7일 후기 수
 	DateAdmin selectBoardReply7Days() throws MainStatisticsException;
 
+	// 올해 주차장 예약 수
+	DateAdmin selectParkingReservationMonth() throws MainStatisticsException;
+
+	// 최근 7일 주차장 예약 수
+	DateAdmin selectParkingReservation7Days() throws MainStatisticsException;
+
 	// 환불신청
 	int getRequestRefundListCount() throws MainStatisticsException;
 	
@@ -73,4 +79,7 @@ public interface MainService {
 
 	// 관리자문의 게시판
 	int getTodayBoardAdmin() throws MainStatisticsException;
+
+	// 회원 주차장 예약 건수
+	int getParkingReservationListCount() throws MainStatisticsException;
 }

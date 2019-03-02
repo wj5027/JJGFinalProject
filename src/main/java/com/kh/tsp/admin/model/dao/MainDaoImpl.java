@@ -108,6 +108,13 @@ public class MainDaoImpl  implements MainDao{
 		return boardReplyListCount;
 	}
 
+	// 회원 주차장 예약 건수
+	@Override
+	public int getParkingReservationListCount(SqlSessionTemplate sqlSession) throws MainStatisticsException {
+		int parkingReservationListCount = sqlSession.selectOne("MainAdmin.getParkingReservationListCount");
+		return parkingReservationListCount;
+	}
+
 	// 올해 관리자문의 수
 	@Override
 	public DateAdmin selectBoardAdminMonth(SqlSessionTemplate sqlSession) throws MainStatisticsException {
@@ -236,6 +243,30 @@ public class MainDaoImpl  implements MainDao{
 	public int getTodayBoardAdmin(SqlSessionTemplate sqlSession) throws MainStatisticsException {
 		int result = sqlSession.selectOne("MainAdmin.getTodayBoardAdmin");
 		return result;
+	}
+
+	// 올해 주차장 예약 수
+	@Override
+	public DateAdmin selectParkingReservationMonth(SqlSessionTemplate sqlSession) throws MainStatisticsException {
+		
+		DateAdmin da = sqlSession.selectOne("MainAdmin.selectParkingReservationMonth");
+		
+		if(da == null) {
+			throw new MainStatisticsException("올해 주차장 예약 수 조회 실패");
+		}
+		return da;
+	}
+
+	// 최근 7일 주차장 예약 수
+	@Override
+	public DateAdmin selectParkingReservation7Days(SqlSessionTemplate sqlSession) throws MainStatisticsException {
+		
+		DateAdmin da = sqlSession.selectOne("MainAdmin.selectParkingReservation7Days");
+		
+		if(da == null) {
+			throw new MainStatisticsException("최근 7일 주차장 예약 수 조회 실패");
+		}
+		return da;
 	}
 
 }

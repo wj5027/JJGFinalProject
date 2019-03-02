@@ -35,6 +35,9 @@ public class statisticsListController {
 			int boardCeoListCount = ms.getBoardCeoListCount();
 			// 후기 게시판 수
 			int boardReplyListCount = ms.getBoardReplyListCount();
+			
+			// 회원 주차장 예약 건수
+			int parkingReservationListCount = ms.getParkingReservationListCount();
 						
 			// 환불신청
 			int requestRefund = ms.getRequestRefundListCount();
@@ -58,6 +61,7 @@ public class statisticsListController {
 			request.setAttribute("boardAdminListCount", boardAdminListCount);
 			request.setAttribute("boardCeoListCount", boardCeoListCount);
 			request.setAttribute("boardReplyListCount", boardReplyListCount);
+			request.setAttribute("parkingReservationListCount", parkingReservationListCount);
 
 			request.setAttribute("requestRefund", requestRefund);
 			request.setAttribute("requestExchange", requestExchange);
@@ -201,6 +205,32 @@ public class statisticsListController {
 		
 		try {
 			da =ms.selectBoardReply7Days();			
+		} catch (MainStatisticsException e) {}
+		
+		return da;
+	}
+
+	// 올해 주차장 예약 수
+	@RequestMapping(value = "/selectParkingReservationMonth.ad", method = RequestMethod.GET)
+	public @ResponseBody DateAdmin selectParkingReservationMonth(HttpServletRequest request, HttpServletResponse response) {
+		
+		DateAdmin da = new DateAdmin();
+		
+		try {
+			da =ms.selectParkingReservationMonth();			
+		} catch (MainStatisticsException e) {}
+		
+		return da;
+	}
+
+	// 최근 7일 주차장 예약 수
+	@RequestMapping(value = "/selectParkingReservation7Days.ad", method = RequestMethod.GET)
+	public @ResponseBody DateAdmin selectParkingReservation7Days(HttpServletRequest request, HttpServletResponse response) {
+		
+		DateAdmin da = new DateAdmin();
+		
+		try {
+			da =ms.selectParkingReservation7Days();			
 		} catch (MainStatisticsException e) {}
 		
 		return da;
