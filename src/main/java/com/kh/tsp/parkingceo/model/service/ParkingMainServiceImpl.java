@@ -160,6 +160,18 @@ public class ParkingMainServiceImpl implements ParkingMainService {
 	}
 
 
+	@Override
+	public void updateNomalMemberPointPayment(HashMap<String, Object> data) {
+		pmd.updateNomalMemberPointPayment(sqlSession,data);
+	}
+
+
+	@Override
+	public void updateNomalMemberOil(HashMap<String, Object> data) {
+		pmd.updateNomalMemberOil(sqlSession,data);
+	}
+
+
 
 
 

@@ -635,7 +635,7 @@
                      <div class="table-responsive"  style="overflow: hidden;">
                   <table class="table tablesorter " id="">
                     <tbody>
-						<tr><td align="center"><b>정상적으로 확인이 되었습니다.</b></td></tr>
+						<tr><td align="center"><b>정상적으로 결제 되었습니다.</b></td></tr>
 						<tr><td align="center"><button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location.reload();">닫기</button></td></tr>      
       			</tbody>
       		</table>
@@ -1668,6 +1668,7 @@
 			success:function(data){
 				console.log(data);
 				$("#resultMemberCurrentPoint").text(data.hmap.OIL);
+				resultMemberPoint = data.hmap.OIL;
 			},
 			error:function(data){
 				console.log("데이터 통신 실패!");
@@ -1676,8 +1677,36 @@
 		
 		
 		$("#pointPayment").click();
-		
 	}	
+	
+ 	//포인트 결제 메소드
+	function resultPaymentPoint(){
+ 		console.log(resultFee);
+ 		console.log(resultMemberPoint);
+		if(resultFee > resultMemberPoint){
+			$("#modalText").html('');
+			var modalText = $("<b>").text("회원님의 포인트가 모자릅니다, 포인트 결제후 재 결제해주세요.");
+			$("#modalText").append(modalText);
+			$("#modalBtn3").click();
+			return false;
+		}
+		$("#modalText").html('');
+		
+		var selectParkingBox = $("#inputGroupSelect01 option:selected").val();
+		$.ajax({
+			url:"nomalPointPayment.pc",
+			type:"post",
+			data:{selectParkingBox:selectParkingBox,resultNomalMemberNo2:resultNomalMemberNo2,resultNomalCarNo2:resultNomalCarNo2,
+				resultNomalEndTime:resultNomalEndTime,resultFee:resultFee},
+			success:function(data){
+				$("#completePayment").click(); 
+			},
+			error:function(data){
+				console.log("데이터 통신 실패!");
+			}
+		});
+		
+	} 
 
 	
 	
