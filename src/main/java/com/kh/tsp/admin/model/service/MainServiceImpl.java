@@ -82,6 +82,13 @@ public class MainServiceImpl implements MainService{
 		return boardReplyListCount;
 	}
 
+	// 회원 주차장 예약 건수
+	@Override
+	public int getParkingReservationListCount() throws MainStatisticsException {
+		int parkingReservationListCount = md.getParkingReservationListCount(sqlSession);
+		return parkingReservationListCount;
+	}
+
 	// 올해 관리자문의 수
 	@Override
 	public DateAdmin selectBoardAdminMonth() throws MainStatisticsException {
@@ -121,6 +128,20 @@ public class MainServiceImpl implements MainService{
 	@Override
 	public DateAdmin selectBoardReply7Days() throws MainStatisticsException {
 		DateAdmin da = md.selectBoardReply7Days(sqlSession);
+		return da;
+	}
+
+	// 올해 주차장 예약 수
+	@Override
+	public DateAdmin selectParkingReservationMonth() throws MainStatisticsException {
+		DateAdmin da = md.selectParkingReservationMonth(sqlSession);
+		return da;
+	}
+
+	// 최근 7일 주차장 예약 수
+	@Override
+	public DateAdmin selectParkingReservation7Days() throws MainStatisticsException {
+		DateAdmin da = md.selectParkingReservation7Days(sqlSession);
 		return da;
 	}
 

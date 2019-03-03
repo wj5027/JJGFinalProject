@@ -50,7 +50,12 @@ public interface MainDao {
 
 	// 최근 7일 후기 수
 	DateAdmin selectBoardReply7Days(SqlSessionTemplate sqlSession) throws MainStatisticsException;
-	
+
+	// 올해 주차장 예약 수
+	DateAdmin selectParkingReservationMonth(SqlSessionTemplate sqlSession) throws MainStatisticsException;
+
+	// 최근 7일 주차장 예약 수
+	DateAdmin selectParkingReservation7Days(SqlSessionTemplate sqlSession) throws MainStatisticsException;
 	
 	// 환불신청
 	int getRequestRefundListCount(SqlSessionTemplate sqlSession) throws MainStatisticsException;
@@ -75,6 +80,9 @@ public interface MainDao {
 
 	// 관리자문의 게시판
 	int getTodayBoardAdmin(SqlSessionTemplate sqlSession) throws MainStatisticsException;
+
+	// 회원 주차장 예약 건수
+	int getParkingReservationListCount(SqlSessionTemplate sqlSession) throws MainStatisticsException;
 
 
 }

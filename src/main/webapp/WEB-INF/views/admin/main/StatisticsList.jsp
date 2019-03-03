@@ -94,22 +94,22 @@
 						<div class="col-lg-6">
 							<div class="card card-chart">
 								<div class="card-header">
-									<h5> - 회원 주차장 예약 건수</h5>
+									<h5> - 회원 주차장 예약 건수 (전체 : ${parkingReservationListCount}건)</h5>
 									<h3 class="card-title">
 										<i class="tim-icons icon-support-17" style="color: #ff7373"></i> 
 										<p id="ajaxGraph4" style="display: inline-block;"></p>
 									</h3>
 									<div align="right">
-										<button id="Btn" onclick="" class="btn btn-default animation-on-hover btn-sm">월별</button>		
-										<button id="Btn" onclick="" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>	
+										<button id="selectParkingReservationMonthBtn" onclick="selectParkingReservationMonth()" class="btn btn-default animation-on-hover btn-sm">월별</button>		
+										<button id="selectParkingReservation7DaysBtn" onclick="selectParkingReservation7Days()" class="btn btn-default animation-on-hover btn-sm">최근 7일</button>	
 									</div>
 									<div>&nbsp;</div>
 									<div>&nbsp;</div>
 								</div>
 								<div class="card-body">
 									<div class="chart-area">
-										<canvas id="chartLinePurple"></canvas>
-	<%-- 									<canvas id="lineChartExample2"></canvas> --%>
+										<canvas id="selectParkingReservationMonth"></canvas>
+										<canvas id="selectParkingReservation7Days"></canvas>
 									</div>
 								</div>
 							</div>
@@ -1823,11 +1823,345 @@
 	<!-- 3333333333333333333333333333 게시판 등록 수 끝 333333333333333333333333333333333 -->	
 	
 	<!-- 444444444444444444444444 회원 주차장 예약 건수 444444444444444444444444444444444 -->	
+	<!-- 메인 회원 주차장 예약 -->
 	<script>
 		$(function () {
-			
+
+			$.ajax({
+				url:"selectParkingReservationMonth.ad",
+				type:"get",
+				success:function(data){
+					$("#selectParkingReservationMonth").show();
+					$("#selectParkingReservation7Days").hide();
+					
+					$("#ajaxGraph4").empty();
+					var sum = parseInt(data.jan) + parseInt(data.feb) + parseInt(data.mar)
+								+ parseInt(data.apr) + parseInt(data.may) + parseInt(data.jun) 
+								+ parseInt(data.jul) + parseInt(data.aug) +parseInt(data.sep)
+								+ parseInt(data.oct) + parseInt(data.nov) + parseInt(data.dec)
+					$("#ajaxGraph4").append('<div align="left">올해 주차장 예약 건수 : '+sum+'명</div>');
+					
+					gradientChartOptionsConfiguration = {
+							maintainAspectRatio : false,
+							legend : {
+								display : false
+							},
+				
+							tooltips : {
+								backgroundColor : '#fff',
+// 								titleFontColor : '#333',
+								bodyFontColor : '#666',
+								bodySpacing : 4,
+								xPadding : 12,
+								mode : "nearest",
+								intersect : 0,
+								position : "nearest"
+							},
+							responsive : true,
+							scales : {
+								yAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(29,140,248,0.0)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										suggestedMin : 0,
+										suggestedMax : 10,	// y축
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ],
+				
+								xAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(220,53,69,0.1)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ]
+							}
+						};
+				
+						var ctx = document.getElementById("selectParkingReservationMonth").getContext("2d");
+				
+						var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+				
+						gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
+						gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+						gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+				
+						var chartData = [data.jan, data.feb, data.mar, data.apr,
+												data.may, data.jun, data.jul, data.aug,
+												data.sep, data.oct, data.nov, data.dec];
+						
+						var data = {
+							labels : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월',
+									'10월', '11월', '12월' ],
+							datasets : [ {
+								label : "인원:",
+								fill : true,
+								backgroundColor : gradientStroke,
+								borderColor : '#ff7373',
+								borderWidth : 2,
+								borderDash : [],
+								borderDashOffset : 0.0,
+								pointBackgroundColor : '#ff7373',
+								pointBorderColor : 'rgba(255,255,255,0)',
+								pointHoverBackgroundColor : '#ff7373',
+								pointBorderWidth : 20,
+								pointHoverRadius : 4,
+								pointHoverBorderWidth : 15,
+								pointRadius : 4,
+								data : chartData
+							} ]
+						};
+				
+						var myChart = new Chart(ctx, {
+							type : 'line',
+							data : data,
+							options : gradientChartOptionsConfiguration
+						});
+				},error:function(status){
+					console.log(status);
+				}
+			});
 		});
 	</script>
+	<!-- 메인 회원 주차장 예약 끝 -->
+	
+	<!-- 회원 주차장 예약 올해 -->
+	<script>
+		function selectParkingReservationMonth() {
+			$.ajax({
+				url:"selectParkingReservationMonth.ad",
+				type:"get",
+				success:function(data){
+					$("#selectParkingReservationMonth").show();
+					$("#selectParkingReservation7Days").hide();
+
+					$("#selectParkingReservationMonthBtn").attr("class", "btn btn-warning animation-on-hover btn-sm");
+					$("#selectParkingReservation7DaysBtn").attr("class", "btn btn-default animation-on-hover btn-sm");
+					
+					$("#ajaxGraph4").empty();
+					var sum = parseInt(data.jan) + parseInt(data.feb) + parseInt(data.mar)
+								+ parseInt(data.apr) + parseInt(data.may) + parseInt(data.jun) 
+								+ parseInt(data.jul) + parseInt(data.aug) +parseInt(data.sep)
+								+ parseInt(data.oct) + parseInt(data.nov) + parseInt(data.dec)
+					$("#ajaxGraph4").append('<div align="left">올해 주차장 예약 건수 : '+sum+'명</div>');
+					
+					gradientChartOptionsConfiguration = {
+							maintainAspectRatio : false,
+							legend : {
+								display : false
+							},
+				
+							tooltips : {
+								backgroundColor : '#fff',
+// 								titleFontColor : '#333',
+								bodyFontColor : '#666',
+								bodySpacing : 4,
+								xPadding : 12,
+								mode : "nearest",
+								intersect : 0,
+								position : "nearest"
+							},
+							responsive : true,
+							scales : {
+								yAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(29,140,248,0.0)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										suggestedMin : 0,
+										suggestedMax : 10,	// y축
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ],
+				
+								xAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(220,53,69,0.1)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ]
+							}
+						};
+				
+						var ctx = document.getElementById("selectParkingReservationMonth").getContext("2d");
+				
+						var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+				
+						gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
+						gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+						gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+				
+						var chartData = [data.jan, data.feb, data.mar, data.apr,
+												data.may, data.jun, data.jul, data.aug,
+												data.sep, data.oct, data.nov, data.dec];
+						
+						var data = {
+							labels : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월',
+									'10월', '11월', '12월' ],
+							datasets : [ {
+								label : "인원:",
+								fill : true,
+								backgroundColor : gradientStroke,
+								borderColor : '#ff7373',
+								borderWidth : 2,
+								borderDash : [],
+								borderDashOffset : 0.0,
+								pointBackgroundColor : '#ff7373',
+								pointBorderColor : 'rgba(255,255,255,0)',
+								pointHoverBackgroundColor : '#ff7373',
+								pointBorderWidth : 20,
+								pointHoverRadius : 4,
+								pointHoverBorderWidth : 15,
+								pointRadius : 4,
+								data : chartData
+							} ]
+						};
+				
+						var myChart = new Chart(ctx, {
+							type : 'line',
+							data : data,
+							options : gradientChartOptionsConfiguration
+						});
+				},error:function(status){
+					console.log(status);
+				}
+			});
+		}
+	</script>
+	<!-- 회원 주차장 예약 올해 끝 -->
+	
+	<!-- 회원 주차장 예약 최근 7일 -->
+	<script>
+		function selectParkingReservation7Days() {
+			$.ajax({
+				url:"selectParkingReservation7Days.ad",
+				type:"get",
+				success:function(data){
+					$("#selectParkingReservationMonth").hide();
+					$("#selectParkingReservation7Days").show();
+
+					$("#selectParkingReservationMonthBtn").attr("class", "btn btn-defalut animation-on-hover btn-sm");
+					$("#selectParkingReservation7DaysBtn").attr("class", "btn btn-warning animation-on-hover btn-sm");
+					
+					$("#ajaxGraph4").empty();
+					var sum = parseInt(data.dayZero) + parseInt(data.dayOne) + parseInt(data.dayTwo)
+								+ parseInt(data.dayThree) + parseInt(data.dayFour) + parseInt(data.dayFive) 
+								+ parseInt(data.daySix) + parseInt(data.daySeven)
+					$("#ajaxGraph4").append('<div align="left">최근 7일 주차장 예약 건수 : '+sum+'명</div>');
+					
+					gradientChartOptionsConfiguration = {
+							maintainAspectRatio : false,
+							legend : {
+								display : false
+							},
+				
+							tooltips : {
+								backgroundColor : '#fff',
+// 								titleFontColor : '#333',
+								bodyFontColor : '#666',
+								bodySpacing : 4,
+								xPadding : 12,
+								mode : "nearest",
+								intersect : 0,
+								position : "nearest"
+							},
+							responsive : true,
+							scales : {
+								yAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(29,140,248,0.0)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										suggestedMin : 0,
+										suggestedMax : 10,	// y축
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ],
+				
+								xAxes : [ {
+									barPercentage : 1.6,
+									gridLines : {
+										drawBorder : false,
+										color : 'rgba(220,53,69,0.1)',
+										zeroLineColor : "transparent",
+									},
+									ticks : {
+										padding : 20,
+										fontColor : "#9a9a9a"
+									}
+								} ]
+							}
+						};
+				
+						var ctx = document.getElementById("selectParkingReservation7Days").getContext("2d");
+				
+						var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+				
+						gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
+						gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+						gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+
+						var chartData = [data.dayZero, data.dayOne, data.dayTwo, data.dayThree,
+												data.dayFour, data.dayFive, data.daySix, data.daySeven];
+						
+						var data = {
+							labels : [ '오늘', '1일전', '2일전', '3일전', '4일전', '5일전', '6일전', '7일전'],
+							datasets : [ {
+								label : "인원:",
+								fill : true,
+								backgroundColor : gradientStroke,
+								borderColor : '#ff7373',
+								borderWidth : 2,
+								borderDash : [],
+								borderDashOffset : 0.0,
+								pointBackgroundColor : '#ff7373',
+								pointBorderColor : 'rgba(255,255,255,0)',
+								pointHoverBackgroundColor : '#ff7373',
+								pointBorderWidth : 20,
+								pointHoverRadius : 4,
+								pointHoverBorderWidth : 15,
+								pointRadius : 4,
+								data : chartData
+							} ]
+						};
+				
+						var myChart = new Chart(ctx, {
+							type : 'line',
+							data : data,
+							options : gradientChartOptionsConfiguration
+						});
+				},error:function(status){
+					console.log(status);
+				}
+			});
+		}
+	</script>
+	<!-- 회원 주차장 예약 최근 7일 끝 -->	
 	<!-- 444444444444444444444444 회원 주차장 예약 건수 끝 444444444444444444444444444444444 -->	
 	
 	<!-- 55555555555555555555555555555555 환전 5555555555555555555555555555555555 -->	
