@@ -82,4 +82,10 @@ public interface MainService {
 
 	// 회원 주차장 예약 건수
 	int getParkingReservationListCount() throws MainStatisticsException;
+
+	// 환전
+	int getExchangeListCount() throws MainStatisticsException;
+
+	// 매출
+	int getIncomeListCount() throws MainStatisticsException;
 }

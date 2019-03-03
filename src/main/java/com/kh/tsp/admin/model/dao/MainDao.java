@@ -84,5 +84,11 @@ public interface MainDao {
 	// 회원 주차장 예약 건수
 	int getParkingReservationListCount(SqlSessionTemplate sqlSession) throws MainStatisticsException;
 
+	// 환전
+	int getExchangeListCount(SqlSessionTemplate sqlSession) throws MainStatisticsException;
+
+	// 매출
+	int getIncomeListCount(SqlSessionTemplate sqlSession) throws MainStatisticsException;
+
 
 }

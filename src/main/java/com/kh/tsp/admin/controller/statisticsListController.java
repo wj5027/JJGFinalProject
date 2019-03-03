@@ -38,7 +38,13 @@ public class statisticsListController {
 			
 			// 회원 주차장 예약 건수
 			int parkingReservationListCount = ms.getParkingReservationListCount();
-						
+			
+			// 환전
+			int exchangeListCount = ms.getExchangeListCount();
+			// 매출
+			int incomeListCount = ms.getIncomeListCount();
+			
+			/* 오늘 현황 */
 			// 환불신청
 			int requestRefund = ms.getRequestRefundListCount();
 			// 환전신청
@@ -62,6 +68,8 @@ public class statisticsListController {
 			request.setAttribute("boardCeoListCount", boardCeoListCount);
 			request.setAttribute("boardReplyListCount", boardReplyListCount);
 			request.setAttribute("parkingReservationListCount", parkingReservationListCount);
+			request.setAttribute("exchangeListCount", exchangeListCount);
+			request.setAttribute("incomeListCount", incomeListCount);
 
 			request.setAttribute("requestRefund", requestRefund);
 			request.setAttribute("requestExchange", requestExchange);
