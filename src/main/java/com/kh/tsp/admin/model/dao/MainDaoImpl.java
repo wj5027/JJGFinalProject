@@ -187,6 +187,20 @@ public class MainDaoImpl  implements MainDao{
 		return da;
 	}
 
+	// 환전
+	@Override
+	public int getExchangeListCount(SqlSessionTemplate sqlSession) throws MainStatisticsException {
+		int exchangeListCount = sqlSession.selectOne("MainAdmin.getExchangeListCount");
+		return exchangeListCount;
+	}
+
+	// 매출
+	@Override
+	public int getIncomeListCount(SqlSessionTemplate sqlSession) throws MainStatisticsException {
+		int incomeListCount = sqlSession.selectOne("MainAdmin.getIncomeListCount");
+		return incomeListCount;
+	}
+
 
 	//////////////////////////////////// 오늘 현황 /////////////////////////////////////////
 	// 환불신청

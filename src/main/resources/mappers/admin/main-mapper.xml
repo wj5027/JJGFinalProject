@@ -248,6 +248,22 @@
 		FROM DUAL
   	</select>
   	
+	<!--  환전 총 금액 -->
+  	<select id="getExchangeListCount" resultType="_int">
+  		SELECT  (SELECT NVL(SUM(OIL),0) 
+                	FROM OIL_LIST 
+                	WHERE OIL_LIST_TYPE='환전')
+		FROM DUAL
+  	</select>  	
+  	
+	<!--  매출 총 금액 -->
+  	<select id="getIncomeListCount" resultType="_int">
+		SELECT ((SELECT NVL(SUM(OIL),0) 
+		                FROM OIL_LIST 
+		                WHERE OIL_LIST_TYPE='충전') - (SELECT NVL(SUM(OIL),0) FROM OIL_LIST WHERE OIL_LIST_TYPE='결제취소'))
+		FROM DUAL
+  	</select>  	
+  	
   	<!-- 올해 주차장 예약 수 -->
   	<select id="selectParkingReservationMonth" resultMap="DateAdminResultSet">		
 		SELECT  (SELECT NVL(COUNT(*),0) FROM PARKING_RESERVATION WHERE STATUS='Y' AND TO_CHAR(RES_APPLY_DATE, 'YYMM')='1901') AS JAN,

@@ -145,6 +145,20 @@ public class MainServiceImpl implements MainService{
 		return da;
 	}
 
+	// 환전
+	@Override
+	public int getExchangeListCount() throws MainStatisticsException {
+		int exchangeListCount = md.getExchangeListCount(sqlSession);
+		return exchangeListCount;
+	}
+
+	// 매출
+	@Override
+	public int getIncomeListCount() throws MainStatisticsException {
+		int incomeListCount = md.getIncomeListCount(sqlSession);
+		return incomeListCount;
+	}
+
 	//////////////////////////////////// 오늘 현황 /////////////////////////////////////////
 	// 환불신청
 	@Override

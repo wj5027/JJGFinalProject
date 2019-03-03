@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -117,7 +118,7 @@
 						<div class="col-lg-6">
 							<div class="card card-chart">
 								<div class="card-header">
-									<h5> - 환전</h5>
+									<h5> - 환전 (총 환전 금액 : <fmt:formatNumber value="${exchangeListCount}" pattern="###,###,###" />원)</h5>
 									<h3 class="card-title">
 										<i class="tim-icons icon-planet" style="color: #39acf4"></i>
 										<p id="ajaxGraph5" style="display: inline-block;"></p>
@@ -140,7 +141,7 @@
 						<div class="col-lg-6">
 							<div class="card card-chart">
 								<div class="card-header">
-									<h5> - 매출</h5>
+									<h5> - 매출 (총 매출 : <fmt:formatNumber value="${incomeListCount}" pattern="###,###,###" />원)</h5>
 									<h3 class="card-title">
 										<i class="tim-icons icon-spaceship" style="color: #ff7373;"></i>
 										<p id="ajaxGraph6" style="display: inline-block;"></p>
@@ -2182,7 +2183,7 @@
 								+ parseInt(data.apr) + parseInt(data.may) + parseInt(data.jun) 
 								+ parseInt(data.jul) + parseInt(data.aug) +parseInt(data.sep)
 								+ parseInt(data.oct) + parseInt(data.nov) + parseInt(data.dec)
-					$("#ajaxGraph5").append('<div align="left">올해 환전 금액 : '+sum+'원</div>');
+					$("#ajaxGraph5").append('<div align="left">올해 환전 금액 : '+sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+'원</div>');
 					
 					gradientChartOptionsConfiguration = {
 							maintainAspectRatio : false,
@@ -2299,7 +2300,7 @@
 								+ parseInt(data.apr) + parseInt(data.may) + parseInt(data.jun) 
 								+ parseInt(data.jul) + parseInt(data.aug) +parseInt(data.sep)
 								+ parseInt(data.oct) + parseInt(data.nov) + parseInt(data.dec)
-					$("#ajaxGraph5").append('<div align="left">올해 환전 금액 : '+sum+'원</div>');
+					$("#ajaxGraph5").append('<div align="left">올해 환전 금액 : '+sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+'원</div>');
 					
 					gradientChartOptionsConfiguration = {
 							maintainAspectRatio : false,
@@ -2415,7 +2416,7 @@
 					var sum = parseInt(data.dayZero) + parseInt(data.dayOne) + parseInt(data.dayTwo)
 					+ parseInt(data.dayThree) + parseInt(data.dayFour) + parseInt(data.dayFive) 
 					+ parseInt(data.daySix) + parseInt(data.daySeven)
-					$("#ajaxGraph5").append('<div align="left">최근 7일 환전 금액 : '+sum+'원</div>');
+					$("#ajaxGraph5").append('<div align="left">최근 7일 환전 금액 : '+sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+'원</div>');
 					
 					gradientChartOptionsConfiguration = {
 							maintainAspectRatio : false,
@@ -2532,7 +2533,7 @@
 									parseInt(data.time04) +  parseInt(data.time10) +  parseInt(data.time16) +  parseInt(data.time22) + 
 									parseInt(data.time05) +  parseInt(data.time11) +  parseInt(data.time17) +  parseInt(data.time23) + 
 									parseInt(data.time06) +  parseInt(data.time12) +  parseInt(data.time18) +  parseInt(data.time24)
-					$("#ajaxGraph5").append('<div align="left">최근 24시간 환전 금액 : '+sum+'원</div>');
+					$("#ajaxGraph5").append('<div align="left">최근 24시간 환전 금액 : '+sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+'원</div>');
 					
 					gradientChartOptionsConfiguration = {
 							maintainAspectRatio : false,
@@ -2650,7 +2651,7 @@
 								+ parseInt(data.apr) + parseInt(data.may) + parseInt(data.jun) 
 								+ parseInt(data.jul) + parseInt(data.aug) +parseInt(data.sep)
 								+ parseInt(data.oct) + parseInt(data.nov) + parseInt(data.dec)
-					$("#ajaxGraph6").append('<div align="left">올해 매출 : '+sum+'원</div>');
+					$("#ajaxGraph6").append('<div align="left">올해 매출 : '+sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+'원</div>');
 					
 					gradientChartOptionsConfiguration = {
 							maintainAspectRatio : false,
@@ -2767,7 +2768,7 @@
 								+ parseInt(data.apr) + parseInt(data.may) + parseInt(data.jun) 
 								+ parseInt(data.jul) + parseInt(data.aug) +parseInt(data.sep)
 								+ parseInt(data.oct) + parseInt(data.nov) + parseInt(data.dec)
-					$("#ajaxGraph6").append('<div align="left">올해 매출 : '+sum+'원</div>');
+					$("#ajaxGraph6").append('<div align="left">올해 매출 : '+sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+'원</div>');
 					
 					gradientChartOptionsConfiguration = {
 							maintainAspectRatio : false,
@@ -2883,7 +2884,7 @@
 					var sum = parseInt(data.dayZero) + parseInt(data.dayOne) + parseInt(data.dayTwo)
 					+ parseInt(data.dayThree) + parseInt(data.dayFour) + parseInt(data.dayFive) 
 					+ parseInt(data.daySix) + parseInt(data.daySeven)
-					$("#ajaxGraph6").append('<div align="left">최근 7일 매출 : '+sum+'원</div>');
+					$("#ajaxGraph6").append('<div align="left">최근 7일 매출 : '+sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+'원</div>');
 					
 					gradientChartOptionsConfiguration = {
 							maintainAspectRatio : false,
@@ -3000,7 +3001,7 @@
 									parseInt(data.time04) +  parseInt(data.time10) +  parseInt(data.time16) +  parseInt(data.time22) + 
 									parseInt(data.time05) +  parseInt(data.time11) +  parseInt(data.time17) +  parseInt(data.time23) + 
 									parseInt(data.time06) +  parseInt(data.time12) +  parseInt(data.time18) +  parseInt(data.time24)
-					$("#ajaxGraph6").append('<div align="left">최근 24시간 매출 : '+sum+'원</div>');
+					$("#ajaxGraph6").append('<div align="left">최근 24시간 매출 : '+sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+'원</div>');
 					
 					gradientChartOptionsConfiguration = {
 							maintainAspectRatio : false,
@@ -3100,5 +3101,10 @@
 	</script>
 	<!-- 통계 그래프 (최근 24시간) 끝 -->
 	<!-- 666666666666666666666666666666 환불 끝 6666666666666666666666666666666666 -->
+	<script type="text/javascript">
+		$(function () {
+			console.log("${customerListCount}");
+		});
+	</script>
 </body>
 </html>
