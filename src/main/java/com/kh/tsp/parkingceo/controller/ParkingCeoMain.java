@@ -440,7 +440,7 @@ public class ParkingCeoMain {
 	}
 	
 	
-	
+	//일반회원 현장결제 메소드
 	@RequestMapping(value="/nomalDirectPayment.pc",method=RequestMethod.POST)
 	public ModelAndView nomalDirectPayment(ModelAndView mv,
 			@RequestParam String resultNomalMemberNo2,@RequestParam String resultNomalCarNo2,@RequestParam String resultNomalEndTime
@@ -524,6 +524,135 @@ public class ParkingCeoMain {
 		return mv;
 	}
 	
+	
+	//예약회원 입차 정보 메소드
+	@RequestMapping(value="/searchResInformation.pc",method=RequestMethod.POST)
+	public ModelAndView searchResInformation(ModelAndView mv,@RequestParam String resNo,@RequestParam String selectParkingBox) {
+		
+		HashMap<String, Object> selectHmap = new HashMap<String,Object>();
+		selectHmap.put("res_no", Integer.parseInt(resNo));
+		selectHmap.put("parking_no", selectParkingBox);
+		
+		//예약번호와 주차장번호로 회원정보 조회하기
+		try {
+			HashMap<String, Object> hmap = pms.searchResInformation(selectHmap);
+			mv.addObject("hmap", hmap);
+		}catch(Exception e) {
+			e.printStackTrace();
+			mv.addObject("message", "예약회원 정보조회 실패!");
+			mv.setViewName("jsonView");
+			return mv;
+		}
+		
+		
+		mv.setViewName("jsonView");
+		return mv;
+	}
+	
+	
+	//예약회원 출자정보 메소드
+	@RequestMapping(value="/searchOutResInformation.pc",method=RequestMethod.POST)
+	public ModelAndView searchOutResInformation(ModelAndView mv,@RequestParam String selectParkingBox,
+			@RequestParam String car_no) {
+		
+		int nTime = 0;
+		int nPrice = 0;
+		int aTime = 0;
+		int aPrice = 0;
+		int resultPrice = 0;
+		HashMap<String, Object> selectHmap = new HashMap<String,Object>();
+		
+		selectHmap.put("parking_no", selectParkingBox);
+		selectHmap.put("car_no", car_no);
+		
+		try {
+				//주차장번호와 차번호로 예약정보 불러오기
+				HashMap<String, Object> selectEntryData = pms.searchOutResInformation(selectHmap);
+				
+				
+				//주차장번호로 기본,추가 시간/요금 구해오기
+				int resultUseTime = Integer.parseInt(selectEntryData.get("END_TIME")+"");
+				//기본시간,기본요금,추가시간,추가요금 가져오기
+				HashMap<String, Integer> selectParkingUseTimeAndPrice = pms.selectNonMemberParkingUseTimeAndPrice(selectParkingBox);
+				
+				//각 시간이 0이나 null이 아닐시 계산구하기
+				if(selectParkingUseTimeAndPrice.get("PARKING_NTIME") != null || selectParkingUseTimeAndPrice.get("PARKING_NTIME")+"" != "" ) {
+					nTime = Integer.parseInt(selectParkingUseTimeAndPrice.get("PARKING_NTIME")+"");				
+				}else {
+					nTime = 0;
+				}
+				
+				if(selectParkingUseTimeAndPrice.get("PARKING_NPRICE") != null || selectParkingUseTimeAndPrice.get("PARKING_NPRICE")+"" != "" ) {
+					nPrice =  Integer.parseInt(selectParkingUseTimeAndPrice.get("PARKING_NPRICE")+"");				
+				}else {
+					nPrice = 0;
+				}
+				
+				if(selectParkingUseTimeAndPrice.get("PARKING_NPRICE") != null || selectParkingUseTimeAndPrice.get("PARKING_NPRICE")+"" != "" ) {
+					aTime = Integer.parseInt(selectParkingUseTimeAndPrice.get("PARKING_ATIME")+"");				
+				}else {
+					aTime = 0;
+				}
+				
+				if(selectParkingUseTimeAndPrice.get("PARKING_NPRICE") != null || selectParkingUseTimeAndPrice.get("PARKING_NPRICE")+"" != "" ) {
+					aPrice =  Integer.parseInt(selectParkingUseTimeAndPrice.get("PARKING_APRICE")+"");				
+				}else {
+					aTime = 0;
+				}
+				
+				if(nTime != 0) {
+					resultUseTime = resultUseTime - nTime;
+					resultPrice = nPrice;
+					if(aTime != 0) {
+						resultPrice += ((int)(resultUseTime/aTime))*aPrice;
+					}else {
+						resultPrice += ((int)(resultUseTime/nTime))*nPrice;
+					}
+				}
+				selectEntryData.put("resultPrice", resultPrice);
+				mv.addObject("hmap", selectEntryData);
+		}catch(Exception e) {
+			e.printStackTrace();
+			mv.addObject("message", "출차정보 조회 실패!");
+			mv.setViewName("jsonView");
+			return mv;
+		}
+		mv.setViewName("jsonView");
+		return mv;
+	}
+	
+	
+	@RequestMapping(value="/resDirectPayment.pc",method=RequestMethod.POST)
+	public ModelAndView resDirectPayment(ModelAndView mv,@RequestParam String selectParkingBox,
+			@RequestParam String resultResMemberNo2,@RequestParam String resultResCarNo2,
+			@RequestParam String resultResEndTime,@RequestParam String resultResFee,@RequestParam String resultResNo2) {
+		
+		HashMap<String, Object> data = new HashMap<String,Object>();
+		data.put("parking_no", selectParkingBox);
+		data.put("member_no", Integer.parseInt(resultResMemberNo2+""));
+		data.put("hours",Integer.parseInt(resultResEndTime)+"");
+		data.put("fee", Integer.parseInt(resultResFee+""));
+		data.put("car_no", resultResCarNo2);
+		data.put("res_no", Integer.parseInt(resultResNo2+""));
+		
+		
+		try {
+			//일반회원 현장결제 출차 업데이트
+			pms.updateResMemberCurrentPayment(data);
+			//주차장 구획수 증가
+			pms.plusNonMemberParkingLeftSize(data);
+		}catch(Exception e) {
+			e.printStackTrace();
+			mv.addObject("message", "예약회원 출차 실패!");
+			mv.setViewName("jsonView");
+			return mv;
+		}
+		
+		
+		
+		mv.setViewName("jsonView");
+		return mv;
+	}
 	
 	
 }

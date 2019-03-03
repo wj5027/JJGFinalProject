@@ -33,8 +33,6 @@ public interface ParkingMainDao {
 
 	void insertNomalMemberEntryList(SqlSessionTemplate sqlSession, HashMap<String, Object> searchHashmap);
 
-	int searchMemberNo(HashMap<String, Object> searchHashmap);
-
 	void insertResMemberEntryList(SqlSessionTemplate sqlSession, HashMap<String, Object> searchHashmap);
 
 	void updateLeftSize(SqlSessionTemplate sqlSession, HashMap<String, Object> searchHashmap);
@@ -68,6 +66,12 @@ public interface ParkingMainDao {
 	void updateNomalMemberPointPayment(SqlSessionTemplate sqlSession, HashMap<String, Object> data);
 
 	void updateNomalMemberOil(SqlSessionTemplate sqlSession, HashMap<String, Object> data);
+
+	HashMap<String, Object> searchResInformation(SqlSessionTemplate sqlSession, HashMap<String, Object> selectHmap);
+
+	HashMap<String, Object> searchOutResInformation(SqlSessionTemplate sqlSession, HashMap<String, Object> selectHmap);
+
+	void updateResMemberCurrentPayment(SqlSessionTemplate sqlSession, HashMap<String, Object> data);
 
 
 

@@ -104,7 +104,11 @@
 	<insert id="insertNomalMemberEntryList" parameterType="hashmap">
 		INSERT INTO ENTRY_EXIT_LIST
 		VALUES (EE_NO_SEQ.NEXTVAL,TO_DATE(#{start_time},'YYYY-MM-DD HH24:MI:SS'),NULL,'일반',NULL,0,#{parking_no},NULL,#{member_no},#{car_no},'입차',#{phone})
+	</insert>
 	
+	<insert id="insertResMemberEntryList" parameterType="hashmap">
+		INSERT INTO ENTRY_EXIT_LIST
+		VALUES (EE_NO_SEQ.NEXTVAL,TO_DATE(#{start_time},'YYYY-MM-DD HH24:MI:SS'),NULL,'예약',NULL,0,#{parking_no},#{res_no},#{member_no},#{car_no},'입차',#{phone})
 	</insert>
 	
 	
@@ -175,6 +179,26 @@
 		UPDATE MEMBER SET OIL = (SELECT OIL FROM MEMBER WHERE MEMBER_NO = #{member_no}) - #{fee} WHERE MEMBER_NO = #{member_no}
 	</update>
 	
+	<select id="searchResInformation" parameterType="hashmap" resultType="hashmap">
+		SELECT PR.RES_NO,M.MEMBER_ID,PR.CAR_NO,M.MEMBER_NAME,M.PHONE,M.MEMBER_NO FROM PARKING_RESERVATION PR
+		JOIN MEMBER M ON (PR.MEMBER_NO = M.MEMBER_NO)
+		WHERE PR.PARKING_NO = #{parking_no} AND PR.RES_NO = #{res_no}
+		AND PR.MEMBER_NO = (SELECT MEMBER_NO FROM  PARKING_RESERVATION
+		WHERE PARKING_NO = #{parking_no} AND RES_NO = #{res_no}) AND PR.STATUS = '승인'
+	</select>
+	
+	<select id="searchOutResInformation" parameterType="hashmap" resultType="hashmap">
+		SELECT M.MEMBER_NO,M.MEMBER_ID,EEL.CAR_NO,M.MEMBER_NAME,EEL.PHONE,EEL.START_TIME,TRUNC((SYSDATE - START_TIME) * 24 * 60) AS END_TIME,EEL.RES_NO FROM MEMBER M
+		JOIN ENTRY_EXIT_LIST EEL ON (M.MEMBER_NO = EEL.MEMBER_NO)
+		WHERE EEL.MEMBER_NO = (SELECT MEMBER_NO FROM ENTRY_EXIT_LIST WHERE CAR_NO = #{car_no} AND PARKING_NO = #{parking_no}) AND EEL.STATUS = '입차' AND EEL.CAR_NO = #{car_no}
+        AND PARKING_NO = #{parking_no}
+	</select>
+	
+	<update id="updateResMemberCurrentPayment" parameterType="hashmap">
+		UPDATE ENTRY_EXIT_LIST SET STATUS = '출차',END_TIME = SYSDATE,HOURS=#{hours},FEE=#{fee} WHERE MEMBER_NO = #{member_no}
+		AND CAR_NO = #{car_no} AND RES_NO = #{res_no}
+	
+	</update>
 	
 </mapper>
 

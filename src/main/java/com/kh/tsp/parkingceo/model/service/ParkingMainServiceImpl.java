@@ -79,8 +79,7 @@ public class ParkingMainServiceImpl implements ParkingMainService {
 		if(!resultResNo.equals("")) {
 			 //예약회원일시
 			 searchHashmap.put("res_no", Integer.parseInt(resultResNo));
-			 int member_no = pmd.searchMemberNo(searchHashmap);
-			 searchHashmap.put("member_no", member_no);
+			 searchHashmap.put("member_no", Integer.parseInt(resultMemberNo));
 			 pmd.insertResMemberEntryList(sqlSession,searchHashmap);
 		 }else if (!resultMemberNo.equals("")) { 
 			//일반 회원일시
@@ -169,6 +168,24 @@ public class ParkingMainServiceImpl implements ParkingMainService {
 	@Override
 	public void updateNomalMemberOil(HashMap<String, Object> data) {
 		pmd.updateNomalMemberOil(sqlSession,data);
+	}
+
+
+	@Override
+	public HashMap<String, Object> searchResInformation(HashMap<String, Object> selectHmap) {
+		return pmd.searchResInformation(sqlSession,selectHmap);
+	}
+
+
+	@Override
+	public HashMap<String, Object> searchOutResInformation(HashMap<String, Object> selectHmap) {
+		return pmd.searchOutResInformation(sqlSession,selectHmap);
+	}
+
+
+	@Override
+	public void updateResMemberCurrentPayment(HashMap<String, Object> data) {
+		pmd.updateResMemberCurrentPayment(sqlSession,data);
 	}
 
 
