@@ -164,8 +164,16 @@
 	
 	<select id="selectSearchNomalMemberPoint" parameterType="hashmap" resultType="hashmap">
 		SELECT OIL FROM MEMBER WHERE MEMBER_NO = #{member_no}
-	
 	</select>
+	
+	<update id="updateNomalMemberPointPayment" parameterType="hashmap">
+		UPDATE ENTRY_EXIT_LIST SET STATUS = '출차',END_TIME = SYSDATE,HOURS=#{hours},FEE=#{fee} WHERE MEMBER_NO = #{member_no}
+		AND CAR_NO = #{car_no}
+	</update>
+	
+	<update id="updateNomalMemberOil">
+		UPDATE MEMBER SET OIL = (SELECT OIL FROM MEMBER WHERE MEMBER_NO = #{member_no}) - #{fee} WHERE MEMBER_NO = #{member_no}
+	</update>
 	
 	
 </mapper>

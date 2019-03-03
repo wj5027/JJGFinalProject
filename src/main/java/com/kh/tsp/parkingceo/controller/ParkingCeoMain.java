@@ -492,6 +492,38 @@ public class ParkingCeoMain {
 		return mv;
 	}
 	
+	//일반회원 포인트 결제 메소드
+	@RequestMapping(value="/nomalPointPayment.pc",method=RequestMethod.POST)
+	public ModelAndView nomalPointPayment(ModelAndView mv,
+			@RequestParam String resultNomalMemberNo2,@RequestParam String resultNomalCarNo2,@RequestParam String resultNomalEndTime
+			,@RequestParam String resultFee,@RequestParam String selectParkingBox) {
+
+		HashMap<String, Object> data = new HashMap<String,Object>();
+		data.put("parking_no", selectParkingBox);
+		data.put("member_no", Integer.parseInt(resultNomalMemberNo2+""));
+		data.put("hours",Integer.parseInt(resultNomalEndTime)+"");
+		data.put("fee", Integer.parseInt(resultFee+""));
+		data.put("car_no", resultNomalCarNo2);
+		
+		try {
+			//입출차 내역 업데이트
+			pms.updateNomalMemberPointPayment(data);
+			//회원 오일 차감
+			pms.updateNomalMemberOil(data);
+			//주차장 구획수 증가
+			pms.plusNonMemberParkingLeftSize(data);
+			
+		}catch(Exception e) {
+			mv.addObject("message", "포인트 결제 실패!");
+			mv.setViewName("jsonView");
+			return mv;
+		}
+		
+		
+		mv.setViewName("jsonView");
+		return mv;
+	}
+	
 	
 	
 }

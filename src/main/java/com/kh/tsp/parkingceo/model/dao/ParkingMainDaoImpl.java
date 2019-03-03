@@ -161,6 +161,16 @@ public class ParkingMainDaoImpl implements ParkingMainDao {
 		return sqlSession.selectOne("ParkingMain.selectSearchNomalMemberPoint", selectHmap);
 	}
 
+	@Override
+	public void updateNomalMemberPointPayment(SqlSessionTemplate sqlSession, HashMap<String, Object> data) {
+		sqlSession.update("ParkingMain.updateNomalMemberPointPayment", data);
+	}
+
+	@Override
+	public void updateNomalMemberOil(SqlSessionTemplate sqlSession, HashMap<String, Object> data) {
+		sqlSession.update("ParkingMain.updateNomalMemberOil", data);
+	}
+
 
 
 

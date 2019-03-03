@@ -45,6 +45,10 @@ public interface ParkingMainService {
 
 	HashMap<String, Object> selectSearchNomalMemberPoint(HashMap<String, Object> selectHmap);
 
+	void updateNomalMemberPointPayment(HashMap<String, Object> data);
+
+	void updateNomalMemberOil(HashMap<String, Object> data);
+
 
 
 
