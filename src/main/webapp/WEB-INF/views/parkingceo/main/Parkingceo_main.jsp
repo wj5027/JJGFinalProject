@@ -304,24 +304,24 @@
                       	<div class="card" style="margin-top: 20px;">
 						    <div class="card-body">
 						      <div class="form-group has-success">
-						        <input type="text" placeholder="입차할 번호를 넣어주세요" class="form-control form-control-success" />
+						        <input type="text" placeholder="예약 번호를 넣어주세요" class="form-control form-control-success" id="resNumberInputText" />
 						      </div>
 						    </div>
 						  </div>
                       	</td>
-                      	<td align="center"><button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-1" type="button">입차</button></td>
+                      	<td align="center"><button class="btn btn-info animation-on-hover" onclick="resMemberInputCar();" type="button">입차</button></td>
                       </tr>    
                       <tr>
                       	<td>
                       	<div class="card" style="margin-top: 20px;">
 						    <div class="card-body">
 						      <div class="form-group has-success">
-						        <input type="text" placeholder="출차할 번호를 넣어주세요" class="form-control form-control-success" />
+						        <input type="text" placeholder="출차할 차번호를 넣어주세요" class="form-control form-control-success" id="resOutPutCarNo" />
 						      </div>
 						    </div>
 						  </div>
                       	</td>
-                      	<td align="center"><button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-2" type="button">출차</button></td>
+                      	<td align="center"><button class="btn btn-info animation-on-hover" onclick="resMemberoutputCar();" type="button">출차</button></td>
                       </tr>                 
                     </tbody>
                   </table>
@@ -447,6 +447,72 @@
 </div>
 
 
+<!-- 예약회원 입차 모달 -->
+<div class="modal fade bd-example-modal-lg-12" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content" style="background: rgb(39,41,61);">
+    <div class="modal-body">
+      <div class="card ">
+              <div class="card-header">
+                <h4 class="card-title"> 입차 시스템</h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive"  style="overflow: hidden;">
+                  <table class="table tablesorter " id="">
+                    <tbody>
+                    	<tr>
+                        <td align="center" width="500px"><div style="color: white;">예약번호</div></td>
+                        <td align="center">
+							<input type="text" class="form-control form-control-success" id="resNo" readonly="readonly" style="color: white;"/>
+						</td>
+                      </tr>
+                    	<tr>
+                        <td align="center" width="500px"><div style="color: white;">회원 아이디</div></td>
+                        <td align="center">
+							<input type="text" class="form-control form-control-success" id="resMemberId" readonly="readonly" style="color: white;"/>
+						</td>
+                      </tr>
+                      <tr>
+                        <td align="center" width="500px"><div style="color: white;">입차 차번호</div></td>
+                        <td align="center">
+							<input type="text" placeholder="입차할 번호를 넣어주세요" class="form-control form-control-success" id="resMemberCarNo0302" readonly="readonly" style="color: white;"/>
+						</td>
+                      </tr>
+                       <tr>
+                        <td align="center" width="500px"><div style="color: white;">입차 회원 이름</div></td>
+                        <td align="center">
+                        	<input type="text" placeholder="회원 이름을 넣어주세요" class="form-control form-control-success" id="resMemberName" readonly="readonly" style="color: white;"/>
+						</td>
+                      </tr>
+                       <tr>
+                        <td align="center" width="500px"><div style="color: white;">입차자 휴대폰 번호</div></td>
+                        <td align="center">
+                        	<input type="text" placeholder="휴대폰 번호를 넣어주세요" class="form-control form-control-success" id="resMemberPhone" readonly="readonly" style="color: white;"/>
+						</td>
+                      </tr> 
+                      <tr>
+                        <td align="center" width="500px"><div style="color: white;">입차 시간</div></td>
+                        <td align="center" id="resMemberInsertDate">
+						</td>
+                      </tr>    
+                      <tr>
+                      	<td align="center" colspan="2"> <button class="btn btn-info animation-on-hover"  type="button" onclick="resMemberResultInputCar();">입차</button>
+                      	</td>
+                      </tr>
+                      <tr>
+                      	<td align="center" colspan="2"><button type="button" class="btn btn-default" data-dismiss="modal">닫기</button></td>
+                      </tr>                 
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            </div>
+    	</div>
+  </div>
+</div>
+
+
    <!--  출차 모달 -->   
  <div class="modal fade bd-example-modal-lg-2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
@@ -540,6 +606,67 @@
                   <div align="center">
                   	<button class="btn btn-info animation-on-hover"  type="button" onclick="nomalDirectPayment();">현장 결제</button>
                   	<button type="button" class="btn btn-info animation-on-hover" type="button" onclick="nomalPointPayment();">포인트 결제</button>
+                  	<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            </div>
+    	</div>
+  </div>
+</div>     
+
+
+
+<!-- 예약 회원 출차 모달 -->
+<div class="modal fade bd-example-modal-lg-13" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+ <div class="modal-content" style="background: rgb(39,41,61);">
+    <div class="modal-body">
+      <div class="card ">
+              <div class="card-header">
+                <h4 class="card-title"> 출차 시스템</h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive"  style="overflow: hidden;">
+                  <table class="table tablesorter " id="">
+                    <tbody>
+                    <tr>
+                        <td align="center" width="500px"><div style="color: white;">예약번호</div></td>
+                        <td align="center" id="resultResMemberOutputResNo">
+						</td>
+                      </tr>
+                    	<tr>
+                        <td align="center" width="500px"><div style="color: white;">출차자 회원아이디</div></td>
+                        <td align="center" id="resultResMemberOutputMemberId">
+						</td>
+                      </tr>
+                      <tr>
+                        <td align="center" width="500px"><div style="color: white;">출차 차번호</div></td>
+                        <td align="center" id="resultResMemberOutputCarNo">
+						</td>
+                      </tr>
+                       <tr>
+                        <td align="center" width="500px"><div style="color: white;">출차자 핸드폰 번호</div></td>
+                        <td align="center" id="resultResMemberOutputPhone">
+						</td>
+                      </tr>
+                       <tr>
+                        <td align="center" width="500px"><div style="color: white;">사용시간</div></td>
+                        <td align="center" id="resultResMemberOutputDate">
+						</td>
+                      </tr>   
+                    	<tr>
+                        <td align="center" width="500px"><div style="color: white;">결제금액</div></td>
+                        <td align="center" id="resultResMemberOutputPayment">
+						</td>
+                      </tr>                 
+                    </tbody>
+                  </table>
+                  <div align="center">
+                  	<button class="btn btn-info animation-on-hover"  type="button" onclick="resDirectPayment();">현장 결제</button>
+                  	<button type="button" class="btn btn-info animation-on-hover" type="button" onclick="resPointPayment();">포인트 결제</button>
                   	<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
                   </div>
                   
@@ -723,6 +850,8 @@
 <button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-9" type="button" id="modalBtn3">모달 버튼3</button>
  <button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-10" type="button" id="nomalMemberInsertCar">일반회원입차</button>
  <button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-11" type="button"  id="nomalMemberOutputCar">일반회원출차</button>
+ <button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-12" type="button"  id="resMemberHiddenInputCar">예약회원입차</button>
+  <button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-13" type="button"  id="resMemberHiddenOutputCar">예약회원입차</button>
 </div>   
     
     
@@ -1279,7 +1408,7 @@
 	var resultCarNo = "";
 	var resultMemberNo = 0;
 	/* var resultMemberId = ""; */
-	var resultResNo = "";
+	var resultResNo = 0;
 	var resultPhone = "";
 	var resultYear;
 	var resultMonth;
@@ -1707,9 +1836,165 @@
 		});
 		
 	} 
+ 	
 
+ 	//예약회원 입차 정보 메소드
+ 	function resMemberInputCar(){
+ 		var resNo = $("#resNumberInputText").val();
+ 		var selectParkingBox = $("#inputGroupSelect01 option:selected").val();
+ 		
+ 		if($("#resNumberInputText").val() == ""){
+			$("#modalText").html('');
+			var modalText = $("<b>").text("입차시킬 예약번호를 입력해주세요.");
+			$("#modalText").append(modalText);
+			$("#modalBtn3").click();
+			return false;
+ 		}
+ 		$("#modalText").html('');
+ 		
+ 		$.ajax({
+ 			url:"searchResInformation.pc",
+ 			type:"post",
+ 			data:{resNo:resNo,selectParkingBox:selectParkingBox},
+ 			success:function(data){
+ 				console.log(data);
+ 				var today = new Date();
+ 				$("#resNo").val(data.hmap.RES_NO);
+ 				$("#resMemberId").val(data.hmap.MEMBER_ID);
+ 				$("#resMemberCarNo0302").val(data.hmap.CAR_NO);
+ 				$("#resMemberName").val(data.hmap.MEMBER_NAME);
+ 				$("#resMemberPhone").val(data.hmap.PHONE);
+ 				$("#resMemberInsertDate").text((1900+today.getYear())+"년 "+(today.getMonth()+1)+"월 "+today.getDate()+"일 "+today.getHours()+"시 "+today.getMinutes()+"분");
+ 				
+ 				resultMemberNo = data.hmap.MEMBER_NO;
+				resultResNo = data.hmap.RES_NO;
+				resultYear = 1900+today.getYear();
+				resultMonth = today.getMonth()+1;
+				resultDay = today.getDate();
+				resultHours = today.getHours();
+				resultMin = today.getMinutes();
+ 				
+ 			},
+ 			error:function(data){
+ 				console.log("데이터 통신 실패!");
+ 			}
+ 			
+ 		});
+ 		
+ 		
+ 		 $("#resMemberHiddenInputCar").click();
+ 	}
+
+ 	//예약회원 입차 메소드
+	function resMemberResultInputCar(){
+		resultCarNo = $("#resMemberCarNo0302").val();
+		resultPhone = $("#resMemberPhone").val();
+		var selectParkingBox = $("#inputGroupSelect01 option:selected").val();
+		var status = "";
+		
+		$.ajax({
+			url:"insertEntryList.pc",
+			type:"post",
+			data:{selectParkingBox:selectParkingBox,resultCarNo:resultCarNo,resultMemberNo:resultMemberNo,resultResNo:resultResNo,resultPhone:resultPhone
+				,resultYear:resultYear,resultMonth:resultMonth,resultDay:resultDay,resultHours:resultHours,resultMin:resultMin},
+			success:function(data){
+				console.log(data);
+				status = data.message;
+			},
+			error:function(data){
+				console.log(data);
+			}
+		});
+		
+		console.log(status);
+		if(status == "비회원 입차 실패"){
+			return false;
+		}
+		
+		$("#insertModal").click();
+		
+		
+	}
+ 	
+	//출차 업데이트를 위한 예약회원 데이터 전역변수
+	var resultResMemberNo2 = 0;
+	var resultResCarNo2 = 0;
+	var resultResNo2 = 0;
+	var resultResEndTime = "";
+	var resultResFee = "";
+	var resultResMemberPoint = 0;
+ 	
+ 	//예약회원 출자정보 메소드
+ 	function resMemberoutputCar(){
+ 		
+ 		var selectParkingBox = $("#inputGroupSelect01 option:selected").val();
+ 		var regExp1 = /^[0-9]\d{1,2}[-][가-힣]\d{1,4}/g;
+		car_no = $("#resOutPutCarNo").val();
+			
+		if($("#resOutPutCarNo").val() == ""){
+			$("#modalText").html('');
+			var modalText = $("<b>").text("차 번호를 입력해주세요.");
+			$("#modalText").append(modalText);
+			$("#modalBtn3").click();
+			return false;
+		}else if(!regExp1.test(car_no)){
+			$("#modalText").html('');
+			var modalText = $("<b>").text("올바른 차 번호를 입력해주세요.[2019년 개정 000-(가-힣)0000]");
+			$("#modalText").append(modalText);
+			$("#modalBtn3").click();
+			return false;
+		}
+		$("#modalText").html('');
+		
+		$.ajax({
+			url:"searchOutResInformation.pc",
+			type:"post",
+			data:{selectParkingBox:selectParkingBox,car_no:car_no},
+			success:function(data){
+				console.log(data);
+				
+				$("#resultResMemberOutputResNo").text(data.hmap.RES_NO);
+				$("#resultResMemberOutputMemberId").text(data.hmap.MEMBER_ID);
+				$("#resultResMemberOutputCarNo").text(data.hmap.CAR_NO);
+				$("#resultResMemberOutputPhone").text(data.hmap.PHONE);
+				$("#resultResMemberOutputDate").text((Math.floor(data.hmap.END_TIME/60))+"시간 "+(data.hmap.END_TIME%60)+"분");
+				$("#resultResMemberOutputPayment").text(data.hmap.resultPrice +"원");
+				
+				
+				resultResMemberNo2 = data.hmap.MEMBER_NO;
+				resultResCarNo2 = data.hmap.CAR_NO;
+				resultResNo2 = data.hmap.RES_NO;
+				resultResEndTime = data.hmap.END_TIME;
+				resultResFee = data.hmap.resultPrice;
+				
+				
+				$("#resMemberHiddenOutputCar").click();
+			},
+			error:function(data){
+				console.log("데이터 통신 실패!");
+			}
+			
+		});
+ 	}
 	
-	
+	function resDirectPayment(){
+		var selectParkingBox = $("#inputGroupSelect01 option:selected").val();
+		$.ajax({
+			url:"resDirectPayment.pc",
+			type:"post",
+			data:{selectParkingBox:selectParkingBox,resultResMemberNo2:resultResMemberNo2,resultResCarNo2:resultResCarNo2,
+				resultResEndTime:resultResEndTime,resultResFee:resultResFee,resultResNo2:resultResNo2},
+			success:function(data){
+				$("#completePayment").click();
+			},
+			error:function(data){
+				console.log("데이터 통신 실패!");
+			}
+		});
+		
+	}
+ 	
+ 	
 
 </script>
 

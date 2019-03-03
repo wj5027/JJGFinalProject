@@ -81,15 +81,8 @@ public class ParkingMainDaoImpl implements ParkingMainDao {
 	}
 
 	@Override
-	public int searchMemberNo(HashMap<String, Object> searchHashmap) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public void insertResMemberEntryList(SqlSessionTemplate sqlSession, HashMap<String, Object> searchHashmap) {
-		// TODO Auto-generated method stub
-		
+		sqlSession.insert("ParkingMain.insertResMemberEntryList", searchHashmap);
 	}
 
 	@Override
@@ -169,6 +162,23 @@ public class ParkingMainDaoImpl implements ParkingMainDao {
 	@Override
 	public void updateNomalMemberOil(SqlSessionTemplate sqlSession, HashMap<String, Object> data) {
 		sqlSession.update("ParkingMain.updateNomalMemberOil", data);
+	}
+
+	@Override
+	public HashMap<String, Object> searchResInformation(SqlSessionTemplate sqlSession,
+			HashMap<String, Object> selectHmap) {
+		return sqlSession.selectOne("ParkingMain.searchResInformation", selectHmap);
+	}
+
+	@Override
+	public HashMap<String, Object> searchOutResInformation(SqlSessionTemplate sqlSession,
+			HashMap<String, Object> selectHmap) {
+		return sqlSession.selectOne("ParkingMain.searchOutResInformation", selectHmap);
+	}
+
+	@Override
+	public void updateResMemberCurrentPayment(SqlSessionTemplate sqlSession, HashMap<String, Object> data) {
+		sqlSession.update("ParkingMain.updateResMemberCurrentPayment", data);
 	}
 
 

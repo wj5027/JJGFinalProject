@@ -49,6 +49,12 @@ public interface ParkingMainService {
 
 	void updateNomalMemberOil(HashMap<String, Object> data);
 
+	HashMap<String, Object> searchResInformation(HashMap<String, Object> selectHmap);
+
+	HashMap<String, Object> searchOutResInformation(HashMap<String, Object> selectHmap);
+
+	void updateResMemberCurrentPayment(HashMap<String, Object> data);
+
 
 
 
