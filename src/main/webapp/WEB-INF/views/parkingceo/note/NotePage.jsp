@@ -172,6 +172,13 @@
 	}
 	
 	
+	//콤마찍는 함수
+	 function numComma(num){
+      var numStr = String(num);
+      return numStr.replace(/(\d)(?=(?:\d{3})+(?!\d))/g,"$1,");
+   }
+	
+	
 	
 	//페이징 처리할 변수 선언 및 기간 변수 선언
 	var currentPage = 1;
@@ -602,8 +609,8 @@
 					for(var i in data.hmap.list){
 						$tbodyTr = $("<tr>");
 						$member_nameTd = $("<td>").text(memberName);
-						$oilTd = $("<td>").text(data.hmap.list[i].OIL);
-						$exchangeMoneyTd = $("<td>").text(data.hmap.list[i].CASH);
+						$oilTd = $("<td>").text(numComma(data.hmap.list[i].OIL));
+						$exchangeMoneyTd = $("<td>").text(numComma(data.hmap.list[i].CASH));
 						$application_dayTd = $("<td>").text((1900+data.hmap.list[i].APPLICATION_DATE.year)+"년 "
 								+data.hmap.list[i].APPLICATION_DATE.month+"월 "
 								+data.hmap.list[i].APPLICATION_DATE.date+"일");

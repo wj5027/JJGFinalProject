@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE>
     <div class="sidebar" style="background: rgb(49, 49, 49) !important;">
+    
+    
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red"
     -->
@@ -14,7 +17,7 @@
          ${loginUser.member_name }님 환영합니다!
           </div>
           <br>
-          <div align="center" style="color: white; font-size: 12px;">현재오일은 ${loginUser.oil }오일 입니다.</div>  
+          <div align="center" style="color: white; font-size: 12px;">현재오일은 <fmt:formatNumber value="${loginUser.oil }" pattern="#,###" />오일 입니다.</div>  
           <br>
           </c:if>
         </div>

@@ -961,6 +961,12 @@
 		location.href="parkingceoReservation.pc";
 	}
 	
+	//콤마함수
+	 function numComma(num){
+      var numStr = String(num);
+      return numStr.replace(/(\d)(?=(?:\d{3})+(?!\d))/g,"$1,");
+   }
+	
 	
 	//탭버튼 함수
 	//전역 페이징 변수
@@ -1046,7 +1052,7 @@
 					if(data.list[i].hasOwnProperty('FEE') == false){
 						$exit_payTd = $("<td>").text("");
 					}else{
-						$exit_payTd = $("<td>").text(data.list[i].FEE);							
+						$exit_payTd = $("<td>").text(numComma(data.list[i].FEE)+"원");							
 					}
 					$entry_typeTh = $("<td>").text(data.list[i].EE_TYPE);		
 					if(data.list[i].hasOwnProperty('RES_NO') == false){							
@@ -1575,7 +1581,7 @@
 				console.log(data);
 				$("#resultOutputCarNo").text(data.hmap.CAR_NO);
 				$("#resultOutputPhone").text(data.hmap.PHONE);
-				$("#resultOutputPayment").text(data.hmap.FEE+"원");
+				$("#resultOutputPayment").text(numComma(data.hmap.FEE)+"원");
 				$("#resultOutputDate").text((Math.floor(data.hmap.HOURS/60))+"시 "+(data.hmap.HOURS%60)+"분");
 				$("#pointPayment").css('display','none');
 			},
@@ -1796,7 +1802,7 @@
 				$("#resultNomalMemberOutputCarNo").text(data.hmap.CAR_NO);
 				$("#resultNomalMemberOutputPhone").text(data.hmap.PHONE);
 				$("#resultNomalMemberOutputDate").text((Math.floor(data.hmap.END_TIME/60))+"시간 "+(data.hmap.END_TIME%60)+"분");
-				$("#resultNomalMemberOutputPayment").text(data.hmap.resultPrice+"원");
+				$("#resultNomalMemberOutputPayment").text(numComma(data.hmap.resultPrice)+"원");
 				
 				resultNomalMemberNo2 = data.hmap.MEMBER_NO;
 				resultNomalCarNo2 = data.hmap.CAR_NO;
@@ -2004,7 +2010,7 @@
 				$("#resultResMemberOutputCarNo").text(data.hmap.CAR_NO);
 				$("#resultResMemberOutputPhone").text(data.hmap.PHONE);
 				$("#resultResMemberOutputDate").text((Math.floor(data.hmap.END_TIME/60))+"시간 "+(data.hmap.END_TIME%60)+"분");
-				$("#resultResMemberOutputPayment").text(data.hmap.resultPrice +"원");
+				$("#resultResMemberOutputPayment").text(numComma(data.hmap.resultPrice) +"원");
 				
 				
 				resultResMemberNo2 = data.hmap.MEMBER_NO;

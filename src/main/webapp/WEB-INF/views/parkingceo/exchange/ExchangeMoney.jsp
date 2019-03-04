@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 
@@ -62,7 +63,7 @@
                     <tbody>
                        <tr>
                        	<td align="center"><div style="color: white;">현재 ${loginUser.member_name}님의 오일</div></td>
-						<td id="currentOil">${loginUser.oil } 오일</td>                       
+						<td id="currentOil"><fmt:formatNumber value="${loginUser.oil }" pattern="#,###" /> 오일</td>                       
                        </tr>
                       <tr>
                         <td align="center"><div style="color: white;">예금주</div></td>
