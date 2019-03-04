@@ -35,4 +35,6 @@ public interface CouponAdminDao {
 	ArrayList<CouponRequestList> selectSearchCouponList(SqlSessionTemplate sqlSession, PageInfo pi, String selectStatus,
 			String selectCoupon, String memberId, String parkingName) throws CouponListException;
 
+	int insertCoupon(SqlSessionTemplate sqlSession, CouponRequestList crl) throws CouponListException;
+
 }

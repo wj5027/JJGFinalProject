@@ -40,6 +40,11 @@ public class CouponAdminServiceImpl implements CouponAdminService{
 		int result = cd.updateCoupon(sqlSession, crl);
 		return result;
 	}
+	@Override
+	public int insertCoupon(CouponRequestList crl) throws CouponListException {
+		int result = cd.insertCoupon(sqlSession, crl);
+		return result;
+	}
 
 	// 쿠폰 반송
 	@Override
