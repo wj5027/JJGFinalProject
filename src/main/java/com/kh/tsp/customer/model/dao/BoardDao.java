@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.tsp.common.PageInfo;
 import com.kh.tsp.customer.model.vo.Board;
+import com.kh.tsp.customer.model.vo.Filter;
 import com.kh.tsp.customer.model.vo.Reply;
 
 public interface BoardDao {
@@ -98,6 +99,8 @@ public interface BoardDao {
 	int insertReply(SqlSessionTemplate sqlSession, Reply r);
 	//댓글 갯수
 	int replyCnt(SqlSessionTemplate sqlSession, int bno);
+	
+	Filter contentChk(SqlSessionTemplate sqlSession, String content);
 	
 	
 	

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import com.kh.tsp.common.PageInfo;
 import com.kh.tsp.customer.model.exception.BoardSelectListException;
 import com.kh.tsp.customer.model.vo.Board;
+import com.kh.tsp.customer.model.vo.Filter;
 import com.kh.tsp.customer.model.vo.Reply;
 
 public interface BoardService {
@@ -98,6 +99,8 @@ public interface BoardService {
 	ArrayList<Reply> insertReply(Reply r);
 	//댓글 갯수
 	int replyCnt(int bno);
+	//
+	Filter contentChk(String content);
 	
 	
 	

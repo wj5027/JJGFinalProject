@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -27,6 +28,7 @@ import com.kh.tsp.customer.model.service.BoardService;
 import com.kh.tsp.customer.model.service.BoardServiceImpl;
 import com.kh.tsp.customer.model.service.CustomerMainService;
 import com.kh.tsp.customer.model.vo.Board;
+import com.kh.tsp.customer.model.vo.Filter;
 import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.customer.model.vo.Reply;
 
@@ -610,8 +612,9 @@ public class CustomerBoard {
 	}
 	
 	//주차장 후기 등록
+	@ResponseBody
 	@RequestMapping(value="/insertParkingReview.cu", method=RequestMethod.POST)
-	public String insertParkingReview(HttpServletRequest request, HttpServletResponse response) {
+	public String insertParkingReview(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		
@@ -624,32 +627,48 @@ public class CustomerBoard {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		String mno = Integer.toString(loginUser.getMember_no());
 		String pno = request.getParameter("pno");
-			
-		Board b = new Board();
-		b.setbTitle(title);
-		b.setbContext(content);
-		b.setMno(mno);
-		b.setPno(pno);
-			
-		System.out.println("서블릿 mno : "+mno);
-		System.out.println("서블릿pno : "+pno);
+		String chkResult ="";
 		
-		if(loginUser == null) {
-			request.setAttribute("message", "로그인하세요");
-		}
-		int result = bs.insertParkingReview(b);
+		for(int i=0;i<content.length();i++) {
 			
-		if(result > 0) {
-			request.setAttribute("b", b);
-			request.setAttribute("pno", pno);	
-			return "redirect:parkingReview.cu?num="+pno;
-				
-		}else {
-				
-			request.setAttribute("message", "등록 실패");
-				
-			return "common/errorPage";
 		}
+		
+		
+		Filter chkContent = bs.contentChk(content);
+		
+		if(chkContent != null) {
+			System.out.println("found the bad word!");
+			chkResult = "unavailable";
+			return chkResult;
+			
+		}else {
+			Board b = new Board();
+			b.setbTitle(title);
+			b.setbContext(content);
+			b.setMno(mno);
+			b.setPno(pno);
+				
+			System.out.println("서블릿 mno : "+mno);
+			System.out.println("서블릿pno : "+pno);
+			
+			if(loginUser == null) {
+				request.setAttribute("message", "로그인하세요");
+			}
+			int result = bs.insertParkingReview(b);
+				
+			if(result > 0) {
+				request.setAttribute("b", b);
+				request.setAttribute("pno", pno);	
+				return "redirect:parkingReview.cu?num="+pno;
+					
+			}else {
+					
+				request.setAttribute("message", "등록 실패");
+					
+				return "common/errorPage";
+			}
+		}
+		
 	}
 	
 	
