@@ -241,6 +241,12 @@ public class CustomerPayment {
 		
 		if (result > 0) {
 			System.out.println("예약 시스템 정상");
+			
+			result = 0;
+			result = cms.insertRequestReserveOilList(reservInfo);
+			if (result > 0) {
+				System.out.println("오일 리스트에 정상 등록");
+			}
 		}
 		
 		return "redirect:reserv.cu";

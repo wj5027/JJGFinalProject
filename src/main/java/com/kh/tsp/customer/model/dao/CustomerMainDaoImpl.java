@@ -313,6 +313,26 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 	public String selectReservDay(SqlSessionTemplate sqlSession, int resDate) {
 		return sqlSession.selectOne("Member.selectReservDay", resDate);
 	}
+
+	@Override
+	public int insertRequestReserveOilList(SqlSessionTemplate sqlSession, Reservation reservInfo) {
+		return sqlSession.insert("Member.insertRequestReserveOilList", reservInfo);
+	}
+
+	@Override
+	public CCoupon selectParkingCoupon(SqlSessionTemplate sqlSession, String parkingNo) {
+		return sqlSession.selectOne("Member.selectParkingCoupon", parkingNo);
+	}
+
+	@Override
+	public int insertGetCoupon(SqlSessionTemplate sqlSession, CCoupon couponInfo) {
+		return sqlSession.insert("Member.insertGetCoupon", couponInfo);
+	}
+
+	@Override
+	public int updateGetCoupon(SqlSessionTemplate sqlSession, int requestCouponNo) {
+		return sqlSession.update("updateGetCoupon", requestCouponNo);
+	}
 	
 	
 }

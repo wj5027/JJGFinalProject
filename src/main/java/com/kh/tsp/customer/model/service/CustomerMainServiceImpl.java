@@ -276,6 +276,26 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 		return cmd.selectReservDay(sqlSession, resDate);
 	}
 
+	@Override
+	public int insertRequestReserveOilList(Reservation reservInfo) {
+		return cmd.insertRequestReserveOilList(sqlSession, reservInfo);
+	}
+
+	@Override
+	public CCoupon selectParkingCoupon(String parkingNo) {
+		return cmd.selectParkingCoupon(sqlSession, parkingNo);
+	}
+
+	@Override
+	public int insertGetCoupon(CCoupon couponInfo) {
+		return cmd.insertGetCoupon(sqlSession, couponInfo);
+	}
+
+	@Override
+	public int updateGetCoupon(int requestCouponNo) {
+		return cmd.updateGetCoupon(sqlSession, requestCouponNo);
+	}
+
 	
 	
 }

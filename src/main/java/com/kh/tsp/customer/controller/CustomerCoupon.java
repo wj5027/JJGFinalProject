@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kh.tsp.customer.model.service.CustomerMainService;
@@ -54,5 +56,48 @@ public class CustomerCoupon {
 		
 		return "customer/member/Customer_coupon";
 	}
+	
+	@RequestMapping("selectParkingCoupon.cu")
+	public @ResponseBody CCoupon selectParkingCoupon(@RequestParam String parkingNo) {
+		CCoupon selectResult = new CCoupon();
+		
+		selectResult.setCouponName("결과가 없어욤");
+		
+		CCoupon selectCoupon = cms.selectParkingCoupon(parkingNo);
+		
+		if (selectCoupon != null) {
+			selectResult = selectCoupon;
+		}
+		
+		return selectResult;
+    }
+	
+	@RequestMapping(value="/getCoupon.cu", method=RequestMethod.GET)
+	public String getCoupon(HttpServletRequest request, HttpSession session) {
+		int requestCouponNo = Integer.parseInt(request.getParameter("couponNo"));
+		
+		CCoupon couponInfo = new CCoupon();
+		Member m = (Member)session.getAttribute("loginUser");
+		couponInfo.setCouponNo(requestCouponNo);
+		couponInfo.setUserMemberNo(m.getMember_no());
+		
+		
+		int result = 0;
+		
+		result = cms.insertGetCoupon(couponInfo);
+		
+		if (result > 0) {
+			System.out.println("쿠폰 가져오기 성공");
+			result = 0;
+			
+			result = cms.updateGetCoupon(requestCouponNo);
+			if (result > 0) {
+				System.out.println("갯수 차감 성공");
+			}
+		}
+		
+		return "redirect:coupon.cu";
+	}
+	
 	
 }

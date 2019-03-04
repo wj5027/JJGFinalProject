@@ -185,8 +185,8 @@
 		LEFT_SIZE ,
 		STATUS ,
 		ALLIANCE_DATE,
-		TO_NUMBER(NVL(LATITUDE, 60)) - TO_NUMBER(#{ lat }) AS POSITION_RESULT_LAT,
-		TO_NUMBER(NVL(LONGITUDE, 160)) - TO_NUMBER(#{ lon }) AS POSITION_RESULT_LON
+		ABC(TO_NUMBER(NVL(LATITUDE, 60)) - TO_NUMBER(#{ lat })) AS POSITION_RESULT_LAT,
+		ABC(TO_NUMBER(NVL(LONGITUDE, 160)) - TO_NUMBER(#{ lon })) AS POSITION_RESULT_LON
 			FROM PARKING
 			WHERE STATUS='Y'
 			AND TO_NUMBER(NVL(LATITUDE, 60)) - TO_NUMBER(#{ lat }) >= - 0.03 AND TO_NUMBER(NVL(LATITUDE, 60)) - TO_NUMBER(#{ lat }) <= 0.03
@@ -226,8 +226,8 @@
 		LEFT_SIZE ,
 		STATUS ,
 		ALLIANCE_DATE,
-		TO_NUMBER(NVL(LATITUDE, 60)) - TO_NUMBER(#{ lat }) AS POSITION_RESULT_LAT,
-		TO_NUMBER(NVL(LONGITUDE, 160)) - TO_NUMBER(#{ lon }) AS POSITION_RESULT_LON
+		ABC(TO_NUMBER(NVL(LATITUDE, 60)) - TO_NUMBER(#{ lat })) AS POSITION_RESULT_LAT,
+		ABC(TO_NUMBER(NVL(LONGITUDE, 160)) - TO_NUMBER(#{ lon })) AS POSITION_RESULT_LON
 			FROM PARKING
 			WHERE STATUS='Y'
 			AND parking_name LIKE '%' || #{ keyword } || '%'
@@ -265,8 +265,8 @@
 		LEFT_SIZE ,
 		STATUS ,
 		ALLIANCE_DATE,
-		TO_NUMBER(NVL(LATITUDE, 60)) - TO_NUMBER(#{ lat }) AS POSITION_RESULT_LAT,
-		TO_NUMBER(NVL(LONGITUDE, 160)) - TO_NUMBER(#{ lon }) AS POSITION_RESULT_LON
+		ABC(TO_NUMBER(NVL(LATITUDE, 60)) - TO_NUMBER(#{ lat })) AS POSITION_RESULT_LAT,
+		ABC(TO_NUMBER(NVL(LONGITUDE, 160)) - TO_NUMBER(#{ lon })) AS POSITION_RESULT_LON
 			FROM PARKING
 			WHERE STATUS='Y'
 			AND address LIKE '%' || #{keyword} || '%'
@@ -330,8 +330,7 @@
 	<select id="updateCancelReserveOil" parameterType="Reservation">
 		UPDATE member
 	    SET oil = (SELECT oil FROM member WHERE member_no = #{ memberNo })
-	        + 3 * (SELECT parking_nprice FROM parking WHERE parking_no = 
-	        				(SELECT parking_no FROM parking_reservation WHERE res_no = #{resNo}))
+	        + 2000
 	    WHERE member_no = #{ memberNo }
 	</select>
 	
@@ -353,6 +352,22 @@
 	    WHERE cu.member_no = #{ member_no }
 	</select>
 	
+	<!-- 주차장에 해당하는 쿠폰조회 -->
+	<select id="selectParkingCoupon" resultMap="CustomerCoupon" parameterType="string">
+		<![CDATA[
+		SELECT * FROM coupon_create cu 
+	    JOIN (SELECT c.amount, c.coupon_no, c.coupon_req_no, c.coupon_status, c.create_date, c.parking_no, cr.coupon_start_date, cr.coupon_end_date, cr.coupon_name,
+            cr.coupon_odiscount, cr.coupon_pdiscount, cr.coupon_req_status, cr.coupon_type, cr.member_no, cr.refuse_reason, cr.remark
+        FROM coupon c JOIN coupon_request_list cr ON (c.coupon_req_no = cr.coupon_req_no)) cl
+	    ON (cu.coupon_no = cl.coupon_no)
+        JOIN parking p
+        ON (cl.parking_no = p.parking_no)
+	    WHERE cl.parking_no = #{ parking_no }
+		AND cl.amount > 0
+		AND SYSDATE >= cl.coupon_start_date
+		AND SYSDATE <= cl.coupon_end_date
+		]]>
+	</select>
 
 	<select id="idCheck" resultMap="MemberResultSet2" parameterType="String">
 		SELECT MEMBER_ID FROM
@@ -660,7 +675,11 @@
 		VALUES (RES_NO_SEQ.NEXTVAL, SYSDATE, TO_DATE('${ stringResDate }','mm-dd-yyyy hh24:mi'), 'Y', ${ memberNo }, ${ parkingNo }, '${ carNo }')
 	</insert>
 	
-
+	<!-- 예약 완료 후 오일 리스트에 등록 -->
+	<insert id="insertRequestReserveOilList" parameterType="Reservation">
+		INSERT INTO oil_list
+		VALUES (OIL_LIST_SEQ.NEXTVAL, '예약', SYSDATE, 2000, #{ memberNo }, null, (SELECT res_no FROM parking_reservation WHERE res_date = TO_DATE('${ stringResDate }','mm-dd-yyyy hh24:mi') AND member_no = ${ memberNo } AND parking_no = ${ parkingNo } AND car_no = '${ carNo }'),null,null)
+	</insert>
 	
 	<!--즐겨찾기 등록 -->
 	<insert id="insertfavorite" parameterType="Hashmap">
@@ -700,7 +719,7 @@
 		VALUES (OIL_LIST_SEQ.NEXTVAL, 
 				'예약취소',
 				SYSDATE,
-				(SELECT parking_nprice * 3 FROM parking WHERE parking_no = (SELECT parking_no FROM parking_reservation WHERE res_no = #{ resNo })),
+				2000,
 				#{ memberNo },
 				(SELECT parking_no FROM parking_reservation WHERE res_no = #{ resNo }),
 				#{ resNo },
@@ -711,5 +730,18 @@
 	<select id="selectReservDay" resultType="String" parameterType="int">
 		SELECT status FROM parking_reservation WHERE res_no = #{ resDate }
 	</select>
+	
+	<!-- 사용자 쿠폰 받기 -->
+	<insert id="insertGetCoupon" parameterType="com.kh.tsp.customer.model.vo.CCoupon">
+		INSERT INTO coupon_create
+		VALUES (COUPON_CREATE_NO_SEQ.NEXTVAL, #{ userMemberNo }, #{ couponNo }, null, 'N')
+	</insert>
+	
+	<!-- 사용자의 신청으로 사업자 쿠폰 차감 -->
+	<update id="updateGetCoupon" parameterType="int">
+		UPDATE coupon
+		SET amount = (SELECT amount FROM coupon WHERE coupon_no = #{ couponNo }) - 1
+		WHERE coupon_no = #{ couponNo }
+	</update>
 	
 </mapper>
