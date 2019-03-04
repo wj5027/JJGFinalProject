@@ -73,15 +73,18 @@
 			<div class="repleArea">
 		<div class="replySelectArea">
 		<table id="replySelectTable" width="100%" border="0" cellpadding="0" cellspacing="0">
-			<c:forEach var="r" items="${ reply }">
+			
 			
 			<tbody>
+			<c:forEach var="r" items="${ reply }">
 			<tr>
 				<td width="60px">댓글&nbsp;</td>
 				<td   colspan="2">${ r.context }　　　　　　　　　</td>
 				<td align="center">${ r.memberNo }</td>
 			</tr>
 			</c:forEach>
+			</tbody>
+			
 			</table>
 			</div>
 			

@@ -16,6 +16,7 @@
 </style>
 </head>
 <body class="">
+
   <div class="wrapper">
     <jsp:include page="/WEB-INF/views/customer/common/sidebar_customer.jsp"></jsp:include>
     
@@ -55,10 +56,11 @@
   
     </div>
        </div>
-       
-       <div align="center">
-       <button id="insertNotice" class="btn btn-info btn-sm">작성</button>
-       </div>
+       <c:if test="${ loginUser.member_no eq 1 }">
+	       <div align="center">
+	       <button id="insertNotice" class="btn btn-info btn-sm">작성</button>
+	       </div>
+       </c:if>
               <div class="card-body">
                 <div class="table-responsive">
                 <!-- 페이징 버튼 영역 -->

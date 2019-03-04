@@ -44,7 +44,7 @@
    		
    		
    		<c:forEach var="b" items="${ list }">
-   		<c:if test="${ b.mno eq loginUser.member_no }">	
+   		
    		<tbody>
    		<tr>
    			<td>${ b.createDate }</td>
@@ -54,7 +54,7 @@
    		</tr>
    		
    		<!-- <hr style="border: solid 1px white;"> -->
-   		</c:if>
+   		
    		   </c:forEach>
    		   
    		</tbody>
