@@ -1,6 +1,5 @@
 package com.kh.tsp.parkingceo.controller;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -23,6 +22,7 @@ import com.kh.tsp.customer.model.vo.Member;
 import com.kh.tsp.parkingceo.model.service.ParkingMainService;
 import com.kh.tsp.parkingceo.model.service.ParkingService;
 import com.kh.tsp.parkingceo.model.service.PromotionService;
+
 
 @Controller
 public class ParkingCeoMain {
@@ -158,11 +158,22 @@ public class ParkingCeoMain {
 	
 	//예약 승인 메소드
 	@RequestMapping(value="/updateResComplete.pc",method=RequestMethod.POST)
-	public ModelAndView updateResComplete(@RequestParam String completeResNo,ModelAndView mv) {
+	public ModelAndView updateResComplete(@RequestParam String completeResNo,ModelAndView mv,HttpSession session,Model model) {
+		int member_no = ((Member)session.getAttribute("loginUser")).getMember_no();
+		HashMap<String, Object> data = new HashMap<String,Object>();
+		data.put("parkingMember_no", member_no);
+		
 		
 		try {
+			//예약 승인 메소드
 			pms.updateResComplete(Integer.parseInt(completeResNo));
+			//사업자에게 예약 자금 추가
+			pms.updateCompleteResOil(data);
+			//세션 변경
+			Member loginUser = pms.selectCheckMember(data);
+			session.setAttribute("loginUser", loginUser);
 		}catch(Exception e) {
+			e.printStackTrace();
 			mv.addObject("message", "예약 업데이트 실패");
 			mv.setViewName("jsonView");
 			return mv;
@@ -174,10 +185,25 @@ public class ParkingCeoMain {
 	
 	//예약 취소 메소드
 	@RequestMapping(value="/updateResCancel.pc",method=RequestMethod.POST)
-	public ModelAndView updateResCancel(@RequestParam String completeResNo,@RequestParam String resCancelText,ModelAndView mv) {
+	public ModelAndView updateResCancel(@RequestParam String completeResNo,@RequestParam String resCancelText,ModelAndView mv
+			,HttpSession session,Model model) {
+		
+		int member_no = ((Member)session.getAttribute("loginUser")).getMember_no();
+		HashMap<String, Object> data = new HashMap<String,Object>();
+		data.put("parkingMember_no", member_no);
+		data.put("res_no",Integer.parseInt(completeResNo+""));
 		
 		try {
+			//예약 취소 업데이트
 			pms.updateResCancel(Integer.parseInt(completeResNo),resCancelText);
+			
+			//해당 회원 포인트 되돌려주기
+			pms.updateCancelResPoint(data);
+			
+			//세션 변경
+			Member loginUser = pms.selectCheckMember(data);
+			session.setAttribute("loginUser", loginUser);
+			
 		}catch(Exception e) {
 			mv.addObject("message", "반송 업데이트 실패");
 			mv.setViewName("jsonView");
@@ -230,7 +256,8 @@ public class ParkingCeoMain {
 		searchHashmap.put("parking_no", selectParkingBox);
 		searchHashmap.put("car_no", resultCarNo);
 		searchHashmap.put("phone", resultPhone);
-		searchHashmap.put("start_time", resultDate);
+		searchHashmap.put("start_time", resultDate);		
+		
 		try {
 			pms.insertEntryList(searchHashmap,resultMemberNo,resultResNo);
 		}catch(Exception e) {
@@ -496,14 +523,18 @@ public class ParkingCeoMain {
 	@RequestMapping(value="/nomalPointPayment.pc",method=RequestMethod.POST)
 	public ModelAndView nomalPointPayment(ModelAndView mv,
 			@RequestParam String resultNomalMemberNo2,@RequestParam String resultNomalCarNo2,@RequestParam String resultNomalEndTime
-			,@RequestParam String resultFee,@RequestParam String selectParkingBox) {
+			,@RequestParam String resultFee,@RequestParam String selectParkingBox,HttpSession session,Model model) {
 
+		
+		int parkingCeoNumber = ((Member)session.getAttribute("loginUser")).getMember_no();
+		
 		HashMap<String, Object> data = new HashMap<String,Object>();
 		data.put("parking_no", selectParkingBox);
 		data.put("member_no", Integer.parseInt(resultNomalMemberNo2+""));
 		data.put("hours",Integer.parseInt(resultNomalEndTime)+"");
 		data.put("fee", Integer.parseInt(resultFee+""));
 		data.put("car_no", resultNomalCarNo2);
+		data.put("parkingMember_no", parkingCeoNumber);
 		
 		try {
 			//입출차 내역 업데이트
@@ -512,6 +543,11 @@ public class ParkingCeoMain {
 			pms.updateNomalMemberOil(data);
 			//주차장 구획수 증가
 			pms.plusNonMemberParkingLeftSize(data);
+			//사업자 오일 증가
+			pms.AddNomalPointToPakringCeo(data);
+			//세션 새로고침
+			Member loginUser = pms.selectCheckMember(data);
+			session.setAttribute("loginUser", loginUser);
 			
 		}catch(Exception e) {
 			mv.addObject("message", "포인트 결제 실패!");
@@ -650,6 +686,66 @@ public class ParkingCeoMain {
 		
 		
 		
+		mv.setViewName("jsonView");
+		return mv;
+	}
+	
+	
+	@RequestMapping(value="searchResMemberPoint.pc",method=RequestMethod.POST)
+	public ModelAndView searchResMemberPoint(ModelAndView mv,@RequestParam String resultResMemberNo2) {
+		
+		HashMap<String, Object> hmap = new HashMap<String,Object>();
+		hmap.put("member_no", resultResMemberNo2);
+		
+		try {
+			HashMap<String, Object> resultHmap = pms.selectSearchNomalMemberPoint(hmap);
+			mv.addObject("hmap", resultHmap);
+		}catch(Exception e) {
+			e.printStackTrace();
+			mv.addObject("message", "예약회원 포인트 정보 조회 실패!");
+			mv.setViewName("jsonView");
+			return mv;
+		}
+		mv.setViewName("jsonView");
+		return mv;
+	}
+	
+	
+	@RequestMapping(value="/resPointPayment.pc",method=RequestMethod.POST)
+	public ModelAndView resPointPayment(ModelAndView mv,@RequestParam String selectParkingBox,
+			@RequestParam String resultResMemberNo2,@RequestParam String resultResCarNo2,@RequestParam String resultResEndTime,
+			@RequestParam String resultResFee,@RequestParam String resultResNo2,HttpSession session,Model model) {
+		
+		int parkingCeoNumber = ((Member)session.getAttribute("loginUser")).getMember_no();
+		
+		HashMap<String, Object> data = new HashMap<String,Object>();
+		data.put("parking_no", selectParkingBox);
+		data.put("member_no", Integer.parseInt(resultResMemberNo2+""));
+		data.put("hours",Integer.parseInt(resultResEndTime)+"");
+		data.put("fee", Integer.parseInt(resultResFee+""));
+		data.put("car_no", resultResCarNo2);
+		data.put("res_no",Integer.parseInt(resultResNo2+""));
+		data.put("parkingMember_no", parkingCeoNumber);
+		
+		try {
+			//입출차 내역 업데이트
+			pms.updateResMemberEntryList(data);
+			//회원 오일 차감
+			pms.updateResMemberOil(data);
+			//주차장 구획수 증가
+			pms.updateResMemberParkingLeftSize(data);
+			//사업자 오일 증가
+			pms.AddNomalPointToPakringCeo(data);
+			//세션 새로고침
+			Member loginUser = pms.selectCheckMember(data);
+			session.setAttribute("loginUser", loginUser);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			mv.addObject("message", "예약회원 포인트 결제 실패!");
+			mv.setViewName("jsonView");
+			return mv;
+		}
 		mv.setViewName("jsonView");
 		return mv;
 	}

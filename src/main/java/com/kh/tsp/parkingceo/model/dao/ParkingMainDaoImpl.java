@@ -181,6 +181,41 @@ public class ParkingMainDaoImpl implements ParkingMainDao {
 		sqlSession.update("ParkingMain.updateResMemberCurrentPayment", data);
 	}
 
+	@Override
+	public void updateResMemberEntryList(SqlSessionTemplate sqlSession, HashMap<String, Object> data) {
+		sqlSession.update("ParkingMain.updateResMemberEntryList", data);
+	}
+
+	@Override
+	public void updateResMemberOil(SqlSessionTemplate sqlSession, HashMap<String, Object> data) {
+		sqlSession.update("ParkingMain.updateResMemberOil", data);
+	}
+
+	@Override
+	public void updateResMemberParkingLeftSize(SqlSessionTemplate sqlSession, HashMap<String, Object> data) {
+		sqlSession.update("ParkingMain.updateResMemberParkingLeftSize", data);
+	}
+
+	@Override
+	public void AddNomalPointToPakringCeo(SqlSessionTemplate sqlSession, HashMap<String, Object> data) {
+		sqlSession.update("ParkingMain.AddNomalPointToPakringCeo", data);
+	}
+
+	@Override
+	public Member selectCheckMember(SqlSessionTemplate sqlSession, HashMap<String, Object> data) {
+		return sqlSession.selectOne("ParkingMain.selectCheckMember2", data);
+	}
+
+	@Override
+	public void updateCompleteResOil(SqlSessionTemplate sqlSession, HashMap<String, Object> data) {
+		sqlSession.update("ParkingMain.updateCompleteResOil",data);
+	}
+
+	@Override
+	public void updateCancelResPoint(SqlSessionTemplate sqlSession, HashMap<String, Object> data) {
+		sqlSession.update("ParkingMain.updateCancelResPoint", data);
+	}
+
 
 
 

@@ -185,6 +185,12 @@
 		location.href="parkingceoReservation.pc";
 	}
 	
+	//숫자 콤마 함수
+	 function numComma(num){
+      var numStr = String(num);
+      return numStr.replace(/(\d)(?=(?:\d{3})+(?!\d))/g,"$1,");
+   }
+	
 	
 	//페이징 처리할 변수
 	var currentPage = 1;
@@ -292,7 +298,7 @@
 						if(data.hmap.list[i].hasOwnProperty('FEE') == false){
 							$exit_payTd = $("<td>").text("");
 						}else{
-							$exit_payTd = $("<td>").text(data.hmap.list[i].FEE);							
+							$exit_payTd = $("<td>").text(numComma(data.hmap.list[i].FEE)+"원");							
 						}
 						$entry_typeTh = $("<td>").text(data.hmap.list[i].EE_TYPE);		
 						if(data.hmap.list[i].hasOwnProperty('RES_NO') == false){							
@@ -461,7 +467,7 @@
 						if(data.hmap.list[i].hasOwnProperty('FEE') == false){
 							$exit_payTd = $("<td>").text("");
 						}else{
-							$exit_payTd = $("<td>").text(data.hmap.list[i].FEE);							
+							$exit_payTd = $("<td>").text(numComma(data.hmap.list[i].FEE)+"원");							
 						}
 						$entry_typeTh = $("<td>").text(data.hmap.list[i].EE_TYPE);		
 						if(data.hmap.list[i].hasOwnProperty('RES_NO') == false){							
@@ -628,7 +634,7 @@
 						if(data.hmap.list[i].hasOwnProperty('FEE') == false){
 							$exit_payTd = $("<td>").text("");
 						}else{
-							$exit_payTd = $("<td>").text(data.hmap.list[i].FEE);							
+							$exit_payTd = $("<td>").text(numComma(data.hmap.list[i].FEE)+"원");							
 						}
 						$entry_typeTh = $("<td>").text(data.hmap.list[i].EE_TYPE);		
 						if(data.hmap.list[i].hasOwnProperty('RES_NO') == false){							
