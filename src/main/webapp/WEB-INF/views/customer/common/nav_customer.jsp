@@ -514,19 +514,7 @@ function searchVoice(keyword, type) {
 	
 }
 </script>
-<script type="text/javascript">
-if (globalVarLat == 0 && globalVarLon == 0) {
-	if (navigator.geolocation) {
-		console.log("이것도 되는거야?");
-	    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
-	    navigator.geolocation.watchPosition(function(position) {
-	    	globalVarLat = position.coords.latitude; // 위도
-	    	globalVarLon = position.coords.longitude; // 경도
-	    });
-	    console.log(lati + "/" + longi);
-	}
-}
-</script>
+
 
       
       

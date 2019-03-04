@@ -47,17 +47,15 @@
 	          <div align="right" style="position:absolute; width: 130px;height: 200px;z-index:100000000;top: 11%;left: 65%;">
 	          <button id="bttn" align="right" style="background-color:white; color:black; border-radius:10px; border:0.5px solid black; font-size:1.5em" onclick="togglebtn()">></button>
 	          <div align="left" id="explaindiv" style="margin:1px; background-color:white; border-radius: 10px;">
-	           <span align="center" style="margin:2px; color:black; font-size:0.7em;"><input type="checkbox" id="freemk"><img src='resources/common/img/freeparking.png' width="25px" height="25px"> &nbsp;<b>무료</b></span><br>
-	          <span align="center" style="margin:2px; color:black; font-size:0.7em;"><input type="checkbox" id="greenmk"><img src='resources/common/img/greenMarker.png' width="25px" height="25px"> &nbsp;<b>2000원 이하</b></span><br>
-	          <span align="center" style="margin:2px; color:black; font-size:0.7em;"><input type="checkbox" id="bluemk"><img src='resources/common/img/blueMarker.png' width="25px" height="25px"> &nbsp;<b>2000~4000</b></span><br>
-	          <span align="center" style="margin:2px; color:black; font-size:0.7em;"><input type="checkbox" id="yellowmk"><img src='resources/common/img/yellowMarker.png' width="25px" height="25px"> &nbsp;<b>4000~8000</b></span><br>
-	          <span align="center" style="margin:2px; color:black; font-size:0.7em;"><input type="checkbox" id="pinkmk"><img src='resources/common/img/pinkMarker.png' width="25px" height="25px"> &nbsp;<b>8000원 이상</b></span><br>
+	           <span align="center" style="margin:2px; color:black; font-size:0.7em;"><input type="checkbox" id="freemk" checked><img src='resources/common/img/freeparking.png' width="25px" height="25px"> &nbsp;<b>무료</b></span><br>
+	          <span align="center" style="margin:2px; color:black; font-size:0.7em;"><input type="checkbox" id="greenmk" checked><img src='resources/common/img/greenMarker.png' width="25px" height="25px"> &nbsp;<b>1500원 이하</b></span><br>
+	          <span align="center" style="margin:2px; color:black; font-size:0.7em;"><input type="checkbox" id="bluemk" checked><img src='resources/common/img/blueMarker.png' width="25px" height="25px"> &nbsp;<b>1500~3000</b></span><br>
+	          <span align="center" style="margin:2px; color:black; font-size:0.7em;"><input type="checkbox" id="yellowmk"checked><img src='resources/common/img/yellowMarker.png' width="25px" height="25px"> &nbsp;<b>3000~5000</b></span><br>
+	          <span align="center" style="margin:2px; color:black; font-size:0.7em;"><input type="checkbox" id="pinkmk" checked><img src='resources/common/img/pinkMarker.png' width="25px" height="25px"> &nbsp;<b>5000원 이상</b></span><br>
 	          <span align="center" style="margin:2px; color:black; font-size:0.7em;"><img src='resources/common/img/muni.png' width="25px" height="25px"> &nbsp;<b>관리자에게 문의</b></span>
 	          </div>
 	          </div>
-	         
-	      
-	          
+	        
 	          <!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@상세보기 모달@@@@@@@@@@@@@@@@@@@@@@@@@  -->
 	           <button id="detailparking" class="btn btn-link" data-toggle="modal" data-target=".bd-detail-modal-lg-6"></button>
 	              <div class="modal fade bd-detail-modal-lg-6" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -298,15 +296,62 @@
 		   }
            
            
-	          
-	          
+         	var  freemkFlag=1;
+ 	     	var  greenmkFlag=1;
+ 	        var  bluemkFlag=1;
+ 	        var  yellowmkFlag=1;
+ 	        var  pinkmkFlag=1;
+ 	        
+ 	        
+ 	        
            $("input:checkbox").change(checkedChange);
    		function checkedChange(){
-   			console.log($(this).prop("checked"));
-   			if($(this).prop("checked")){
    				clusterer.clear();
+   				
+   				
+   			if($("#freemk").prop("checked")){
+   				console.log("freemk 클릭");
+   				freemkFlag=1;
    			}else{
+   				console.log("freemk 클릭해제");
+   				freemkFlag=0;
    			}
+   			if($("#greenmk").prop("checked")){
+   				console.log("greenmk 클릭");
+   				greenmkFlag=1;
+   			}else{
+   				console.log("greenmk 클릭해제");
+   				greenmkFlag=0;
+   			}
+   			if($("#bluemk").prop("checked")){
+   				console.log("bluemk 클릭");
+   				bluemkFlag=1;
+   			}else{
+   				console.log("bluemk 클릭해제");
+   				bluemkFlag=0;
+   			}
+   			if($("#yellowmk").prop("checked")){
+   				console.log("yellowmk 클릭");
+   				yellowmkFlag=1;
+   			}else{
+   				console.log("yellowmk 클릭해제");
+   				yellowmkFlag=0;
+   			}
+   			if($("#pinkmk").prop("checked")){
+   				console.log("pinkmk 클릭");
+   				pinkmkFlag=1;
+   			}else{
+   				console.log("pinkmk 클릭해제");
+   				pinkmkFlag=0;
+   			}
+   			
+   			
+   			selectnearParking();
+   			
+   			
+   			
+   			
+   			
    		}
 
            
@@ -685,7 +730,11 @@
 										}
 										}else{
 											if(pinfo=="무료"){
+												if(freemkFlag==0){
+													img="nochecked";
+												}else{
 												img='resources/common/img/freeparking.png';
+												}
 											}
 											 else if(atime>0){
 												 if(atime>30){
@@ -703,32 +752,46 @@
 												 
 											 } 
 											else{
-												img='resources/common/img/muni.png';
+												/* img='resources/common/img/muni.png'; */
 											}
 										}
 										
 										
-										var freemk;
-								          var greenmk;
-								          var yellowmk;
-								          var pinkmk;
-										if((0<allfair) && (2000>=allfair)){
-											
+							 	        
+										if((0<=allfair) && (1500>allfair)){
+											if(greenmkFlag==0){
+												img="nochecked";
+											}else{
 											 img='resources/common/img/greenMarker.png';
-											}else if((2000<=allfair) && (4000>=allfair)){
-											 img='resources/common/img/blueMarker.png';
-											}else if((4000<=allfair) && (8000>=allfair)){
+											}
+											}else if((1500<=allfair) && (3000>allfair)){
+												if(bluemkFlag==0){
+													img="nochecked";
+												}else{
+													 img='resources/common/img/blueMarker.png';
+												}
+											}else if((3000<=allfair) && (5000>allfair)){
+												if(yellowmkFlag==0){
+													img="nochecked";
+												}else{
 												img='resources/common/img/yellowMarker.png';
-											}else if(allfair>=8000){
+												}
+												
+											}else if(allfair>=5000){
+												if(pinkmkFlag==0){
+													img="nochecked";
+												}else{
 												img='resources/common/img/pinkMarker.png';
+												}
 											}
 											else{
 												/*  img='resources/common/img/muni.png';  */
 											}
 										
 										if(img==null){
-											img='resources/common/img/muni.png';
+											/* img='resources/common/img/muni.png'; */
 										}
+										
 										
 									   for(var f in favorites)
 										   {
@@ -764,10 +827,18 @@
 									        });
 							 	    	}
 										
-										daum.maps.event.addListener(marker2, 'click',makeclickListener(map,marker2,data.parkings[t],allfair,favoriteOX));
-									
-								
+										
+										
+										
+										if(img=="nochecked"){
+											console.log("체크안됌");
+										}else{
+										
 								 		markers.push(marker2);
+										
+										daum.maps.event.addListener(marker2, 'click',makeclickListener(map,marker2,data.parkings[t],allfair,favoriteOX));
+										}
+								
 								 		
 								 		 
 								 	}
@@ -914,7 +985,11 @@
 										}
 										}else{
 											if(pinfo=="무료"){
+												if(freemkFlag==0){
+													img="nochecked";
+												}else{
 												img='resources/common/img/freeparking.png';
+												}
 											}
 											 else if(atime>0){
 												 if(atime>30){
@@ -932,25 +1007,42 @@
 												 
 											 } 
 											else{
-												img='resources/common/img/muni.png';
+												/* img='resources/common/img/muni.png'; */
 											}
 										}
 										
-										if((0<allfair) && (2000>=allfair)){
+										if((0<=allfair) && (1500>allfair)){
+											if(greenmkFlag==0){
+												img="nochecked";
+											}else{
 											 img='resources/common/img/greenMarker.png';
-											}else if((2000<=allfair) && (4000>=allfair)){
-											 img='resources/common/img/blueMarker.png';
-											}else if((4000<=allfair) && (8000>=allfair)){
+											}
+											}else if((1500<=allfair) && (3000>allfair)){
+												if(bluemkFlag==0){
+													img="nochecked";
+												}else{
+													 img='resources/common/img/blueMarker.png';
+												}
+											}else if((3000<=allfair) && (5000>allfair)){
+												if(yellowmkFlag==0){
+													img="nochecked";
+												}else{
 												img='resources/common/img/yellowMarker.png';
-											}else if(allfair>=8000){
+												}
+												
+											}else if(allfair>=5000){
+												if(pinkmkFlag==0){
+													img="nochecked";
+												}else{
 												img='resources/common/img/pinkMarker.png';
+												}
 											}
 											else{
 												/*  img='resources/common/img/muni.png';  */
 											}
 										
 										if(img==null){
-											img='resources/common/img/muni.png';
+											/* img='resources/common/img/muni.png'; */
 										}
 										
 										
@@ -966,10 +1058,14 @@
 									 		image:parkingImg
 								        }); 
 										
-										daum.maps.event.addListener(marker2, 'click',makeclickListener(map,marker2,data.parkings[t],allfair));
-									
-								
+										if(img=="nochecked"){
+											console.log("체크안됌");
+										}else{
+										
 								 		markers.push(marker2);
+										
+										daum.maps.event.addListener(marker2, 'click',makeclickListener(map,marker2,data.parkings[t],allfair));
+										}
 								 		
 								 		 
 								 	}
