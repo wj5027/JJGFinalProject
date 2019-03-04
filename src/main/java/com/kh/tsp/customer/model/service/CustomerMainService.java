@@ -97,6 +97,14 @@ public interface CustomerMainService {
 
 	String selectReservDay(int parseInt);
 
+	int insertRequestReserveOilList(Reservation reservInfo);
+
+	CCoupon selectParkingCoupon(String parkingNo);
+
+	int insertGetCoupon(CCoupon couponInfo);
+
+	int updateGetCoupon(int requestCouponNo);
+
 
 
 	

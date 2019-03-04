@@ -67,6 +67,13 @@
 			        <div class="table-responsive" id="voiceSize" style="overflow: auto; padding-bottom: 0px;  ">
 			          <table class="table tablesorter " style="margin-bottom: 0px;">
 			            <tbody id="STTResult">
+			            	  <tr>
+			            	  	<td>
+			            	  		<div style="width: 100%" align="right">
+			            	  			<button type="button" class="btn btn-sm " id="selectCoupon" style="display: none;" onclick="">쿠폰받기</button>
+			            	  		</div>
+			            	  	</td>
+			            	  </tr>
 			                  <tr>
 			                  <input id="pno" type="hidden" value="">
 			                  <td align="left" colspan="5">- 주차장명 <br> <b style="font-size:1.5em;" id="pname"></b></td>
@@ -205,7 +212,7 @@
 			                  		사용 될 오일 : 
 			                  	</td>
 			                  	<td align="center" style="color: white;" id="reservOil">
-			                  		0L
+			                  		2000L
 			                  	</td>
 			                  </tr>
 			                  <tr>
@@ -285,7 +292,10 @@
         	   $("#onparkingImgsbtn").click();
            }
            
-           
+           // 쿠폰 받기를 눌렀을 때
+           function getCoupon(couponNo) {
+        	   location.href="getCoupon.cu?couponNo=" + couponNo;
+		   }
            
            
 	          
@@ -402,7 +412,7 @@
 		       		var mm = today.getMonth()+1;
 		       		var yyyy = today.getFullYear();
 		       		
-
+					
 		       		if ($("#selectReservDate").val() == "") {
 						alert("날짜를 선택해주세요!");
 					} else {
@@ -411,11 +421,31 @@
 			       		var sm = Number(selday.split(" ")[1].split("월")[0]);
 			       		var sd = Number(selday.split(" ")[2].split("일")[0]);
 			       		
-			       		if (sy >= yyyy && sm >= mm && sd >= dd) {
+			       		console.log(sy + ", " + sm + ", " + sd);
+			       		console.log(yyyy + ", " + mm + ", " + dd);
+			       		
+			       		if (sy > yyyy) {
 			       			$("#submitReserveRequest").submit();
 						} else {
-							alert("지난 시간은 선택할 수 없습니다!");
+							if (sy == yyyy) {
+					       		if (sm > mm) {
+									$("#submitReserveRequest").submit();
+								} else {
+						       		if (sm == mm) {
+							       		if (sd >= dd) {
+					       					$("#submitReserveRequest").submit();
+										} else {
+											alert("지난 시간은 선택할 수 없습니다!");
+										}
+									} else {
+										alert("지난 시간은 선택할 수 없습니다!");
+									}
+								}
+							} else {
+								alert("지난 시간은 선택할 수 없습니다!");
+							}
 						}
+
 					}
 		       	}
 		       	
@@ -778,9 +808,27 @@
 
 								 	    	/* 예약기능 텍스트 추가 */
 								 	    	$("#reservName").text(parking.parking_NAME + " 예약");
-								 	    	$("#reservOil").text((Number(price) * 3 ) + "L");
 
-								 	    	
+								 	    	// 쿠폰이 존재하는지 검색하는 Ajax parking.parking_NO를 이용
+								 	    	$.ajax({
+								 	    		url: "selectParkingCoupon.cu",
+								 	    		type: "POST",
+								 	    		data: {parkingNo:parking.parking_NO},
+								 	    		success: function(data){
+								 	    			console.log(data);
+								 	    			if (data.couponName != '결과가 없어욤') {
+								 	    				$("#selectCoupon").css("display" , "");
+								 	    				$("#selectCoupon").attr("onclick", "getCoupon(" + data.couponNo + ")");
+													} else {
+														$("#selectCoupon").css("display" , "none");
+														$("#selectCoupon").removeAttr("onclick");
+													}
+								 	    		},error:function(status){
+								 	    			console.log(status);
+								 	    			$("#selectCoupon").css("display" , "none");
+													$("#selectCoupon").removeAttr("onclick");
+								 	    		}
+								 	    	});
 								 	    	 
 								 	    };
 								 	}
@@ -953,7 +1001,6 @@
 								 	 		
 								 	    	/* 예약기능 텍스트 추가 */
 								 	    	$("#reservName").text(parking.parking_NAME + " 예약");
-								 	    	$("#reservOil").text((Number(price) * 3 ) + "L");
 
 								 	    	 
 

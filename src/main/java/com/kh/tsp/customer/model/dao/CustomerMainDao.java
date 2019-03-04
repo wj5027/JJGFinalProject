@@ -106,6 +106,14 @@ public interface CustomerMainDao {
 
 	String selectReservDay(SqlSessionTemplate sqlSession, int resDate);
 
+	int insertRequestReserveOilList(SqlSessionTemplate sqlSession, Reservation reservInfo);
+
+	CCoupon selectParkingCoupon(SqlSessionTemplate sqlSession, String parkingNo);
+
+	int insertGetCoupon(SqlSessionTemplate sqlSession, CCoupon couponInfo);
+
+	int updateGetCoupon(SqlSessionTemplate sqlSession, int requestCouponNo);
+
 	
 	
 
