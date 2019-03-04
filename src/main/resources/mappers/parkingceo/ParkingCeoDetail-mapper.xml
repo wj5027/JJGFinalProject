@@ -29,6 +29,7 @@
 	<if test="btnValue == 365">
 	<![CDATA[AND START_TIME <= SYSDATE - 365]]>
 	</if>
+	ORDER BY START_TIME DESC
   </select>
   <select id="outputCarListCount" parameterType="hashmap" resultType="_int" >
     SELECT COUNT(*) FROM ENTRY_EXIT_LIST EEL
@@ -54,6 +55,7 @@
 	<if test="btnValue == 365">
 	<![CDATA[AND END_TIME <= SYSDATE - 365]]>
 	</if>
+	ORDER BY END_TIME DESC
   </select>
   <select id="inputOutputCarListCount" parameterType="hashmap" resultType="_int" >
  	 SELECT COUNT(*) FROM ENTRY_EXIT_LIST EEL
@@ -79,6 +81,7 @@
 	<if test="btnValue == 365">
 	<![CDATA[AND START_TIME <= SYSDATE - 365]]>
 	</if>
+	ORDER BY START_TIME DESC
   </select>
   <select id="inputCarList" parameterType="hashmap" resultType="hashmap">
     SELECT M.MEMBER_ID,M.MEMBER_NAME,M.PHONE,EEL.CAR_NO,EEL.START_TIME,EEL.HOURS,EEL.END_TIME,EEL.STATUS,FEE,EEL.EE_TYPE,EEL.RES_NO FROM ENTRY_EXIT_LIST EEL
@@ -104,6 +107,7 @@
 	<if test="btnValue == 365">
 	<![CDATA[AND START_TIME <= SYSDATE - 365]]>
 	</if>
+	ORDER BY START_TIME DESC
   </select>
   <select id="outputCarList" parameterType="hashmap" resultType="hashmap">
     SELECT M.MEMBER_ID,M.MEMBER_NAME,M.PHONE,EEL.CAR_NO,EEL.START_TIME,EEL.HOURS,EEL.END_TIME,EEL.STATUS,FEE,EEL.EE_TYPE,EEL.RES_NO FROM ENTRY_EXIT_LIST EEL
@@ -129,6 +133,7 @@
 	<if test="btnValue == 365">
 	<![CDATA[AND END_TIME <= SYSDATE - 365]]>
 	</if>
+	ORDER BY END_TIME DESC
   </select>
   <select id="inputOutputCarList" parameterType="hashmap" resultType="hashmap">
         SELECT M.MEMBER_ID,M.MEMBER_NAME,M.PHONE,EEL.CAR_NO,EEL.START_TIME,EEL.HOURS,EEL.END_TIME,EEL.STATUS,FEE,EEL.EE_TYPE,EEL.RES_NO FROM ENTRY_EXIT_LIST EEL
@@ -154,6 +159,7 @@
 		<if test="btnValue == 365">
 		<![CDATA[AND START_TIME <= SYSDATE - 365]]>
 		</if>
+		ORDER BY START_TIME DESC
   </select>
   
   </mapper>

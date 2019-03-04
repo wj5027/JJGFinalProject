@@ -27,6 +27,7 @@
 	<if test="btnValue == 365">
 	<![CDATA[AND ALLIANCE_DATE <= SYSDATE - 365]]>
 	</if>
+	ORDER BY ALLIANCE_DATE DESC
 </select>
 <select id="exchangeParkingListCount" parameterType="com.kh.tsp.customer.model.vo.Member" resultType="_int">
 	SELECT COUNT(*) FROM PARKING_LIST
@@ -49,6 +50,7 @@
 	</if>
 	<if test="btnValue == 365">
 	<![CDATA[AND MODIFY_DATE <= SYSDATE - 365]]>
+	ORDER BY MODIFY_DATE DESC
 	</if>
 </select>
 <select id="selectCouponListCount" parameterType="com.kh.tsp.customer.model.vo.Member" resultType="_int">
@@ -74,6 +76,7 @@
 	<if test="btnValue == 365">
 	<![CDATA[AND COUPON_START_DATE <= SYSDATE - 365]]>
 	</if>
+	ORDER BY COUPON_START_DATE DESC
 </select>
 <select id="selectExchangeMoneyListCount" parameterType="com.kh.tsp.customer.model.vo.Member" resultType="_int">
 	SELECT COUNT(*) FROM EXCHANGE
@@ -97,6 +100,7 @@
 	<if test="btnValue == 365">
 	<![CDATA[AND APPLICATION_DATE <= SYSDATE - 365]]>
 	</if>
+	ORDER BY APPLICATION_DATE DESC
 </select>
 <select id="selectParkingList" parameterType="com.kh.tsp.customer.model.vo.Member" resultType="hashmap">
 	SELECT PARKING_NO,PARKING_NAME,PARKING_TYPE,ADDRESS,PARKING_SIZE,OPEN_DAYS,PRICE_INFO,PAY_TYPE FROM PARKING
@@ -120,6 +124,7 @@
 	<if test="btnValue == 365">
 	<![CDATA[AND ALLIANCE_DATE <= SYSDATE - 365]]>
 	</if>
+	ORDER BY ALLIANCE_DATE DESC
 </select>
 <select id="selectExchangeParkingList" parameterType="com.kh.tsp.customer.model.vo.Member" resultType="hashmap">
 	SELECT PARKING_LIST_NO,PARKING_LIST_NAME,PARKING_LIST_OPEN_DAYS,PARKING_LIST_PRICE_INFO,PARKING_LIST_PAY_TYPE,PARKING_LIST_REASON,PARKING_LIST_STATUS FROM PARKING_LIST
@@ -143,6 +148,7 @@
 	<if test="btnValue == 365">
 	<![CDATA[AND MODIFY_DATE <= SYSDATE - 365]]>
 	</if>
+	ORDER BY MODIFY_DATE DESC
 </select>
 <select id="selectCouponList" parameterType="com.kh.tsp.customer.model.vo.Member" resultType="hashmap">
 	SELECT CR.COUPON_REQ_NO,CR.COUPON_NAME,P.PARKING_NAME,CR.COUPON_TYPE,CR.COUPON_START_DATE,CR.COUPON_END_DATE,CR.AMOUNT,CR.REMARK,CR.REFUSE_REASON,CR.COUPON_REQ_STATUS FROM COUPON_REQUEST_LIST CR
@@ -167,6 +173,7 @@
 	<if test="btnValue == 365">
 	<![CDATA[AND COUPON_START_DATE <= SYSDATE - 365]]>
 	</if>
+	ORDER BY COUPON_START_DATE DESC
 </select>
 <select id="selectExchangeMoneyList" parameterType="com.kh.tsp.customer.model.vo.Member" resultType="hashmap">
 	SELECT EXCHANGE_NO,OIL,CASH,APPLICATION_DATE,APPROVAL_DATE,ACCOUNT_HOLDER,APPLICATION_BANK,APPLICATION_ACCOUNT_NUMBER,CANCEL_REASON,STATUS FROM EXCHANGE
@@ -190,6 +197,7 @@
 	<if test="btnValue == 365">
 	<![CDATA[AND APPLICATION_DATE <= SYSDATE - 365]]>
 	</if>
+	ORDER BY APPLICATION_DATE DESC
 </select>
 
 
