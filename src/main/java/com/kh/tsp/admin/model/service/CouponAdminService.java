@@ -18,6 +18,7 @@ public interface CouponAdminService {
 
 	// 쿠폰 발급
 	int updateCoupon(CouponRequestList crl) throws CouponListException;
+	int insertCoupon(CouponRequestList crl) throws CouponListException;
 
 	// 쿠폰 반송
 	int deleteCoupon(CouponRequestList crl) throws CouponListException;
@@ -31,5 +32,6 @@ public interface CouponAdminService {
 	// 쿠폰 검색 결과
 	ArrayList<CouponRequestList> selectSearchCouponList(PageInfo pi, String selectStatus, String selectCoupon,
 			String memberId, String parkingName) throws CouponListException;
+
 
 }

@@ -51,7 +51,19 @@ public class CouponAdminDaoImpl  implements CouponAdminDao{
 		System.out.println("reqNo : "+reqNo);
 		
 		int result = sqlSession.update("CouponAdmin.updateCoupon", reqNo);
-		System.out.println("result(DAO 발급) : "+result);
+		
+		if(result<=0) {
+			throw new CouponListException("쿠폰 발급 실패!");
+		}
+		return result;
+	}
+	@Override
+	public int insertCoupon(SqlSessionTemplate sqlSession, CouponRequestList crl) throws CouponListException {
+
+		int reqNo = crl.getReqNo();
+		System.out.println("reqNo : "+reqNo);
+		
+		int result = sqlSession.update("CouponAdmin.insertCoupon", reqNo);
 		
 		if(result<=0) {
 			throw new CouponListException("쿠폰 발급 실패!");
@@ -134,5 +146,6 @@ public class CouponAdminDaoImpl  implements CouponAdminDao{
 
 		return list;
 	}
+
 
 }

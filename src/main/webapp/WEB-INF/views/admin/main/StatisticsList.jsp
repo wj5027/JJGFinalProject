@@ -3101,10 +3101,5 @@
 	</script>
 	<!-- 통계 그래프 (최근 24시간) 끝 -->
 	<!-- 666666666666666666666666666666 환불 끝 6666666666666666666666666666666666 -->
-	<script type="text/javascript">
-		$(function () {
-			console.log("${customerListCount}");
-		});
-	</script>
 </body>
 </html>

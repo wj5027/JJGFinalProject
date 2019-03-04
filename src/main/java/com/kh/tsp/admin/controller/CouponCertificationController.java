@@ -13,14 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.tsp.admin.model.exception.CouponListException;
-import com.kh.tsp.admin.model.exception.ParkingCEOSelectListException;
-import com.kh.tsp.admin.model.exception.SelectBoardListException;
 import com.kh.tsp.admin.model.service.CouponAdminService;
 import com.kh.tsp.admin.model.vo.CouponRequestList;
-import com.kh.tsp.admin.model.vo.MemberAdmin;
 import com.kh.tsp.common.PageInfo;
 import com.kh.tsp.common.Pagination;
-import com.kh.tsp.customer.model.vo.Board;
 
 
 @Controller
@@ -79,6 +75,7 @@ public class CouponCertificationController {
 		
 		try {
 			result = cs.updateCoupon(crl);
+			result = cs.insertCoupon(crl);
 			return "redirect:selectCouponCertification.ad";
 		} catch (CouponListException e) {
 			model.addAttribute("msg", e.getMessage());

@@ -45,6 +45,14 @@
 		SET COUPON_REQ_STATUS = '발급완료'
 		WHERE COUPON_REQ_NO =  #{reqNo}
   	</update>
+  	<insert id="insertCoupon" parameterType="_int">	
+		INSERT INTO COUPON VALUES(COUPON_SEQ.NEXTVAL, 
+															#{reqNo}, 
+															(SELECT PARKING_NO FROM COUPON_REQUEST_LIST WHERE COUPON_REQ_NO=#{reqNo}),
+															SYSDATE, 
+															'Y', 
+															(SELECT AMOUNT FROM COUPON_REQUEST_LIST WHERE COUPON_REQ_NO=#{reqNo}))
+  	</insert> 
   	
   	<!-- 쿠폰 반송 -->
   	<update id="deleteCoupon"  parameterType="CouponAdmin">
