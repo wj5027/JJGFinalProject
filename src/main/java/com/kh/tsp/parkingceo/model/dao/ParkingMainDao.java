@@ -73,6 +73,20 @@ public interface ParkingMainDao {
 
 	void updateResMemberCurrentPayment(SqlSessionTemplate sqlSession, HashMap<String, Object> data);
 
+	void updateResMemberEntryList(SqlSessionTemplate sqlSession, HashMap<String, Object> data);
+
+	void updateResMemberOil(SqlSessionTemplate sqlSession, HashMap<String, Object> data);
+
+	void updateResMemberParkingLeftSize(SqlSessionTemplate sqlSession, HashMap<String, Object> data);
+
+	void AddNomalPointToPakringCeo(SqlSessionTemplate sqlSession, HashMap<String, Object> data);
+
+	Member selectCheckMember(SqlSessionTemplate sqlSession, HashMap<String, Object> data);
+
+	void updateCompleteResOil(SqlSessionTemplate sqlSession, HashMap<String, Object> data);
+
+	void updateCancelResPoint(SqlSessionTemplate sqlSession, HashMap<String, Object> data);
+
 
 
 	

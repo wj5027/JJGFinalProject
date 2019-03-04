@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;import org.springframework.jdbc.core.metadata.SqlServerCallMetaDataProvider;
 import org.springframework.stereotype.Service;
 
 import com.kh.tsp.common.ParkingCeoPageInfo;
@@ -76,12 +76,12 @@ public class ParkingMainServiceImpl implements ParkingMainService {
 
 	@Override
 	public void insertEntryList(HashMap<String, Object> searchHashmap, String resultMemberNo, String resultResNo) {
-		if(!resultResNo.equals("")) {
+		if(!resultResNo.equals("0")) {
 			 //예약회원일시
 			 searchHashmap.put("res_no", Integer.parseInt(resultResNo));
 			 searchHashmap.put("member_no", Integer.parseInt(resultMemberNo));
 			 pmd.insertResMemberEntryList(sqlSession,searchHashmap);
-		 }else if (!resultMemberNo.equals("")) { 
+		 }else if (!resultMemberNo.equals("0")) { 
 			//일반 회원일시
 			 searchHashmap.put("member_no", Integer.parseInt(resultMemberNo));
 			 pmd.insertNomalMemberEntryList(sqlSession,searchHashmap);		 
@@ -186,6 +186,48 @@ public class ParkingMainServiceImpl implements ParkingMainService {
 	@Override
 	public void updateResMemberCurrentPayment(HashMap<String, Object> data) {
 		pmd.updateResMemberCurrentPayment(sqlSession,data);
+	}
+
+
+	@Override
+	public void updateResMemberEntryList(HashMap<String, Object> data) {
+		pmd.updateResMemberEntryList(sqlSession,data);
+	}
+
+
+	@Override
+	public void updateResMemberOil(HashMap<String, Object> data) {
+		pmd.updateResMemberOil(sqlSession,data);
+	}
+
+
+	@Override
+	public void updateResMemberParkingLeftSize(HashMap<String, Object> data) {
+		pmd.updateResMemberParkingLeftSize(sqlSession,data);
+	}
+
+
+	@Override
+	public void AddNomalPointToPakringCeo(HashMap<String, Object> data) {
+		pmd.AddNomalPointToPakringCeo(sqlSession,data);
+	}
+
+
+	@Override
+	public Member selectCheckMember(HashMap<String, Object> data) {
+		return pmd.selectCheckMember(sqlSession,data);
+	}
+
+
+	@Override
+	public void updateCompleteResOil(HashMap<String, Object> data) {
+		pmd.updateCompleteResOil(sqlSession,data);
+	}
+
+
+	@Override
+	public void updateCancelResPoint(HashMap<String, Object> data) {
+		pmd.updateCancelResPoint(sqlSession,data);
 	}
 
 

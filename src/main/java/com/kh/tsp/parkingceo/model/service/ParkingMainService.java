@@ -55,6 +55,20 @@ public interface ParkingMainService {
 
 	void updateResMemberCurrentPayment(HashMap<String, Object> data);
 
+	void updateResMemberEntryList(HashMap<String, Object> data);
+
+	void updateResMemberOil(HashMap<String, Object> data);
+
+	void updateResMemberParkingLeftSize(HashMap<String, Object> data);
+
+	void AddNomalPointToPakringCeo(HashMap<String, Object> data);
+
+	Member selectCheckMember(HashMap<String, Object> data);
+
+	void updateCompleteResOil(HashMap<String, Object> data);
+
+	void updateCancelResPoint(HashMap<String, Object> data);
+
 
 
 

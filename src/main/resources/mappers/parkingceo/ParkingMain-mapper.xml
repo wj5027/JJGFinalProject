@@ -197,7 +197,36 @@
 	<update id="updateResMemberCurrentPayment" parameterType="hashmap">
 		UPDATE ENTRY_EXIT_LIST SET STATUS = '출차',END_TIME = SYSDATE,HOURS=#{hours},FEE=#{fee} WHERE MEMBER_NO = #{member_no}
 		AND CAR_NO = #{car_no} AND RES_NO = #{res_no}
+	</update>
 	
+	<update id="updateResMemberEntryList" parameterType="hashmap">
+		UPDATE ENTRY_EXIT_LIST SET STATUS = '출차',END_TIME = SYSDATE,HOURS=#{hours},FEE=#{fee} WHERE MEMBER_NO = #{member_no}
+		AND CAR_NO = #{car_no} AND RES_NO = #{res_no}
+	</update>
+	
+	<update id="updateResMemberOil" parameterType="hashmap">
+		UPDATE MEMBER SET OIL = (SELECT OIL FROM MEMBER WHERE MEMBER_NO = #{member_no}) - #{fee} WHERE MEMBER_NO = #{member_no}
+	</update>
+	
+	<update id="updateResMemberParkingLeftSize" parameterType="hashmap">
+		UPDATE PARKING SET LEFT_SIZE = (SELECT LEFT_SIZE FROM PARKING WHERE PARKING_NO = #{parking_no}) + 1 WHERE PARKING_NO = #{parking_no}
+	</update>
+	
+	<update id="AddNomalPointToPakringCeo" parameterType="hashmap">
+		UPDATE MEMBER SET OIL = (SELECT OIL FROM MEMBER WHERE MEMBER_NO = #{parkingMember_no}) + #{fee} WHERE MEMBER_NO = #{parkingMember_no}
+	</update>
+	
+	<select id="selectCheckMember2" parameterType="hashmap" resultMap="MemberResultSet">
+	SELECT * FROM MEMBER WHERE MEMBER_NO = #{parkingMember_no}
+	</select>
+	
+	<update id="updateCompleteResOil" parameterType="hashmap">
+		UPDATE MEMBER SET OIL = (SELECT OIL FROM MEMBER WHERE MEMBER_NO = #{parkingMember_no}) + 2000 WHERE MEMBER_NO = #{parkingMember_no}
+	</update>
+	
+	<update id="updateCancelResPoint" parameterType="hashmap">
+		UPDATE MEMBER SET OIL = (SELECT OIL FROM MEMBER WHERE MEMBER_NO = (SELECT MEMBER_NO FROM PARKING_RESERVATION WHERE RES_NO = #{res_no})) + 2000 
+		WHERE MEMBER_NO = (SELECT MEMBER_NO FROM PARKING_RESERVATION WHERE RES_NO = #{res_no})
 	</update>
 	
 </mapper>

@@ -723,7 +723,7 @@
 
 
 
-<!-- 포인트 결제 눌렀을시 -->
+<!-- 일반회원 포인트 결제 눌렀을시 -->
      <div class="modal fade bd-example-modal-lg-5" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content" style="background: rgb(39,41,61);">
@@ -753,6 +753,36 @@
 </div>
 
 
+<!-- 예약회원 포인트 결제 눌렀을시 -->
+     <div class="modal fade bd-example-modal-lg-14" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="background: rgb(39,41,61);">
+    <div class="modal-body">
+                     <div class="table-responsive"  style="overflow: hidden;">
+                  <table class="table tablesorter " id="">
+                    <tbody>
+                       <tr>
+                        <td align="center" width="500px"><div style="color: white;">출차 회원의 포인트</div></td>
+                        <td align="center" id="resultResMemberCurrentPoint">
+						</td>
+                      </tr>   
+                    	<tr>
+                        <td align="center" width="500px"><div style="color: white;">결제할 포인트</div></td>
+                        <td align="center" id="resultResMemberPaymentPoint">
+						</td>
+                      </tr>
+						<tr><td align="center" colspan="2"><b>포인트 결제를 진행합니다 확실하십니까?</b></td></tr>
+						<tr><td align="center" colspan="2"><button class="btn btn-info animation-on-hover" onclick="resultResPaymentPoint();" type="button">확인</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button></td></tr>      
+      			</tbody>
+      		</table>
+      	</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 <!-- 결제 확인 눌렀을시 -->
             <div class="modal fade bd-example-modal-lg-6" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -771,6 +801,26 @@
     </div>
   </div>
 </div>    
+
+
+<!-- 결제 확인 눌렀을시 -->
+            <div class="modal fade bd-example-modal-lg-15" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="background: rgb(39,41,61);">
+    <div class="modal-body">
+                     <div class="table-responsive"  style="overflow: hidden;">
+                  <table class="table tablesorter " id="">
+                    <tbody>
+						<tr><td align="center"><b>정상적으로 처리 되었습니다.</b></td></tr>
+						<tr><td align="center"><button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location.reload();">닫기</button></td></tr>      
+      			</tbody>
+      		</table>
+      	</div>
+      </div>
+    </div>
+  </div>
+</div>   
+
       
       <!-- content -->
       </div>
@@ -785,7 +835,7 @@
                   <table class="table tablesorter " id="">
                     <tbody>
 						<tr><td align="center"><b>예약을 승인합니다. 확실하십니까?</b></td></tr>
-						<tr><td align="center"><button class="btn btn-info animation-on-hover" onclick="updateResComplete();" type="button">확인</button>
+						<tr><td align="center"><button class="btn btn-info animation-on-hover" onclick="updateResComplete0304();" type="button">확인</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button></td></tr>          
       			</tbody>
       		</table>
@@ -804,7 +854,7 @@
                     <tbody>
 						<tr><td align="center"><b>예약을 반송합니다. 확실하십니까?</b></td></tr>
 						<tr><td><input type="text" placeholder="반송 사유를 입력해주세요" class="form-control form-control-success" id="resCancelText" /></td></tr>
-						<tr><td align="center"><button class="btn btn-info animation-on-hover" onclick="updateResCancel();" type="button">확인</button>
+						<tr><td align="center"><button class="btn btn-info animation-on-hover" onclick="updateResCancel0304();" type="button">확인</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button></td></tr>         
       			</tbody>
       		</table>
@@ -852,6 +902,8 @@
  <button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-11" type="button"  id="nomalMemberOutputCar">일반회원출차</button>
  <button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-12" type="button"  id="resMemberHiddenInputCar">예약회원입차</button>
   <button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-13" type="button"  id="resMemberHiddenOutputCar">예약회원입차</button>
+    <button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-14" type="button"  id="resPointPayment0304">예약회원포인트결제</button>
+    <button class="btn btn-info animation-on-hover" data-toggle="modal" data-target=".bd-example-modal-lg-15" type="button"  id="resCancelCompleteBtn">예약반송완료버튼</button>
 </div>   
     
     
@@ -1364,7 +1416,7 @@
 		}
 		
 		//승인 업데이트,반송 업데이트 함수
-		function updateResComplete(){
+		function updateResComplete0304(){
 			console.log(completeResNo);
 			
 			$.ajax({
@@ -1372,9 +1424,7 @@
 				type:"post",
 				data:{completeResNo:completeResNo},
 				success:function(data){
-					if(data.message != '예약 업데이트 실패'){
-						location.reload();
-					}
+					window.location.reload();
 				},
 				error:function(data){
 					console.log("데이터 전송 실패");
@@ -1383,7 +1433,7 @@
 			
 		}
 		
-		function updateResCancel(){
+		function updateResCancel0304(){
 			var resCancelText = $("#resCancelText").val();
 			
 			$.ajax({
@@ -1391,10 +1441,7 @@
 				type:"post",
 				data:{completeResNo:completeResNo,resCancelText:resCancelText},
 				success:function(data){
-					if(data.message != '반송 업데이트 실패'){
-						location.reload();
-					}
-					console.log(data);
+					window.location.reload();
 				},
 				error:function(data){
 					console.log("데이터 전송 실패");
@@ -1810,8 +1857,7 @@
 	
  	//포인트 결제 메소드
 	function resultPaymentPoint(){
- 		console.log(resultFee);
- 		console.log(resultMemberPoint);
+
 		if(resultFee > resultMemberPoint){
 			$("#modalText").html('');
 			var modalText = $("<b>").text("회원님의 포인트가 모자릅니다, 포인트 결제후 재 결제해주세요.");
@@ -1977,6 +2023,7 @@
 		});
  	}
 	
+ 	//예약회원 현장결제 메소드
 	function resDirectPayment(){
 		var selectParkingBox = $("#inputGroupSelect01 option:selected").val();
 		$.ajax({
@@ -1993,7 +2040,60 @@
 		});
 		
 	}
+	
+	
+	function resPointPayment(){
+		//결제해야할 포인트 동적 추가
+		$("#resultResMemberPaymentPoint").text(resultResFee);
+		//현재 사용자의 포인트 조회 ajax
+		$.ajax({
+			url:"searchResMemberPoint.pc",
+			type:"post",
+			data:{resultResMemberNo2:resultResMemberNo2},
+			success:function(data){
+				console.log(data);
+				$("#resultResMemberCurrentPoint").text(data.hmap.OIL);
+				resultResMemberPoint = data.hmap.OIL;
+			},
+			error:function(data){
+				console.log("데이터 통신 실패!");
+			}
+		});
+		
+		
+		$("#resPointPayment0304").click();
+		
+	}
  	
+	
+	//예약회원 포인트 결제 메소드
+	function resultResPaymentPoint(){
+
+		if(resultFee > resultResMemberPoint){
+			$("#modalText").html('');
+			var modalText = $("<b>").text("회원님의 포인트가 모자릅니다, 포인트 결제후 재 결제해주세요.");
+			$("#modalText").append(modalText);
+			$("#modalBtn3").click();
+			return false;
+		}
+		$("#modalText").html('');
+		
+		var selectParkingBox = $("#inputGroupSelect01 option:selected").val();
+		$.ajax({
+			url:"resPointPayment.pc",
+			type:"post",
+			data:{selectParkingBox:selectParkingBox,resultResMemberNo2:resultResMemberNo2,resultResCarNo2:resultResCarNo2,
+				resultResEndTime:resultResEndTime,resultResFee:resultResFee,resultResNo2:resultResNo2},
+			success:function(data){
+				$("#completePayment").click(); 
+			},
+			error:function(data){
+				console.log("데이터 통신 실패!");
+			}
+		});
+		
+	} 
+	
  	
 
 </script>
