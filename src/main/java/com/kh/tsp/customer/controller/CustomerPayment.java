@@ -1,5 +1,6 @@
 package com.kh.tsp.customer.controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -105,6 +106,18 @@ public class CustomerPayment {
 			pi = ReservPagination.getPageInfo(currentPage, listCount);
 			
 			ArrayList<Reservation> reservList = cms.selectShowReserv(member, pi);
+			
+			Date today = new Date(new java.util.Date().getTime());
+			
+			
+			for (int i = 0; i < reservList.size(); i++) { // 날짜비교
+				if (today.getTime() >= reservList.get(i).getResDate().getTime()) {
+					reservList.get(i).setChkDate(true);
+				} else {
+					reservList.get(i).setChkDate(false);
+				}
+				
+			}
 			
 			request.setAttribute("pi", pi);
 			request.setAttribute("reservList", reservList);
