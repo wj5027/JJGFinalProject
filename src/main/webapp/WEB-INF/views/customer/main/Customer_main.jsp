@@ -677,7 +677,7 @@
 						    var y1=Number(neLatlng.getLng());
 						    
 						    
-						   if(zoomlevel<7){
+						   if(zoomlevel<8){
 							   var markers=[];
 								 clusterer.clear();
 							$.ajax({
@@ -934,7 +934,7 @@
 						    var y1=Number(neLatlng.getLng());
 						    
 						    
-						   if(zoomlevel<7){
+						   if(zoomlevel<8){
 							   var markers=[];
 								 clusterer.clear();
 							$.ajax({
