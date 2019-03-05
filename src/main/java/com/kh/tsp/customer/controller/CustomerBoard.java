@@ -629,16 +629,24 @@ public class CustomerBoard {
 		String mno = Integer.toString(loginUser.getMember_no());
 		String pno = request.getParameter("pno");
 		String chkResult ="";
-	
+		
+		boolean yn = true;//성공
 		
 		ArrayList<String> arr = bs.selectWord();
 				System.out.println("비속어arr: "+arr);
 		
 		for(int i=0;i<arr.size();i++) {
-			arr.get(i).indexOf(content);
-			
-			if(arr.get(i).indexOf(content) == -1) {//정상등록
-				System.out.println("arr.get(i).indexOf(content):"+arr.get(i).indexOf(content));
+			//arr.get(i).indexOf(content);
+			content.contains(arr.get(i));
+			System.out.println(content.contains(arr.get(i)));
+
+			if(content.contains(arr.get(i))) {
+				yn = false;//실패(금칙어 발견)
+							
+			}
+		}
+			if(yn) {//정상등록
+				System.out.println("후기작성성공 yn: "+yn);
 				
 				Board b = new Board();
 				b.setbTitle(title);
@@ -667,16 +675,16 @@ public class CustomerBoard {
 					return "common/errorPage";
 				}
 			}else {
+				System.out.println("후기작성실패 yn: "+yn);
+				chkResult = "unavailable";
 				
-				String chkContent = "부적절한 단어가 입력되어있습니다.";
-				
-				return chkContent;
+				return chkResult;
 			}
 		}
-		
-	return "redirect:parkingReview.cu?num="+pno;
+	
 
-	}
+
+	
 	
 	
 	//주차장 후기 수정1
