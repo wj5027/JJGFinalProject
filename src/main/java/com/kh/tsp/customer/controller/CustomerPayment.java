@@ -111,7 +111,7 @@ public class CustomerPayment {
 			
 			
 			for (int i = 0; i < reservList.size(); i++) { // 날짜비교
-				if (today.getTime() >= reservList.get(i).getResDate().getTime()) {
+				if (today.getTime() <= reservList.get(i).getResDate().getTime()) {
 					reservList.get(i).setChkDate("true");
 				} else {
 					reservList.get(i).setChkDate("false");
