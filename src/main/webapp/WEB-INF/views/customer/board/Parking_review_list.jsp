@@ -171,7 +171,7 @@
                       <tr>
                         <td width="50px">제목</td>
                         <td>
-                  			<input type="text" class="form-control" name="title" placeholder="제목을 입력해주세요">
+                  			<input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요">
                         </td>
                       </tr>
                       <tr>
@@ -205,7 +205,7 @@
                       <tr>
                       	<td></td>
                       	<td style="padding-left: 30%">
-                      		<button type="submit" onclick="return textChk()" class="btn btn-info btn-sm">등록</button>
+                      		<button type="button" onclick="return textChk()" class="btn btn-info btn-sm">등록</button>
                       	</td>
                       </tr> 
                                        
@@ -249,27 +249,37 @@
  	
    
  
+
+   
    function textChk(){
-	   var word = document.getElementById("textContent").value;
-       
-       // 금칙어 적용
-       var swear_words_arr = new Array("시발", "존나");
-
-       orgword = word.toLowerCase();
-       i = 0;
-
-       while (i <= swear_words_arr.length - 1) {
-
-           if (orgword.indexOf(swear_words_arr[i]) > -1) {
-               alert("'"+swear_words_arr[i] + "' 은(는) 금지어입니다. 등록 할 수 없습니다.");
-               return false;
-           }
-           i++;
-       }
-       return true;
-	   
-	   
-	   
+	   var content = document.getElementById("textContent").value;
+		var word = content.split(" ");
+	   console.log(content);
+	   console.log(word);
+	 var title = document.getElementById("title").value;
+	var pno =  document.getElementById("pno").value;
+	
+	 $.ajax({
+		url:"insertParkingReview.cu",
+		type:"post",
+		data:{content:content, title:title, word:word, pno:pno},
+		success:function(data){
+			//alert(data);
+			
+			if(data == 'unavailable'){
+				alert("부적절한 단어가 입력되어 있습니다. 확인해주세요");
+				return false;
+			}else{
+				return true;
+			}
+		},
+		error:function(status){
+			console.log(status);
+			
+			
+		}
+	});
+   
    }
 </script>
 </body>

@@ -42,22 +42,29 @@
 			
 			<tr height="200" >
 				
-				<td>내용</td>
+				<td valign="top">내용</td>
 				<td valign="top" >${ b.bContext }</td>
 			</tr>
-			
+			</table>
 		
 			
-			<tr><!-- BOARD BUTTONS -->
-				<td colspan="5" align="center">
-					
+			<!-- BOARD BUTTONS -->
+				 <c:if test="${ loginUser.member_no eq 1 }">
+				<div align="center">	
 					<button id="editBtn" class="btn btn-info btn-sm">수정</button>&nbsp;
 					<button id="deleteBtn" class="btn btn-info btn-sm">삭제</button>&nbsp;					
 					<button id="goToList" class="btn btn-info btn-sm">목록</button>&nbsp;					
 				
-				</td>
-			</tr>
-		</table>
+				
+				</div>
+			</c:if>
+			<c:if test="${ loginUser.member_no ne 1 }">
+			<div align="center">	
+					<button id="goToList" class="btn btn-info btn-sm">목록</button>&nbsp;					
+
+				</div>
+			</c:if>
+			
 		<br>
 		<br>
 		<br>

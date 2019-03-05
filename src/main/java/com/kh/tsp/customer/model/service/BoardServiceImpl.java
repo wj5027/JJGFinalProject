@@ -12,6 +12,7 @@ import com.kh.tsp.common.PageInfo;
 import com.kh.tsp.customer.model.dao.BoardDao;
 import com.kh.tsp.customer.model.exception.BoardSelectListException;
 import com.kh.tsp.customer.model.vo.Board;
+import com.kh.tsp.customer.model.vo.Filter;
 import com.kh.tsp.customer.model.vo.Reply;
 
 
@@ -334,6 +335,11 @@ public class BoardServiceImpl implements BoardService {
 	public int replyCnt(int bno) {
 
 		return bd.replyCnt(sqlSession, bno);
+	}
+
+	@Override
+	public Filter contentChk(String content) {
+		return bd.contentChk(sqlSession, content);
 	}
 	
 	

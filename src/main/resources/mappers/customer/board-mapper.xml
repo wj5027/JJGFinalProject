@@ -131,6 +131,15 @@
   		<result property="reCnt" column="RECNT"/>
   	</resultMap>
   	
+  	<resultMap type="com.kh.tsp.customer.model.vo.Filter" id="filter">
+  		<id property="fno" column="B_FILTER_NO"/>
+  		<result property="content" column="F_CONTENT"/>
+  		<result property="date" column="F_DATE"/>
+  		<result property="status" column="F_STATUS"/>
+  		<result property="mno" column="MEMBER_NO"/>
+
+  	</resultMap>
+  	
   	<!-- 공지사항 게시물 목록 조회용 쿼리문 -->
   	<select id="boardList" resultMap="boardListSet">
   		SELECT *
@@ -526,6 +535,12 @@
   		
   	</select>
   	
+  	<select id="chkContent" resultMap="filter" parameterType="String">
+		SELECT F_CONTENT FROM
+		BOARD_FILTER
+		WHERE F_CONTENT = #{content}
+		AND F_STATUS = 'Y'
+	</select>
   	
   	
   </mapper>

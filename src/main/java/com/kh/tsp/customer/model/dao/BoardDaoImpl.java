@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import com.kh.tsp.common.PageInfo;
 import com.kh.tsp.customer.model.exception.BoardSelectListException;
 import com.kh.tsp.customer.model.vo.Board;
+import com.kh.tsp.customer.model.vo.Filter;
 import com.kh.tsp.customer.model.vo.Reply;
 
 @Repository
@@ -316,6 +317,12 @@ public class BoardDaoImpl implements BoardDao{
 	public int replyCnt(SqlSessionTemplate sqlSession, int bno) {
 
 		return sqlSession.selectOne("Board.replyCnt", bno);
+	}
+	
+	@Override
+	public Filter contentChk(SqlSessionTemplate sqlSession, String content) {
+
+		return sqlSession.selectOne("Board.chkContent", content);
 	}
 	
 	

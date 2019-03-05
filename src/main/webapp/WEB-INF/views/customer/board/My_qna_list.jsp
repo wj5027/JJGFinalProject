@@ -16,6 +16,11 @@
 </style>
 </head>
 <body class="" >
+<c:choose>
+<c:when test="${ loginUser eq null }">
+	  	 로그인이 필요한 서비스입니다.
+	  	 </c:when>
+	  	 <c:when test = "${ not empty loginUser }">
   <div class="wrapper">
     <jsp:include page="/WEB-INF/views/customer/common/sidebar_customer.jsp"></jsp:include>
     
@@ -38,7 +43,7 @@
 	  		<%-- ${list[0].mno } --%>
 	  		<th>제목 </th>
 	  		<c:forEach var="b" items="${ list }">
-  	<c:if test="${ b.mno eq loginUser.member_no }">
+  	
   
 	  		<tbody>
 	  		<tr>
@@ -47,7 +52,7 @@
 	  		<td><input type="hidden" id="bno" name="bno" value="${b.bno}">${ b.bTitle }[${ b.reCnt }]</td>
 	  	
 	  		</tr>
-	  		</c:if>
+	  		
   	</c:forEach>
 	  		</tbody>
 	  	</table>
@@ -153,7 +158,11 @@
           </div>
         </div>
       </div>
-      
+      </c:when>
+      <c:otherwise>
+      알수없는 오류입니다.
+      </c:otherwise>
+     </c:choose>
 <script>
    $(function(){
        $("#insertQna").click(function(){
