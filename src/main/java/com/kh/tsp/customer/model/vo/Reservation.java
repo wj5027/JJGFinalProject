@@ -18,7 +18,7 @@ public class Reservation implements Serializable {
 	
 	private String stringResDate;
 	
-	private boolean chkDate;
+	private String chkDate;
 	
 	public Reservation() {
 		
@@ -26,7 +26,7 @@ public class Reservation implements Serializable {
 
 	public Reservation(int rnum, int resNo, Date resApplyDate, Date resDate, String status, int memberNo,
 			String parkingNo, String parkingName, String cancelReason, String carNo, String reserveTime,
-			String stringResDate, boolean chkDate) {
+			String stringResDate, String chkDate) {
 		super();
 		this.rnum = rnum;
 		this.resNo = resNo;
@@ -139,11 +139,11 @@ public class Reservation implements Serializable {
 		this.stringResDate = stringResDate;
 	}
 
-	public boolean isChkDate() {
+	public String getChkDate() {
 		return chkDate;
 	}
 
-	public void setChkDate(boolean chkDate) {
+	public void setChkDate(String chkDate) {
 		this.chkDate = chkDate;
 	}
 
@@ -154,6 +154,5 @@ public class Reservation implements Serializable {
 				+ ", parkingName=" + parkingName + ", cancelReason=" + cancelReason + ", carNo=" + carNo
 				+ ", reserveTime=" + reserveTime + ", stringResDate=" + stringResDate + ", chkDate=" + chkDate + "]";
 	}
-	
 	
 }
