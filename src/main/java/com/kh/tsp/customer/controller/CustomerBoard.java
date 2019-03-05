@@ -155,7 +155,7 @@ public class CustomerBoard {
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 				
 		ArrayList<Board> list = bs.selectQnaList(pi, mno);
-		
+		System.out.println("내문의 list 사이즈: "+list.size());
 		// 오일 조회
 		if ((Member)session.getAttribute("loginUser") != null) {
 			int UserOilInfo = Integer.parseInt(cms.getRefreshMember((Member)session.getAttribute("loginUser")).getOil());

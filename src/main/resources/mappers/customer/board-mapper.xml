@@ -267,6 +267,7 @@
   		JOIN PARKING P ON(B.PARKING_NO = P.PARKING_NO)
   		WHERE B.STATUS = 'Y'
   		AND B.BOARD_TYPE = '후기'
+  		AND B.MEMBER_NO = #{mno}
   		ORDER BY BOARD_NO DESC
   	</select>
   	

@@ -63,7 +63,7 @@
 		<table id="replySelectTable" width="100%" border="0" cellpadding="0" cellspacing="0">
 			<c:forEach var="r" items="${ reply }">
 			
-			<tbody>
+			
 			<tr>
 				<td width="60px">댓글&nbsp;</td>
 				<td   colspan="2">${ r.context }　　　　　　　　　</td>
@@ -72,6 +72,7 @@
 			</c:forEach>
 			</table>
 			</div>
+			
 			<table>
 			<tr>
 				<td width="60px">댓글작성	</td>
@@ -90,11 +91,21 @@
 		<br>
 		<br>
 		<br>
-        <div align="center">	
+         <c:if test="${ loginUser.member_name eq b.mno }">
+				<div align="center">	
 					<button id="editBtn" class="btn btn-info btn-sm">수정</button>&nbsp;
 					<button id="deleteBtn" class="btn btn-info btn-sm">삭제</button>&nbsp;					
 					<button id="goToList" class="btn btn-info btn-sm">목록</button>&nbsp;					
+				
+				
 				</div>
+			</c:if>
+			<c:if test="${ loginUser.member_name ne b.mno }">
+			<div align="center">	
+					<button id="goToList" class="btn btn-info btn-sm">목록</button>&nbsp;					
+
+				</div>
+			</c:if>
 		
               </div>
             </div>
