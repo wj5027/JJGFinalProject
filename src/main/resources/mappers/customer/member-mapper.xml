@@ -366,6 +366,7 @@
 		AND cl.amount > 0
 		AND SYSDATE >= cl.coupon_start_date
 		AND SYSDATE <= cl.coupon_end_date
+		AND coupon_req_status = '발급완료'
 		]]>
 	</select>
 
