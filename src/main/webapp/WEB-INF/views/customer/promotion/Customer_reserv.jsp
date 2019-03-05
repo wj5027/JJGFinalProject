@@ -47,7 +47,7 @@
 								</c:if>
 								<c:if test="${ reserve.status eq '승인' }">
 									승인
-									<c:if test="${ reserve.ChkDate eq 'true' }">
+									<c:if test="${ reserve.chkDate }">
 									<button class="btn btn-info btn-sm" data-toggle="modal" data-target=".cancle_reserv" onclick="enrollNo(${ reserve.resNo });">취소</button>
 									</c:if>
 								</c:if>
