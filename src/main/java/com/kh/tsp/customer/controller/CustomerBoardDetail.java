@@ -52,9 +52,12 @@ public class CustomerBoardDetail {
 	public String MyReviewDetail(String num, Model model, HttpSession session, HttpServletRequest request) {
 		
 		int bno = Integer.parseInt(num);
-		
+		//로그인 유저
+		session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+				
 		System.out.println("후기 상세보기 bno: "+bno);
-		
+		System.out.println("로그인유저: "+loginUser);
 		//댓글
 		ArrayList<Reply> reply = bs.selectReviewReply(bno);
 			System.out.println("reply 목록: "+reply);	
@@ -69,7 +72,7 @@ public class CustomerBoardDetail {
 			return "common/errorPage";
 		}
 		model.addAttribute("b", b);
-		
+		model.addAttribute("loginUser", loginUser);
 		// 오일 조회
 		if ((Member)session.getAttribute("loginUser") != null) {
 			int UserOilInfo = Integer.parseInt(cms.getRefreshMember((Member)session.getAttribute("loginUser")).getOil());
@@ -86,6 +89,10 @@ public class CustomerBoardDetail {
 		int bno = Integer.parseInt(request.getParameter("num"));
 		System.out.println("문의상세보기 서블릿 bno: "+bno);
 	
+		//로그인 유저
+		session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		System.out.println("로그인 유저: "+loginUser);
 		//상세내용
 		b = bs.selectOneQna(bno); 
 		//댓글
@@ -98,6 +105,7 @@ public class CustomerBoardDetail {
 			}
 			
 			request.setAttribute("b", b);
+			request.setAttribute("loginUser", loginUser);
 		}else {
 			return "common/errorPage";
 		}
@@ -119,7 +127,10 @@ public class CustomerBoardDetail {
 		System.out.println("주차장 문의상세보기 서블릿 bno: "+bno);
 		
 		String pno = request.getParameter("pno");
-				
+		//로그인 유저
+		session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+						
 		System.out.println("주차장문의상세보기 pno : "+pno);
 		Board b = bs.selectOneParkingQna(bno); 
 		//댓글
@@ -138,6 +149,7 @@ public class CustomerBoardDetail {
 		}
 		request.setAttribute("b", b);
 		request.setAttribute("pno", pno);
+		request.setAttribute("loginUser", loginUser);
 		
 		// 오일 조회
 		if ((Member)session.getAttribute("loginUser") != null) {
@@ -160,7 +172,8 @@ public class CustomerBoardDetail {
 
 		//글내용
 		Board b = bs.selectOneParkingReview(bno); 
-		
+
+				
 		//댓글
 		ArrayList<Reply> reply = bs.selectReviewReply(bno);
 		

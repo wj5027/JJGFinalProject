@@ -81,8 +81,11 @@
 				[이전] &nbsp;
 			</c:if>
 			<c:if test="${ pi.currentPage > 1 }">
-				<c:url var="blistBack" value="/qna.cu">
+				<c:url var="blistBack" value="/parkingQna.cu">
 					<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
+					<c:param name="num" value="${ pno }"/>
+					<c:param name="pName" value="${ pName }"/>
+					
 				</c:url>
 				 <a href="${ blistBack }">[이전]</a> &nbsp; 
 			</c:if>
@@ -92,8 +95,11 @@
 					<font color="lightgrey" size="4">[${p}]</font>
 				</c:if>
 				<c:if test="${ p ne pi.currentPage }">
-					<c:url var="blistCheck" value="qna.cu">
+					<c:url var="blistCheck" value="parkingQna.cu">
 						<c:param name="currentPage" value="${p}"/>
+						<c:param name="num" value="${ pno }"/>
+						<c:param name="pName" value="${ pName }"/>
+					
 					</c:url>
 					<a href="${ blistCheck }">${p}</a>
 				</c:if>
@@ -103,8 +109,11 @@
 				&nbsp; [다음]
 			</c:if>
 			<c:if test="${ pi.currentPage < pi.maxPage }">
-				<c:url var="blistEnd" value="qna.cu">
+				<c:url var="blistEnd" value="parkingQna.cu">
 					<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+					<c:param name="num" value="${ pno }"/>
+					<c:param name="pName" value="${ pName }"/>
+					
 				</c:url>
 				
 			 <a href="${ blistEnd }">&nbsp;[다음]</a>  

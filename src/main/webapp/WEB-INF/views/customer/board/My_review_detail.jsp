@@ -55,27 +55,13 @@
 			</tr>
 			</table>
 			
+			
+			
 			<div class="repleArea">
 		<div class="replySelectArea">
 		<table id="replySelectTable" width="100%" border="0" cellpadding="0" cellspacing="0">
 			<c:forEach var="r" items="${ reply }">
 			
-			<tbody>
-			<tr>
-				<td width="60px">댓글&nbsp;</td>
-				<td   colspan="2">${ r.context }　　　　　　　　　</td>
-				<td align="center">${ r.memberNo }</td>
-			</tr>
-			</c:forEach>
-			</table>
-			</div>
-			
-			<div class="repleArea">
-		<div class="replySelectArea">
-		<table id="replySelectTable" width="100%" border="0" cellpadding="0" cellspacing="0">
-			
-			<c:forEach var="r" items="${ reply }">
-			<tbody>
 			
 			<tr>
 				<td width="60px">댓글&nbsp;</td>
@@ -83,8 +69,6 @@
 				<td align="center">${ r.memberNo }</td>
 			</tr>
 			</c:forEach>
-			</tbody>
-			
 			</table>
 			</div>
 			
@@ -106,13 +90,20 @@
 			</table>
 			</div>
 		<br>
-		
+		 <c:if test="${ loginUser.member_name eq b.mno }">
         <div align="center">	
 					<button id="editBtn" class="btn btn-info btn-sm">수정</button>&nbsp;
 					<button id="deleteBtn" class="btn btn-info btn-sm">삭제</button>&nbsp;					
 					<button id="goToList" class="btn btn-info btn-sm">목록</button>&nbsp;					
 				</div>
+		</c:if>
 		<br>
+		<c:if test="${ loginUser.member_name ne b.mno }">
+		<div align="center">
+			<button id="goToList" class="btn btn-info btn-sm">목록</button>&nbsp;					
+		</div>
+		</c:if>
+		
               </div>
             </div>
           </div>
