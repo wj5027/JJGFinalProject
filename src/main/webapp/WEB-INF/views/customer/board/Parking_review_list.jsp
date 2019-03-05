@@ -97,6 +97,9 @@
 			<c:if test="${ pi.currentPage > 1 }">
 				<c:url var="blistBack" value="/parkingReview.cu">
 					<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
+					<c:param name="num" value="${ pno }"/>
+					<c:param name="pName" value="${ pName }"/>
+					
 				</c:url>
 				<a href="${ blistBack }">[이전]</a> &nbsp; 
 			</c:if>
@@ -108,6 +111,9 @@
 				<c:if test="${ p ne pi.currentPage }">
 					<c:url var="blistCheck" value="parkingReview.cu">
 						<c:param name="currentPage" value="${p}"/>
+						<c:param name="num" value="${ pno }"/>
+						<c:param name="pName" value="${ pName }"/>
+						
 					</c:url>
 					<a href="${ blistCheck }">${p}</a>
 				</c:if>
@@ -119,7 +125,11 @@
 			<c:if test="${ pi.currentPage < pi.maxPage }">
 				<c:url var="blistEnd" value="parkingReview.cu">
 					<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+					<c:param name="num" value="${ pno }"/>
+					<c:param name="pName" value="${ pName }"/>
+					
 				</c:url>
+				
 				
 				 <a href="${ blistEnd }">&nbsp;[다음]</a> 
 			</c:if>
