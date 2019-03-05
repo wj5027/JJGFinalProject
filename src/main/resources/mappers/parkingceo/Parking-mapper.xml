@@ -53,7 +53,7 @@
 
 <insert id="insertAttachment" parameterType="com.kh.tsp.parkingceo.model.vo.ParkingCeoAttachmentVo">
 	INSERT INTO ATTACHMENT
-	VALUES(FID_SEQ.NEXTVAL,'변경신청사진',#{origin_name},#{change_name},#{file_path},SYSDATE,1,'N',#{parking_no},NULL,#{parking_list_no})
+	VALUES(FID_SEQ.NEXTVAL,'변경신청사진',#{origin_name},#{change_name},#{file_path},SYSDATE,#{file_level},'N',#{parking_no},NULL,#{parking_list_no})
 </insert>
 
 <select id="selectParkingListOne" parameterType="com.kh.tsp.parkingceo.model.vo.ParkingCeoVo" resultType="hashmap">

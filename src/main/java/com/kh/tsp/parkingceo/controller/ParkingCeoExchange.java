@@ -135,6 +135,8 @@ public class ParkingCeoExchange {
 		String changeName = "";
 		String ext = "";
 		
+		int count = 1;
+		
 		try {
 			for(MultipartFile item : parkingImage) {
 				if(item.getOriginalFilename() != "") {
@@ -149,6 +151,8 @@ public class ParkingCeoExchange {
 					attach.setFile_path(filePath);
 					attach.setChange_name(changeName);
 					attach.setOrigin_name(originFileName);
+					attach.setFile_level(count);
+					count++;
 					attachList.add(attach);
 					item.transferTo(new File(filePath+"\\"+changeName+ext));
 				}
