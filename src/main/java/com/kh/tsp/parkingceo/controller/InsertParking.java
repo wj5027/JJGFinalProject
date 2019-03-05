@@ -118,7 +118,7 @@ public class InsertParking {
 		String changeName = "";
 		String ext = "";
 		
-		
+		int count = 1;
 
 		
 		try {
@@ -133,6 +133,8 @@ public class InsertParking {
 					attach.setFile_path(filePath);
 					attach.setChange_name(changeName);
 					attach.setOrigin_name(originFileName);
+					attach.setFile_level(count);
+					count ++;
 					attachList.add(attach);
 					multipartList.get(i).transferTo(new File(filePath+"\\"+changeName+ext));
 				}
