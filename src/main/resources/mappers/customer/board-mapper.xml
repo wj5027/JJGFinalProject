@@ -208,6 +208,7 @@
   		FROM BOARD B 
   		JOIN MEMBER M ON(B.MEMBER_NO = M.MEMBER_NO)
   		WHERE B.STATUS = 'Y'
+  		AND B.MEMBER_NO = #{mno}
   		AND  (B.BOARD_TYPE = '관리자문의'
         OR B.BOARD_TYPE = '사업자문의')
   		ORDER BY BOARD_NO DESC
