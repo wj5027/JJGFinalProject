@@ -35,7 +35,7 @@ public class CustomerBoardDetail {
 		System.out.println("bno: "+bno);
 		
 		Board b = bs.selectOneNotice(bno); 
-		
+		//
 		request.setAttribute("b", b);
 		
 		// 오일 조회
