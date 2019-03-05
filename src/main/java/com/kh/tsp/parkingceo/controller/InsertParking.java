@@ -139,9 +139,11 @@ public class InsertParking {
 					multipartList.get(i).transferTo(new File(filePath+"\\"+changeName+ext));
 				}
 				//데이터 베이스에 넣기 위한 메소드
+				System.out.println(attachList);
 				ps.insertParkingOne(parking,attachList);
 			
 			}catch (Exception e) {
+				e.printStackTrace();
 				for(int i = 0 ; i < changeNameList.size(); i ++) {
 					new File(filePath + "\\" + changeNameList.get(i) + extNameList.get(i)).delete();					
 				}

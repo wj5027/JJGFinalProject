@@ -147,6 +147,7 @@ public class ParkingServiceImpl implements ParkingService{
 			attachList.get(i).setParking_list_no(parkingListNo);
 			attachList.get(i).setParking_no(parkingNo);
 			//파일 리스트 테이블 등록
+			System.out.println(attachList.get(i));
 			pd.insertAttachment(sqlSession,attachList.get(i));
 		}
 	}
