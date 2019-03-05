@@ -27,6 +27,7 @@
 	<if test="btnValue == 365">
 	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 365]]>
 	</if>
+	ORDER BY RES_REQUEST_DATE DESC
   </select>
   
     <select id="selectResOkListCount" parameterType="hashmap" resultType="_int">
@@ -51,6 +52,7 @@
 	<if test="btnValue == 365">
 	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 365]]>
 	</if>
+	ORDER BY RES_REQUEST_DATE DESC
   </select>
   
     <select id="selectResReadyListCount" parameterType="hashmap" resultType="_int">
@@ -75,6 +77,7 @@
 	<if test="btnValue == 365">
 	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 365]]>
 	</if>
+	ORDER BY RES_REQUEST_DATE DESC
   </select>
   
     <select id="selectResCancelListCount" parameterType="hashmap" resultType="_int">
@@ -99,6 +102,7 @@
 	<if test="btnValue == 365">
 	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 365]]>
 	</if>
+	ORDER BY RES_REQUEST_DATE DESC
   </select>
   
     <select id="selectResCompleteListCount" parameterType="hashmap" resultType="_int">
@@ -123,6 +127,7 @@
 	<if test="btnValue == 365">
 	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 365]]>
 	</if>
+	ORDER BY RES_REQUEST_DATE DESC
   </select>
   
     <select id="selectResSelfCancelListCount" parameterType="hashmap" resultType="_int">
@@ -147,6 +152,7 @@
 	<if test="btnValue == 365">
 	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 365]]>
 	</if>
+	ORDER BY RES_REQUEST_DATE DESC
   </select>
   
   <select id="selectResAllList" parameterType="hashmap" resultType="hashmap">
@@ -172,6 +178,7 @@
 	<if test="btnValue == 365">
 	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 365]]>
 	</if>
+	ORDER BY RES_REQUEST_DATE DESC
   </select>
   
   <select id="selectResOkList" parameterType="hashmap" resultType="hashmap">
@@ -197,6 +204,7 @@
 	<if test="btnValue == 365">
 	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 365]]>
 	</if>
+	ORDER BY RES_REQUEST_DATE DESC
   </select>
   
   <select id="selectResReadyList" parameterType="hashmap" resultType="hashmap">
@@ -222,6 +230,7 @@
 	<if test="btnValue == 365">
 	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 365]]>
 	</if>
+	ORDER BY RES_REQUEST_DATE DESC
   </select>
   
   <select id="selectResCancelList" parameterType="hashmap" resultType="hashmap">
@@ -247,6 +256,7 @@
 	<if test="btnValue == 365">
 	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 365]]>
 	</if>
+	ORDER BY RES_REQUEST_DATE DESC
   </select>
   
   <select id="selectResCompleteList" parameterType="hashmap" resultType="hashmap">
@@ -272,6 +282,7 @@
 	<if test="btnValue == 365">
 	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 365]]>
 	</if>
+	ORDER BY RES_REQUEST_DATE DESC
   </select>
   
   <select id="selectResSelfCancelList" parameterType="hashmap" resultType="hashmap">
@@ -297,6 +308,7 @@
 	<if test="btnValue == 365">
 	<![CDATA[AND RES_REQUEST_DATE <= SYSDATE - 365]]>
 	</if>
+	ORDER BY RES_REQUEST_DATE DESC
   </select>
   
   
