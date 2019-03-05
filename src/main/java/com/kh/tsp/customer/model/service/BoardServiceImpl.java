@@ -341,6 +341,12 @@ public class BoardServiceImpl implements BoardService {
 	public Filter contentChk(String content) {
 		return bd.contentChk(sqlSession, content);
 	}
+
+	@Override
+	public ArrayList<String> selectWord() {
+
+		return bd.selectWord(sqlSession);
+	}
 	
 	
 	

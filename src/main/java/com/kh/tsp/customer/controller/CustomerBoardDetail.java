@@ -57,7 +57,7 @@ public class CustomerBoardDetail {
 		
 		//댓글
 		ArrayList<Reply> reply = bs.selectReviewReply(bno);
-				
+			System.out.println("reply 목록: "+reply);	
 		Board b = bs.selectOneReview(bno);
 		if(b != null) {
 			if(reply!=null) {

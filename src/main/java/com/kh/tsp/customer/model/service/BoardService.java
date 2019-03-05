@@ -102,6 +102,8 @@ public interface BoardService {
 	//
 	Filter contentChk(String content);
 	
+	ArrayList<String> selectWord();
+	
 	
 	
 	

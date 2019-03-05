@@ -91,32 +91,45 @@
 	}
 
 	//카카오톡 로그인
-	 //<![CDATA[
-    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+	// 사용할 앱의 JavaScript 키를 설정해 주세요.
     Kakao.init('def3fdb5b7cc20f99e216e76eda8ab6b');
     // 카카오 로그인 버튼을 생성합니다.
     Kakao.Auth.createLoginButton({
       container: '#kakao-login-btn',
       success: function(authObj) {
-        alert(JSON.stringify(authObj));
+        // 로그인 성공시, API를 호출합니다.
+        Kakao.API.request({
+          url: '/v1/user/me',
+          success: function(res) {
+         
+            console.log(JSON.stringify(res.id));           
+            console.log(JSON.stringify(res.properties.nickname));         	
+            
+           $("#kakao_id").val(res.id)
+           $("#member_name").val(res.properties.nickname)
+           $("#kakao").submit();
+           
+          },
+          fail: function(error) {
+            alert(JSON.stringify(error));
+          }
+        });
       },
       fail: function(err) {
-         alert(JSON.stringify(err));
+        alert(JSON.stringify(err));
       }
     });
-  //]]>
 	
     //네이버 로그인
     
-    	var naver_id_login = new naver_id_login("hEi80LKwFmVECmA2A2z0", "https://ec2-54-180-197-57.ap-northeast-2.compute.amazonaws.com/jjg/naver.cu");
+    	var naver_id_login = new naver_id_login("hEi80LKwFmVECmA2A2z0", "https://ec2-54-180-197-57.ap-northeast-2.compute.amazonaws.com/jjg/customer.cu");
    	 	var state = naver_id_login.getUniqState();
    	 	naver_id_login.setButton("green", 3,48);
-    	naver_id_login.setDomain("https://ec2-54-180-197-57.ap-northeast-2.compute.amazonaws.com/jjg/customer.cu");
+    	naver_id_login.setDomain("https://ec2-54-180-197-57.ap-northeast-2.compute.amazonaws.com/jjg/naverLogin.cu");
    	  	naver_id_login.setState(state);
    	  	//naver_id_login.setPopup();
    	  	naver_id_login.init_naver_id_login();
-
-   	  	
+	
 </script>
 
 </html>
