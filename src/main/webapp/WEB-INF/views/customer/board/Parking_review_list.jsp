@@ -270,6 +270,7 @@
 				alert("부적절한 단어가 입력되어 있습니다. 확인해주세요");
 				return false;
 			}else{
+				window.location.reload();
 				return true;
 			}
 		},

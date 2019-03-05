@@ -175,7 +175,7 @@ public class BoardDaoImpl implements BoardDao{
 	@Override
 	public int getQnaListCount(SqlSessionTemplate sqlSession) {
 
-		return sqlSession.selectOne("Board.selectQnaListCount");
+		return sqlSession.selectOne("Board.selectMyQnaListCount");
 	}
 	//페이징 처리 된 문의 목록 조회
 	@Override
@@ -323,6 +323,12 @@ public class BoardDaoImpl implements BoardDao{
 	public Filter contentChk(SqlSessionTemplate sqlSession, String content) {
 
 		return sqlSession.selectOne("Board.chkContent", content);
+	}
+	
+	@Override
+	public ArrayList<String> selectWord(SqlSessionTemplate sqlSession) {
+
+		return (ArrayList)sqlSession.selectList("selectWord");
 	}
 	
 	

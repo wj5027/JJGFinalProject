@@ -102,6 +102,8 @@ public interface BoardDao {
 	
 	Filter contentChk(SqlSessionTemplate sqlSession, String content);
 	
+	ArrayList<String> selectWord(SqlSessionTemplate sqlSession);
+	
 	
 	
 	

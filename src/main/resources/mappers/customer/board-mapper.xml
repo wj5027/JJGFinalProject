@@ -538,9 +538,12 @@
   	<select id="chkContent" resultMap="filter" parameterType="String">
 		SELECT F_CONTENT FROM
 		BOARD_FILTER
-		WHERE F_CONTENT = #{content}
+		WHERE F_CONTENT LIKE '%' || #{content} || '%'
 		AND F_STATUS = 'Y'
 	</select>
   	
+  	<select id="selectWord" resultType="String">
+  		SELECT F_CONTENT FROM BOARD_FILTER		
+  	</select>
   	
   </mapper>

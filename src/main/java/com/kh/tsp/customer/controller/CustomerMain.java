@@ -273,6 +273,8 @@ public @ResponseBody HashMap<String, Object> selectfavorites(@RequestParam Strin
 		
 		
 		Member loginUser = cms.selectCheckKakao(kakao_id);
+		
+		
 		if(loginUser == null) {//회원가입
 			System.out.println("회원가입:kakao_id: "+kakao_id+"member_name: "+member_name);
 			model.addAttribute("kakao_id", kakao_id);

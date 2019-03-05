@@ -96,7 +96,7 @@ public class CustomerBoard {
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		int mno = loginUser.getMember_no();
-	
+		System.out.println("내후기목록 mno : "+mno);
 		int currentPage = 1;
 		 
 		if(request.getParameter("currentPage") != null) {
@@ -143,6 +143,7 @@ public class CustomerBoard {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		int mno = loginUser.getMember_no();
 
+		System.out.println("내문의 목록 mno: "+mno);
 		int currentPage = 1;
 				 
 		if(request.getParameter("currentPage") != null) {
@@ -628,47 +629,53 @@ public class CustomerBoard {
 		String mno = Integer.toString(loginUser.getMember_no());
 		String pno = request.getParameter("pno");
 		String chkResult ="";
+	
 		
-		for(int i=0;i<content.length();i++) {
+		ArrayList<String> arr = bs.selectWord();
+				System.out.println("비속어arr: "+arr);
+		
+		for(int i=0;i<arr.size();i++) {
+			arr.get(i).indexOf(content);
 			
-		}
-		
-		
-		Filter chkContent = bs.contentChk(content);
-		
-		if(chkContent != null) {
-			System.out.println("found the bad word!");
-			chkResult = "unavailable";
-			return chkResult;
-			
-		}else {
-			Board b = new Board();
-			b.setbTitle(title);
-			b.setbContext(content);
-			b.setMno(mno);
-			b.setPno(pno);
+			if(arr.get(i).indexOf(content) == -1) {//정상등록
+				System.out.println("arr.get(i).indexOf(content):"+arr.get(i).indexOf(content));
 				
-			System.out.println("서블릿 mno : "+mno);
-			System.out.println("서블릿pno : "+pno);
-			
-			if(loginUser == null) {
-				request.setAttribute("message", "로그인하세요");
-			}
-			int result = bs.insertParkingReview(b);
-				
-			if(result > 0) {
-				request.setAttribute("b", b);
-				request.setAttribute("pno", pno);	
-				return "redirect:parkingReview.cu?num="+pno;
+				Board b = new Board();
+				b.setbTitle(title);
+				b.setbContext(content);
+				b.setMno(mno);
+				b.setPno(pno);
 					
+				System.out.println("서블릿 mno : "+mno);
+				System.out.println("서블릿pno : "+pno);
+				
+				if(loginUser == null) {
+					request.setAttribute("message", "로그인하세요");
+				}
+				
+				int result = bs.insertParkingReview(b);
+					
+				if(result > 0) {
+					request.setAttribute("b", b);
+					request.setAttribute("pno", pno);	
+					return "redirect:parkingReview.cu?num="+pno;
+						
+				}else {
+						
+					request.setAttribute("message", "등록 실패");
+						
+					return "common/errorPage";
+				}
 			}else {
-					
-				request.setAttribute("message", "등록 실패");
-					
-				return "common/errorPage";
+				
+				String chkContent = "부적절한 단어가 입력되어있습니다.";
+				
+				return chkContent;
 			}
 		}
 		
+	return "redirect:parkingReview.cu?num="+pno;
+
 	}
 	
 	

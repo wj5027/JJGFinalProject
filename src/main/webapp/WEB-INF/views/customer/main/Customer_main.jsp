@@ -1334,7 +1334,7 @@
 </body>
  <script type="text/javascript">
 	//네이버 로그인
-  var naver_id_login = new naver_id_login("hEi80LKwFmVECmA2A2z0", "http://127.0.0.1:8765/jjg/customer.cu");
+  var naver_id_login = new naver_id_login("hEi80LKwFmVECmA2A2z0", "https://ec2-54-180-197-57.ap-northeast-2.compute.amazonaws.com/jjg/customer.cu");
   // 접근 토큰 값 출력
  // alert(naver_id_login.oauthParams.access_token);
   // 네이버 사용자 프로필 조회
@@ -1345,12 +1345,12 @@
     console.log(naver_id_login.getProfileData('name'));
   	console.log(naver_id_login.getProfileData('id'));
   
-     var member_id=naver_id_login.getProfileData('id');
+   var member_id=naver_id_login.getProfileData('id');
     var member_name=naver_id_login.getProfileData('name');
     var email = naver_id_login.getProfileData('email');
      console.log(member_id);
      console.log(member_name);
-     console.log(email);
+     console.log(email); 
       location.href="./naverLogin.cu?member_id="+member_id+"&member_name="+member_name+"&email="+email;
   
  
