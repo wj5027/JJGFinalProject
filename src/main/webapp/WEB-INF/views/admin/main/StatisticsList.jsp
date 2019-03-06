@@ -183,53 +183,53 @@
 											</thead>
 											<tbody>
 												<tr class="todayTable">
-													<td class="text-center">1</td>
-													<td>신청</td>
-													<td>오늘 환불신청 건수</td>
-													<td class="text-center">${requestRefund}건</td>
-												</tr>
-												<tr class="todayTable">
-													<td class="text-center">2</td>
-													<td>신청</td>
-													<td>오늘 환전신청 건수</td>
-													<td class="text-center">${requestExchange}건</td>
-												</tr>
-												<tr class="todayTable">
-													<td class="text-center">3</td>
-													<td>신청</td>
-													<td>오늘 주차장 신청 수</td>
-													<td class="text-center">${requestParkingLot}건</td>
-												</tr>
-												<tr class="todayTable">
-													<td class="text-center">4</td>
-													<td>회원가입</td>
-													<td>오늘 사용자 회원가입 수 </td>
-													<td class="text-center">${todayCeoList}명</td>
-												</tr>
-												<tr class="todayTable">
-													<td class="text-center">5</td>
-													<td>회원가입</td>
-													<td>오늘 사업자 회원가입 수 </td>
-													<td class="text-center">${todayCustomerList}명</td>
-												</tr>
-												<tr class="todayTable">
-													<td class="text-center">6</td>
-													<td>게시판</td>
-													<td>오늘 관리자문의 게시판 등록 수</td>
-													<td class="text-center">${todayBoardCeo}건</td>
-												</tr>
-												<tr class="todayTable">
-													<td class="text-center">7</td>
-													<td>게시판</td>
-													<td>오늘 사업자문의 게시판 등록 수</td>
-													<td class="text-center">${todayBoardAdmin}건</td>
-												</tr>
-												<tr class="todayTable">
-													<td class="text-center">8</td>
-													<td>매출</td>
-													<td>오늘 충전 금액</td>
-													<td class="text-center">${profit}원</td>
-												</tr>
+			                                       <td class="text-center">1</td>
+			                                       <td>신청</td>
+			                                       <td>오늘 환불신청 건수</td>
+			                                       <td class="text-center">${requestRefund}건</td>
+			                                    </tr>
+			                                    <tr class="todayTable">
+			                                       <td class="text-center">2</td>
+			                                       <td>신청</td>
+			                                       <td>오늘 환전신청 건수</td>
+			                                       <td class="text-center">${requestExchange}건</td>
+			                                    </tr>
+			                                    <tr class="todayTable">
+			                                       <td class="text-center">3</td>
+			                                       <td>신청</td>
+			                                       <td>오늘 주차장 신청 수</td>
+			                                       <td class="text-center">${requestParkingLot}건</td>
+			                                    </tr>
+			                                    <tr class="todayTable">
+			                                       <td class="text-center">4</td>
+			                                       <td>회원가입</td>
+			                                       <td>오늘 사용자 회원가입 수 </td>
+			                                       <td class="text-center">${todayCustomerList}명</td>
+			                                    </tr>
+			                                    <tr class="todayTable">
+			                                       <td class="text-center">5</td>
+			                                       <td>회원가입</td>
+			                                       <td>오늘 사업자 회원가입 수 </td>
+			                                       <td class="text-center">${todayCeoList}명</td>
+			                                    </tr>
+			                                    <tr class="todayTable">
+			                                       <td class="text-center">6</td>
+			                                       <td>게시판</td>
+			                                       <td>오늘 관리자문의 게시판 등록 수</td>
+			                                       <td class="text-center">${todayBoardAdmin}건</td>
+			                                    </tr>
+			                                    <tr class="todayTable">
+			                                       <td class="text-center">7</td>
+			                                       <td>게시판</td>
+			                                       <td>오늘 사업자문의 게시판 등록 수</td>
+			                                       <td class="text-center">${todayBoardCeo}건</td>
+			                                    </tr>
+			                                    <tr class="todayTable">
+			                                       <td class="text-center">8</td>
+			                                       <td>매출</td>
+			                                       <td>오늘 충전 금액</td>
+			                                       <td class="text-center">${profit}원</td>
+			                                    </tr>
 											</tbody>
 										</table>
 									</div>
@@ -248,40 +248,40 @@
 	</c:if>
 	
 	<!-- 오늘 현황 테이블 페이지 이동 -->
-	<script>
-		var d = new Date();
-		var today = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + (d.getDate())).slice(-2);
-		console.log(today);
-	
-		$(".todayTable").mouseenter(function () {
-			$(this).children().css({"background":"rgb(28, 28, 38)", "cursor":"pointer"});	
-			no = $(this).children().eq(0).text();	
-		}).mouseout(function () {	
-			$(this).children().css({"background":"rgb(39, 41, 61)"});	
-		}).click(function () {
-			for (var i = 0; i < $(".todayTable").length; i++) {
-				$(".todayTable").eq(i).children().css({"background":"rgb(39, 41, 61)"});	
-			}
-			$(this).children().css({"background":"rgb(0, 0, 0)"});	
-			if(no==1){	
-				location.href="selectSearchExchangeList.ad?currentPage=1&status=R&memberId=&memberType=&today=&startDate="+today+"&endDate="+today;			
-			}else if(no==2){
-				location.href="selectSearchExchangeList.ad?currentPage=1&status=E&memberId=&memberType=&today=&startDate="+today+"&endDate="+today;		
-			}else if(no==3){
-				location.href="selectSearchParkingLotList.ad?currentPage=1&parkingListStatus=I&memberId=&parkingAddress=&parkingListName=&today=&startDate="+today+"&endDate="+today;		
-			}else if(no==4){
-				location.href="selectCustomerList.ad?currentPage=1&memberId=&today=&startDate="+today+"&endDate="+today;
-			}else if(no==5){
-				location.href="selectSearchCEOList.ad?currentPage=1&selectStatus=A&memberId=&today=&startDate="+today+"&endDate="+today;
-			}else if(no==6){
-				location.href="selectSearchBoardQnAList.ad?currentPage=2&selectStatus=A&mId=&bTitle=&today=&startDate="+today+"&endDate="+today;
-			}else if(no==7){
-				location.href="selectBoardQnA.ad";
-			}else if(no==8){
-				location.href="selectStatisticsCustomer.ad?currentPage=1&selectStatus=A&memberId=&startMoney=0&endMoney=&today=&startDate="+today+"&endDate="+today;
-			}
-		});	
-	</script>
+   <script>
+      var d = new Date();
+      var today = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + (d.getDate())).slice(-2);
+      console.log(today);
+   
+      $(".todayTable").mouseenter(function () {
+         $(this).children().css({"background":"rgb(28, 28, 38)", "cursor":"pointer"});   
+         no = $(this).children().eq(0).text();   
+      }).mouseout(function () {   
+         $(this).children().css({"background":"rgb(39, 41, 61)"});   
+      }).click(function () {
+         for (var i = 0; i < $(".todayTable").length; i++) {
+            $(".todayTable").eq(i).children().css({"background":"rgb(39, 41, 61)"});   
+         }
+         $(this).children().css({"background":"rgb(0, 0, 0)"});   
+         if(no==1){   
+            location.href="selectSearchExchangeList.ad?currentPage=1&status=R&memberId=&memberType=&today=&startDate="+today+"&endDate="+today;         
+         }else if(no==2){
+            location.href="selectSearchExchangeList.ad?currentPage=1&status=E&memberId=&memberType=&today=&startDate="+today+"&endDate="+today;      
+         }else if(no==3){
+            location.href="selectSearchParkingLotList.ad?currentPage=1&parkingListStatus=I&memberId=&parkingAddress=&parkingListName=&today=&startDate="+today+"&endDate="+today;      
+         }else if(no==4){
+            location.href="selectSearchCustomerList.ad?currentPage=1&memberId=&today=&startDate="+today+"&endDate="+today;
+         }else if(no==5){
+            location.href="selectSearchCEOList.ad?currentPage=1&selectStatus=A&memberId=&today=&startDate="+today+"&endDate="+today;
+         }else if(no==6){
+            location.href="selectSearchBoardQnAList.ad?currentPage=1&selectStatus=A&mId=&bTitle=&today=&startDate="+today+"&endDate="+today;
+         }else if(no==7){
+            location.href="selectBoardQnA.ad";
+         }else if(no==8){
+            location.href="selectStatisticsCustomer.ad?currentPage=1&selectStatus=A&memberId=&startMoney=0&endMoney=&today=&startDate="+today+"&endDate="+today;
+         }
+      });   
+   </script>
 	<!-- 오늘 현황 테이블 페이지 이동 끝 -->
 	
 	<!-- 111111111111111111111111 사용자 회원가입 현황 1111111111111111111111111111111 -->	
