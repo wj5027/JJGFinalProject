@@ -41,7 +41,7 @@ public class ExchangeMoney {
 	public String exchangeMoney(Model model,@ModelAttribute ExchangeMoneyVo ev,HttpSession session) {
 		Member m = (Member)session.getAttribute("loginUser");
 		ev.setMember_no(m.getMember_no());
-		ev.setStatus("진행중");
+		ev.setStatus("환전진행중");
 		ev.setCash((int)(ev.getOil()*0.9));
 		try {
 			//환전 신청 내역 삽입
