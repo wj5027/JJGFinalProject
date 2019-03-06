@@ -36,7 +36,7 @@
               정보 수정 신청
             </a>
           </li>
-          <li>
+<!--           <li>
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="tim-icons icon-chart-bar-32"></i>
               통계보기  
@@ -46,7 +46,7 @@
 	          <a class="dropdown-item" onclick="goParkingListStatisticsPage();" style="cursor: pointer;">입/출차 통계</a>
 	          <a class="dropdown-item" onclick="goBestPakerStatisticsPage();" style="cursor: pointer;">베스트 파커 통계</a>
 	        </div>
-          </li>
+          </li> -->
           <li>
           	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
              <i class="tim-icons icon-single-02"></i>

@@ -249,12 +249,12 @@
 		console.log(toDay2);
 		console.log(endDayCheck);
 		
-		if(toDay2 >= endDayCheck){
+		/* if(toDay2 >= endDayCheck){
 			console.log(toDay);
 			console.log(endDayCheck);
 			alert("쿠폰 종료일은 내일 기준으로 입력해주세요");
 			return false;
-		}
+		} */
 		return true;
 	}
 
