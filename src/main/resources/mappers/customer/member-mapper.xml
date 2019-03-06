@@ -741,4 +741,11 @@
 		WHERE coupon_no = #{ couponNo }
 	</update>
 	
+	<!-- 예약 신청으로 사용자 오일 차감 -->
+	<update id="updateRequestReserveOil" parameterType="Reservation">
+		UPDATE member
+		SET oil = (SELECT oil FROM member WHERE member_no = #{memberNo}) - 2000
+		WHERE member_no = #{memberNo}
+	</update>
+	
 </mapper>

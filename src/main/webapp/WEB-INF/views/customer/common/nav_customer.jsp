@@ -216,7 +216,7 @@
 			    				
 			    			table.append(
 					            	"<tr align='center'>"
-				                  	+ "<td align='center' colspan='2'><button type='button' class='btn btn-default' data-dismiss='modal' onclick=''>닫기</button></td>"
+				                  	+ "<td align='center' colspan='2'><button type='button' class='btn btn-default' id='closeModalButton' data-dismiss='modal' onclick=''>닫기</button></td>"
 					                + "</tr>"
 			    					);
 			    			
@@ -284,8 +284,21 @@ var globalVarLon = 0;
 	}
 </script>
 <script type="text/javascript">
+/* 	if ('${ !empty requestLat }' == 'true') {
+		
+	} else {
+	    // 만약 검색이나 쿠폰의 위치 조회를 통해서 지도를 볼 때
+	    // 위치정보를 받았을 경우 내 위치가 아닌 주차장의 위치로 화면을 이동시킴
+	    console.log("시발")
+		var moveLatLon1 = new daum.maps.LatLng('${ requestLat }', '${ requestlon }');
+		map.panTo(moveLatLon1);
+		console.log("시발")
+	} */
 function moveParkingSpot(lat, lon) {
-	location.href="moveParkingSpot.cu?requestLat=" + lat + "&requestlon=" + lon;
+	/* location.href="moveParkingSpot.cu?requestLat=" + lat + "&requestlon=" + lon; */
+	var moveLatLon1 = new daum.maps.LatLng(lat, lon);
+	map.panTo(moveLatLon1);
+	$("#closeModalButton").click();
 }
 
 function searchVoice(keyword, type) {
@@ -389,7 +402,7 @@ function searchVoice(keyword, type) {
 				
 				table.append("<tr align='center'>"
 						+ "<td colspan='2'>"
-						+ "<button type='button' class='btn btn-default' data-dismiss='modal' onclick=''>닫기</button>"
+						+ "<button type='button' class='btn btn-default' id='closeModalButton' data-dismiss='modal' onclick=''>닫기</button>"
 						+ "</td>"
 						+ "</tr>");
 			},
@@ -500,7 +513,7 @@ function searchVoice(keyword, type) {
 				
 				table.append("<tr align='center'>"
 						+ "<td colspan='2'>"
-						+ "<button type='button' class='btn btn-default' data-dismiss='modal' onclick=''>닫기</button>"
+						+ "<button type='button' class='btn btn-default' id='closeModalButton' data-dismiss='modal' onclick=''>닫기</button>"
 						+ "</td>"
 						+ "</tr>");
 			},

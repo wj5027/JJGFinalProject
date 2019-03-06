@@ -331,7 +331,12 @@ public class CustomerMainDaoImpl implements CustomerMainDao {
 
 	@Override
 	public int updateGetCoupon(SqlSessionTemplate sqlSession, int requestCouponNo) {
-		return sqlSession.update("updateGetCoupon", requestCouponNo);
+		return sqlSession.update("Member.updateGetCoupon", requestCouponNo);
+	}
+
+	@Override
+	public void updateRequestReserveOil(SqlSessionTemplate sqlSession, Reservation reservInfo) {
+		sqlSession.update("Member.updateRequestReserveOil", reservInfo);
 	}
 	
 	

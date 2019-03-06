@@ -254,7 +254,7 @@ public class CustomerPayment {
 		
 		if (result > 0) {
 			System.out.println("예약 시스템 정상");
-			
+			cms.updateRequestReserveOil(reservInfo);
 			result = 0;
 			result = cms.insertRequestReserveOilList(reservInfo);
 			if (result > 0) {
