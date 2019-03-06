@@ -355,17 +355,13 @@
 	<!-- 주차장에 해당하는 쿠폰조회 -->
 	<select id="selectParkingCoupon" resultMap="CustomerCoupon" parameterType="string">
 		<![CDATA[
-		SELECT * FROM coupon_create cu 
-	    JOIN (SELECT c.amount, c.coupon_no, c.coupon_req_no, c.coupon_status, c.create_date, c.parking_no, cr.coupon_start_date, cr.coupon_end_date, cr.coupon_name,
+		SELECT c.amount, c.coupon_no, c.coupon_req_no, c.coupon_status, c.create_date, c.parking_no, cr.coupon_start_date, cr.coupon_end_date, cr.coupon_name,
             cr.coupon_odiscount, cr.coupon_pdiscount, cr.coupon_req_status, cr.coupon_type, cr.member_no, cr.refuse_reason, cr.remark
-        FROM coupon c JOIN coupon_request_list cr ON (c.coupon_req_no = cr.coupon_req_no)) cl
-	    ON (cu.coupon_no = cl.coupon_no)
-        JOIN parking p
-        ON (cl.parking_no = p.parking_no)
-	    WHERE cl.parking_no = #{ parking_no }
-		AND cl.amount > 0
-		AND SYSDATE >= cl.coupon_start_date
-		AND SYSDATE <= cl.coupon_end_date
+        FROM coupon c JOIN coupon_request_list cr ON (c.coupon_req_no = cr.coupon_req_no)
+	    WHERE c.parking_no = 1
+		AND c.amount > 0
+		AND SYSDATE >= cr.coupon_start_date
+		AND SYSDATE <= cr.coupon_end_date
 		AND coupon_req_status = '발급완료'
 		]]>
 	</select>
