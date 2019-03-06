@@ -32,7 +32,7 @@
 			                  <tr>
 			                  	<td align="center" id="STTtext">
 			                  		음성 키워드<br>
-			                  		지역 이름&nbsp;&nbsp;&nbsp; ex)지역 서울<br>
+			                  		ex)지역 서울<br>
 			                  		근처 주차장<br><br><br>
 			                  		※ 크롬 브라우저에서만 사용 가능합니다.
 			                  	</td>
