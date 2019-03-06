@@ -3,7 +3,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <html>
 
 
@@ -583,14 +582,16 @@
 				
 			
 				
-				if ('${ empty requestLat }' == 'true') {
+/*  				if ('${ !empty requestLat }' == 'true') {
 					
 				} else {
 		    	    // 만약 검색이나 쿠폰의 위치 조회를 통해서 지도를 볼 때
 		    	    // 위치정보를 받았을 경우 내 위치가 아닌 주차장의 위치로 화면을 이동시킴
-					var moveLatLon = new daum.maps.LatLng('${ requestLat }', '${ requestlon }');
-					map.panTo(moveLatLon);
-				}
+		    	    console.log("시발")
+					var moveLatLon1 = new daum.maps.LatLng('${ requestLat }', '${ requestlon }');
+					map.panTo(moveLatLon1);
+					console.log("시발")
+				} */
 				
 				
 				
@@ -678,7 +679,7 @@
 						    var y1=Number(neLatlng.getLng());
 						    
 						    
-						   if(zoomlevel<8){
+						   if(zoomlevel<7){
 							   var markers=[];
 								 clusterer.clear();
 							$.ajax({
@@ -935,7 +936,7 @@
 						    var y1=Number(neLatlng.getLng());
 						    
 						    
-						   if(zoomlevel<8){
+						   if(zoomlevel<7){
 							   var markers=[];
 								 clusterer.clear();
 							$.ajax({

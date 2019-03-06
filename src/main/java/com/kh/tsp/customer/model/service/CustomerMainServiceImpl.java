@@ -296,6 +296,11 @@ public class CustomerMainServiceImpl implements CustomerMainService {
 		return cmd.updateGetCoupon(sqlSession, requestCouponNo);
 	}
 
+	@Override
+	public void updateRequestReserveOil(Reservation reservInfo) {
+		cmd.updateRequestReserveOil(sqlSession, reservInfo);
+	}
+
 	
 	
 }

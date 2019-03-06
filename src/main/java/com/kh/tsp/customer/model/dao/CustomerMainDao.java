@@ -114,6 +114,8 @@ public interface CustomerMainDao {
 
 	int updateGetCoupon(SqlSessionTemplate sqlSession, int requestCouponNo);
 
+	void updateRequestReserveOil(SqlSessionTemplate sqlSession, Reservation reservInfo);
+
 	
 	
 

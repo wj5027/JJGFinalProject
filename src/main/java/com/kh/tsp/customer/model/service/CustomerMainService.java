@@ -105,6 +105,8 @@ public interface CustomerMainService {
 
 	int updateGetCoupon(int requestCouponNo);
 
+	void updateRequestReserveOil(Reservation reservInfo);
+
 
 
 	
