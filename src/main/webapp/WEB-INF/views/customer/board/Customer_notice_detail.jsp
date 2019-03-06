@@ -49,18 +49,17 @@
 		
 			
 			<!-- BOARD BUTTONS -->
-				 <c:if test="${ loginUser.member_no eq 1 }">
-				<div align="center">	
+			<c:if test="${ loginUser.member_type eq 'A' }">
+					<div align="center">	
 					<button id="editBtn" class="btn btn-info btn-sm">수정</button>&nbsp;
 					<button id="deleteBtn" class="btn btn-info btn-sm">삭제</button>&nbsp;					
 					<button id="goToList" class="btn btn-info btn-sm">목록</button>&nbsp;					
-				
-				
+		
 				</div>
 			</c:if>
-			<c:if test="${ loginUser.member_no ne 1 }">
-			<div align="center">	
-					<button id="goToList" class="btn btn-info btn-sm">목록</button>&nbsp;					
+			<c:if test="${ loginUser.member_type eq 'U' }">
+				<div align="center">	
+				<button id="goToList" class="btn btn-info btn-sm">목록</button>&nbsp;					
 
 				</div>
 			</c:if>
