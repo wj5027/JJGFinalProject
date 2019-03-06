@@ -56,7 +56,7 @@
   
     </div>
        </div>
-       <c:if test="${ loginUser.member_no eq 1 }">
+       <c:if test="${ loginUser.member_type eq 'A' }">
 	       <div align="center">
 	       <button id="insertNotice" class="btn btn-info btn-sm">작성</button>
 	       </div>
