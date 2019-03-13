@@ -39,7 +39,7 @@
 	</bean>	
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
-		<property name="url" value="jdbc:oracle:thin:@jijugab.cf1xwctunyla.ap-northeast-2.rds.amazonaws.com:1521:ORCL"></property>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"></property>
 		<property name="username" value="jijugab"></property>
 		<property name="password" value="jijugab"></property>
 		<property name="defaultAutoCommit" value="false"></property>
